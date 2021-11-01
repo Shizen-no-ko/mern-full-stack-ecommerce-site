@@ -32,16 +32,21 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
     }
     try {
         await User.findOne({ email: req.body.email }, function (err, user) {
-            console.log("user found");
-            res.send("user found");
-            console.log(user.password)
-            const decryptedPassword = CryptoJS.AES.decrypt(user.password, process.env.ENCRYPTION_SECRET);
-            console.log(decryptedPassword.toString(CryptoJS.enc.Utf8));
+            if(!user){
+                res.status(401).json("User not found");
+            }
+            const decryptedPassword = CryptoJS.AES.decrypt(user.password, process.env.ENCRYPTION_SECRET).toString(CryptoJS.enc.Utf8);
+            console.log(decryptedPassword);
+            console.log(decryptedPassword === req.body.password);
+            if(decryptedPassword === req.body.password){
+                res.status(200).json("User has been found");
+            }
         });
     }
     catch {
         (err) => console.log(err)
     }
+    
 
 
 

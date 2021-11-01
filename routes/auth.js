@@ -4,11 +4,11 @@ const CryptoJS = require('crypto-js');
 
 const User = require('../models/User');
 
-router.post('/register', body('email').isEmail(), body('password').isLength({ min: 6 }), body('username').isLength({ min: 1 }), async  (req, res) => {
+router.post('/register', body('email').isEmail(), body('password').isLength({ min: 6 }), body('username').isLength({ min: 1 }), async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() });
     }
     var encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.ENCRYPTION_SECRET);
     const newUser = new User(
@@ -25,9 +25,27 @@ router.post('/register', body('email').isEmail(), body('password').isLength({ mi
     res.send("data received");
 });
 
-router.post('/login', (req, res) => {
-    const { password, ...restOfBody } = req.body;
-    res.send(restOfBody);
+router.post('/login', body('email').isEmail(), async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+        await User.findOne({ email: req.body.email }, function (err, user) {
+            console.log("user found");
+            res.send("user found");
+        });
+    }
+    catch {
+        (err) => console.log(err)
+    }
+
+
+
+    // const { password, ...restOfBody } = req.body;
+    // res.send(restOfBody);
+    // var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+
 });
 
 

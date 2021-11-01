@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 
-router.post('/register', body('email').isEmail(), body('password').isLength({ min: 6 }), body('username').isLength({ min: 1 }),  (req, res) => {
+router.post('/register', body('email').isEmail(), body('password').isLength({ min: 6 }), body('username').isLength({ min: 1 }), async  (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -17,7 +17,9 @@ router.post('/register', body('email').isEmail(), body('password').isLength({ mi
             password: req.body.password
         }
     );
-    console.log(newUser);
+    // console.log(newUser);
+    const saved = await newUser.save();
+    console.log(`${saved} is saved in DB`);
     // const {password, ...restOfBody} = req.body;
     res.send("data received");
 });

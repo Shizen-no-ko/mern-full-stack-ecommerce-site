@@ -10,7 +10,7 @@ router.post('/register', body('email').isEmail(), body('password').isLength({ mi
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    var encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.ENCRYPTION_SECRET);
+    const encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.ENCRYPTION_SECRET);
     const newUser = new User(
         {
             username: req.body.username,
@@ -34,6 +34,9 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
         await User.findOne({ email: req.body.email }, function (err, user) {
             console.log("user found");
             res.send("user found");
+            console.log(user.password)
+            const decryptedPassword = CryptoJS.AES.decrypt(user.password, process.env.ENCRYPTION_SECRET);
+            console.log(decryptedPassword.toString(CryptoJS.enc.Utf8));
         });
     }
     catch {

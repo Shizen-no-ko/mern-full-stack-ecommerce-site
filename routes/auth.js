@@ -10,6 +10,16 @@ router.post('/register', body('email').isEmail(), body('password').isLength({ mi
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+
+    try{
+        let user = await User.findOne({email: req.body.email});
+        if(user){
+            return res.status(400).json({ errors: [{msg: "User already exists"}]});
+        }
+    } catch { (err) => console.log(err)
+
+    }
+
     const encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.ENCRYPTION_SECRET);
     const newUser = new User(
         {

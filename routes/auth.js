@@ -68,12 +68,32 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
             if (decryptedPassword !== req.body.password) {
                 return res.status(401).json({ errors: [{ msg: "Incorrect Credentials" }] });
             }
-            const { password, ...userWithoutPassword } = user._doc;
-            return res.status(200).json(userWithoutPassword);
+            // const { password, ...userWithoutPassword } = user._doc;
+
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            };
+    
+            jwt.sign(
+                payload,
+                process.env.JWT_SECRET,
+                { expiresIn: 3600 },
+                (err, token) => {
+                    if (err) console.log(err);
+                    res.json({ token });
+                });
+            
+
+            // return res.status(200).json(userWithoutPassword);
         });
     }
     catch {
-        (err) => console.log(err)
+        (err) => {
+            console.log(err)
+            res.status(500).json("Server Error");
+        }
     }
 });
 

@@ -5,6 +5,7 @@ const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
+const tokenAuth = require('../middleware/tokenAuth');
 
 router.post('/register', body('email').isEmail(), body('password').isLength({ min: 6 }), body('username').isLength({ min: 1 }), async (req, res) => {
 
@@ -63,8 +64,6 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
                 return res.status(401).json({ errors: [{ msg: "Incorrect Credentials" }] });
             }
             const decryptedPassword = CryptoJS.AES.decrypt(user.password, process.env.ENCRYPTION_SECRET).toString(CryptoJS.enc.Utf8);
-            console.log(decryptedPassword);
-            console.log(decryptedPassword === req.body.password);
             if (decryptedPassword !== req.body.password) {
                 return res.status(401).json({ errors: [{ msg: "Incorrect Credentials" }] });
             }
@@ -97,6 +96,8 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
     }
 });
 
-
+router.get('/tokentest', tokenAuth, (req, res) => {
+    res.send("Token works");
+} )
 
 module.exports = router;

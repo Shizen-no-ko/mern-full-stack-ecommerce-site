@@ -96,8 +96,15 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
     }
 });
 
-router.get('/tokentest', tokenAuth, (req, res) => {
-    res.send("Token works");
+router.get('/tokentest', tokenAuth, async (req, res) => {
+    await User.findById(req.user.id, (err, user) => {
+        if(err){
+            res.send("No such user");
+        }
+        const { password, ...userWithoutPassword } = user._doc;
+        res.send(userWithoutPassword)
+    } )
+    // res.send("Token works");
 } )
 
 module.exports = router;

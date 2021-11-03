@@ -16,7 +16,7 @@ router.post('/register', body('email').isEmail(), body('password').isLength({ mi
     try {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ errors: [{ msg: "User already exists" }] });
+            return res.status(400).json({ errors: [{ msg: "Incorrect Credentials" }] });
         }
         const encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.ENCRYPTION_SECRET);
         const newUser = new User(
@@ -60,13 +60,13 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
     try {
         await User.findOne({ email: req.body.email }, function (err, user) {
             if (!user) {
-                return res.status(401).json("User not found");
+                return res.status(401).json({ errors: [{ msg: "Incorrect Credentials" }] });
             }
             const decryptedPassword = CryptoJS.AES.decrypt(user.password, process.env.ENCRYPTION_SECRET).toString(CryptoJS.enc.Utf8);
             console.log(decryptedPassword);
             console.log(decryptedPassword === req.body.password);
             if (decryptedPassword !== req.body.password) {
-                return res.status(401).json("Incorrect password");
+                return res.status(401).json({ errors: [{ msg: "Incorrect Credentials" }] });
             }
             const { password, ...userWithoutPassword } = user._doc;
             return res.status(200).json(userWithoutPassword);

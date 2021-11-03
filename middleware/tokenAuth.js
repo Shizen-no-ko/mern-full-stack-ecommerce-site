@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const tokenAuth = (req, res, next) => {
     const token = req.header('x-auth-token');
     if(!token){
-        return res.status(401).json({ errors: [{ msg: "Not Authorized" }] });
+        return res.status(401).json({ errors: [{ msg: "No token" }] });
     }
 
     // try{
@@ -13,6 +13,7 @@ const tokenAuth = (req, res, next) => {
                 return res.status(401).json({ errors: [{ msg: "Token is not valid" }] });
             }  
             req.user = decoded.user;
+            console.log(req.user.isAdministrator);
         });
         // console.log("This is req.user: ")
         // console.log(req.user);
@@ -26,6 +27,7 @@ const tokenAuth = (req, res, next) => {
     // }
 
 }
+
 
 
 module.exports = tokenAuth;

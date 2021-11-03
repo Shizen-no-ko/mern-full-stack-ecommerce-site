@@ -31,7 +31,8 @@ router.post('/register', body('email').isEmail(), body('password').isLength({ mi
                 if(err) console.log(err);
             const payload = {
                 user: {
-                    id: user.id
+                    id: user.id,
+                    isAdministrator: user.isAdministrator
                 }
             };
     
@@ -71,7 +72,8 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
 
             const payload = {
                 user: {
-                    id: user.id
+                    id: user.id,
+                    isAdministrator: user.isAdministrator
                 }
             };
     

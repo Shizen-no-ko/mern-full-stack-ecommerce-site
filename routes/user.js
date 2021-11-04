@@ -7,9 +7,14 @@ const checkAdmin = require('../middleware/checkAdmin');
 
 const User = require('../models/User');
 
-const startSortDate = "2021-11-02T09:58:15.289+00:00";
+// const startSortDate = "2021-11-02T09:58:15.289+00:00";
+// const endOfLastYear = new Date(Date.setFullYear(Date.getFullYear() -1));
 
-
+// const currentYear = new Date().getFullYear(); 
+// const currentYear = new Date(new Date().getFullYear(), 11, 31);
+const currentYear = new Date(new Date().getFullYear());
+const endOfPreviousYear =  new Date(currentYear -1, 11, 31).toISOString();
+const startSortDate = endOfPreviousYear;
 
 router.get('/find/:id', tokenAuth, checkAdmin, async (req, res) => {
     try{
@@ -33,6 +38,8 @@ router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
 });
 
 router.get('/recent', tokenAuth, checkAdmin, async (req, res) => {
+    // console.log("start sort date is");
+    // console.log(startSortDate);
     try{
         const recentUsers = await User.find(
             {"createdAt": {"$gte": startSortDate,

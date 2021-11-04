@@ -39,7 +39,7 @@ router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
 
 router.delete('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
     try {
-        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        await User.findByIdAndDelete(req.params.id);
         return res.status(200).json( "User has been deleted");
     }
     catch(err) {

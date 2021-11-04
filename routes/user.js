@@ -3,13 +3,33 @@ const CryptoJS = require('crypto-js');
 
 const tokenAuth = require('../middleware/tokenAuth');
 const checkAuthorizedToEdit = require('../middleware/checkAuthorizedToEdit');
+const checkAdmin = require('../middleware/checkAdmin');
 
 const User = require('../models/User');
 
 
-router.get('/test', (req, res) => {
-    res.send("Test Works");
+
+router.get('/find/:id', tokenAuth, checkAdmin, async (req, res) => {
+    try{
+        const foundUser = await User.findById(req.params.id)
+        const { password, ...userWithoutPassword } = foundUser._doc;
+        return res.status(200).json(userWithoutPassword);
+    }
+    catch(err){
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
 });
+
+router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
+    try{
+        const allUsers = await User.find().select('-password');
+        return res.status(200).json(allUsers);
+    }
+    catch(err){
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
 
 router.put('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
     if(req.body.password){
@@ -23,8 +43,6 @@ router.put('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
             password: encryptedPassword,
             isAdministrator: req.body.isAdministrator
         }, {new: true});
-        console.log("username is");
-        console.log(req.body.username);
         const { password, ...userWithoutPassword } = updatedUser._doc;
         return res.status(200).json(userWithoutPassword);
     } 
@@ -45,7 +63,6 @@ router.delete('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
     catch(err) {
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
-    
 });
 
 

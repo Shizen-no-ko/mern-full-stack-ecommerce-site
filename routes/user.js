@@ -7,6 +7,8 @@ const checkAdmin = require('../middleware/checkAdmin');
 
 const User = require('../models/User');
 
+const startSortDate = "2021-11-02T09:58:15.289+00:00";
+
 
 
 router.get('/find/:id', tokenAuth, checkAdmin, async (req, res) => {
@@ -24,6 +26,19 @@ router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
     try{
         const allUsers = await User.find().select('-password');
         return res.status(200).json(allUsers);
+    }
+    catch(err){
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+router.get('/recent', tokenAuth, checkAdmin, async (req, res) => {
+    try{
+        const recentUsers = await User.find(
+            {"createdAt": {"$gte": startSortDate,
+             "$lt": new Date()}}
+             ).sort("-createdAt").select('-password');
+               return res.status(200).json(recentUsers);  
     }
     catch(err){
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });

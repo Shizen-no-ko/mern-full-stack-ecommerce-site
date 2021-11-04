@@ -34,11 +34,18 @@ router.put('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
 });
 
 router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
-    res.sedn('Middleware Working');
+    res.send('Middleware Working');
 });
 
-router.delete('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
-    res.send('Middleware Working');
+router.delete('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        return res.status(200).json( "User has been deleted");
+    }
+    catch(err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+    
 });
 
 

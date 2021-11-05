@@ -7,54 +7,55 @@ const checkAdmin = require('../middleware/checkAdmin');
 
 const User = require('../models/User');
 
-// const startSortDate = "2021-11-02T09:58:15.289+00:00";
-// const endOfLastYear = new Date(Date.setFullYear(Date.getFullYear() -1));
-
-// const currentYear = new Date().getFullYear(); 
-// const currentYear = new Date(new Date().getFullYear(), 11, 31);
 const currentYear = new Date(new Date().getFullYear());
-const endOfPreviousYear =  new Date(currentYear -1, 11, 31).toISOString();
+const endOfPreviousYear = new Date(currentYear - 1, 11, 31);
 const startSortDate = endOfPreviousYear;
 
 router.get('/find/:id', tokenAuth, checkAdmin, async (req, res) => {
-    try{
+    try {
         const foundUser = await User.findById(req.params.id)
         const { password, ...userWithoutPassword } = foundUser._doc;
         return res.status(200).json(userWithoutPassword);
     }
-    catch(err){
+    catch (err) {
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
 });
 
 router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
-    try{
+    try {
         const allUsers = await User.find().select('-password');
         return res.status(200).json(allUsers);
     }
-    catch(err){
+    catch (err) {
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
 });
 
 router.get('/recent', tokenAuth, checkAdmin, async (req, res) => {
-    // console.log("start sort date is");
-    // console.log(startSortDate);
-    try{
-        const recentUsers = await User.find(
-            {"createdAt": {"$gte": startSortDate,
-             "$lt": new Date()}}
-             ).sort("-createdAt").select('-password');
-               return res.status(200).json(recentUsers);  
+    try {
+        const recentUserData = await User.aggregate([
+            { $match: { createdAt: {$gte: startSortDate} }},
+            {
+                $project: { month: { $month: "$createdAt" } }
+            },
+            {
+                $group: {
+                _id: "$month",
+                total: { $sum: 1 }
+            }
+        }
+         ]);
+return res.status(200).json(recentUserData);  
     }
-    catch(err){
-        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
-    }
+    catch (err) {
+    return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+}
 });
 
 
-router.put('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
-    if(req.body.password){
+router.put('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
+    if (req.body.password) {
         encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.ENCRYPTION_SECRET).toString();
     }
 
@@ -64,11 +65,11 @@ router.put('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
             email: req.body.email,
             password: encryptedPassword,
             isAdministrator: req.body.isAdministrator
-        }, {new: true});
+        }, { new: true });
         const { password, ...userWithoutPassword } = updatedUser._doc;
         return res.status(200).json(userWithoutPassword);
-    } 
-    catch(err) {
+    }
+    catch (err) {
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
 });
@@ -77,12 +78,12 @@ router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
     res.send('Middleware Working');
 });
 
-router.delete('/:id', tokenAuth, checkAuthorizedToEdit,  async (req, res) => {
+router.delete('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);
-        return res.status(200).json( "User has been deleted");
+        return res.status(200).json("User has been deleted");
     }
-    catch(err) {
+    catch (err) {
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
 });

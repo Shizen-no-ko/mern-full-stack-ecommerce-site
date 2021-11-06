@@ -51,10 +51,23 @@ router.get('/find/:id', async (req, res) => {
 router.get('/all', async (req, res) => {
     newQuery = req.query.new;
     categoryQuery = req.query.category;
-    console.log(newQuery);
+    colorQuery = req.query.color;
+    console.log(Object.keys(req.query)[0]);
+    let productResult;
     try {
-        const allProducts = await Product.find();
-        return res.status(200).json(allProducts);
+        if(newQuery){
+           productResult = await Product.find().sort({ _id: -1 }).limit(5)
+        } else if(categoryQuery){
+            productResult = await Product.find({category: categoryQuery});
+        } 
+     else if(colorQuery){
+        productResult = await Product.find({color: colorQuery});
+    }
+        else {
+            productResult = await Product.find();
+        }
+       
+        return res.status(200).json(productResult);
     }
     catch (err) {
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });

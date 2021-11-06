@@ -49,24 +49,23 @@ router.get('/find/:id', async (req, res) => {
 });
 
 router.get('/all', async (req, res) => {
-    newQuery = req.query.new;
-    categoryQuery = req.query.category;
-    colorQuery = req.query.color;
-    console.log(Object.keys(req.query)[0]);
+    queryType = Object.keys(req.query)[0];
+    queryValue = req.query[queryType];
     let productResult;
     try {
-        if(newQuery){
-           productResult = await Product.find().sort({ _id: -1 }).limit(5)
-        } else if(categoryQuery){
-            productResult = await Product.find({category: categoryQuery});
-        } 
-     else if(colorQuery){
-        productResult = await Product.find({color: colorQuery});
-    }
-        else {
-            productResult = await Product.find();
+        switch(queryType) {
+           case 'new':
+                productResult = await Product.find().sort({ _id: -1 }).limit(3);
+                break;
+            case 'category':
+                productResult = await Product.find({category: queryValue});
+                break;
+            case 'color':
+                productResult = await Product.find({color: queryValue});
+                break;
+            default:
+                productResult = await Product.find();
         }
-       
         return res.status(200).json(productResult);
     }
     catch (err) {

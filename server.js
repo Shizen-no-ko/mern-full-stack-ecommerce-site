@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const userRoute = require('./routes/user');
 const authRoute = require('./routes/auth');
 const productRoute = require('./routes/product');
+const shoppingCartRoute = require('./routes/shoppingCart');
 
 const PORT = process.env.PORT || 5000;
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded());
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/products', productRoute);
+app.use('/api/carts', shoppingCartRoute);
 
 app.listen(PORT, () => {
     console.log(`Running on port ${PORT}`);

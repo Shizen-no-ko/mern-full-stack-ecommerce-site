@@ -9,19 +9,65 @@ router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
     try {
         let preExist = await Product.findOne({ title: req.body.title });
         if (preExist) {
-            return res.status(400).json("This product title already exists");
+            return res.status(400).json({ errors: [{ msg: "This product title already exists" }] });
         }
         const newProduct = new Product(req.body);
             await newProduct.save((err, product) => {
-                if(err) return res.status(500).json("Create Product Error");
+                if(err) return res.status(500).json({ errors: [{ msg: "Create Product Error" }] });
                 return res.status(200).json(product);
         })
     }
      catch {
         (err) => {
             console.log(err)
-            res.status(500).json("Server Error");
+            res.status(500).json({ errors: [{ msg: "Server Error" }] });
         }
+    }
+});
+
+
+router.put('/:id', tokenAuth, checkAdmin, async (req, res) => {
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, {
+          $set:req.body
+        }, { new: true });
+        return res.status(200).json(updatedProduct);
+    }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+router.get('/find/:id', async (req, res) => {
+    try {
+        const foundProduct = await Product.findById(req.params.id)
+        return res.status(200).json(foundProduct);
+    }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+router.get('/all', async (req, res) => {
+    newQuery = req.query.new;
+    categoryQuery = req.query.category;
+    console.log(newQuery);
+    try {
+        const allProducts = await Product.find();
+        return res.status(200).json(allProducts);
+    }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
+    try {
+        await Product.findByIdAndDelete(req.params.id);
+        return res.status(200).json("Product has been deleted");
+    }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Deletion Error" }] });
     }
 });
 

@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
-app.use('/api/product', productRoute);
+app.use('/api/products', productRoute);
 
 app.listen(PORT, () => {
     console.log(`Running on port ${PORT}`);

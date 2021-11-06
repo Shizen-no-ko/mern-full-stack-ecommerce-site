@@ -12,7 +12,6 @@ const tokenAuth = (req, res, next) => {
             return res.status(401).json({ errors: [{ msg: "Token is not valid" }] });
         }
         req.user = decoded.user;
-        console.log(req.user.isAdministrator);
     });
     next();
 }

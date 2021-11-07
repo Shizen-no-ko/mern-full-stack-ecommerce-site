@@ -6,6 +6,7 @@ const userRoute = require('./routes/user');
 const authRoute = require('./routes/auth');
 const productRoute = require('./routes/product');
 const shoppingCartRoute = require('./routes/shoppingCart');
+const orderRoute = require('./routes/order');
 
 const PORT = process.env.PORT || 5000;
 
@@ -23,6 +24,7 @@ app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/products', productRoute);
 app.use('/api/carts', shoppingCartRoute);
+app.use('/api/orders', orderRoute);
 
 app.listen(PORT, () => {
     console.log(`Running on port ${PORT}`);

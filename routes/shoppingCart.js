@@ -40,5 +40,34 @@ router.put('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
     }
 });
 
+router.get('/find/:userId', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
+    try {
+        const foundCart = await ShoppingCart.findOne({userId: req.params.userId});
+        return res.status(200).json(foundCart);
+    }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
+    try {
+        const allCarts = await ShoppingCart.find();
+        return res.status(200).json(allCarts);
+    }
+    catch(err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+})
+
+router.delete('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
+    try {
+        await ShoppingCart.findByIdAndDelete(req.params.id);
+        return res.status(200).json("Shopping Cart has been deleted");
+    }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Deletion Error" }] });
+    }
+});
 
 module.exports = router;

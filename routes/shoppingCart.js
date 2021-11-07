@@ -8,7 +8,12 @@ const ShoppingCart = require('../models/ShoppingCart');
 
 router.post('/add', tokenAuth, async (req, res) => {
     try {
-        const newCart = new ShoppingCart(req.body);
+        preexisting = await ShoppingCart.find({userId: req.user.id});
+        if(preexisting){
+            console.log("already exists");
+            return res.status(200).json(preexisting);
+        }
+        const newCart = new ShoppingCart({userId: req.user.id});
             await newCart.save((err, cart) => {
                 if(err) return res.status(500).json({ errors: [{ msg: "Create Cart Error" }] });
                 return res.status(200).json(cart);

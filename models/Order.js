@@ -18,7 +18,7 @@ const OrderSchema = new mongoose.Schema(
             }
         ],
         totalPrice: {
-            type: number,
+            type: Number,
             required: true
         },
         userAddress : {

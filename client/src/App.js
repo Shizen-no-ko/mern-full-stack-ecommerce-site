@@ -1,10 +1,12 @@
 import React, {Fragment} from 'react';
 import './App.css';
 
+import Landing from './components/layout/Landing';
+
 function App() {
   return (
     <Fragment>
-    <h1>App</h1>
+    <Landing/>
     </Fragment>
   );
 }

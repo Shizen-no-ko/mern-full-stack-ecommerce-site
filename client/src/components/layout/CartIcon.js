@@ -11,7 +11,7 @@ const CartIcon = (props) => {
     return(
        <CartContainer>
         <Badge cartItems={10} color={"red"}/>
-           <i class="fas fa-shopping-cart"></i>
+           <i className="fas fa-shopping-cart"></i>
        </CartContainer>
     )
 }

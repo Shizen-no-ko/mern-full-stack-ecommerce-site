@@ -8,7 +8,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
 align-items: center;
-border-bottom: 1px solid red;
+${'' /* border-bottom: 1px solid red; */}
 display: flex;
 justify-content: space-between;
 padding: 10px 20px;
@@ -95,11 +95,11 @@ const Navbar = () => {
                             type="text"
                             value={searchState}
                             onChange={handleChange} />
-                        <i class="fas fa-search"></i>
+                        <i className="fas fa-search"></i>
                     </Search>
                 </LZone>
                 <CZone>
-                    <Logo> <i class="fas fa-torii-gate"></i></Logo>
+                    <Logo> <i className="fas fa-torii-gate"></i></Logo>
                     <LogoTextContainer>
                         <LogoText>
                             Nihon no Mono

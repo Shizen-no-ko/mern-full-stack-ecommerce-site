@@ -10,7 +10,7 @@ padding-top: 5px;
 const CartIcon = (props) => {
     return(
        <CartContainer>
-        <Badge cartItems={1} color={"red"}/>
+        <Badge cartItems={10} color={"red"}/>
            <i class="fas fa-shopping-cart"></i>
        </CartContainer>
     )

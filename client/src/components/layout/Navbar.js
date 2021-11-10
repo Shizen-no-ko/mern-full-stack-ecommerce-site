@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
 
@@ -79,29 +79,39 @@ flex: 1;
 `
 
 const Navbar = () => {
+
+    const [ searchState, setSearchState ] = useState("");
+
+    const handleChange = (e) => {
+        setSearchState(e.target.value);
+    }
+
     return (
         <Container>
             <Wrapper>
                 <LZone>
-                <Search>
-                        <Input/>
+                    <Search>
+                        <Input
+                            type="text"
+                            value={searchState}
+                            onChange={handleChange} />
                         <i class="fas fa-search"></i>
                     </Search>
                 </LZone>
                 <CZone>
-                <Logo> <i class="fas fa-torii-gate"></i></Logo>
-                <LogoTextContainer>
-                <LogoText>
-                        Nihon no Mono
-                    </LogoText>
-                    <Subtitle>A whole world of Japanese Things</Subtitle>
-                </LogoTextContainer>
+                    <Logo> <i class="fas fa-torii-gate"></i></Logo>
+                    <LogoTextContainer>
+                        <LogoText>
+                            Nihon no Mono
+                        </LogoText>
+                        <Subtitle>A whole world of Japanese Things</Subtitle>
+                    </LogoTextContainer>
                 </CZone>
                 <RZone>
                     <Menu>
-                    <MenuItem>LOG IN</MenuItem>
-                    <MenuItem>REGISTER</MenuItem>
-                    <MenuItem><CartIcon/></MenuItem>
+                        <MenuItem>LOG IN</MenuItem>
+                        <MenuItem>REGISTER</MenuItem>
+                        <MenuItem><CartIcon /></MenuItem>
                     </Menu>
                 </RZone>
             </Wrapper>

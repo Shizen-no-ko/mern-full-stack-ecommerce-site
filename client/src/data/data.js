@@ -7,6 +7,11 @@ const sliderData = [
     { title: "Ball Teapot",
     description: "Cute ball-shaped teapot in various colors and finishes",
     img: "https://source.unsplash.com/7EeeSN-eGsI/1920x1280",
+    price: "$250"}, 
+
+    { title: "Paring Knife",
+    description: "High quality, durable, hand-wrought paring knife",
+    img: "https://source.unsplash.com/wgmFnnLz2gw/1920x1280",
     price: "$250"}
 ]
 

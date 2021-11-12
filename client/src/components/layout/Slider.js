@@ -6,7 +6,8 @@ import {sliderData} from '../../data/data.js';
 
 const Container = styled.div`
 display:flex;
-height: 100vh;
+height: 80vh;
+margin: 20px 0;
 overflow: hidden;
 width: 100%;
 `

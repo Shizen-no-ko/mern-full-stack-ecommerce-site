@@ -1,7 +1,7 @@
 
 import {useState} from 'react';
 import styled from 'styled-components';
-import sliderData from '../../data/data.js';
+import {sliderData} from '../../data/data.js';
 
 
 const Container = styled.div`
@@ -45,6 +45,25 @@ letter-spacing: 3px;
 
 const Price = styled.h4`
 opacity: 80%;
+`
+const Button = styled.button`
+all: unset;
+background-color: red;
+border-radius: 10px;
+color: white;
+font-size: 17px;
+outline: none;
+padding: 10px;
+cursor: pointer;
+
+&:hover{
+    transform: scale(103%);
+}
+
+&:active{
+    transform: scale(97%);
+}
+
 `
 
 const ImageContainer = styled.div`
@@ -109,6 +128,7 @@ const clickHandler = (direction) => {
            <Title>{product.title}</Title>
            <Description>{product.description}</Description>
            <Price>{product.price}</Price>
+           <Button>GO TO PRODUCT</Button>
        </Details>
                </DetailsContainer>
                </Slide>

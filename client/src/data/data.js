@@ -1,4 +1,4 @@
-const sliderData = [
+export const sliderData = [
     { title: "Pink Sake Set",
     description: "Beautiful, gradutated pink, sake drinking set with heart motif",
     img: "https://source.unsplash.com/yPYNhYr7Xrs/1920x1280",
@@ -13,6 +13,23 @@ const sliderData = [
     description: "High quality, durable, hand-wrought paring knife",
     img: "https://source.unsplash.com/wgmFnnLz2gw/1920x1280",
     price: "$250"}
-]
+];
 
-module.exports = sliderData
+export const categoriesData = [
+    {
+        id: 1,
+        image: "https://source.unsplash.com/F2BVTU8cHc0/1920x1280",
+        title: "CLOTHING"
+    },
+    {
+        id: 2,
+        image: "https://source.unsplash.com/ByuG5-jbu9c/1920x1280",
+        title: "HOMEWARE"
+    },
+    {
+        id: 3,
+        image: "https://source.unsplash.com/P2GAm3Xhwr4/1920x1280",
+        title: "IRO-IRO"
+    }
+];
+

@@ -29,6 +29,7 @@ ${'' /* border-radius: 10px;
 border: 0.25px solid rgba(255, 255, 255, 0.5); */}
 color: rgba(255, 0, 0, 1);
 font-size: 3rem;
+font-weight: 400;
 opacity: 100%;
 right: 20px;
 padding: 0 10px;

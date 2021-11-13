@@ -41,7 +41,7 @@ const Title = styled.h1`
 `
 
 const Description = styled.p`
-letter-spacing: 3px;
+letter-spacing: 5px;
 `
 
 const Price = styled.h4`

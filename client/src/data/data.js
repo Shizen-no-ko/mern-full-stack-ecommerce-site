@@ -33,3 +33,39 @@ export const categoriesData = [
     }
 ];
 
+
+export const productData = [
+    {
+        id:1,
+        img: "https://source.unsplash.com/3g5AfQZWUCA/1920x1280"
+    },
+    {
+        id:2,
+        img: "https://source.unsplash.com/_5Q1-ae44aw/1920x1280"
+    },
+    {
+        id:3,
+        img: "https://source.unsplash.com/FaUCROC_BZ8/1920x1280"
+    },
+    {
+        id:4,
+        img: "https://source.unsplash.com/odyfTDRZxvY/1920x1280"
+    },
+    {
+        id:5, 
+        img: "https://source.unsplash.com/kbBaNkxLdHY/1920x1280"
+    },
+    {
+        id:6,
+        img: "https://source.unsplash.com/Ayy_K-y_dLA/1920x1280"
+    },
+    {
+        id:7,
+        img: "https://source.unsplash.com/VKI8S_O-pYg/1920x1280"
+    },
+    {
+        id:8,
+        img: "https://source.unsplash.com/JcXfveuRYig/1920x1280"
+    }
+]
+

@@ -8,7 +8,7 @@ const Container = styled.div`
 display:flex;
 flex-wrap: wrap;
 justify-content: space-evenly;
-height: 50vh;
+${'' /* height: 50vh; */}
 margin: auto;
 width: 98vw;
 `

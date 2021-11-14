@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Container = styled.div`
 cursor: pointer;
 flex: 1;
-margin: 10px;
+margin: 10px 20px;
 position: relative;
 
 &:hover{
@@ -19,7 +19,9 @@ position: relative;
 `
 
 const Img = styled.img`
+border-radius: 50% 0;
 object-fit: cover;
+height: 100%;
 width: 100%;
 `
 

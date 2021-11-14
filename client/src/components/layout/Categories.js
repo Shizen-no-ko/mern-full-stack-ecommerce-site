@@ -4,11 +4,12 @@ import CategoryElement from './CategoryElement';
 import {categoriesData} from '../../data/data.js';
 
 const Container = styled.div`
+${'' /* background-color: red; */}
 display:flex;
 justify-content: space-between;
-height: 50vh;
-margin: auto;
-width: 98vw;
+height: 60vh;
+margin: 40px auto;
+width: 97vw;
 
 `
 

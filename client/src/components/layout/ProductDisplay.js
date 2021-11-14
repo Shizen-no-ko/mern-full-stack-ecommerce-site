@@ -13,6 +13,8 @@ margin: auto;
 width: 98vw;
 `
 
+
+
 const ProductDisplay = () => {
     return(
        <Container>

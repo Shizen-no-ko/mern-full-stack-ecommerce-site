@@ -4,6 +4,7 @@ import Slider from './Slider';
 import Categories from './Categories';
 import ProductDisplay from './ProductDisplay';
 import SubscriptionForm from './SubscriptionForm';
+import Footer from './Footer';
 
 const Landing = () => {
     return(
@@ -13,6 +14,7 @@ const Landing = () => {
             <Categories/>
             <ProductDisplay/>
             <SubscriptionForm/>
+            <Footer/>
         </div>
     )
 }

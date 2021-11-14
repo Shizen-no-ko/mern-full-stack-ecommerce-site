@@ -22,7 +22,8 @@ margin: 0;
 ${'' /* padding: 0; */}
 `
 const Message = styled.h3`
-padding: 0;
+${'' /* padding: 0; */}
+margin: 0 0 20px;
 `
 
 const InputContainer = styled.div`
@@ -34,6 +35,7 @@ width: 100%;
 const InputBox = styled.input`
 border: none;
 flex: 7;
+height: 100%;
 
 &:focus{
     outline: none;
@@ -45,6 +47,22 @@ background-color: red;
 border-radius: 0 10px 10px 0;
 color: white;
 flex: 1;
+transform: scale(103%);
+
+&:hover{
+    border: 1px solid red;
+    color: red;
+    background-color: white;
+    transform: scale(106%);
+}
+
+&:active{
+    border: 1px solid green;
+    color: white;
+    background-color: green;
+    transform: scale(104%);
+}
+
 `
 
 const SubscriptionForm = () => {

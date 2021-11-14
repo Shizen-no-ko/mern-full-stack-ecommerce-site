@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 const Container = styled.div`
-cursor: pointer;
+
 ${'' /* flex: 1; */}
 flex-basis: 24%;
 margin: 5px;
@@ -23,12 +23,26 @@ const Img = styled.img`
 border-radius: 0 50px 0 0;
 object-fit: cover;
 width: 100%;
+`
+const IconContainer = styled.div`
+height: 100%;
+left: 0;
+width: 100%;
+opacity: 0;
+position: absolute;
+top: 0;
+transition: ease 0.5s;
+
+&:hover {
+    opacity: 100%;
+}
 
 `
 
 
 const Icon = styled.div`
 background-color: rgba(0, 0, 0, 0.5);
+cursor: pointer;
 ${'' /* background-color: white; */}
 ${'' /* border: 3px solid white; */}
 ${'' /* border-radius: 5px; */}
@@ -47,6 +61,7 @@ width: 40px;
 &:hover{
     background-color: white;
     color: red;
+    opacity: 100%;
 }
 
 &:active{
@@ -61,9 +76,12 @@ const ProductElement = ({element}) => {
     return(
        <Container>
        <Img src={element.img}/>
+       <IconContainer>
        <Icon topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
        <Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon>
        <Icon topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
+       </IconContainer>
+      
        </Container>
     )
 }

@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import styled from 'styled-components';
 
 
@@ -46,17 +48,33 @@ flex: 1;
 `
 
 const SubscriptionForm = () => {
-    return(
-       <Container>
-       <SubscriptionContainer>
-       <Heading>Nihon no Mono News</Heading>
-       <Message>Sign-up to receive up to date infos from our store</Message>
-       <InputContainer>
-       <InputBox placeholder='Your email here...'/>
-       <SendButton><i className="fas fa-paper-plane"></i></SendButton>
-       </InputContainer>
-       </SubscriptionContainer>
-       </Container>
+
+    const [formState, setFormState] = useState("Your email here...");
+
+    const handleChange = (e) => {
+        setFormState(e.target.value);
+    }
+
+    const handleFocus = () => {
+        setFormState('');
+    }
+
+    return (
+        <Container>
+            <SubscriptionContainer>
+                <Heading>Nihon no Mono News</Heading>
+                <Message>Sign-up to receive up to date infos from our store</Message>
+                <InputContainer>
+                    <InputBox
+                        type="text"
+                        value={formState}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                    />
+                    <SendButton><i className="fas fa-paper-plane"></i></SendButton>
+                </InputContainer>
+            </SubscriptionContainer>
+        </Container>
     )
 }
 export default SubscriptionForm

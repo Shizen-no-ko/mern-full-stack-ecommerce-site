@@ -27,7 +27,7 @@ margin: 0 0 20px;
 `
 
 const InputContainer = styled.div`
-border: 1px solid gray;
+border: 1px solid lightgray;
 border-radius: 10px;
 display: flex;
 width: 100%;
@@ -35,7 +35,10 @@ width: 100%;
 const InputBox = styled.input`
 border: none;
 flex: 7;
-height: 100%;
+font-size: 20px;
+line-height:28px;
+padding: 5px;
+${'' /* height: 100%; */}
 
 &:focus{
     outline: none;

@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 
 const Container = styled.div`
-margin: 40px;
-width: 100vw;
+margin: 60px 0;
+width: 97vw;
 `
 
 const SubscriptionContainer = styled.div`
@@ -81,7 +81,7 @@ const SubscriptionForm = () => {
         <Container>
             <SubscriptionContainer>
                 <Heading>Nihon no Mono News</Heading>
-                <Message>Sign-up to receive up to date infos from our store</Message>
+                <Message>Sign-up to receive up-to-date infos from our store</Message>
                 <InputContainer>
                     <InputBox
                         type="text"

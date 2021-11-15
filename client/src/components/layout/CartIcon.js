@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Badge from './Badge';
 
 const CartContainer = styled.div`
-font-size:17px;
+font-size:20px;
 padding-top: 5px;
 `
 

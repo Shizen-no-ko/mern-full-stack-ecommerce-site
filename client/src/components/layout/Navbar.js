@@ -28,7 +28,7 @@ display: flex;
 
 const MenuItem = styled.div`
 cursor: pointer;
-font-size: 16px;
+font-size: 18px;
 position: relative;
 
 &:hover{
@@ -109,6 +109,7 @@ const Navbar = () => {
                 </CZone>
                 <RZone>
                     <Menu>
+                    <MenuItem>HOME</MenuItem>
                         <MenuItem>LOG IN</MenuItem>
                         <MenuItem>REGISTER</MenuItem>
                         <MenuItem><CartIcon /></MenuItem>

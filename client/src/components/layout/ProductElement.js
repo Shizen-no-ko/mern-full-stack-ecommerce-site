@@ -47,7 +47,7 @@ ${'' /* background-color: white; */}
 ${'' /* border: 3px solid white; */}
 ${'' /* border-radius: 5px; */}
 border: none;
-bottom: ${props => props.topbottom === 'bottom' ? '5px' : null};
+bottom: ${props => props.topbottom === 'bottom' ? '4px' : null};
 color: white;
 font-size: 25px;
 left: ${props => props.leftright === 'left' ? '0px' : null};

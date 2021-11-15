@@ -1,12 +1,13 @@
 import React, {Fragment} from 'react';
 import './App.css';
 
-import Landing from './components/layout/Landing';
+// import Landing from './components/pages/Landing';
+import ProductsFilter from './components/pages/ProductsFilter';
 
 function App() {
   return (
     <Fragment>
-    <Landing/>
+    <ProductsFilter/>
     </Fragment>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from './Navbar';
-import Slider from './Slider';
-import Categories from './Categories';
-import ProductDisplay from './ProductDisplay';
-import SubscriptionForm from './SubscriptionForm';
-import Footer from './Footer';
+import Navbar from '../layout/Navbar';
+import Slider from '../layout/Slider';
+import Categories from '../layout/Categories';
+import ProductDisplay from '../layout/ProductDisplay';
+import SubscriptionForm from '../layout/SubscriptionForm';
+import Footer from '../layout/Footer';
 
 const Landing = () => {
     return(

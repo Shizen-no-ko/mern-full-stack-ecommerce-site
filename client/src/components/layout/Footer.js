@@ -135,9 +135,9 @@ const Footer = () => {
        </Center>
        <Right>
        <InfosContainer>
-       <InfoItem><i className="fas fa-map-marker-alt"></i> 23456 Test Street, Test Town 555-555, Testland</InfoItem>
-       <InfoItem><i className="fas fa-phone"></i> +1 789 654 123</InfoItem>
-       <InfoItem><i className="fas fa-envelope"></i> contact@nihon-no-mono.com</InfoItem>
+       <InfoItem><i className="fas fa-map-marker-alt" style={{marginRight: '10px'}}></i>23456 Test Street, Test Town 555-555, Testland</InfoItem>
+       <InfoItem><i className="fas fa-phone" style={{marginRight: '10px'}}></i>+1 789 654 123</InfoItem>
+       <InfoItem><i className="fas fa-envelope" style={{marginRight: '10px'}}></i>contact@nihon-no-mono.com</InfoItem>
        {/* <InfoItem> */}
        <Payment>
        <PaymentItem><i className="fab fa-cc-visa"></i></PaymentItem> 

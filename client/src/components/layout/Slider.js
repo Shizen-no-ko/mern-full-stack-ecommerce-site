@@ -30,7 +30,7 @@ width: 100vw;
 
 const DetailsContainer = styled.div`
 flex: 1;
-padding: 50px;
+padding: 50px 80px 50px;
 `
 
 const Details = styled.div`

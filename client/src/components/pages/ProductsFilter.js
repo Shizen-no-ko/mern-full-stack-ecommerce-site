@@ -4,7 +4,7 @@ import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 import Filter from '../layout/Filter';
 
-const Landing = () => {
+const ProductsFilter = () => {
     return(
         <div>
             <Navbar/>
@@ -16,4 +16,4 @@ const Landing = () => {
     )
 }
 
-export default Landing
+export default ProductsFilter

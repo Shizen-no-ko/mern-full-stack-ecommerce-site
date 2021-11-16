@@ -1,3 +1,4 @@
+import {useState, useRef} from 'react';
 import styled from 'styled-components';
 
 import Navbar from '../layout/Navbar';
@@ -57,9 +58,10 @@ font-size: 2rem;
 `
 const Button = styled.button`
 all: unset;
-background-color: red;
+background-color: white;
+border: 4px solid red;
 border-radius: 10px;
-color: white;
+color: red;
 cursor: pointer;
 font-size: 17px;
 outline: none;
@@ -67,10 +69,14 @@ padding: 10px;
 
 
 &:hover{
+    background-color: red;
+    color: white;
     transform: scale(103%);
 }
 
 &:active{
+    background-color: green;
+    border: 3px solid green; 
     transform: scale(97%);
 }
 
@@ -89,6 +95,7 @@ const SelectorRow = styled.div`
 display: flex;
 justify-content: space-between;
 margin-left: -20px;
+padding: 30px 0;
 `
 
 
@@ -140,14 +147,69 @@ margin: 5px;
 width: ${props => props.border ? '18px' : '20px' };
 
 &:hover{
-    transform: scale(120%);
-    transition: ease-in-out 0.15s;
+    transform: scale(150%) rotate(45deg);
+    transition: ease-in-out 0.05s;
 }
+`
+
+const PlusMinusContainer = styled.div`
+display: flex;
+font-weight: 30px;
+margin-left: 20px;
+
+`
+
+const PlusMinusStyles = styled.div`
+color: rgba(255, 0, 0, 0.6);
+margin: 5px;
+
+&:active {
+    color: red;
+}
+`
+
+const AmountDisplay = styled.div`
+border: 4px solid rgba(255, 0, 0, 0.6);
+border-radius: 15px;
+color: rgba(0, 0, 0, 0.8);
+height: 35px;
+text-align: center;
+transition: all ease-in-out 0.5s;
+width: 35px;
 `
 
 const product = sliderData[0];
 
+
+
 const IndividualProduct = () => {
+
+const [amount, setAmount] = useState(1);
+const boxRef = useRef(null);
+
+const boxAnimation = (minus) => {
+    boxRef.current.style.borderColor = 'red';
+    boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)' ;
+    boxRef.current.style.color = 'white';
+    boxRef.current.style.backgroundColor = 'red';
+    setTimeout(() => {
+        boxRef.current.style.borderColor = 'rgba(255, 0, 0, 0.6)';
+        boxRef.current.style.transform = 'scale(100%) rotate(0deg)';
+        boxRef.current.style.color = 'rgba(0, 0, 0, 0.8)';
+        boxRef.current.style.backgroundColor = 'white';
+}, 250)
+};
+
+const handleMinus = () => {
+    if(amount > 0){setAmount(amount - 1)};
+    boxAnimation(true)
+}
+
+const handlePlus = () => {
+    setAmount(amount + 1);
+    boxAnimation(false);
+}
+
     return(
         <div>
 <Navbar/>
@@ -189,23 +251,12 @@ const IndividualProduct = () => {
        </SelectorContainer>
        </SelectorRow>
        <SelectorRow>
-           <SelectorContainer>
-       <Label>Amount: </Label>
-       <Selector name='amount' pos='right' defaultValue='1'>
-           <Option>1</Option>
-           <Option>2</Option>
-           <Option>3</Option>
-           <Option>4</Option>
-           <Option>5</Option>
-           <Option>6</Option>
-           <Option>7</Option>
-           <Option>8</Option>
-           <Option>9</Option>
-           <Option>10</Option>
-       </Selector>
-       </SelectorContainer>
+       <PlusMinusContainer>
+       <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles>
+           <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
+           <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
+       </PlusMinusContainer>
        <Button>ADD TO CART <i className="fas fa-shopping-cart" style={{'paddingLeft': '10px'}}></i></Button>
-       
            </SelectorRow>
       </Details>
                </DetailsContainer>

@@ -31,7 +31,7 @@ padding: 10px;
 const Selector = styled.select`
 border: 1px solid lightgray;
 border-radius: ${props => props.pos === 'left'? '20px 0 0 20px' : props.pos === 'right'? '0 20px 20px 0' : '0' } ;
-font-size: 20px;
+font-size: 18px;
 font-weight: 500;
 margin: 0 5px;
 outline: none;
@@ -54,14 +54,14 @@ const Filter = () => {
        <SelectorRow>
        <SelectorContainer>
        <Label>Filter Products</Label>
-       <Selector pos='left'>
+       <Selector name='category' pos='left'>
        <Option bold={true} value='' disabled selected>Category</Option>
            <Option>Clothing</Option>
            <Option>Homewares</Option>
            <Option>Iro-Iro</Option>
        </Selector>
        <Selector pos='center'>
-       <Option bold={true} value='' disabled selected>Color</Option>
+       <Option name='color' bold={true} value='' disabled selected>Color</Option>
            <Option>Red</Option>
            <Option>Black</Option>
            <Option>Yellow</Option>
@@ -72,7 +72,7 @@ const Filter = () => {
            <Option>Blue</Option>
            <Option>White</Option>
        </Selector>
-       <Selector pos='right'>
+       <Selector name='size' pos='right' >
        <Option bold={true} value='' disabled selected>Size</Option>
        <Option>XS</Option>
            <Option>S</Option>
@@ -84,7 +84,7 @@ const Filter = () => {
        </SelectorContainer>
        <SelectorContainer>
        <Label>Sort Results</Label>
-           <Selector pos='right'>
+           <Selector name='sort' pos='right' >
            <Option>Most Recent</Option>
            <Option>Price Ascending</Option>
            <Option>Price Descending</Option>

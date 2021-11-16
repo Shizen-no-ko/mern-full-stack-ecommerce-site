@@ -33,32 +33,38 @@ width: 100vw;
 
 const DetailsContainer = styled.div`
 flex: 1;
-padding: 50px 80px 50px;
+padding: 20px 80px 20px;
 `
 
 const Details = styled.div`
-font-size: 2rem;
+display: flex;
+flex-direction: column;
+font-size: 1.5rem;
+height: 80%;
+justify-content: space-around;
 `
 const Title = styled.h1`
-
+font-weight: 400;
 `
 
 const Description = styled.p`
-letter-spacing: 5px;
+font-weight: 200;
 `
 
 const Price = styled.h4`
-opacity: 80%;
+font-weight: 200;
+font-size: 2rem;
 `
 const Button = styled.button`
 all: unset;
 background-color: red;
 border-radius: 10px;
 color: white;
+cursor: pointer;
 font-size: 17px;
 outline: none;
 padding: 10px;
-cursor: pointer;
+
 
 &:hover{
     transform: scale(103%);
@@ -82,8 +88,7 @@ height: 80%;
 const SelectorRow = styled.div`
 display: flex;
 justify-content: space-between;
-margin-left: -10px;
-${'' /* padding: 20px 40px; */}
+margin-left: -20px;
 `
 
 
@@ -96,7 +101,8 @@ line-height: 30px;
 const Label = styled.span`
 ${'' /* font-family: font-family: 'Lexend', sans-serif; */}
 font-size: 20px;
-padding: 10px;
+font-weight: 200;
+padding: 10px 0 10px 20px;
 `
 
 const Selector = styled.select`
@@ -104,7 +110,7 @@ border: 1px solid lightgray;
 border-radius: ${props => props.pos === 'left'? '20px 0 0 20px' : props.pos === 'right'? '0 20px 20px 0' : '0' } ;
 font-size: 20px;
 font-weight: 500;
-margin: 0 5px;
+${'' /* margin: 0 0px; */}
 outline: none;
 padding: 5px 15px;
 
@@ -116,10 +122,28 @@ padding: 5px 15px;
 const Option = styled.option`
 `
 
+const ColorContainer = styled.div`
+display: inline-flex;
+justify-content: space-between;
+position: relative; 
+top: 3px;
+`
 
+const ColorOption = styled.div`
+border: ${props => props.border ? '1px solid' : 'none' };
+border-color: ${props => props.border ? props.border : 'none' };
+border-radius: 30%;
+background-color: ${props => props.color};
+${'' /* to accomodate extra width of white color with border */}
+height: ${props => props.border ? '18px' : '20px' };
+margin: 5px;
+width: ${props => props.border ? '18px' : '20px' };
 
-
-
+&:hover{
+    transform: scale(120%);
+    transition: ease-in-out 0.15s;
+}
+`
 
 const product = sliderData[0];
 
@@ -141,8 +165,33 @@ const IndividualProduct = () => {
            <Price>{product.price}</Price>
            <SelectorRow>
            <SelectorContainer>
+           <Label>Size: </Label>
+       <Selector name='size' pos='right' defaultValue='M' placeholder='M'>
+       <Option>XS</Option>
+       <Option>S</Option>
+           <Option>M</Option>
+           <Option>L</Option>
+           <Option>XL</Option>
+           <Option>XXL</Option>
+       </Selector>
+       <Label>Color: </Label>
+       <ColorContainer>
+       <ColorOption color="red"/>
+           <ColorOption color="black"/>
+           <ColorOption color="yellow"/>
+           <ColorOption color="pink"/>
+           <ColorOption color="green"/>
+           <ColorOption color="orange"/>
+           <ColorOption color="purple"/>
+           <ColorOption color="blue"/>
+           <ColorOption color="white" border='black'/>
+       </ColorContainer>
+       </SelectorContainer>
+       </SelectorRow>
+       <SelectorRow>
+           <SelectorContainer>
        <Label>Amount: </Label>
-       <Selector name='amount' pos='right'>
+       <Selector name='amount' pos='right' defaultValue='1'>
            <Option>1</Option>
            <Option>2</Option>
            <Option>3</Option>

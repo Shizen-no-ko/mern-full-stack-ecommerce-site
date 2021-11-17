@@ -5,12 +5,12 @@ import './App.css';
 import ProductsFilter from './components/pages/ProductsFilter';
 // import IndividualProduct from './components/pages/IndividualProduct';
 import Login from './components/pages/Login';
-import Register from './components/pages/Register';
+// import Register from './components/pages/Register';
 
 function App() {
   return (
     <Fragment>
-    <Register/>
+    <Login/>
     </Fragment>
   );
 }

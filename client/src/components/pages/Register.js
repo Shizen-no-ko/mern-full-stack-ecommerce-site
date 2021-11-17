@@ -6,8 +6,11 @@ import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 
 const Container = styled.div`
+background: linear-gradient(rgba(255,192,203, 0.5), rgba(255,255,255, 1)), url('https://source.unsplash.com/9Qwbfa_RM94/1920x1280'), center;
 height: 100vh;
-Width: 97vw;
+max-width: 100%;
+overflow: hidden;
+width: 100vw;
 `
 
 const Wrapper = styled.div`
@@ -15,13 +18,14 @@ margin: 50px auto;
 width: 50%;
 `
 const Title = styled.h1`
+color: rgba(255, 0, 0, 0.9);
 font-size: 3rem;
 `
 
 const Form = styled.form`
-border: 1px solid lightgray;
+border: 1px solid white;
 border-radius: 20px;
-box-shadow: 5px 5px 15px lightgray;
+${'' /* box-shadow: 5px 5px 15px rgb(255,192,203); */}
 display: flex;
 flex-direction: column;
 padding: 20px 15px;

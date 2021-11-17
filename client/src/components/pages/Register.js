@@ -89,7 +89,6 @@ width: 50%;
     border: 3px solid green; 
     transform: scale(97%);
 }
-
 `
 const PrivacyPolicy = styled.div`
 margin: 20px auto 0;

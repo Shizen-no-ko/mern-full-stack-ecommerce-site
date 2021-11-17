@@ -35,7 +35,7 @@ font-size: 20px;
 margin: 10px;
 outline: none;
 padding: 10px;
-width: 90%;
+width: 94%;
 `
 const PasswordContainer = styled.div`
 align-items: center;
@@ -43,13 +43,17 @@ display: flex;
 width: 100%;
 `
 const Eye = styled.div`
+cursor: pointer;
 font-size: 20px;
+margin-left: -45px;
 width: 30px;
 `
 
 const ClosedEye = styled.div`
+cursor: pointer;
 display: none;
 font-size: 20px;
+margin-left: -45px;
 width: 30px;
 `
 
@@ -91,21 +95,25 @@ width: 75%;
 
 const Register = (props) => {
 
-const eyeRef = useRef(null);
-const closedEyeRef = useRef(null);
+const eyeRef1 = useRef(null);
+const closedEyeRef1 = useRef(null);
+const eyeRef2 = useRef(null);
+const closedEyeRef2 = useRef(null);
 const passwordRef1 = useRef(null);
 const passwordRef2 = useRef(null);
 
-const openEye = () => {
-    closedEyeRef.current.style.display = 'unset';
-    eyeRef.current.style.display = 'none';
-    passwordRef1.current.type = 'text';
+const refsArray = [[eyeRef1, closedEyeRef1, passwordRef1], [eyeRef2, closedEyeRef2, passwordRef2]]
+
+const openEye = (pos) => {
+    refsArray[pos][1].current.style.display = 'unset';
+    refsArray[pos][0].current.style.display = 'none';
+    refsArray[pos][2].current.type = 'text';
 }
 
-const closeEye = () => {
-    closedEyeRef.current.style.display = 'none';
-    eyeRef.current.style.display = 'unset';
-    passwordRef1.current.type = 'password';
+const closeEye = (pos) => {
+    refsArray[pos][1].current.style.display = 'none';
+    refsArray[pos][0].current.style.display = 'unset';
+    refsArray[pos][2].current.type = 'password';
 }
 
     return (
@@ -120,10 +128,14 @@ const closeEye = () => {
                         <Input name='email' type='email' placeholder='Your Email'></Input>
                         <PasswordContainer>
                         <Input ref={passwordRef1} name='password' type='password' placeholder='Choose a Password'></Input>
-                        <Eye onClick={openEye} ref={eyeRef}><i class="fas fa-eye"></i></Eye>
-                        <ClosedEye onClick={closeEye} ref={closedEyeRef}><i class="fas fa-eye-slash"></i></ClosedEye>
+                        <Eye onClick={() => openEye(0)} ref={eyeRef1} ><i class="fas fa-eye"></i></Eye>
+                        <ClosedEye onClick={() => closeEye(0)} ref={closedEyeRef1}><i class="fas fa-eye-slash"></i></ClosedEye>
                         </PasswordContainer>
+                        <PasswordContainer>
                         <Input ref={passwordRef2} name='password-confirmation' type='password' placeholder='Re-enter Password'></Input>
+                        <Eye onClick={() => openEye(1)} ref={eyeRef2}><i class="fas fa-eye"></i></Eye>
+                        <ClosedEye onClick={() => closeEye(1)} ref={closedEyeRef2}><i class="fas fa-eye-slash"></i></ClosedEye>
+                        </PasswordContainer>
                         <PrivacyPolicy>By creating this account, I consent to the processing of my personal data in accordance with the <b>Privacy Policy</b></PrivacyPolicy>
                         <Button>Sign Me Up</Button>
                     </Form>

@@ -5,7 +5,7 @@ import Footer from '../layout/Footer';
 import CartItem from '../layout/CartItem';
 
 const Container = styled.div`
-height: 100vh;
+${'' /* height: 100vh; */}
 max-width: 100%;
 overflow: hidden;
 width: 100vw;
@@ -21,6 +21,7 @@ const Title = styled.h1`
 color: rgba(255, 0, 0, 0.9);
 font-size: 3rem;
 font-weight: 400;
+margin-bottom: 0;
 `
 
 const ButtonDiv = styled.div`
@@ -91,6 +92,8 @@ const ShoppingCart = () => {
 </ButtonDiv>
 <DetailsDiv>
     <CartItems>
+        <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
+        <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
     </CartItems>
     

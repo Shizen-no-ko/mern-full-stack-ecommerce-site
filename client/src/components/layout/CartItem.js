@@ -12,13 +12,14 @@ width: 100%;
 `
 
 const ItemImage = styled.img`
+border-radius: 20px 0;
 margin: 20px;
 width: 250px;
 `
 
 const ItemDetails = styled.div`
 flex: 2;
-margin: 20px;
+margin: 30px 20px 10px;
 text-align: left;
 `
 
@@ -79,7 +80,7 @@ font-size: 3rem;
 font-weight: 200;
 margin: 0 30px 20px;
 
-transition: all ease 1s;
+transition: all ease 0.5s;
 `
 
 const CartItem = (props) => {

@@ -3,6 +3,7 @@ import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 import CartItem from '../layout/CartItem';
+import OrderSummary from '../layout/OrderSummary';
 
 const Container = styled.div`
 ${'' /* height: 100vh; */}
@@ -97,7 +98,7 @@ const ShoppingCart = () => {
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
     </CartItems>
     
-    <SummaryDiv>Summary</SummaryDiv>
+    <OrderSummary/>
 </DetailsDiv>
 </Wrapper>
             </Container>

@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react';
+import {useState, useRef } from 'react';
 
 import styled from 'styled-components';
 
@@ -88,7 +88,8 @@ const CartItem = (props) => {
     const [amount, setAmount] = useState(1);
     const boxRef = useRef(null);
     const priceRef = useRef(null);
-    
+
+
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
         boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)' ;
@@ -112,6 +113,8 @@ const CartItem = (props) => {
         setAmount(amount + 1);
         boxAnimation(false);
     }
+
+  
     
     const priceChange = () => {
         priceRef.current.style.transform = 'scale(115%)';
@@ -138,7 +141,7 @@ const CartItem = (props) => {
            <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
            <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
        </PlusMinusContainer>
-       <Price ref={priceRef}>${props.price * amount}</Price>
+       <Price ref={priceRef}>${amount * props.price}</Price>
         </PriceAndAmount>
         
         </Wrapper>

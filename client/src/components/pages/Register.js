@@ -23,7 +23,7 @@ font-size: 3rem;
 `
 
 const Form = styled.form`
-border: 1px solid white;
+${'' /* border: 1px solid white; */}
 border-radius: 20px;
 ${'' /* box-shadow: 5px 5px 15px rgb(255,192,203); */}
 display: flex;

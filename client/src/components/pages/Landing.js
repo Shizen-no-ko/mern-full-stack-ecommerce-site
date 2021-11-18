@@ -6,6 +6,7 @@ import ProductDisplay from '../layout/ProductDisplay';
 import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 
+
 const Landing = () => {
     return(
         <div>

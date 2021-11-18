@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
+import Messaging from './Messaging';
+
 
 const Container = styled.div`
     height: 80px;
@@ -87,6 +89,9 @@ const Navbar = () => {
     }
 
     return (
+        <div>
+
+        
         <Container>
             <Wrapper>
                 <LZone>
@@ -117,6 +122,8 @@ const Navbar = () => {
                 </RZone>
             </Wrapper>
         </Container>
+<Messaging/>
+        </div>
     )
 }
 

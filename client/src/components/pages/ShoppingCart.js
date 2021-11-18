@@ -31,44 +31,12 @@ width: 100%;
 
 const DetailsDiv = styled.div`
 display: flex;
-margin: 20px 0;
+margin: 50px 0;
 `
 
 const CartItems = styled.div`
 flex: 3;
 `
-
-
-// const ItemImage = styled.img`
-// margin: 20px;
-// width: 250px;
-// `
-
-// const ItemDetails = styled.div`
-// margin: 20px;
-// text-align: left;
-// `
-
-// const Rule = styled.div`
-
-// border-top: 1px solid red;
-// width: 100%;
-// `
-
-// const PriceAndAmount = styled.div`
-
-// `
-// const Detail = styled.h3`
-// margin: 0 0 20px 0;
-// font-weight: 400;
-// `
-// const Color = styled.div`
-// border-radius: 25%;
-// background-color: ${props => props.color};
-// height: 25px;
-// margin: 0 0 20px 0;
-// width: 25px;
-// `
 
 
 const SummaryDiv = styled.div`
@@ -123,7 +91,7 @@ const ShoppingCart = () => {
 </ButtonDiv>
 <DetailsDiv>
     <CartItems>
-        <CartItem/>
+        <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
     </CartItems>
     
     <SummaryDiv>Summary</SummaryDiv>

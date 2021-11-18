@@ -78,18 +78,22 @@ color: rgba(0 , 0, 0, 0.7);
 font-size: 3rem;
 font-weight: 200;
 margin: 0 30px 20px;
+
+transition: all ease 1s;
 `
 
-const CartItem = () => {
+const CartItem = (props) => {
 
     const [amount, setAmount] = useState(1);
     const boxRef = useRef(null);
+    const priceRef = useRef(null);
     
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
         boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)' ;
         boxRef.current.style.color = 'white';
         boxRef.current.style.backgroundColor = 'red';
+        priceChange();
         setTimeout(() => {
             boxRef.current.style.borderColor = 'rgba(255, 0, 0, 0.6)';
             boxRef.current.style.transform = 'scale(100%) rotate(0deg)';
@@ -108,16 +112,24 @@ const CartItem = () => {
         boxAnimation(false);
     }
     
+    const priceChange = () => {
+        priceRef.current.style.transform = 'scale(115%)';
+        priceRef.current.style.color = 'red';
+        setTimeout(() => {
+            priceRef.current.style.transform = 'scale(100%)';
+            priceRef.current.style.color = 'rgba(0 , 0, 0, 0.7)';
+        }, 500);
+    }
 
     return (
         <Container>
         <Wrapper>
         <ItemImage src='https://source.unsplash.com/rplPKfKjC_c/1920x1280'/>
         <ItemDetails>
-        <Detail><strong>Product:</strong> Product Name </Detail>
-        <Detail><strong>ID:</strong> Product ID </Detail>
-        <Color color='green'/>
-        <Detail><strong>Size:</strong> Product Size </Detail>
+        <Detail><strong>Product:</strong> {props.productName} </Detail>
+        <Detail><strong>ID:</strong> {props.productId} </Detail>
+        <Color color={props.color}/>
+        <Detail><strong>Size:</strong> {props.size} </Detail>
         </ItemDetails>
         <PriceAndAmount>
         <PlusMinusContainer>
@@ -125,7 +137,7 @@ const CartItem = () => {
            <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
            <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
        </PlusMinusContainer>
-       <Price>$250</Price>
+       <Price ref={priceRef}>${props.price * amount}</Price>
         </PriceAndAmount>
         
         </Wrapper>

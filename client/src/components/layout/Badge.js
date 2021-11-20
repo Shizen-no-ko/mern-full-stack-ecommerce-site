@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {mobile} from '../../responsive';
 
 
 const BadgeContainer = styled.div`
@@ -15,6 +16,11 @@ position: absolute;
 text-align: center;
 top: -7px;
 width: 75%;
+
+${mobile({
+        fontSize: '9px',
+        top: '-3px'
+        })};
 `
 
 

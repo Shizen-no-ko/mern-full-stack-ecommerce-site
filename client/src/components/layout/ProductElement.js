@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {mobile} from '../../responsive';
 
 
 const Container = styled.div`
@@ -8,15 +9,9 @@ flex-basis: 24%;
 margin: 5px;
 position: relative;
 
-${'' /* &:hover{
-    transform: scale(101%);
-    transition: ease 0.05s;
-}
-
-&:active{
-    transform: scale(99%);
-    transition: ease 0.05s;
-} */}
+${mobile({
+        flexBasis: '33%'
+        })};
 `
 
 const Img = styled.img`
@@ -70,6 +65,12 @@ width: 40px;
     transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'translate(1000%, -750%) scale(0%)' : 'scale(120%)'};
     transition: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'linear 0.5s': ''};
 }
+
+${mobile({
+        fontSize: '15px',
+        height: '18px',
+        width: '20px'
+        })};
 `
 
 const ProductElement = ({element}) => {

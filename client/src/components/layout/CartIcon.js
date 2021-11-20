@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 import Badge from './Badge';
 
+import {mobile} from '../../responsive';
+
 const CartContainer = styled.div`
 font-size:20px;
 padding-top: 5px;
+
+${mobile({
+        fontSize: '13px'
+        })};
+
 `
 
 

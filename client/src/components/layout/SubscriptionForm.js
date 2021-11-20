@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {mobile} from '../../responsive';
+
 
 import styled from 'styled-components';
 
@@ -15,15 +17,28 @@ justify-content: space-between;
 margin: auto;
 text-align: center;
 width: 40%;
+
+${mobile({
+        width: '80%'
+        })};
+
 `
 const Heading = styled.h1`
 font-size: 3rem;
 margin: 0;
-${'' /* padding: 0; */}
+
+
+${mobile({
+        fontSize: '2rem'
+        })};
 `
 const Message = styled.h3`
 ${'' /* padding: 0; */}
 margin: 0 0 20px;
+
+${mobile({
+        fontSize: '1rem'
+        })};
 `
 
 const InputContainer = styled.div`
@@ -31,6 +46,13 @@ border: 1px solid lightgray;
 border-radius: 10px;
 display: flex;
 width: 100%;
+
+${mobile({
+    borderRadius: '7px',
+    height: '20px'
+        
+        })};
+
 `
 const InputBox = styled.input`
 border: none;
@@ -43,6 +65,12 @@ ${'' /* height: 100%; */}
 &:focus{
     outline: none;
 }
+
+${mobile({
+        fontSize: '12px',
+        lineHeight: '12px'
+        })};
+
 `
 const SendButton = styled.button`
 all: unset;
@@ -65,6 +93,10 @@ transform: scale(103%);
     background-color: green;
     transform: scale(104%);
 }
+
+${mobile({
+    borderRadius: '0 7px 7px 0',        
+        })};
 
 `
 

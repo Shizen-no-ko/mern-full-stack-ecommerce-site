@@ -1,4 +1,7 @@
+import {mobile} from '../../responsive';
+
 import styled from 'styled-components';
+
 
 const Container = styled.div`
 color: white;
@@ -7,6 +10,11 @@ font-size: 20px;
 padding: 10px 0;
 text-align: center;
 width: 100%;
+
+${mobile({
+        fontSize: '12px'
+        })};
+
 `
 
 const Messaging = () => {

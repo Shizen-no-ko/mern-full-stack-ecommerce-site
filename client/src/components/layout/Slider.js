@@ -2,6 +2,7 @@
 import {useState} from 'react';
 import styled from 'styled-components';
 import {sliderData} from '../../data/data.js';
+import {mobile} from '../../responsive';
 
 
 const Container = styled.div`
@@ -10,6 +11,11 @@ height: 80vh;
 margin: 20px 0;
 overflow: hidden;
 width: 100%;
+
+${mobile({
+        display: 'none'
+        })};
+
 `
 
 const Wrapper = styled.div`

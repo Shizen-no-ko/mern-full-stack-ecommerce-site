@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {mobile} from '../../responsive';
 
 import ProductElement from './ProductElement.js';
 
@@ -11,6 +12,8 @@ justify-content: space-evenly;
 ${'' /* height: 50vh; */}
 margin: auto;
 width: 97vw;
+
+
 `
 
 

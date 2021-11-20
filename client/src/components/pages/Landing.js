@@ -6,17 +6,25 @@ import ProductDisplay from '../layout/ProductDisplay';
 import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 
+import styled from 'styled-components';
+
+const Container = styled.div`
+max-width: 100%;
+
+overflow: hidden;
+
+`
 
 const Landing = () => {
     return(
-        <div>
+        <Container>
             <Navbar/>
             <Slider/>
             <Categories/>
             <ProductDisplay/>
             <SubscriptionForm/>
             <Footer/>
-        </div>
+        </Container>
     )
 }
 

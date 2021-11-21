@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {mobile} from '../../responsive';
 
 const Container = styled.div`
 height: 200px;
@@ -7,17 +8,35 @@ width: 97vw;
 `
 
 const Title = styled.h1`
+color: rgba(255, 0, 0, 0.8);
 font-size: 3rem;
 margin: 20px 30px;
+
+${mobile({
+        fontSize: '2.5rem',
+        textAlign: 'center'
+        })};
 `
 const SelectorRow = styled.div`
 display: flex;
 justify-content: space-between;
 padding: 20px 40px;
+
+${mobile({
+    flexWrap: 'wrap',
+        padding: '10px 10px',
+        textAlign: 'center'
+        })};
 `
 
 const SelectorContainer = styled.div`
 line-height: 60px;
+
+${mobile({
+    flex: '100%',
+        })};
+
+
 `
 
 
@@ -26,6 +45,12 @@ const Label = styled.span`
 ${'' /* font-family: font-family: 'Lexend', sans-serif; */}
 font-size: 20px;
 padding: 10px;
+
+${mobile({
+     fontSize: '12px',  
+    display: 'none'
+    
+        })};
 `
 
 const Selector = styled.select`
@@ -40,6 +65,10 @@ padding: 5px 15px;
 &:focus {
     outline: none;
 }
+
+${mobile({
+    fontSize: '12px',
+        })};
 `
 
 const Option = styled.option`

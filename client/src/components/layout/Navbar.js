@@ -105,6 +105,7 @@ ${mobile({
 `
 const Input = styled.input`
 border: 1px solid lightgray;
+cursor: pointer;
 font-size: 20px;
 padding: 5px;
   margin: 5px;
@@ -112,22 +113,31 @@ padding: 5px;
 &:focus{
     border: 1px solid red;
     outline: none;
+
 }
 
 &:hover{
     border: 1px solid black;
-}
 
+}
 
 `
 
+const SearchIcon = styled.div`
+margin-left: -30px;
+
+${mobile({
+    marginLeft: '-25px'
+        })};
+
+`
 
 
 const LZone = styled.div`
 flex: 1;
 
 ${mobile({
-        display: 'none'
+    display: 'none'
         })};
 
 
@@ -148,10 +158,6 @@ flex: 1;
 ${mobile({
        width: '60%'
         })};
-
-${'' /* ${mobile({
-        flex: '2'
-        })}; */}
 
 
 `
@@ -176,8 +182,9 @@ const Navbar = () => {
                             type="text"
                             value={searchState}
                             onChange={handleChange}
-                            placeholder='Search' />
-                        <i className="fas fa-search"></i>
+                            // placeholder='Search' 
+                            />
+                        <SearchIcon><i className="fas fa-search"></i></SearchIcon>
                     </Search>
                 </LZone>
                 <CZone>

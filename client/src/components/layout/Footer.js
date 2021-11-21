@@ -46,6 +46,7 @@ margin: 0 50px;
 width: 100%;
 
 ${mobile({
+    margin: '0 42px',
         textAlign: 'center'
         })};
 `
@@ -82,6 +83,7 @@ margin: 20px 15px;
 width: 90%;
 
 ${mobile({
+    margin: '20px 0',
         width: '100%'
         })};
 `

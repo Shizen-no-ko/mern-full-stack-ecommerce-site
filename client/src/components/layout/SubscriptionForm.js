@@ -49,7 +49,7 @@ width: 100%;
 
 ${mobile({
     borderRadius: '7px',
-    height: '20px'
+    height: '22px'
         
         })};
 
@@ -95,7 +95,8 @@ transform: scale(103%);
 }
 
 ${mobile({
-    borderRadius: '0 7px 7px 0',        
+    borderRadius: '0 7px 7px 0',
+    fontSize: '12px'        
         })};
 
 `

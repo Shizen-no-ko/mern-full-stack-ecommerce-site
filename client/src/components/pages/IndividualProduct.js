@@ -60,7 +60,7 @@ height: 80%;
 justify-content: space-around;
 
 ${mobile({
-    
+    textAlign: 'center'
 })};
 `
 const Title = styled.h1`
@@ -166,6 +166,10 @@ ${'' /* font-family: font-family: 'Lexend', sans-serif; */}
 font-size: 20px;
 font-weight: 200;
 padding: 10px 0 10px 20px;
+
+${mobile({
+    paddingLeft: '0'
+})};
 `
 
 const Selector = styled.select`

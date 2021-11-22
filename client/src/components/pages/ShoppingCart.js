@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { mobile } from '../../responsive';
+
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
@@ -23,6 +25,10 @@ color: rgba(255, 0, 0, 0.9);
 font-size: 3rem;
 font-weight: 400;
 margin-bottom: 0;
+
+${mobile({
+    fontSize: '2rem'
+})};
 `
 
 const ButtonDiv = styled.div`
@@ -34,6 +40,10 @@ width: 100%;
 const DetailsDiv = styled.div`
 display: flex;
 margin: 50px 0;
+
+${mobile({
+    flexDirection: 'column'
+})};
 `
 
 const CartItems = styled.div`
@@ -76,6 +86,11 @@ text-align: center;
     color: white; 
     transform: scale(97%);
 }
+
+${mobile({
+    fontSize: '15px',
+    padding:'5px 7px'
+})};
 `
 
 

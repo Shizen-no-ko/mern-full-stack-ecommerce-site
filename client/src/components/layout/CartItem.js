@@ -1,6 +1,7 @@
 import {useState, useRef } from 'react';
 
 import styled from 'styled-components';
+import { mobile } from '../../responsive';
 
 const Container = styled.div`
 
@@ -9,18 +10,36 @@ const Container = styled.div`
 const Wrapper = styled.div`
 display: flex;
 width: 100%;
+
+${mobile({
+    alignItems: 'center',
+    flexDirection: 'column'
+})};
 `
 
 const ItemImage = styled.img`
 border-radius: 20px 0;
 margin: 20px;
 width: 250px;
+
+${mobile({
+    
+    height: 'auto',
+    margin: '20px 0 0 0',
+    maxWidth: '150px'
+})};
 `
 
 const ItemDetails = styled.div`
 flex: 2;
 margin: 30px 20px 10px;
 text-align: left;
+
+${mobile({
+    margin: '10px 10px 5px',
+    textAlign: 'center',
+    width: '80%'
+})};
 `
 
 const Rule = styled.div`
@@ -34,10 +53,21 @@ const PriceAndAmount = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: space-between;
+
+${mobile({
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: '20px',
+    width: '80%'
+})};
 `
 const Detail = styled.h3`
 margin: 0 0 20px 0;
 font-weight: 400;
+
+${mobile({
+    margin: '5px 0'
+})};
 `
 const Color = styled.div`
 border-radius: 25%;
@@ -45,13 +75,23 @@ background-color: ${props => props.color};
 height: 25px;
 margin: 0 0 20px 0;
 width: 25px;
+
+${mobile({
+    height: '15px',
+    margin: '5px auto',
+    width: '15px'
+})};
 `
 const PlusMinusContainer = styled.div`
 align-items: center;
 display: flex;
-font-weight: 30px;
+font-size: 30px;
 margin: 30px 40px 0;
 
+${mobile({
+    fontSize: '20px',
+    margin: '0'
+})};
 `
 
 const PlusMinusStyles = styled.div`
@@ -73,6 +113,13 @@ height: 35px;
 text-align: center;
 transition: all ease-in-out 0.5s;
 width: 35px;
+
+${mobile({
+    borderRadius: '10px', 
+    fontSize: '20px',
+    height: '25px',
+    width: '25px'
+})};
 `
 const Price = styled.div`
 color: rgba(0 , 0, 0, 0.7);
@@ -81,6 +128,11 @@ font-weight: 200;
 margin: 0 30px 20px;
 
 transition: all ease 0.5s;
+
+${mobile({
+    fontSize: '2rem',
+    margin: '0'
+})};
 `
 
 const CartItem = (props) => {

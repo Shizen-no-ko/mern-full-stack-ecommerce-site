@@ -1,6 +1,8 @@
 import {useRef} from 'react';
 
 import styled from 'styled-components';
+import { mobile } from '../../responsive';
+
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
@@ -11,15 +13,31 @@ height: 100vh;
 max-width: 100%;
 overflow: hidden;
 width: 100vw;
+
+${mobile({
+    backgroundSize: '200% 101%',
+    height: '70vh',
+    margin: '-1px -1px'
+})};
 `
 
 const Wrapper = styled.div`
 margin: 50px auto;
 width: 50%;
+
+${mobile({
+    textAlign: 'center',
+    width: '80%'
+})};
 `
 const Title = styled.h1`
 color: rgba(255, 0, 0, 0.9);
 font-size: 3rem;
+
+${mobile({
+    fontSize: '2rem',
+    marginBottom: '0'
+})};
 `
 
 const Form = styled.form`
@@ -40,6 +58,11 @@ margin: 10px;
 outline: none;
 padding: 10px;
 width: 94%;
+
+${mobile({
+   fontSize: '15px',
+   marginLeft: '0px'
+})};
 `
 const PasswordContainer = styled.div`
 align-items: center;
@@ -51,6 +74,10 @@ cursor: pointer;
 font-size: 20px;
 margin-left: -45px;
 width: 30px;
+
+${mobile({
+   fontSize: '15px'
+})};
 `
 
 const ClosedEye = styled.div`
@@ -59,6 +86,10 @@ display: none;
 font-size: 20px;
 margin-left: -45px;
 width: 30px;
+
+${mobile({
+   fontSize: '15px'
+})};
 `
 
 const Button = styled.button`
@@ -89,11 +120,20 @@ width: 50%;
     border: 3px solid green; 
     transform: scale(97%);
 }
+
+${mobile({
+    fontSize: '17px',
+   width: '80%'
+})};
 `
 const PrivacyPolicy = styled.div`
 margin: 20px auto 0;
 text-align: center;
 width: 75%;
+
+${mobile({
+    fontSize: '0.75rem',
+})};
 `
 
 const Register = (props) => {

@@ -99,7 +99,8 @@ const Button = styled.button`
 all: unset;
 background-color: white;
 border: 4px solid red;
-border-radius: 10px;
+border-radius: 20px 0;
+${'' /* border-radius: 10px; */}
 color: red;
 cursor: pointer;
 font-size: 20px;

@@ -35,6 +35,8 @@ const ButtonDiv = styled.div`
 display: flex;
 justify-content: space-between;
 width: 100%;
+
+
 `
 
 const DetailsDiv = styled.div`
@@ -90,6 +92,7 @@ text-align: center;
 ${mobile({
     fontSize: '15px',
     padding:'5px 7px'
+    
 })};
 `
 

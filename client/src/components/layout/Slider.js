@@ -56,7 +56,8 @@ opacity: 80%;
 const Button = styled.button`
 all: unset;
 background-color: red;
-border-radius: 10px;
+border-radius: 20px 0;
+${'' /* border-radius: 10px; */}
 color: white;
 font-size: 17px;
 outline: none;

@@ -45,9 +45,12 @@ display: flex;
 margin: 0 50px;
 width: 100%;
 
+${'' /* margin: '0 42px', */}
+
 ${mobile({
-    margin: '0 42px',
-        textAlign: 'center'
+        justifyContent: 'center',
+        textAlign: 'center',
+        margin:'0'
         })};
 `
 
@@ -140,6 +143,7 @@ const Payment = styled.div`
 display: flex;
 
 ${mobile({
+        justifyContent: 'center',
         marginTop: '20px'
         })};
 `

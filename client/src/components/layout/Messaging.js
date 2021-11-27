@@ -1,4 +1,4 @@
-import {mobile} from '../../responsive';
+import {mobile, portraitTablet} from '../../responsive';
 
 import styled from 'styled-components';
 
@@ -13,6 +13,10 @@ width: 100%;
 
 ${mobile({
         fontSize: '12px'
+        })};
+
+        ${portraitTablet({
+        fontSize: '18px'
         })};
 
 `

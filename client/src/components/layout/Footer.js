@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {mobile} from '../../responsive';
+import {mobile, portraitTablet} from '../../responsive';
 
 const Container = styled.div`
 display: flex;
@@ -9,6 +9,11 @@ width: 100vw;
 
 ${mobile({
         flexDirection: 'column'
+        })};
+
+        ${portraitTablet({
+        flexDirection: 'column',
+        marginTop: '100px'
         })};
 `
 
@@ -38,6 +43,10 @@ ${mobile({
         width: '100%'
         })};
 
+        ${portraitTablet({
+        width: '100%'
+        })};
+
 `
 
 const LogoContainer = styled.div`
@@ -48,6 +57,12 @@ width: 100%;
 ${'' /* margin: '0 42px', */}
 
 ${mobile({
+        justifyContent: 'center',
+        textAlign: 'center',
+        margin:'0'
+        })};
+
+        ${portraitTablet({
         justifyContent: 'center',
         textAlign: 'center',
         margin:'0'
@@ -70,12 +85,22 @@ margin: 0 30px 0 0;
 ${mobile({
         fontSize: '1.5rem'
         })};
+
+        ${portraitTablet({
+        fontSize: '2rem',
+        marginRight: '0'
+        })};
 `
 const LogoText = styled.h1`
 margin: 0 20px;
 
 ${mobile({
         fontSize: '1.5rem'
+        })};
+
+        ${portraitTablet({
+        fontSize: '2rem',
+        marginLeft: '0'
         })};
 `
 
@@ -87,6 +112,11 @@ width: 90%;
 
 ${mobile({
     margin: '20px 0',
+        width: '100%'
+        })};
+
+        ${portraitTablet({
+    margin: '20px auto',
         width: '100%'
         })};
 `
@@ -103,6 +133,10 @@ margin: auto;
 width: 100%;
 
 ${mobile({
+        textAlign: 'center'
+        })};
+
+        ${portraitTablet({
         textAlign: 'center'
         })};
 `
@@ -133,6 +167,11 @@ ${mobile({
         textAlign: 'center'
         })};
 
+        ${portraitTablet({
+                margin: '20px auto',
+        textAlign: 'center'
+        })};
+
 
 `
 const InfoItem = styled.div`
@@ -143,6 +182,11 @@ const Payment = styled.div`
 display: flex;
 
 ${mobile({
+        justifyContent: 'center',
+        marginTop: '20px'
+        })};
+
+        ${portraitTablet({
         justifyContent: 'center',
         marginTop: '20px'
         })};

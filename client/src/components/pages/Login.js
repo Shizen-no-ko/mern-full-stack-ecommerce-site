@@ -1,7 +1,7 @@
 import {useRef} from 'react';
 
 import styled from 'styled-components';
-import { mobile } from '../../responsive';
+import { mobile, portraitTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -19,6 +19,12 @@ ${mobile({
     height: '60vh',
     margin: '-1px -1px'
 })};
+
+${portraitTablet({
+    backgroundSize: '120% 101%',
+    height: '60vh',
+    margin: '-1px -1px'
+})};
 `
 
 const Wrapper = styled.div`
@@ -26,6 +32,11 @@ margin: 50px auto;
 width: 40%;
 
 ${mobile({
+    textAlign: 'center',
+    width: '80%'
+})};
+
+${portraitTablet({
     textAlign: 'center',
     width: '80%'
 })};
@@ -38,6 +49,11 @@ ${mobile({
     fontSize: '2rem',
     marginBottom: '0'
 })};
+
+${portraitTablet({
+    fontSize: '2.5rem',
+    marginBottom: '0'
+})};
 `
 
 const Form = styled.form`
@@ -47,9 +63,6 @@ display: flex;
 flex-direction: column;
 padding: 20px 15px;
 
-${mobile({
-   
-})};
 `
 
 
@@ -64,6 +77,12 @@ width: 94%;
 
 ${mobile({
    fontSize: '15px',
+   marginLeft: '0px'
+})};
+
+
+${portraitTablet({
+   fontSize: '20px',
    marginLeft: '0px'
 })};
 `
@@ -81,6 +100,10 @@ width: 30px;
 ${mobile({
    fontSize: '15px'
 })};
+
+${portraitTablet({
+   fontSize: '20px'
+})};
 `
 
 const ClosedEye = styled.div`
@@ -92,6 +115,10 @@ width: 30px;
 
 ${mobile({
    fontSize: '15px'
+})};
+
+${portraitTablet({
+   fontSize: '20px'
 })};
 `
 
@@ -127,6 +154,11 @@ width: 50%;
 
 ${mobile({
     fontSize: '17px',
+   width: '80%'
+})};
+
+${portraitTablet({
+    fontSize: '22px',
    width: '80%'
 })};
 

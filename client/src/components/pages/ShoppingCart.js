@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mobile } from '../../responsive';
+import { mobile, portraitTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -29,6 +29,10 @@ margin-bottom: 0;
 ${mobile({
     fontSize: '2rem'
 })};
+
+${portraitTablet({
+    fontSize: '2.75rem'
+})};
 `
 
 const ButtonDiv = styled.div`
@@ -46,6 +50,12 @@ margin: 50px 0;
 ${mobile({
     flexDirection: 'column'
 })};
+
+${portraitTablet({
+    flexDirection: 'column'
+})};
+
+
 `
 
 const CartItems = styled.div`

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { mobile } from '../../responsive';
+import { mobile, portraitTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -18,6 +18,11 @@ overflow: hidden;
 width: 100vw;
 
 ${mobile({
+    height: 'auto'
+})};
+
+
+${portraitTablet({
     height: 'auto'
 })};
 `
@@ -41,6 +46,11 @@ ${mobile({
     alignItems: 'center',
     flexDirection: 'column',
 })};
+
+${portraitTablet({
+    alignItems: 'center',
+    flexDirection: 'column',
+})};
 `
 
 const DetailsContainer = styled.div`
@@ -48,6 +58,10 @@ flex: 1;
 padding: 20px 80px 20px;
 
 ${mobile({
+    padding: '15px 40px 15px',
+})};
+
+${portraitTablet({
     padding: '15px 40px 15px',
 })};
 `
@@ -62,12 +76,21 @@ justify-content: space-around;
 ${mobile({
     textAlign: 'center'
 })};
+
+${portraitTablet({
+    textAlign: 'center'
+})};
 `
 const Title = styled.h1`
 font-weight: 400;
 
 ${mobile({
     fontSize: '2.5rem',
+    marginBottom: '0px'
+})};
+
+${portraitTablet({
+    fontSize: '3rem',
     marginBottom: '0px'
 })};
 `
@@ -78,6 +101,10 @@ font-weight: 200;
 ${mobile({
     fontSize: '1rem'
 })};
+
+${portraitTablet({
+    fontSize: '1.25rem'
+})};
 `
 
 const Price = styled.h4`
@@ -86,6 +113,11 @@ font-size: 2rem;
 
 ${mobile({
     fontSize: '1.5rem',
+    margin: '0px'
+})};
+
+${portraitTablet({
+    fontSize: '1.75rem',
     margin: '0px'
 })};
 `
@@ -118,6 +150,13 @@ ${mobile({
     padding: '5px 10px'
 })};
 
+${portraitTablet({
+    fontSize: '20px',
+    padding: '5px 10px'
+})};
+
+
+
 
 `
 
@@ -129,10 +168,24 @@ ${mobile({
     maxHeight: '280px',
     maxWidth: '100vw'
 })};
+
+${portraitTablet({
+    maxHeight: '350px',
+    maxWidth: '100vw'
+})};
 `
 
 const Img = styled.img`
 height: 80%;
+
+${mobile({
+marginTop: '20px'
+})};
+
+${portraitTablet({
+marginTop: '20px'
+})};
+
 `
 
 const SelectorRow = styled.div`
@@ -146,6 +199,12 @@ ${mobile({
    margin: '0px auto'
 })};
 
+${portraitTablet({
+   alignItems: 'center',
+   margin: '0px auto',
+   paddingTop: '10px'
+})};
+
 `
 
 
@@ -153,6 +212,12 @@ const SelectorContainer = styled.div`
 line-height: 30px;
 
 ${mobile({
+    display: 'flex',
+flexDirection: 'column',
+alignItems: 'center',
+})};
+
+${portraitTablet({
     display: 'flex',
 flexDirection: 'column',
 alignItems: 'center',
@@ -169,6 +234,10 @@ font-weight: 200;
 padding: 10px 0 10px 20px;
 
 ${mobile({
+    paddingLeft: '0'
+})};
+
+${portraitTablet({
     paddingLeft: '0'
 })};
 `
@@ -226,6 +295,12 @@ ${mobile({
     margin: '0 20px 0 -20px'
 })};
 
+${portraitTablet({
+    alignItems: 'center',
+    fontSize: '22px',
+    margin: '0 20px 0 -20px'
+})};
+
 `
 
 const PlusMinusStyles = styled.div`
@@ -250,6 +325,12 @@ ${mobile({
     borderRadius: '10px',
     height: '25px',
     width: '25px'
+})};
+
+${portraitTablet({
+    borderRadius: '12px',
+    height: '30px',
+    width: '30px'
 })};
 `
 

@@ -1,7 +1,7 @@
 import {useState, useRef } from 'react';
 
 import styled from 'styled-components';
-import { mobile } from '../../responsive';
+import { mobile, portraitTablet } from '../../responsive';
 
 const Container = styled.div`
 
@@ -14,6 +14,11 @@ width: 100%;
 ${mobile({
     alignItems: 'center',
     flexDirection: 'column'
+})};
+
+${portraitTablet({
+    alignItems: 'center',
+    flexWrap: 'wrap'
 })};
 `
 
@@ -28,6 +33,13 @@ ${mobile({
     margin: '20px 0 0 0',
     maxWidth: '150px'
 })};
+
+${portraitTablet({
+    
+    height: 'auto',
+    margin: '20px 0 0 40px',
+    maxWidth: '200px'
+})};
 `
 
 const ItemDetails = styled.div`
@@ -38,6 +50,11 @@ text-align: left;
 ${mobile({
     margin: '10px 10px 5px',
     textAlign: 'center',
+    width: '80%'
+})};
+
+${portraitTablet({
+    margin: '10px 10px 5px 30px',
     width: '80%'
 })};
 `
@@ -60,6 +77,13 @@ ${mobile({
     marginBottom: '20px',
     width: '80%'
 })};
+
+${portraitTablet({
+    alignItems: 'center',
+    flexDirection: 'row',
+    margin: '10px 40px 10px 40px',
+    width: '90%'
+})};
 `
 const Detail = styled.h3`
 margin: 0 0 20px 0;
@@ -67,6 +91,10 @@ font-weight: 400;
 
 ${mobile({
     margin: '5px 0'
+})};
+
+${portraitTablet({
+    margin: '10px 0'
 })};
 `
 const Color = styled.div`
@@ -81,6 +109,12 @@ ${mobile({
     margin: '5px auto',
     width: '15px'
 })};
+
+${portraitTablet({
+    height: '20px',
+    margin: '10px 0',
+    width: '20px'
+})};
 `
 const PlusMinusContainer = styled.div`
 align-items: center;
@@ -91,6 +125,11 @@ margin: 30px 40px 0;
 ${mobile({
     fontSize: '20px',
     margin: '0'
+})};
+
+${portraitTablet({
+    fontSize: '25px',
+    margin: '10px 0 0 0'
 })};
 `
 
@@ -120,6 +159,13 @@ ${mobile({
     height: '25px',
     width: '25px'
 })};
+
+${portraitTablet({
+    borderRadius: '12px', 
+    fontSize: '23px',
+    height: '30px',
+    width: '30px'
+})};
 `
 const Price = styled.div`
 color: rgba(0 , 0, 0, 0.7);
@@ -131,6 +177,11 @@ transition: all ease 0.5s;
 
 ${mobile({
     fontSize: '2rem',
+    margin: '0'
+})};
+
+${portraitTablet({
+    fontSize: '2.25rem',
     margin: '0'
 })};
 `

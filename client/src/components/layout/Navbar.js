@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
 import Messaging from './Messaging';
-import {mobile} from '../../responsive';
+import {mobile, portraitTablet} from '../../responsive';
 
 
 const Container = styled.div`
     height: 80px;
 
     ${mobile({
+        height: '120px'
+        })};
+
+        ${portraitTablet({
         height: '120px'
         })};
 `
@@ -23,6 +27,11 @@ padding: 10px 20px;
 ${mobile({
     flexDirection:'column',
         })}
+
+        ${portraitTablet({
+        flexDirection: "column",
+        marginTop: '20px'
+        })};
 
 `
 
@@ -50,6 +59,13 @@ ${mobile({
         
         })};
 
+        ${portraitTablet({
+            
+        justifyContent: 'space-between'
+        })};
+
+      
+
 ${'' /* ${mobile({
         justifyContent: 'space-between'
         })}; */}
@@ -70,6 +86,11 @@ ${mobile({
         margin: '7px 5px'
         })};
 
+        ${portraitTablet({
+        fontSize: '20px',
+        margin: '12px 10px'
+        })};
+
 `
 
 const LogoTextContainer = styled.div`
@@ -86,6 +107,11 @@ ${mobile({
         margin: '0 5px'
         })};
 
+        ${portraitTablet({
+        fontSize: '35px',
+        margin: '0 10px'
+        })};
+
 `
 const LogoText = styled.h1`
 margin: 0;
@@ -94,12 +120,20 @@ ${mobile({
         fontSize: '2rem'
         })};
 
+        ${portraitTablet({
+        fontSize: "2.5rem"
+        })};
+
 `
 const Subtitle = styled.h5`
 margin: 0;
 
 ${mobile({
         display: 'none'
+        })};
+
+        ${portraitTablet({
+        display: "none"
         })};
 
 `
@@ -140,6 +174,10 @@ ${mobile({
     display: 'none'
         })};
 
+        ${portraitTablet({
+        display: "none"
+        })};
+
 
 `
 const CZone = styled.div`
@@ -151,11 +189,17 @@ ${mobile({
         flexDirection: 'column'
         })};
 
+        
+
 `
 const RZone = styled.div`
 flex: 1;
 
 ${mobile({
+       width: '60%'
+        })};
+
+        ${portraitTablet({
        width: '60%'
         })};
 

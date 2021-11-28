@@ -1,7 +1,7 @@
 import {useState, useRef } from 'react';
 
 import styled from 'styled-components';
-import { mobile, portraitTablet } from '../../responsive';
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 const Container = styled.div`
 
@@ -17,6 +17,11 @@ ${mobile({
 })};
 
 ${portraitTablet({
+    alignItems: 'center',
+    flexWrap: 'wrap'
+})};
+
+${landscapeTablet({
     alignItems: 'center',
     flexWrap: 'wrap'
 })};
@@ -40,6 +45,13 @@ ${portraitTablet({
     margin: '20px 0 0 40px',
     maxWidth: '200px'
 })};
+
+${landscapeTablet({
+    height: '150px',
+    margin: '20px 0 0 40px',
+    maxWidth: '200px',
+    width: 'auto'
+})};
 `
 
 const ItemDetails = styled.div`
@@ -55,6 +67,11 @@ ${mobile({
 
 ${portraitTablet({
     margin: '10px 10px 5px 30px',
+    width: '80%'
+})};
+
+${landscapeTablet({
+    margin: '50px 10px 0px 30px',
     width: '80%'
 })};
 `
@@ -82,6 +99,13 @@ ${portraitTablet({
     alignItems: 'center',
     flexDirection: 'row',
     margin: '10px 40px 10px 40px',
+    width: '90%'
+})};
+
+${landscapeTablet({
+    alignItems: 'center',
+    flexDirection: 'row',
+    margin: '-20px 40px 10px',
     width: '90%'
 })};
 `
@@ -131,6 +155,11 @@ ${portraitTablet({
     fontSize: '25px',
     margin: '10px 0 0 0'
 })};
+
+${landscapeTablet({
+    fontSize: '25px',
+    margin: '10px 0 0 0'
+})};
 `
 
 const PlusMinusStyles = styled.div`
@@ -166,6 +195,13 @@ ${portraitTablet({
     height: '30px',
     width: '30px'
 })};
+
+${landscapeTablet({
+    borderRadius: '12px', 
+    fontSize: '23px',
+    height: '30px',
+    width: '30px'
+})};
 `
 const Price = styled.div`
 color: rgba(0 , 0, 0, 0.7);
@@ -181,6 +217,11 @@ ${mobile({
 })};
 
 ${portraitTablet({
+    fontSize: '2.25rem',
+    margin: '0'
+})};
+
+${landscapeTablet({
     fontSize: '2.25rem',
     margin: '0'
 })};

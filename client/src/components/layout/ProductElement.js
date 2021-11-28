@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {mobile} from '../../responsive';
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 
 const Container = styled.div`
@@ -10,8 +10,12 @@ margin: 5px;
 position: relative;
 
 ${mobile({
-        flexBasis: '33%',
-        })};
+    flexBasis: '33%',
+})};
+
+        ${portraitTablet({
+    flexBasis: '33%',
+})};
 `
 
 const Img = styled.img`
@@ -38,9 +42,6 @@ transition: ease 0.5s;
 const Icon = styled.div`
 background-color: rgba(0, 0, 0, 0.5);
 cursor: pointer;
-${'' /* background-color: white; */}
-${'' /* border: 3px solid white; */}
-${'' /* border-radius: 5px; */}
 border: none;
 bottom: ${props => props.topbottom === 'bottom' ? '4px' : null};
 color: white;
@@ -63,27 +64,38 @@ width: 40px;
     border-radius: ${props => props.topbottom === 'top' ? '0 0 10px 0' : props.leftright === 'right' ? '10px 0 0 0' : '60px'};
     opacity: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? '0%' : '100%'};
     transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'translate(1000%, -750%) scale(0%)' : 'scale(120%)'};
-    transition: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'linear 0.5s': ''};
+    transition: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'linear 0.5s' : ''};
 }
 
 ${mobile({
-        fontSize: '15px',
-        height: '18px',
-        width: '20px'
-        })};
+    fontSize: '15px',
+    height: '18px',
+    width: '20px'
+})};
+
+${portraitTablet({
+    fontSize: '20px',
+    height: '22px',
+    width: '25px'
+})};
+
+${landscapeTablet({
+    fontSize: '20px',
+    height: '22px',
+    width: '25px'
+})};
 `
 
-const ProductElement = ({element}) => {
-    return(
-       <Container>
-       <Img src={element.img}/>
-       <IconContainer>
-       <Icon topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
-       <Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon>
-       <Icon topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
-       </IconContainer>
-      
-       </Container>
+const ProductElement = ({ element }) => {
+    return (
+        <Container>
+            <Img src={element.img} />
+            <IconContainer>
+                <Icon topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
+                <Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon>
+                <Icon topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
+            </IconContainer>
+        </Container>
     )
 }
 

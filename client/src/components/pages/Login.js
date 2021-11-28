@@ -1,7 +1,7 @@
 import {useRef} from 'react';
 
 import styled from 'styled-components';
-import { mobile, portraitTablet } from '../../responsive';
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -25,6 +25,12 @@ ${portraitTablet({
     height: '60vh',
     margin: '-1px -1px'
 })};
+
+${landscapeTablet({
+    backgroundSize: '102% 100%',
+    height: '500px',
+    margin: '-1px -1px'
+})};
 `
 
 const Wrapper = styled.div`
@@ -39,6 +45,11 @@ ${mobile({
 ${portraitTablet({
     textAlign: 'center',
     width: '80%'
+})};
+
+${landscapeTablet({
+    fontSize: '22px',
+   width: '60%'
 })};
 `
 const Title = styled.h1`
@@ -168,6 +179,11 @@ const PasswordForgotten = styled.div`
 margin: 20px auto 0;
 text-align: center;
 width: 75%;
+
+${landscapeTablet({
+    fontSize: '18px'
+})};
+
 `
 
 

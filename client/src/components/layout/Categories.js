@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {mobile} from '../../responsive';
+import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 import CategoryElement from './CategoryElement';
 import {categoriesData} from '../../data/data.js';
@@ -15,6 +15,15 @@ width: 97vw;
 ${mobile({
         flexDirection: 'column',
         height: 'auto'
+        })};
+
+        ${portraitTablet({
+        flexDirection: 'column',
+        height: 'auto'
+        })};
+
+        ${landscapeTablet({
+        height: '200px'
         })};
 
 `

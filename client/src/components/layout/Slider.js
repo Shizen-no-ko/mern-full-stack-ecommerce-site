@@ -2,7 +2,7 @@
 import {useState} from 'react';
 import styled from 'styled-components';
 import {sliderData} from '../../data/data.js';
-import {mobile} from '../../responsive';
+import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 
 const Container = styled.div`
@@ -16,6 +16,18 @@ ${mobile({
         display: 'none'
         })};
 
+        ${portraitTablet({
+        display: 'none'
+        })};
+
+        
+        ${landscapeTablet({
+    height: '300px',
+        })};    
+
+     
+
+
 `
 
 const Wrapper = styled.div`
@@ -24,6 +36,12 @@ display:flex;
 transform: translate(${props => props.scrollPos * -100}vw);
 transition: all 1.5s ease;
 width: 100vw;
+
+${landscapeTablet({
+    height: '300px',
+        })};
+
+
 `
 const Slide = styled.div`
 ${'' /* align-items: center; */}
@@ -32,15 +50,33 @@ height: 100vh;
 justify-content: flex-start;
 overflow: hidden;
 width: 100vw;
+
+${landscapeTablet({
+    height: '300px',
+        })};
+
+
 `
 
 const DetailsContainer = styled.div`
 flex: 1;
 padding: 50px 80px 50px;
+
+${landscapeTablet({
+    height: '300px',
+    padding: '0px 60px 30px'
+        })};
+
 `
 
 const Details = styled.div`
 font-size: 2rem;
+
+${landscapeTablet({
+  fontSize: '1rem'
+        })};
+
+     
 `
 const Title = styled.h1`
 
@@ -48,6 +84,10 @@ const Title = styled.h1`
 
 const Description = styled.p`
 letter-spacing: 5px;
+
+${landscapeTablet({
+    letterSpacing: '3px'
+        })};
 `
 
 const Price = styled.h4`
@@ -72,15 +112,30 @@ cursor: pointer;
     transform: scale(97%);
 }
 
+${landscapeTablet({
+    fontSize: '15px'
+        })};
+
 `
 
 const ImageContainer = styled.div`
 flex: 1;
 height: 100%;
+
+
+${landscapeTablet({
+    height: '300px',
+        })};
+
 `
 
 const Img = styled.img`
 height: 80%;
+
+${landscapeTablet({
+    height: 'auto',
+    width: '50vw'
+        })};
 `
 
 const Scroller = styled.div`
@@ -106,6 +161,13 @@ z-index: 2;
     transform: scale(103%);
     transition: ease-in-out 0.075s;
 }
+
+${landscapeTablet({
+    fontSize: '30px',
+    height: '40px',
+    top: '240px',
+    width: '40px'
+        })};
 `
 
 const Slider = (props) => {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {mobile} from '../../responsive';
+import {mobile, landscapeTablet} from '../../responsive';
 
 const Container = styled.div`
 cursor: pointer;
@@ -40,6 +40,11 @@ z-index: 2;
 
 ${mobile({
     fontSize: '2.5rem'        
+        })};
+
+        ${landscapeTablet({
+            fontSize: '1.75rem',
+            right: '10px'
         })};
 
 `

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {mobile} from '../../responsive';
+import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 const Container = styled.div`
 height: 200px;
@@ -16,6 +16,11 @@ ${mobile({
         fontSize: '2.5rem',
         textAlign: 'center'
         })};
+
+        ${portraitTablet({
+        textAlign: 'center'
+        })};
+
 `
 const SelectorRow = styled.div`
 display: flex;
@@ -27,12 +32,29 @@ ${mobile({
         padding: '10px 10px',
         textAlign: 'center'
         })};
+
+        ${portraitTablet({
+    flexWrap: 'wrap',
+        padding: '10px 10px',
+        textAlign: 'center'
+        })};
+
+        ${landscapeTablet({
+    flexWrap: 'wrap',
+    marginLeft: '40px',
+        padding: '10px 10px',
+        textAlign: 'center'
+        })};
 `
 
 const SelectorContainer = styled.div`
 line-height: 60px;
 
 ${mobile({
+    flex: '100%',
+        })};
+
+        ${portraitTablet({
     flex: '100%',
         })};
 
@@ -49,7 +71,10 @@ padding: 10px;
 ${mobile({
      fontSize: '12px',  
     display: 'none'
-    
+        })};
+
+        ${portraitTablet({ 
+    display: 'none'
         })};
 `
 
@@ -68,6 +93,10 @@ padding: 5px 15px;
 
 ${mobile({
     fontSize: '12px',
+        })};
+
+        ${portraitTablet({
+    fontSize: '15px',
         })};
 `
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
 import Messaging from './Messaging';
-import {mobile, portraitTablet} from '../../responsive';
+import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 
 const Container = styled.div`
@@ -42,9 +42,6 @@ justify-content: flex-start;
 line-height: 25px;
 display: flex;
 
-${mobile({
-        fontSize: '12px'
-        })};
 
 `
 
@@ -65,11 +62,6 @@ ${mobile({
         })};
 
       
-
-${'' /* ${mobile({
-        justifyContent: 'space-between'
-        })}; */}
-
 `
 
 const MenuItem = styled.div`
@@ -91,11 +83,21 @@ ${mobile({
         margin: '12px 10px'
         })};
 
+        ${landscapeTablet({
+            fontSize: '15px',
+        margin: '10px'
+        })};
+
 `
+
 
 const LogoTextContainer = styled.div`
 margin: 0 15px;
 text-align: center;
+
+${landscapeTablet({
+            margin: '0 auto 0 15px'
+        })};
 `
 
 const Logo = styled.h1`
@@ -112,6 +114,11 @@ ${mobile({
         margin: '0 10px'
         })};
 
+        ${landscapeTablet({
+        fontSize: '35px',
+        margin: '0 10px 0 auto'
+        })};
+
 `
 const LogoText = styled.h1`
 margin: 0;
@@ -122,6 +129,10 @@ ${mobile({
 
         ${portraitTablet({
         fontSize: "2.5rem"
+        })};
+
+        ${landscapeTablet({
+        fontSize: "2rem"
         })};
 
 `
@@ -155,6 +166,11 @@ padding: 5px;
 
 }
 
+${landscapeTablet({
+    fontSize: '15px',
+       width: '150px'
+        })};
+
 `
 
 const SearchIcon = styled.div`
@@ -162,6 +178,10 @@ margin-left: -30px;
 
 ${mobile({
     marginLeft: '-25px'
+        })};
+
+        ${landscapeTablet({
+    fontSize: '15px',
         })};
 
 `
@@ -189,7 +209,9 @@ ${mobile({
         flexDirection: 'column'
         })};
 
-        
+        ${landscapeTablet({
+        flex: '2',
+        })};
 
 `
 const RZone = styled.div`
@@ -201,6 +223,10 @@ ${mobile({
 
         ${portraitTablet({
        width: '60%'
+        })};
+
+        ${landscapeTablet({
+        flex: '1.25'
         })};
 
 
@@ -232,7 +258,7 @@ const Navbar = () => {
                     </Search>
                 </LZone>
                 <CZone>
-                    <Logo> <i className="fas fa-torii-gate"></i></Logo>
+                <Logo> <i className="fas fa-torii-gate"></i></Logo>
                     <LogoTextContainer>
                         <LogoText>
                             Nihon no Mono

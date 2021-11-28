@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { mobile, portraitTablet } from '../../responsive';
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -25,6 +25,10 @@ ${mobile({
 ${portraitTablet({
     height: 'auto'
 })};
+
+${landscapeTablet({
+    height: '300px',
+        })};  
 `
 
 const Wrapper = styled.div`
@@ -33,6 +37,8 @@ display:flex;
 ${'' /* transform: translate(${props => props.scrollPos * -100}vw); */}
 ${'' /* transition: all 1.5s ease; */}
 width: 100vw;
+
+
 `
 const Slide = styled.div`
 ${'' /* align-items: center; */}
@@ -51,6 +57,10 @@ ${portraitTablet({
     alignItems: 'center',
     flexDirection: 'column',
 })};
+
+${landscapeTablet({
+    height: '300px',
+        })};
 `
 
 const DetailsContainer = styled.div`
@@ -64,6 +74,12 @@ ${mobile({
 ${portraitTablet({
     padding: '15px 40px 15px',
 })};
+
+${landscapeTablet({
+    padding: '0px 20px 15px',
+})};
+
+
 `
 
 const Details = styled.div`
@@ -80,6 +96,12 @@ ${mobile({
 ${portraitTablet({
     textAlign: 'center'
 })};
+
+${landscapeTablet({
+    fontSize: '1rem',
+    height: '300px',
+    justifyContent: 'space-between'
+        })};
 `
 const Title = styled.h1`
 font-weight: 400;
@@ -93,6 +115,11 @@ ${portraitTablet({
     fontSize: '3rem',
     marginBottom: '0px'
 })};
+
+${landscapeTablet({
+    fontSize: '2rem',
+    margin: '10px 0 0'
+})};
 `
 
 const Description = styled.p`
@@ -104,6 +131,10 @@ ${mobile({
 
 ${portraitTablet({
     fontSize: '1.25rem'
+})};
+
+${landscapeTablet({
+marginTop: '0'
 })};
 `
 
@@ -118,6 +149,11 @@ ${mobile({
 
 ${portraitTablet({
     fontSize: '1.75rem',
+    margin: '0px'
+})};
+
+${landscapeTablet({
+    fontSize: '1.5rem',
     margin: '0px'
 })};
 `
@@ -155,6 +191,10 @@ ${portraitTablet({
     padding: '5px 10px'
 })};
 
+${landscapeTablet({
+    fontSize: '18px',
+    padding: '5px 10px'
+})};
 
 
 
@@ -186,6 +226,10 @@ ${portraitTablet({
 marginTop: '20px'
 })};
 
+${landscapeTablet({
+height: '100%'
+})};
+
 `
 
 const SelectorRow = styled.div`
@@ -205,6 +249,14 @@ ${portraitTablet({
    paddingTop: '10px'
 })};
 
+${landscapeTablet({
+   margin: '0px',
+   padding: '0px',
+   flexWrap: 'wrap',
+})};
+
+
+
 `
 
 
@@ -223,6 +275,8 @@ flexDirection: 'column',
 alignItems: 'center',
 })};
 
+
+
 `
 
 
@@ -240,6 +294,11 @@ ${mobile({
 ${portraitTablet({
     paddingLeft: '0'
 })};
+
+${landscapeTablet({
+    fontSize: '15px',
+    paddingLeft: '0'
+})};
 `
 
 const Selector = styled.select`
@@ -254,6 +313,13 @@ padding: 5px 15px;
 &:focus {
     outline: none;
 }
+
+${landscapeTablet({
+    fontSize: '15px',
+    marginRight: '32vw'
+})};
+
+
 `
 
 const Option = styled.option`
@@ -301,6 +367,12 @@ ${portraitTablet({
     margin: '0 20px 0 -20px'
 })};
 
+${landscapeTablet({
+    alignItems: 'center',
+    fontSize: '22px',
+    marginLeft: '0'
+})};
+
 `
 
 const PlusMinusStyles = styled.div`
@@ -328,6 +400,12 @@ ${mobile({
 })};
 
 ${portraitTablet({
+    borderRadius: '12px',
+    height: '30px',
+    width: '30px'
+})};
+
+${landscapeTablet({
     borderRadius: '12px',
     height: '30px',
     width: '30px'

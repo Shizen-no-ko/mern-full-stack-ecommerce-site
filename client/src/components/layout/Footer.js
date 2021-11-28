@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {mobile, portraitTablet} from '../../responsive';
+import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 const Container = styled.div`
 display: flex;
@@ -12,6 +12,11 @@ ${mobile({
         })};
 
         ${portraitTablet({
+        flexDirection: 'column',
+        marginTop: '100px'
+        })};
+
+        ${landscapeTablet({
         flexDirection: 'column',
         marginTop: '100px'
         })};
@@ -47,6 +52,10 @@ ${mobile({
         width: '100%'
         })};
 
+        ${landscapeTablet({
+        width: '100%'
+        })};
+
 `
 
 const LogoContainer = styled.div`
@@ -63,6 +72,12 @@ ${mobile({
         })};
 
         ${portraitTablet({
+        justifyContent: 'center',
+        textAlign: 'center',
+        margin:'0'
+        })};
+
+        ${landscapeTablet({
         justifyContent: 'center',
         textAlign: 'center',
         margin:'0'
@@ -90,6 +105,11 @@ ${mobile({
         fontSize: '2rem',
         marginRight: '0'
         })};
+
+        ${landscapeTablet({
+        fontSize: '2rem',
+        marginRight: '0'
+        })};
 `
 const LogoText = styled.h1`
 margin: 0 20px;
@@ -99,6 +119,11 @@ ${mobile({
         })};
 
         ${portraitTablet({
+        fontSize: '2rem',
+        marginLeft: '0'
+        })};
+
+        ${landscapeTablet({
         fontSize: '2rem',
         marginLeft: '0'
         })};
@@ -116,6 +141,11 @@ ${mobile({
         })};
 
         ${portraitTablet({
+    margin: '20px auto',
+        width: '100%'
+        })};
+
+        ${landscapeTablet({
     margin: '20px auto',
         width: '100%'
         })};
@@ -137,6 +167,10 @@ ${mobile({
         })};
 
         ${portraitTablet({
+        textAlign: 'center'
+        })};
+
+        ${landscapeTablet({
         textAlign: 'center'
         })};
 `
@@ -172,6 +206,11 @@ ${mobile({
         textAlign: 'center'
         })};
 
+        ${landscapeTablet({
+                margin: '20px auto',
+        textAlign: 'center'
+        })};
+
 
 `
 const InfoItem = styled.div`
@@ -187,6 +226,11 @@ ${mobile({
         })};
 
         ${portraitTablet({
+        justifyContent: 'center',
+        marginTop: '20px'
+        })};
+
+        ${landscapeTablet({
         justifyContent: 'center',
         marginTop: '20px'
         })};

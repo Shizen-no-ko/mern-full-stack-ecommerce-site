@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {mobile, portraitTablet} from '../../responsive';
+import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 
 import styled from 'styled-components';
@@ -26,6 +26,10 @@ ${mobile({
         width: '80%'
         })};
 
+        ${landscapeTablet({
+        width: '80%'
+        })};
+
       
 
 `
@@ -41,6 +45,10 @@ ${mobile({
         ${portraitTablet({
         fontSize: '2.5rem'
         })};
+
+        ${landscapeTablet({
+        fontSize: '2.5rem'
+        })};
 `
 const Message = styled.h3`
 ${'' /* padding: 0; */}
@@ -51,6 +59,10 @@ ${mobile({
         })};
 
         ${portraitTablet({
+        fontSize: '1.35rem'
+        })};
+
+        ${landscapeTablet({
         fontSize: '1.35rem'
         })};
 `
@@ -67,6 +79,11 @@ ${mobile({
         })};
 
         ${portraitTablet({
+    borderRadius: '10px',
+    height: '35px'
+        })};
+
+        ${landscapeTablet({
     borderRadius: '10px',
     height: '35px'
         })};

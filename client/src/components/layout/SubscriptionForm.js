@@ -85,7 +85,9 @@ ${mobile({
 
         ${landscapeTablet({
     borderRadius: '10px',
-    height: '35px'
+    height: '35px',
+    margin:'auto',
+    width: '70%'
         })};
 
 `

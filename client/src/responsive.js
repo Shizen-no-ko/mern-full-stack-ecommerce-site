@@ -18,7 +18,7 @@ export const portraitTablet = (props) => {
 
 export const landscapeTablet = (props) => {
     return css`
-    @media only screen and (min-device-width: 768px) and (max-device-width: 992px) {
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1060px) {
         ${props}
     };
     `     

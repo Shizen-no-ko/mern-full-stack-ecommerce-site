@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
+
 import CategoryElement from './CategoryElement';
 import {categoriesData} from '../../data/data.js';
 

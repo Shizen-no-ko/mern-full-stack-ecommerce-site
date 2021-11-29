@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {mobile, landscapeTablet} from '../../responsive';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
 cursor: pointer;
@@ -53,9 +54,10 @@ ${mobile({
 const CategoryElement = ({element}) => {
     return(
        <Container>
+       <Link to={`products/${element.title}`}>
            <Img src={element.img}/>
            <Title>{element.title}</Title>
-          
+          </Link>
        </Container>
     )
 }

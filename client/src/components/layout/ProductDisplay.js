@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 // import {mobile} from '../../responsive';
+import {useLocation} from 'react-router-dom';
 
 import ProductElement from './ProductElement.js';
 
@@ -19,13 +20,19 @@ width: 97vw;
 
 
 const ProductDisplay = () => {
+    const locationArray = useLocation().pathname.split('/');
+
+    const category = locationArray[locationArray.length - 1];
     return(
        <Container>
        {
         productData.map((product, i) => { 
-            return(
+            if(product.category === category){
+                return(
                 <ProductElement key={i} element={product}/>   
                 )
+            }
+            
        })
        }
        </Container>

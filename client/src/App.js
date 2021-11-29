@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
 import Landing from './components/pages/Landing';
@@ -10,16 +10,18 @@ import Register from './components/pages/Register';
 import ShoppingCart from './components/pages/ShoppingCart';
 
 function App() {
+  const user = true;
+
   return (
     <Router>
  <Fragment>
    <Route exact path="/" component={Landing} />
    <Switch>
-   <Route exact path="/login" component={Login} />
-   <Route exact path="/register" component={Register} />
+   <Route exact path="/login">{user ? <Redirect to='/'/> : <Login/>}</Route>
+   <Route exact path="/register">{user ? <Redirect to='/'/> : <Register/>}</Route>
    <Route exact path="/cart" component={ShoppingCart} />
-   <Route exact path="/product" component={IndividualProduct} />
-   <Route exact path="/products" component={ProductsFilter} />
+   <Route exact path="/product/:id" component={IndividualProduct} />
+   <Route exact path="/products/:category" component={ProductsFilter} />
    </Switch>
     </Fragment>
     </Router>

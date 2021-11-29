@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import './App.css';
 
-// import Landing from './components/pages/Landing';
-import ProductsFilter from './components/pages/ProductsFilter';
+import Landing from './components/pages/Landing';
+// import ProductsFilter from './components/pages/ProductsFilter';
 // import IndividualProduct from './components/pages/IndividualProduct';
 // import Login from './components/pages/Login';
 // import Register from './components/pages/Register';
@@ -11,7 +11,7 @@ import ProductsFilter from './components/pages/ProductsFilter';
 function App() {
   return (
     <Fragment>
-    <ProductsFilter/>
+    <Landing/>
     </Fragment>
   );
 }

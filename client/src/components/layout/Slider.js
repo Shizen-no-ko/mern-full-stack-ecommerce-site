@@ -119,8 +119,9 @@ ${landscapeTablet({
 `
 
 const ImageContainer = styled.div`
-flex: 1;
+flex: 2;
 height: 100%;
+max-width: 100%;
 
 
 ${landscapeTablet({
@@ -131,6 +132,9 @@ ${landscapeTablet({
 
 const Img = styled.img`
 height: 80%;
+max-width: 100%;
+object-fit: cover;
+
 
 ${landscapeTablet({
     height: 'auto',

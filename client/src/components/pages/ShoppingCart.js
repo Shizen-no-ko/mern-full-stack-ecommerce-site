@@ -63,9 +63,9 @@ flex: 3;
 `
 
 
-const SummaryDiv = styled.div`
-flex: 1;
-`
+// const SummaryDiv = styled.div`
+// flex: 1;
+// `
 
 const Button = styled.button`
 all: unset;

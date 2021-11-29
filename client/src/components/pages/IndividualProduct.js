@@ -216,18 +216,22 @@ ${portraitTablet({
 `
 
 const Img = styled.img`
-height: 80%;
+max-height: 80%;
+max-width: 100%;
+object-fit: cover;
 
 ${mobile({
 marginTop: '20px'
 })};
 
 ${portraitTablet({
-marginTop: '20px'
+    height: '100%',
+marginTop: '20px',
+maxHeight: '100%',
 })};
 
 ${landscapeTablet({
-height: '100%'
+maxHeight: '100%'
 })};
 
 `
@@ -274,12 +278,11 @@ ${portraitTablet({
 flexDirection: 'column',
 alignItems: 'center',
 })};
-
-
-
 `
 
+const SelectorGroup = styled.div`
 
+`
 
 const Label = styled.span`
 ${'' /* font-family: font-family: 'Lexend', sans-serif; */}
@@ -316,7 +319,7 @@ padding: 5px 15px;
 
 ${landscapeTablet({
     fontSize: '15px',
-    marginRight: '32vw'
+    marginRight: 'auto'
 })};
 
 
@@ -461,8 +464,9 @@ const IndividualProduct = () => {
                                 <Price>{product.price}</Price>
                                 <SelectorRow>
                                     <SelectorContainer>
-                                        <Label>Size: </Label>
-                                        <Selector name='size' pos='right' defaultValue='M' placeholder='M'>
+                                    <SelectorGroup>
+                                    <Label>Size: </Label>
+                                    <Selector name='size' pos='right' defaultValue='M' placeholder='M'>
                                             <Option>XS</Option>
                                             <Option>S</Option>
                                             <Option>M</Option>
@@ -470,6 +474,9 @@ const IndividualProduct = () => {
                                             <Option>XL</Option>
                                             <Option>XXL</Option>
                                         </Selector>
+                                    </SelectorGroup>
+                                       
+                                        <SelectorGroup>
                                         <Label>Color: </Label>
                                         <ColorContainer>
                                             <ColorOption color="red" />
@@ -482,6 +489,8 @@ const IndividualProduct = () => {
                                             <ColorOption color="blue" />
                                             <ColorOption color="white" border='black' />
                                         </ColorContainer>
+                                        </SelectorGroup>
+                                       
                                     </SelectorContainer>
                                 </SelectorRow>
                                 <SelectorRow>

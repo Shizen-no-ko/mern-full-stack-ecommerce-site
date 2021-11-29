@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -192,6 +192,26 @@ ${landscapeTablet({
 
 const Register = (props) => {
 
+const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirm:''
+});
+
+const { name, email, password, passwordConfirm } = formData;
+
+const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
+
+const onSubmit = (e) => {
+    e.preventDefault();
+    if (password !== passwordConfirm){
+        console.log("Passwords Do Not Match")
+    }else{
+        console.log(formData)
+    }
+};
+
 const eyeRef1 = useRef(null);
 const closedEyeRef1 = useRef(null);
 const eyeRef2 = useRef(null);
@@ -220,18 +240,18 @@ const closeEye = (pos) => {
             <Container>
             <Wrapper>
             <Title>Create Your Account</Title>
-                    <Form>
-                    <Input name='name' type='text' placeholder='Your Name'></Input>
-                        <Input name='email' type='email' placeholder='Your Email'></Input>
+                    <Form onSubmit={e => onSubmit(e)}>
+                    <Input onChange={e => onChange(e)} name='name' type='text' value={name} placeholder='Your Name'></Input>
+                        <Input onChange={e => onChange(e)} name='email' type='email' value={email} placeholder='Your Email'></Input>
                         <PasswordContainer>
-                        <Input ref={passwordRef1} name='password' type='password' placeholder='Choose a Password'></Input>
-                        <Eye onClick={() => openEye(0)} ref={eyeRef1} ><i class="fas fa-eye"></i></Eye>
-                        <ClosedEye onClick={() => closeEye(0)} ref={closedEyeRef1}><i class="fas fa-eye-slash"></i></ClosedEye>
+                        <Input onChange={e => onChange(e)} ref={passwordRef1} name='password' type='password' value={password} placeholder='Choose a Password'></Input>
+                        <Eye onClick={() => openEye(0)} ref={eyeRef1} ><i className="fas fa-eye"></i></Eye>
+                        <ClosedEye onClick={() => closeEye(0)} ref={closedEyeRef1}><i className="fas fa-eye-slash"></i></ClosedEye>
                         </PasswordContainer>
                         <PasswordContainer>
-                        <Input ref={passwordRef2} name='password-confirmation' type='password' placeholder='Re-enter Password'></Input>
-                        <Eye onClick={() => openEye(1)} ref={eyeRef2}><i class="fas fa-eye"></i></Eye>
-                        <ClosedEye onClick={() => closeEye(1)} ref={closedEyeRef2}><i class="fas fa-eye-slash"></i></ClosedEye>
+                        <Input onChange={e => onChange(e)} ref={passwordRef2} name='passwordConfirm' type='password' value={passwordConfirm} placeholder='Re-enter Password'></Input>
+                        <Eye onClick={() => openEye(1)} ref={eyeRef2}><i className="fas fa-eye"></i></Eye>
+                        <ClosedEye onClick={() => closeEye(1)} ref={closedEyeRef2}><i className="fas fa-eye-slash"></i></ClosedEye>
                         </PasswordContainer>
                         <PrivacyPolicy>By creating this account, I consent to the processing of my personal data in accordance with the <b>Privacy Policy</b></PrivacyPolicy>
                         <Button>Sign Me Up</Button>

@@ -241,8 +241,8 @@ const closeEye = (pos) => {
             <Wrapper>
             <Title>Create Your Account</Title>
                     <Form onSubmit={e => onSubmit(e)}>
-                    <Input onChange={e => onChange(e)} name='name' type='text' value={name} placeholder='Your Name'></Input>
-                        <Input onChange={e => onChange(e)} name='email' type='email' value={email} placeholder='Your Email'></Input>
+                    <Input onChange={e => onChange(e)} required name='name' type='text' value={name} placeholder='Your Name'></Input>
+                        <Input onChange={e => onChange(e)} required name='email' type='email' value={email} placeholder='Your Email'></Input>
                         <PasswordContainer>
                         <Input onChange={e => onChange(e)} ref={passwordRef1} name='password' type='password' value={password} placeholder='Choose a Password'></Input>
                         <Eye onClick={() => openEye(0)} ref={eyeRef1} ><i className="fas fa-eye"></i></Eye>

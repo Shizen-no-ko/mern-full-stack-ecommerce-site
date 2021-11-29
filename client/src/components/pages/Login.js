@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import { useRef, useState } from 'react';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -51,7 +51,7 @@ ${portraitTablet({
 
 ${landscapeTablet({
     fontSize: '22px',
-   width: '60%'
+    width: '60%'
 })};
 `
 const Title = styled.h1`
@@ -89,14 +89,14 @@ padding: 10px;
 width: 94%;
 
 ${mobile({
-   fontSize: '15px',
-   marginLeft: '0px'
+    fontSize: '15px',
+    marginLeft: '0px'
 })};
 
 
 ${portraitTablet({
-   fontSize: '20px',
-   marginLeft: '0px'
+    fontSize: '20px',
+    marginLeft: '0px'
 })};
 `
 const PasswordContainer = styled.div`
@@ -111,11 +111,11 @@ margin-left: -45px;
 width: 30px;
 
 ${mobile({
-   fontSize: '15px'
+    fontSize: '15px'
 })};
 
 ${portraitTablet({
-   fontSize: '20px'
+    fontSize: '20px'
 })};
 `
 
@@ -127,11 +127,11 @@ margin-left: -45px;
 width: 30px;
 
 ${mobile({
-   fontSize: '15px'
+    fontSize: '15px'
 })};
 
 ${portraitTablet({
-   fontSize: '20px'
+    fontSize: '20px'
 })};
 `
 
@@ -167,12 +167,12 @@ width: 50%;
 
 ${mobile({
     fontSize: '17px',
-   width: '80%'
+    width: '80%'
 })};
 
 ${portraitTablet({
     fontSize: '22px',
-   width: '80%'
+    width: '80%'
 })};
 
 `
@@ -190,6 +190,21 @@ ${landscapeTablet({
 
 
 const Login = (props) => {
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const { email, password } = formData;
+
+    const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData);
+    };
+
     const eyeRef = useRef(null);
     const closedEyeRef = useRef(null);
     const passwordRef = useRef(null);
@@ -199,7 +214,7 @@ const Login = (props) => {
         eyeRef.current.style.display = 'none';
         passwordRef.current.type = 'text';
     }
-    
+
     const closeEye = (pos) => {
         closedEyeRef.current.style.display = 'none';
         eyeRef.current.style.display = 'unset';
@@ -213,18 +228,18 @@ const Login = (props) => {
 
             <Container>
                 <Wrapper>
-                <Title>Login To Your Account</Title>
-                    <Form>
-                        <Input name='email' placeholder='Enter Your Email'></Input>
+                    <Title>Login To Your Account</Title>
+                    <Form onSubmit={(e) => onSubmit(e)}>
+                        <Input onChange={e => onChange(e)} required name='email' type='email' value={email} placeholder='Enter Your Email'></Input>
                         <PasswordContainer>
-                        <Input ref={passwordRef} name='password' type='password' placeholder='Enter Your Password'></Input>
-                        <Eye onClick={() => openEye(0)} ref={eyeRef} ><i class="fas fa-eye"></i></Eye>
-                        <ClosedEye onClick={() => closeEye(0)} ref={closedEyeRef}><i class="fas fa-eye-slash"></i></ClosedEye>
+                            <Input onChange={e => onChange(e)} ref={passwordRef} name='password' type='password' value={password} placeholder='Enter Your Password'></Input>
+                            <Eye onClick={() => openEye(0)} ref={eyeRef} ><i className="fas fa-eye"></i></Eye>
+                            <ClosedEye onClick={() => closeEye(0)} ref={closedEyeRef}><i className="fas fa-eye-slash"></i></ClosedEye>
                         </PasswordContainer>
                         <Button>Let's Go Shopping</Button>
                         <PasswordForgotten>Forgotten Password?</PasswordForgotten>
                     </Form>
-                    
+
                 </Wrapper>
             </Container>
             <SubscriptionForm />

@@ -10,7 +10,7 @@ margin: 5px;
 position: relative;
 
 ${mobile({
-    flexBasis: '33%',
+    flexBasis: '55%',
 })};
 
         ${portraitTablet({

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
 import Messaging from './Messaging';
@@ -64,10 +65,22 @@ ${mobile({
       
 `
 
+const StyledLink = styled(Link)`
+color: black;
+text-decoration: none;
+
+&:active{
+    color: red;
+}
+
+`
+
 const MenuItem = styled.div`
 cursor: pointer;
 font-size: 18px;
 position: relative;
+
+
 
 &:hover{
    transform: scale(110%);
@@ -158,7 +171,6 @@ padding: 5px;
 &:focus{
     border: 1px solid red;
     outline: none;
-
 }
 
 &:hover{
@@ -257,6 +269,7 @@ const Navbar = () => {
                         <SearchIcon><i className="fas fa-search"></i></SearchIcon>
                     </Search>
                 </LZone>
+                <StyledLink to='/'>
                 <CZone>
                 <Logo> <i className="fas fa-torii-gate"></i></Logo>
                     <LogoTextContainer>
@@ -266,11 +279,12 @@ const Navbar = () => {
                         <Subtitle>A whole world of Japanese Things</Subtitle>
                     </LogoTextContainer>
                 </CZone>
+                </StyledLink>
                 <RZone>
                     <Menu>
-                        <MenuItem>LOG IN</MenuItem>
-                        <MenuItem>REGISTER</MenuItem>
-                        <MenuItem><CartIcon /></MenuItem>
+                        <MenuItem><StyledLink to='/login'>LOG IN</StyledLink></MenuItem>
+                        <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>
+                        <MenuItem><StyledLink to='/cart'><CartIcon /></StyledLink></MenuItem>
                     </Menu>
                 </RZone>
             </Wrapper>

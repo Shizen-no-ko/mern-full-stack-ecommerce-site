@@ -60,7 +60,8 @@ ${mobile({
 
 const LogoContainer = styled.div`
 display: flex;
-margin: 0 50px;
+${'' /* flex-wrap: wrap; */}
+margin: 0 auto;
 width: 100%;
 
 ${'' /* margin: '0 42px', */}
@@ -85,20 +86,31 @@ ${mobile({
 `
 
 const LogoTextContainer = styled.div`
-margin: 0 15px;
+margin: 0 0 0 auto;
+padding-right: 0;
 text-align: center;
 
 ${mobile({
-        margin: '0 5px'
+        margin: '0 5px 0 auto'
+        })};
+
+        ${portraitTablet({
+        margin:'0'
+        })};
+
+        ${landscapeTablet({
+                margin:'0'
         })};
 `
 
 const Logo = styled.h1`
 color: black;
-margin: 0 30px 0 0;
+margin: 0 auto 0 0;
+padding-right: 20px;
+
 
 ${mobile({
-        fontSize: '1.5rem'
+        fontSize: '1.5rem',
         })};
 
         ${portraitTablet({

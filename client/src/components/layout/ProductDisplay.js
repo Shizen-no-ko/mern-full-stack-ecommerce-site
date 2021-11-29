@@ -27,7 +27,7 @@ const ProductDisplay = () => {
        <Container>
        {
         productData.map((product, i) => { 
-            if(product.category === category){
+            if(product.category.includes(category)){
                 return(
                 <ProductElement key={i} element={product}/>   
                 )

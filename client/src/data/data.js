@@ -38,42 +38,42 @@ export const productData = [
     {
         id:1,
         img: "https://source.unsplash.com/3g5AfQZWUCA/1920x1280",
-        category:"IRO-IRO"
+        category:["IRO-IRO"]
     },
     {
         id:2,
         img: "https://source.unsplash.com/_5Q1-ae44aw/1920x1280",
-        category:"IRO-IRO"
+        category:["IRO-IRO"]
     },
     {
         id:3,
         img: "https://source.unsplash.com/FaUCROC_BZ8/1920x1280",
-        category:"HOMEWARE"
+        category:["HOMEWARE"]
     },
     {
         id:4,
         img: "https://source.unsplash.com/odyfTDRZxvY/1920x1280",
-        category:"CLOTHING"
+        category:["CLOTHING"]
     },
     {
         id:5, 
         img: "https://source.unsplash.com/kbBaNkxLdHY/1920x1280",
-        category:"HOMEWARE"
+        category:["HOMEWARE"]
     },
     {
         id:6,
         img: "https://source.unsplash.com/Ayy_K-y_dLA/1920x1280",
-        category:"IRO-IRO"
+        category:["IRO-IRO"]
     },
     {
         id:7,
         img: "https://source.unsplash.com/VKI8S_O-pYg/1920x1280",
-        category:"HOMEWARE"
+        category:["HOMEWARE", "IRO-IRO" ]
     },
     {
         id:8,
         img: "https://source.unsplash.com/JcXfveuRYig/1920x1280",
-        category:"IRO-IRO"
+        category:["IRO-IRO"]
     }
 ]
 

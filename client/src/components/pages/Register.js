@@ -9,26 +9,26 @@ import Footer from '../layout/Footer';
 
 const Container = styled.div`
 background: linear-gradient(rgba(255,192,203, 0.5), rgba(255,255,255, 1)), url('https://source.unsplash.com/9Qwbfa_RM94/1920x1280'), center;
-height: 100vh;
+height: 700px,
 max-width: 100%;
 overflow: hidden;
 width: 100vw;
 
 ${mobile({
     backgroundSize: '200% 101%',
-    height: '70vh',
+    height: '550px',
     margin: '-1px -1px'
 })};
 
 ${portraitTablet({
     backgroundSize: '150% 101%',
-    height: '80vh',
+    height: '600px',
     margin: '-1px -1px'
 })};
 
 ${landscapeTablet({
     backgroundSize: '102% 100%',
-    height: '600px',
+    height: '700px',
     margin: '-1px -1px'
 })};
 `

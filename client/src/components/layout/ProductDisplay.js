@@ -31,6 +31,8 @@ const ProductDisplay = () => {
                 return(
                 <ProductElement key={i} element={product}/>   
                 )
+            } else {
+                return null
             }
             
        })

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 const Container = styled.div`
@@ -106,20 +107,35 @@ font-weight: ${props => props.bold === true ? 'bold' : 'normal'};
 `
 
 const Filter = () => {
+
+    const [filterState, setFilterState] = useState({
+        category: 'Category',
+        color: 'Color',
+        size: 'Size',
+        sort: 'Most Recent'
+    });
+
+    const { category, color, size, sort } = filterState;
+
+    const onChange = (e) => {
+        setFilterState({...filterState, [e.target.name]: e.target.value})
+        console.log(filterState)
+    }
+
     return(
        <Container>
        <Title>PRODUCTS</Title>
        <SelectorRow>
        <SelectorContainer>
        <Label>Filter Products</Label>
-       <Selector name='category' pos='left'>
-       <Option bold={true} value='' disabled selected>Category</Option>
+       <Selector onChange={(e) => {onChange(e)}} name='category'  value={category} pos='left'>
+       <Option bold={true}  disabled >Category</Option>
            <Option>Clothing</Option>
            <Option>Homewares</Option>
            <Option>Iro-Iro</Option>
        </Selector>
-       <Selector pos='center'>
-       <Option name='color' bold={true} value='' disabled selected>Color</Option>
+       <Selector onChange={(e) => {onChange(e)}} name='color'  value={color} pos='center'>
+       <Option  bold={true} disabled>Color</Option>
            <Option>Red</Option>
            <Option>Black</Option>
            <Option>Yellow</Option>
@@ -130,8 +146,8 @@ const Filter = () => {
            <Option>Blue</Option>
            <Option>White</Option>
        </Selector>
-       <Selector name='size' pos='right' >
-       <Option bold={true} value='' disabled selected>Size</Option>
+       <Selector onChange={(e) => {onChange(e)}} name='size' value={size} pos='right' >
+       <Option bold={true}  disabled>Size</Option>
        <Option>XS</Option>
            <Option>S</Option>
            <Option>M</Option>
@@ -142,7 +158,7 @@ const Filter = () => {
        </SelectorContainer>
        <SelectorContainer>
        <Label>Sort Results</Label>
-           <Selector name='sort' pos='right' >
+           <Selector onChange={(e) => {onChange(e)}} name='sort' value={sort} pos='right' >
            <Option>Most Recent</Option>
            <Option>Price Ascending</Option>
            <Option>Price Descending</Option>

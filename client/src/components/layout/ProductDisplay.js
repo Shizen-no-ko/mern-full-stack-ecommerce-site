@@ -19,24 +19,30 @@ width: 97vw;
 
 
 
-const ProductDisplay = () => {
-    const locationArray = useLocation().pathname.split('/');
+const ProductDisplay = (props) => {
+    
+   const urlCategory =  props.displayState ? props.displayState.category : '';
 
-    const category = locationArray[locationArray.length - 1];
+
+  
     return(
        <Container>
        {
+        urlCategory ? 
         productData.map((product, i) => { 
-            if(product.category.includes(category)){
+                if(product.category.includes(urlCategory)){
                 return(
                 <ProductElement key={i} element={product}/>   
                 )
             } else {
                 return null
             }
-            
-       })
+            }) : 
+            productData.map((product, i) => { 
+                return <ProductElement key={i} element={product}/> 
+            })       
        }
+       
        </Container>
     )
 }

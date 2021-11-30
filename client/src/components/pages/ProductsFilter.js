@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Navbar from '../layout/Navbar';
 import ProductDisplay from '../layout/ProductDisplay';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -6,12 +8,19 @@ import Filter from '../layout/Filter';
 
 
 
-const ProductsFilter = () => {
+const ProductsFilter = (props) => {
+    
+    const [displayState, setDisplayState] = useState({category: props.location.state ? props.location.state.category : ''});
+    
+    const getFilterState = (filterState) => {
+        setDisplayState(filterState);
+        // console.log(displayState);
+    }
     return(
         <div>
             <Navbar/>
-            <Filter/>
-            <ProductDisplay/>
+            <Filter getFilterState={getFilterState}/>
+            <ProductDisplay state={props.location.state} displayState={displayState}/>
             <SubscriptionForm/>
             <Footer/>
         </div>

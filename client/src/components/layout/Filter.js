@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 const Container = styled.div`
@@ -106,7 +106,9 @@ font-weight: ${props => props.bold === true ? 'bold' : 'normal'};
 
 `
 
-const Filter = () => {
+const Filter = (props) => {
+
+    console.log(props);
 
     const [filterState, setFilterState] = useState({
         category: 'Category',
@@ -115,12 +117,19 @@ const Filter = () => {
         sort: 'Most Recent'
     });
 
+   
+
     const { category, color, size, sort } = filterState;
 
     const onChange = (e) => {
-        setFilterState({...filterState, [e.target.name]: e.target.value})
-        console.log(filterState)
+        setFilterState({...filterState, [e.target.name]: e.target.value.toLowerCase()})
+        // props.getFilterState(filterState);
+        // console.log(filterState)
     }
+
+    useEffect(() => {
+        props.getFilterState(filterState);
+    })
 
     return(
        <Container>
@@ -131,7 +140,7 @@ const Filter = () => {
        <Selector onChange={(e) => {onChange(e)}} name='category'  value={category} pos='left'>
        <Option bold={true}  disabled >Category</Option>
            <Option>Clothing</Option>
-           <Option>Homewares</Option>
+           <Option>Homeware</Option>
            <Option>Iro-Iro</Option>
        </Selector>
        <Selector onChange={(e) => {onChange(e)}} name='color'  value={color} pos='center'>
@@ -158,7 +167,7 @@ const Filter = () => {
        </SelectorContainer>
        <SelectorContainer>
        <Label>Sort Results</Label>
-           <Selector onChange={(e) => {onChange(e)}} name='sort' value={sort} pos='right' >
+           <Selector onChange={(e) => {onChange(e)}} name='sortOption' value={sort} pos='right' >
            <Option>Most Recent</Option>
            <Option>Price Ascending</Option>
            <Option>Price Descending</Option>

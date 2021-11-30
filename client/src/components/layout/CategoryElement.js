@@ -54,7 +54,8 @@ ${mobile({
 const CategoryElement = ({element}) => {
     return(
        <Container>
-       <Link to={`products/${element.title}`}>
+       {/* <Link to={`products/${element.title}`}> */}
+       <Link to={{pathname:'/products', state:{category: element.title.toLowerCase()}}}>
            <Img src={element.img}/>
            <Title>{element.title}</Title>
           </Link>

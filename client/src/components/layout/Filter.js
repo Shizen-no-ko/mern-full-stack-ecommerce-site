@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 const Container = styled.div`
@@ -113,8 +114,9 @@ const Filter = (props) => {
 
     const [filterState, setFilterState] = useState({});
 
-
     const { category, color, size, sort } = filterState;
+
+    let history = useHistory();
 
     const onChange = (e) => {
         // deletes color from filter when setting to All Colors
@@ -125,6 +127,10 @@ const Filter = (props) => {
         } else {
             setFilterState({...filterState, [e.target.name]: e.target.value});
         }
+    }
+
+    const onCategoryChange = (e) => {
+        history.push(`/products${e.target.value === 'All Products' ? '': '/' + e.target.value.toLowerCase()}`);
     }
 
     useEffect(() => {
@@ -138,9 +144,10 @@ const Filter = (props) => {
        <SelectorRow>
        <SelectorContainer>
        <Label>Filter Products</Label>
-       <Selector onChange={(e) => {onChange(e)}} name='category' defaultValue='Category'  value={category} pos='left'>
+       <Selector onChange={(e) => {onCategoryChange(e)}} name='category' defaultValue='Category'  value={category} pos='left'>
        <Option bold={true}  disabled >Category</Option>
-           <Option>Clothing</Option>
+       <Option>All Products</Option>
+      <Option>Clothing</Option>
            <Option>Homeware</Option>
            <Option>Iro-Iro</Option>
        </Selector>

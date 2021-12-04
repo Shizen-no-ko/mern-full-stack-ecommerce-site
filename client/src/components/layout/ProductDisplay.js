@@ -59,9 +59,10 @@ const ProductDisplay = ({ category, filter }) => {
     }, [category])
 
     // useEffect(() => {
+    //     console.log("FilterCategory changed")
     //     const updateCategory = async () => {
     //         try{
-    //                 const res = await axios.get(filter.category
+    //                 const res = await axios.get(filter.category && filter.category !== category
     //                     ? `http://localhost:5000/api/products/all?category=${filter.category}`
     //                     : 'http://localhost:5000/api/products/all' 
     //                 );
@@ -70,11 +71,8 @@ const ProductDisplay = ({ category, filter }) => {
     //         catch (err) { console.log(err)}
     //     };
     //     updateCategory();
-    // }, [filter])
+    // }, [filter.category])
 
-    // console.log(`key is: ${key} Product[key] is: ${product[key]}, Value is; ${value} `)
-    // console.log(product[key].includes(value));
-    //   return product[key].includes(value)
 
     useEffect(() => {
         const filterResult = products.filter((item) => {
@@ -97,12 +95,15 @@ const ProductDisplay = ({ category, filter }) => {
 
     return (
         <Container>
-            {
+        {filtered.length ?
+            
                 filtered.map((product, i) => {
                     return (
                         <ProductElement key={i} element={product} />
                     )
                 })
+            
+            : <h1>SORRY. NO PRODUCTS FOUND</h1>
             }
         </Container>
     )

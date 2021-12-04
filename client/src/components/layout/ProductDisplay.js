@@ -96,13 +96,11 @@ const ProductDisplay = ({ category, filter }) => {
     return (
         <Container>
         {filtered.length ?
-            
                 filtered.map((product, i) => {
                     return (
                         <ProductElement key={i} element={product} />
                     )
                 })
-            
             : <h1>SORRY. NO PRODUCTS FOUND</h1>
             }
         </Container>

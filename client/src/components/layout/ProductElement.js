@@ -89,7 +89,7 @@ ${landscapeTablet({
 const ProductElement = ({ element }) => {
     return (
         <Container>
-            <Img src={element.img} />
+            <Img src={element.image} />
             <IconContainer>
                 <Icon topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
                 <Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon>

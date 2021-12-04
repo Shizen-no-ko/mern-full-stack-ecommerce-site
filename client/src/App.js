@@ -21,6 +21,7 @@ function App() {
    <Route exact path="/register">{user ? <Redirect to='/'/> : <Register/>}</Route>
    <Route exact path="/cart" component={ShoppingCart} />
    <Route exact path="/product/:id" component={IndividualProduct} />
+   <Route exact path="/products/:category" component={ProductsFilter} />
    <Route exact path="/products" component={ProductsFilter} />
    {/* :category */}
    </Switch>

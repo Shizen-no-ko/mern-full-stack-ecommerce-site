@@ -110,26 +110,27 @@ const Filter = (props) => {
 
     console.log(props);
 
-    const [filterState, setFilterState] = useState({
-        category: 'Category',
-        color: 'Color',
-        size: 'Size',
-        sort: 'Most Recent'
-    });
 
-   
+    const [filterState, setFilterState] = useState({});
+
 
     const { category, color, size, sort } = filterState;
 
     const onChange = (e) => {
-        setFilterState({...filterState, [e.target.name]: e.target.value.toLowerCase()})
-        // props.getFilterState(filterState);
-        // console.log(filterState)
+        // deletes color from filter when setting to All Colors
+        if(e.target.value === 'All Colors') {
+            const tempState = {...filterState};
+            delete tempState[e.target.name];
+            setFilterState(tempState);
+        } else {
+            setFilterState({...filterState, [e.target.name]: e.target.value});
+        }
     }
 
     useEffect(() => {
         props.getFilterState(filterState);
-    })
+    },[filterState])
+
 
     return(
        <Container>
@@ -137,14 +138,15 @@ const Filter = (props) => {
        <SelectorRow>
        <SelectorContainer>
        <Label>Filter Products</Label>
-       <Selector onChange={(e) => {onChange(e)}} name='category'  value={category} pos='left'>
+       <Selector onChange={(e) => {onChange(e)}} name='category' defaultValue='Category'  value={category} pos='left'>
        <Option bold={true}  disabled >Category</Option>
            <Option>Clothing</Option>
            <Option>Homeware</Option>
            <Option>Iro-Iro</Option>
        </Selector>
-       <Selector onChange={(e) => {onChange(e)}} name='color'  value={color} pos='center'>
+       <Selector onChange={(e) => {onChange(e)}} name='color' defaultValue='Color' value={color} pos='center'>
        <Option  bold={true} disabled>Color</Option>
+       <Option>All Colors</Option>
            <Option>Red</Option>
            <Option>Black</Option>
            <Option>Yellow</Option>
@@ -155,7 +157,7 @@ const Filter = (props) => {
            <Option>Blue</Option>
            <Option>White</Option>
        </Selector>
-       <Selector onChange={(e) => {onChange(e)}} name='size' value={size} pos='right' >
+       <Selector onChange={(e) => {onChange(e)}} name='size' defaultValue='Size' value={size} pos='right' >
        <Option bold={true}  disabled>Size</Option>
        <Option>XS</Option>
            <Option>S</Option>

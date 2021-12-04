@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import {useLocation} from 'react-router-dom';
 
 import Navbar from '../layout/Navbar';
 import ProductDisplay from '../layout/ProductDisplay';
@@ -9,18 +10,30 @@ import Filter from '../layout/Filter';
 
 
 const ProductsFilter = (props) => {
-    
-    const [displayState, setDisplayState] = useState({category: props.location.state ? props.location.state.category : ''});
-    
+    const path = useLocation().pathname.split('/');
+    const category = path[2] ? path[2].toLowerCase() : null;
+    const [filterState, setFilterState] = useState(category ? {category:  category} : {});
+  
+
     const getFilterState = (filterState) => {
-        setDisplayState(filterState);
-        // console.log(displayState);
+        const lowerCaseFilterState = {};
+      Object.entries(filterState).forEach((entry) => {
+          lowerCaseFilterState[entry[0]] = entry[1].toLowerCase();
+        })
+        setFilterState(lowerCaseFilterState);
     }
+
+
+useEffect(() => {
+console.log("rerender")
+}, [filterState])
+
+
     return(
         <div>
             <Navbar/>
             <Filter getFilterState={getFilterState}/>
-            <ProductDisplay state={props.location.state} displayState={displayState}/>
+            <ProductDisplay filter={filterState} category={category}/>
             <SubscriptionForm/>
             <Footer/>
         </div>

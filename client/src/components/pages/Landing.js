@@ -20,7 +20,7 @@ const Landing = () => {
             <Navbar/>
             <Slider/>
             <Categories/>
-            <ProductDisplay filter={{}} category={null}/>
+            <ProductDisplay filter={{}} category={null} landing={true}/>
             <SubscriptionForm/>
             <Footer/>
         </Container>

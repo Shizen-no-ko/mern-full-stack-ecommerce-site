@@ -22,7 +22,7 @@ width: 97vw;
 
 
 
-const ProductDisplay = ({ category, filter }) => {
+const ProductDisplay = ({ category, filter, sort }) => {
 
     //   console.log("Category is");
     //   console.log(category)
@@ -42,8 +42,6 @@ const ProductDisplay = ({ category, filter }) => {
 
 
 
-
-
     useEffect(() => {
         const getAllProducts = async () => {
             try {
@@ -52,10 +50,13 @@ const ProductDisplay = ({ category, filter }) => {
                     : 'http://localhost:5000/api/products/all'
                 );
                 setProducts(res.data);
+
             }
             catch (err) { console.log(err) }
         };
         getAllProducts();
+       
+
     }, [category])
 
     // useEffect(() => {
@@ -73,6 +74,7 @@ const ProductDisplay = ({ category, filter }) => {
     //     updateCategory();
     // }, [filter.category])
 
+   
 
     useEffect(() => {
         const filterResult = products.filter((item) => {
@@ -84,6 +86,14 @@ const ProductDisplay = ({ category, filter }) => {
         )
         setFiltered(filterResult);
     }, [products, filter, category])
+
+    useEffect(() => {
+        if(sort === 'Most Recent'){
+           setFiltered(prev => [...prev].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
+        } else {
+            setFiltered(prev => [...prev].sort((a, b) => sort ==='Price Ascending' ? a.price - b.price : b.price - a.price ));
+        }
+    }, [sort])
 
     useEffect(() => {
         console.log("FILTERED CHANGED");
@@ -101,7 +111,7 @@ const ProductDisplay = ({ category, filter }) => {
                         <ProductElement key={i} element={product} />
                     )
                 })
-            : <h1>SORRY. NO PRODUCTS FOUND</h1>
+            : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>
             }
         </Container>
     )

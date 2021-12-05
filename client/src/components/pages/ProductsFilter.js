@@ -13,7 +13,10 @@ const ProductsFilter = (props) => {
     const path = useLocation().pathname.split('/');
     const category = path[2] ? path[2].toLowerCase() : null;
     const [filterState, setFilterState] = useState(category ? {category:  category} : {});
+    const [sortState, setSortState] = useState(category ? {category:  category} : {});
+   
   
+   
 
     const getFilterState = (filterState) => {
         const lowerCaseFilterState = {};
@@ -23,17 +26,23 @@ const ProductsFilter = (props) => {
         setFilterState(lowerCaseFilterState);
     }
 
+    const getSortState = (sortState) => {
+        setSortState(sortState);
+    };
 
-useEffect(() => {
-console.log("rerender")
-}, [filterState])
+    
+
+
+// useEffect(() => {
+// console.log("rerender")
+// }, [filterState])
 
 
     return(
         <div>
             <Navbar/>
-            <Filter getFilterState={getFilterState}/>
-            <ProductDisplay filter={filterState} category={category}/>
+            <Filter getFilterState={getFilterState} getSortState={getSortState}/>
+            <ProductDisplay filter={filterState} sort={sortState} category={category}/>
             <SubscriptionForm/>
             <Footer/>
         </div>

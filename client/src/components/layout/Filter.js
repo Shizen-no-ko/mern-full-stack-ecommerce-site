@@ -113,6 +113,7 @@ const Filter = (props) => {
 
 
     const [filterState, setFilterState] = useState({});
+    const [sortState, setSortState] = useState();
 
     const { category, color, size, sort } = filterState;
 
@@ -133,9 +134,17 @@ const Filter = (props) => {
         history.push(`/products${e.target.value === 'All Products' ? '': '/' + e.target.value.toLowerCase()}`);
     }
 
+    const onSortChange = (e) => {
+        setSortState(e.target.value);
+    }
+
     useEffect(() => {
         props.getFilterState(filterState);
     },[filterState])
+
+    useEffect(() => {
+        props.getSortState(sortState);
+    },[sortState])
 
 
     return(
@@ -175,8 +184,9 @@ const Filter = (props) => {
        </Selector>
        </SelectorContainer>
        <SelectorContainer>
-       <Label>Sort Results</Label>
-           <Selector onChange={(e) => {onChange(e)}} name='sortOption' value={sort} pos='right' >
+       {/* <Label>Sort Results</Label> */}
+           <Selector onChange={(e) => {onSortChange(e)}} name='sortOption' defaultValue={'Sort Results'} value={sort} pos='right' >
+           <Option bold={true}  disabled>Sort Results</Option> 
            <Option>Most Recent</Option>
            <Option>Price Ascending</Option>
            <Option>Price Descending</Option>

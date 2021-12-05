@@ -43,7 +43,7 @@ const ProductsFilter = (props) => {
     return(
         <div>
             <Navbar/>
-            <Filter getFilterState={getFilterState} getSortState={getSortState}/>
+            <Filter getFilterState={getFilterState} getSortState={getSortState} category={category}/>
             <ProductDisplay filter={filterState} sort={sortState} category={category}/>
             <SubscriptionForm/>
             <Footer/>

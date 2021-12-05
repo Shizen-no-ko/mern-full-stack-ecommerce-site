@@ -149,7 +149,7 @@ const Filter = (props) => {
 
     return(
        <Container>
-       <Title>PRODUCTS</Title>
+       <Title>{props.category ? props.category.toUpperCase() : 'ALL PRODUCTS'}</Title>"
        <SelectorRow>
        <SelectorContainer>
        <Label>Filter Products</Label>

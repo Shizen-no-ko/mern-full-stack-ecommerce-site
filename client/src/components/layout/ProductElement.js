@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
@@ -92,7 +94,7 @@ const ProductElement = ({ element }) => {
             <Img src={element.image} />
             <IconContainer>
                 <Icon topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
-                <Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon>
+                <Link to={`product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon></Link>
                 <Icon topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
             </IconContainer>
         </Container>

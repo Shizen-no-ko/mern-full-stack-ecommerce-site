@@ -11,8 +11,6 @@ import Filter from '../layout/Filter';
 
 const ProductsFilter = (props) => {
     const path = useLocation().pathname.split('/');
-    console.log("Path 1 is::::")
-    console.log(path[1]);
     const category = path[2] ? path[2].toLowerCase() : null;
     const [filterState, setFilterState] = useState(category ? {category:  category} : {});
     const [sortState, setSortState] = useState(category ? {category:  category} : {});

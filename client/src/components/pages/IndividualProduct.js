@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+import {useLocation} from 'react-router-dom';
+
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
@@ -420,6 +422,10 @@ const product = sliderData[0];
 
 
 const IndividualProduct = () => {
+
+    const path = useLocation().pathname.split('/');
+    const id = path[2];
+    console.log(id);
 
     const [amount, setAmount] = useState(1);
     const boxRef = useRef(null);

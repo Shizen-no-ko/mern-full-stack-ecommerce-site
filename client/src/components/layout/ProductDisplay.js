@@ -50,8 +50,6 @@ const ProductDisplay = ({ category, filter, sort, landing }) => {
                     : 'http://localhost:5000/api/products/all'
                 );
                 setProducts(res.data);
-                console.log("CATEGORY IS :::::");
-                console.log(category);
             }
             catch (err) { console.log(err) }
         };
@@ -90,7 +88,7 @@ const ProductDisplay = ({ category, filter, sort, landing }) => {
 
     useEffect(() => {
         if(sort === 'Most Recent'){
-           setFiltered(prev => [...prev].sort((a, b) => b.updatedAt - a.updatedAt));
+           setFiltered(prev => [...prev].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
         } else {
             setFiltered(prev => [...prev].sort((a, b) => sort ==='Price Ascending' ? a.price - b.price : b.price - a.price ));
         }
@@ -116,7 +114,7 @@ const ProductDisplay = ({ category, filter, sort, landing }) => {
                 })
             : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>
                 : 
-                products.slice(0, 8).map((product, i) => {
+                products.sort((a, b) =>new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 8).map((product, i) => {
                     return (
                         <ProductElement key={i} element={product} />
                     )

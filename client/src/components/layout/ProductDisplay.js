@@ -22,7 +22,7 @@ width: 97vw;
 
 
 
-const ProductDisplay = ({ category, filter, sort, landing, getAvailableColors }) => {
+const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSizes }) => {
 
     //   console.log("Category is");
     //   console.log(category)
@@ -85,9 +85,15 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColors })
         )
         setFiltered(filterResult);
         var filteredColors = [];
-        products.forEach(product => filteredColors.push(...product.color));
+        var filteredSizes = [];
+        products.forEach(product => {
+            filteredColors.push(...product.color);
+            filteredSizes.push(...product.size);
+        
+        });
         filteredColors = filteredColors.filter((element, index, array) => array.indexOf(element) === index);
-        getAvailableColors(filteredColors);
+        filteredSizes = filteredSizes.filter((element, index, array) => array.indexOf(element) === index);
+        getAvailableColorsSizes({colors: filteredColors, sizes:filteredSizes});
 
     }, [products, filter, category])
 

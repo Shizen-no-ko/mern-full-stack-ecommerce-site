@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {useLocation} from 'react-router-dom';
+import axios from 'axios';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -417,7 +418,7 @@ ${landscapeTablet({
 })};
 `
 
-const product = sliderData[0];
+// const product = sliderData[0];
 
 
 
@@ -427,8 +428,11 @@ const IndividualProduct = () => {
     const id = path[2];
     console.log(id);
 
+    const [displayProduct, setDisplayProduct] = useState({title:'', image:'', price:'', description:'', color:'', size:''});
     const [amount, setAmount] = useState(1);
     const boxRef = useRef(null);
+
+    const { title, image, price, description, color, size} = displayProduct;
 
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
@@ -453,6 +457,17 @@ const IndividualProduct = () => {
         boxAnimation(false);
     }
 
+    useEffect(() => {
+        try{
+            const getProduct = async () => {
+               const res = await axios.get(`http://localhost:5000/api/products/find/${id}`);
+               setDisplayProduct(res.data);
+            }
+            getProduct()
+        }
+        catch (err) {console.log(err)}
+    })
+
     return (
         <div>
             <Navbar />
@@ -461,13 +476,13 @@ const IndividualProduct = () => {
                 <Wrapper>
                     <Slide >
                         <ImageContainer>
-                            <Img src={product.img} />
+                            <Img src={image} />
                         </ImageContainer>
                         <DetailsContainer>
                             <Details>
-                                <Title>{product.title}</Title>
-                                <Description>{product.description}</Description>
-                                <Price>{product.price}</Price>
+                                <Title>{title}</Title>
+                                <Description>{description}</Description>
+                                <Price>${price}</Price>
                                 <SelectorRow>
                                     <SelectorContainer>
                                     <SelectorGroup>

@@ -121,7 +121,7 @@ const Filter = (props) => {
 
     const onChange = (e) => {
         // deletes color from filter when setting to All Colors
-        if(e.target.value === 'All Colors') {
+        if(e.target.value === 'All Colors' || e.target.value === 'All Sizes') {
             const tempState = {...filterState};
             delete tempState[e.target.name];
             setFilterState(tempState);
@@ -162,11 +162,12 @@ const Filter = (props) => {
        </Selector>
        <Selector onChange={(e) => {onChange(e)}} name='color' defaultValue='Color' value={color} pos='center'>
        <Option  bold={true} disabled>Color</Option>
-       <Option>All Colors</Option> string.charAt(0).toUpperCase() + string.slice(1)
+       <Option>All Colors</Option> 
        {props.availableColors ? props.availableColors.map((color) => <Option>{color.charAt(0).toUpperCase() + color.slice(1)}</Option>) : null};
        </Selector>
        <Selector onChange={(e) => {onChange(e)}} name='size' defaultValue='Size' value={size} pos='right' >
        <Option bold={true}  disabled>Size</Option>
+       <Option>All Sizes</Option>
        <Option>XS</Option>
            <Option>S</Option>
            <Option>M</Option>

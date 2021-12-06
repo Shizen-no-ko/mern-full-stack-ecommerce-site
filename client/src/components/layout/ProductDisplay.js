@@ -22,7 +22,7 @@ width: 97vw;
 
 
 
-const ProductDisplay = ({ category, filter, sort, landing }) => {
+const ProductDisplay = ({ category, filter, sort, landing, getAvailableColors }) => {
 
     //   console.log("Category is");
     //   console.log(category)
@@ -84,6 +84,11 @@ const ProductDisplay = ({ category, filter, sort, landing }) => {
         }
         )
         setFiltered(filterResult);
+        var filteredColors = [];
+        products.forEach(product => filteredColors.push(...product.color));
+        filteredColors = filteredColors.filter((element, index, array) => array.indexOf(element) === index);
+        getAvailableColors(filteredColors);
+
     }, [products, filter, category])
 
     useEffect(() => {

@@ -14,6 +14,7 @@ const ProductsFilter = (props) => {
     const category = path[2] ? path[2].toLowerCase() : null;
     const [filterState, setFilterState] = useState(category ? {category:  category} : {});
     const [sortState, setSortState] = useState(category ? {category:  category} : {});
+    const [availableColors, setAvailableColors] = useState();
    
   
    
@@ -30,6 +31,11 @@ const ProductsFilter = (props) => {
         setSortState(sortState);
     };
 
+    const getAvailableColors = (availableColors) => {
+        setAvailableColors(availableColors);
+        console.log("COLORS SETTTTTT")
+    };
+
 
 
 
@@ -41,8 +47,8 @@ const ProductsFilter = (props) => {
     return(
         <div>
             <Navbar/>
-            <Filter getFilterState={getFilterState} getSortState={getSortState} category={category}/>
-            <ProductDisplay filter={filterState} sort={sortState} category={category}/>
+            <Filter getFilterState={getFilterState} getSortState={getSortState} category={category} availableColors={availableColors}/>
+            <ProductDisplay filter={filterState} sort={sortState} category={category} getAvailableColors={getAvailableColors}/>
             <SubscriptionForm/>
             <Footer/>
         </div>

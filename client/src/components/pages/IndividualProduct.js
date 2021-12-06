@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 import styled from 'styled-components';
@@ -31,7 +31,7 @@ ${portraitTablet({
 
 ${landscapeTablet({
     height: '300px',
-        })};  
+})};  
 `
 
 const Wrapper = styled.div`
@@ -63,7 +63,7 @@ ${portraitTablet({
 
 ${landscapeTablet({
     height: '300px',
-        })};
+})};
 `
 
 const DetailsContainer = styled.div`
@@ -104,7 +104,7 @@ ${landscapeTablet({
     fontSize: '1rem',
     height: '300px',
     justifyContent: 'space-between'
-        })};
+})};
 `
 const Title = styled.h1`
 font-weight: 400;
@@ -137,7 +137,7 @@ ${portraitTablet({
 })};
 
 ${landscapeTablet({
-marginTop: '0'
+    marginTop: '0'
 })};
 `
 
@@ -224,17 +224,17 @@ max-width: 100%;
 object-fit: cover;
 
 ${mobile({
-marginTop: '20px'
+    marginTop: '20px'
 })};
 
 ${portraitTablet({
     height: '100%',
-marginTop: '20px',
-maxHeight: '100%',
+    marginTop: '20px',
+    maxHeight: '100%',
 })};
 
 ${landscapeTablet({
-maxHeight: '100%'
+    maxHeight: '100%'
 })};
 
 `
@@ -246,20 +246,20 @@ margin-left: -20px;
 padding: 30px 0;
 
 ${mobile({
-   alignItems: 'center',
-   margin: '0px auto'
+    alignItems: 'center',
+    margin: '0px auto'
 })};
 
 ${portraitTablet({
-   alignItems: 'center',
-   margin: '0px auto',
-   paddingTop: '10px'
+    alignItems: 'center',
+    margin: '0px auto',
+    paddingTop: '10px'
 })};
 
 ${landscapeTablet({
-   margin: '0px',
-   padding: '0px',
-   flexWrap: 'wrap',
+    margin: '0px',
+    padding: '0px',
+    flexWrap: 'wrap',
 })};
 
 
@@ -272,14 +272,14 @@ line-height: 30px;
 
 ${mobile({
     display: 'flex',
-flexDirection: 'column',
-alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
 })};
 
 ${portraitTablet({
     display: 'flex',
-flexDirection: 'column',
-alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
 })};
 `
 
@@ -428,11 +428,11 @@ const IndividualProduct = () => {
     const id = path[2];
     console.log(id);
 
-    const [displayProduct, setDisplayProduct] = useState({title:'', image:'', price:'', description:'', color:'', size:''});
+    const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [amount, setAmount] = useState(1);
     const boxRef = useRef(null);
 
-    const { title, image, price, description, color, size} = displayProduct;
+    const { title, image, price, description, color, size } = displayProduct;
 
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
@@ -458,15 +458,17 @@ const IndividualProduct = () => {
     }
 
     useEffect(() => {
-        try{
+        let isMounted = true;
+        try {
             const getProduct = async () => {
-               const res = await axios.get(`http://localhost:5000/api/products/find/${id}`);
-               setDisplayProduct(res.data);
+                const res = await axios.get(`http://localhost:5000/api/products/find/${id}`);
+                setDisplayProduct(res.data);
             }
             getProduct()
         }
-        catch (err) {console.log(err)}
-    })
+        catch (err) { console.log(err) }
+        return () => { isMounted = false };
+    }, [])
 
     return (
         <div>
@@ -485,33 +487,23 @@ const IndividualProduct = () => {
                                 <Price>${price}</Price>
                                 <SelectorRow>
                                     <SelectorContainer>
-                                    <SelectorGroup>
-                                    <Label>Size: </Label>
-                                    <Selector name='size' pos='right' defaultValue='M' placeholder='M'>
-                                            <Option>XS</Option>
-                                            <Option>S</Option>
-                                            <Option>M</Option>
-                                            <Option>L</Option>
-                                            <Option>XL</Option>
-                                            <Option>XXL</Option>
-                                        </Selector>
-                                    </SelectorGroup>
-                                       
                                         <SelectorGroup>
-                                        <Label>Color: </Label>
-                                        <ColorContainer>
-                                            <ColorOption color="red" />
-                                            <ColorOption color="black" />
-                                            <ColorOption color="yellow" />
-                                            <ColorOption color="pink" />
-                                            <ColorOption color="green" />
-                                            <ColorOption color="orange" />
-                                            <ColorOption color="purple" />
-                                            <ColorOption color="blue" />
-                                            <ColorOption color="white" border='black' />
-                                        </ColorContainer>
+                                            <Label>Size: </Label>
+                                            {size && size.length ?
+                                                <Selector name='size' pos='right' defaultValue='M' placeholder='M'>
+                                                    {size.map((size, i) => <Option key={i}>{size.toUpperCase()}</Option>)}
+                                                </Selector>
+                                                : <Label>One Size Only</Label>
+                                            }
                                         </SelectorGroup>
-                                       
+                                        <SelectorGroup>
+                                            <Label>Color: </Label>
+                                            {color && color.length ?
+                                                <ColorContainer>
+                                                    {color.map((color, i) => <ColorOption key={i} color={color} border={color === 'white' ? 'black' : color}></ColorOption>)}
+                                                </ColorContainer>
+                                                : null}
+                                        </SelectorGroup>
                                     </SelectorContainer>
                                 </SelectorRow>
                                 <SelectorRow>

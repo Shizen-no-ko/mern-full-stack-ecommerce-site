@@ -2,6 +2,8 @@ import React, {Fragment} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
+import ScrollToTop from './utilities/ScrollToTop';
+
 import Landing from './components/pages/Landing';
 import ProductsFilter from './components/pages/ProductsFilter';
 import IndividualProduct from './components/pages/IndividualProduct';
@@ -15,6 +17,7 @@ function App() {
   return (
     <Router>
  <Fragment>
+ <ScrollToTop/>
    <Route exact path="/" component={Landing} />
    <Switch>
    <Route exact path="/login">{user ? <Redirect to='/'/> : <Login/>}</Route>

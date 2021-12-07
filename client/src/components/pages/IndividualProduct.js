@@ -425,8 +425,10 @@ ${landscapeTablet({
 const IndividualProduct = () => {
 
     const path = useLocation().pathname.split('/');
-    const id = path[2];
+    console.log(path);
+    const id = path[path.length -1];
     console.log(id);
+   
 
     const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [amount, setAmount] = useState(1);

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { publicReq } from '../../axiosRequests.js';
 import styled from 'styled-components';
 // import {mobile} from '../../responsive';
 
@@ -41,13 +42,24 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     console.log(filter);
 
 
-
     useEffect(() => {
         const getAllProducts = async () => {
             try {
-                const res = await axios.get(category !== null && category !== ""
-                    ? `http://localhost:5000/api/products/all?category=${category}`
-                    : 'http://localhost:5000/api/products/all'
+                // publicReq.interceptors.request.use(function (config) {
+                //     // Do something before request is sent
+                //     console.log(config)
+                //     return config;
+                //   }, function (error) {
+                //     // Do something with request error
+                //     return Promise.reject(error);
+                //   });
+                // const res = await axios.get(category !== null && category !== ""
+                //     ? `http://localhost:5000/api/products/all?category=${category}`
+                //     : 'http://localhost:5000/api/products/all'
+                // );
+                const res = await publicReq.get(category !== null && category !== ""
+                    ? `/products/all?category=${category}`
+                    : '/products/all'
                 );
                 setProducts(res.data);
             }
@@ -93,7 +105,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         });
         filteredColors = filteredColors.filter((element, index, array) => array.indexOf(element) === index);
         filteredSizes = filteredSizes.filter((element, index, array) => array.indexOf(element) === index);
-        getAvailableColorsSizes({colors: filteredColors, sizes:filteredSizes});
+        if(!landing) getAvailableColorsSizes({colors: filteredColors, sizes:filteredSizes});
 
     }, [products, filter, category])
 

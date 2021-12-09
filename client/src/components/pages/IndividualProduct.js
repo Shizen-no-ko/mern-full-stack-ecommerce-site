@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { publicReq } from '../../axiosRequests';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -463,7 +463,7 @@ const IndividualProduct = () => {
         let isMounted = true;
         try {
             const getProduct = async () => {
-                const res = await axios.get(`http://localhost:5000/api/products/find/${id}`);
+                const res = await publicReq.get(`products/find/${id}`);
                 setDisplayProduct(res.data);
             }
             getProduct()

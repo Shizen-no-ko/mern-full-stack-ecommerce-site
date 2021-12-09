@@ -353,8 +353,7 @@ transition: ease-in-out 0.05s;
 width: ${props => props.border ? '18px' : '20px'};
 
 &:hover{
-    transform: scale(150%) rotate(45deg);
-    transition: ease-in-out 0.05s;
+   transform: rotate(45deg);
 }
 `
 
@@ -514,7 +513,7 @@ const IndividualProduct = () => {
                                             <Label>Color: </Label>
                                             {color && color.length ?
                                                 <ColorContainer>
-                                                    {color.map((color, i) => <ColorOption onClick={colorClick} key={i} color={color} border={color === 'white' ? 'black' : color} style={{transform: color === selectedColor ? 'scale(150%) rotate(45deg)': 'none'}}></ColorOption>)}
+                                                    {color.map((color, i) => <ColorOption onClick={colorClick} key={i} color={color} border={color === 'white' ? 'black' : color} style={{transform: color === selectedColor ? 'scale(150%) rotate(45deg)': ''}}></ColorOption>)}
                                                 </ColorContainer>
                                                 : null}
                                         </SelectorGroup>

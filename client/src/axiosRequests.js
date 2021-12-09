@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000/api';
-console.log("BASE IS :")
-console.log(BASE_URL)
+const TOKEN = '';
 
 
 export const publicReq = axios.create({
@@ -11,5 +10,5 @@ export const publicReq = axios.create({
 
 export const userReq = axios.create({
     baseURL: BASE_URL,
-    header: {token: 'Bearer Token'} 
+    header: { token: `Bearer ${TOKEN}` } 
 })

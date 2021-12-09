@@ -14,20 +14,20 @@ import { sliderData } from '../../data/data.js';
 
 const Container = styled.div`
 display:flex;
-height: 80vh;
+height: auto;
 margin: 20px 0;
 max-width: 100%;
 overflow: hidden;
 width: 100vw;
 
-${mobile({
+${'' /* ${mobile({
     height: 'auto'
 })};
 
 
 ${portraitTablet({
     height: 'auto'
-})};
+})}; */}
 
 ${landscapeTablet({
     height: '300px',
@@ -46,7 +46,7 @@ width: 100vw;
 const Slide = styled.div`
 ${'' /* align-items: center; */}
 display: flex;
-height: 100vh;
+height: auto;
 justify-content: flex-start;
 overflow: hidden;
 width: 100vw;
@@ -89,8 +89,9 @@ const Details = styled.div`
 display: flex;
 flex-direction: column;
 font-size: 1.5rem;
-height: 80%;
-justify-content: space-around;
+height: 50%;
+justify-content: space-between;
+margin-top: 0;
 
 ${mobile({
     textAlign: 'center'
@@ -102,12 +103,12 @@ ${portraitTablet({
 
 ${landscapeTablet({
     fontSize: '1rem',
-    height: '300px',
     justifyContent: 'space-between'
 })};
 `
 const Title = styled.h1`
 font-weight: 400;
+margin-top: 0;
 
 ${mobile({
     fontSize: '2.5rem',
@@ -116,12 +117,12 @@ ${mobile({
 
 ${portraitTablet({
     fontSize: '3rem',
-    marginBottom: '0px'
+    margin: '20px auto 10px'
 })};
 
 ${landscapeTablet({
     fontSize: '2rem',
-    margin: '10px 0 0'
+    margin: '10px 0 10px'
 })};
 `
 

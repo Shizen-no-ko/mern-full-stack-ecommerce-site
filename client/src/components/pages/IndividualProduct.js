@@ -433,6 +433,8 @@ const IndividualProduct = () => {
 
     const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [amount, setAmount] = useState(1);
+    const [selectedColor, setSelectedColor] = useState();
+    const [selectedSize, setSelectedSize] = useState();
     const boxRef = useRef(null);
 
     const { title, image, price, description, color, size } = displayProduct;
@@ -458,6 +460,10 @@ const IndividualProduct = () => {
     const handlePlus = () => {
         setAmount(amount + 1);
         boxAnimation(false);
+    }
+
+    const sizeClick = (e) => {
+        setSelectedSize(e.target.value);
     }
 
     useEffect(() => {
@@ -493,7 +499,7 @@ const IndividualProduct = () => {
                                         <SelectorGroup>
                                             <Label>Size: </Label>
                                             {size && size.length ?
-                                                <Selector name='size' pos='right' defaultValue='M' placeholder='M'>
+                                                <Selector onChange={sizeClick} name='size' pos='right' defaultValue="M" value={selectedSize}>
                                                     {size.map((size, i) => <Option key={i}>{size.toUpperCase()}</Option>)}
                                                 </Selector>
                                                 : <Label>One Size Only</Label>

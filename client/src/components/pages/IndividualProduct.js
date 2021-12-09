@@ -349,6 +349,7 @@ background-color: ${props => props.color};
 ${'' /* to accomodate extra width of white color with border */}
 height: ${props => props.border ? '18px' : '20px'};
 margin: 5px;
+transition: ease-in-out 0.05s;
 width: ${props => props.border ? '18px' : '20px'};
 
 &:hover{
@@ -462,8 +463,12 @@ const IndividualProduct = () => {
         boxAnimation(false);
     }
 
-    const sizeClick = (e) => {
+    const sizeChange = (e) => {
         setSelectedSize(e.target.value);
+    }
+
+    const colorClick = (e) => {
+        setSelectedColor(e.target.getAttribute('color'))
     }
 
     useEffect(() => {
@@ -499,7 +504,7 @@ const IndividualProduct = () => {
                                         <SelectorGroup>
                                             <Label>Size: </Label>
                                             {size && size.length ?
-                                                <Selector onChange={sizeClick} name='size' pos='right' defaultValue="M" value={selectedSize}>
+                                                <Selector onChange={sizeChange} name='size' pos='right' defaultValue="M" value={selectedSize}>
                                                     {size.map((size, i) => <Option key={i}>{size.toUpperCase()}</Option>)}
                                                 </Selector>
                                                 : <Label>One Size Only</Label>
@@ -509,7 +514,7 @@ const IndividualProduct = () => {
                                             <Label>Color: </Label>
                                             {color && color.length ?
                                                 <ColorContainer>
-                                                    {color.map((color, i) => <ColorOption key={i} color={color} border={color === 'white' ? 'black' : color}></ColorOption>)}
+                                                    {color.map((color, i) => <ColorOption onClick={colorClick} key={i} color={color} border={color === 'white' ? 'black' : color} style={{transform: color === selectedColor ? 'scale(150%) rotate(45deg)': 'none'}}></ColorOption>)}
                                                 </ColorContainer>
                                                 : null}
                                         </SelectorGroup>

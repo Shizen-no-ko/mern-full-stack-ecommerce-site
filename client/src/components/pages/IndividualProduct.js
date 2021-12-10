@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { publicReq } from '../../axiosRequests';
+import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -9,7 +10,8 @@ import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 
-import { sliderData } from '../../data/data.js';
+// import { sliderData } from '../../data/data.js';
+import { addProduct } from '../../redux/shoppingCartRedux';
 
 
 const Container = styled.div`
@@ -426,9 +428,9 @@ ${landscapeTablet({
 const IndividualProduct = () => {
 
     const path = useLocation().pathname.split('/');
-    console.log(path);
+    // console.log(path);
     const id = path[path.length -1];
-    console.log(id);
+    // console.log(id);
    
 
     const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
@@ -436,6 +438,7 @@ const IndividualProduct = () => {
     const [selectedColor, setSelectedColor] = useState();
     const [selectedSize, setSelectedSize] = useState();
     const boxRef = useRef(null);
+    const dispatch = useDispatch();
 
     const { title, image, price, description, color, size } = displayProduct;
 
@@ -483,6 +486,10 @@ const IndividualProduct = () => {
         return () => { isMounted = false };
     }, [])
 
+    const handleClick = () => {
+        dispatch(addProduct({ product:displayProduct, amount, price:displayProduct.price*amount }));
+    }
+
     return (
         <div>
             <Navbar />
@@ -525,7 +532,7 @@ const IndividualProduct = () => {
                                         <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
                                         <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
                                     </PlusMinusContainer>
-                                    <Button>ADD TO CART <i className="fas fa-shopping-cart" style={{ 'paddingLeft': '10px' }}></i></Button>
+                                    <Button onClick={handleClick}>ADD TO CART <i className="fas fa-shopping-cart" style={{ 'paddingLeft': '10px' }}></i></Button>
                                 </SelectorRow>
                             </Details>
                         </DetailsContainer>

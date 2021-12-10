@@ -4,14 +4,14 @@ const shoppingCartSlice = createSlice({
     name: 'cart',
     initialState: {
         products: [],
-        itemCount: 3,
+        itemCount: 0,
         totalPrice: 0
     },
     reducers: {
         addProduct:(state, action) => {
-            state.itemCount += 1;
+            state.itemCount += action.payload.amount;
             state.products.push(action.payload.product);
-            state.total += action.payload.price;
+            state.totalPrice += action.payload.price;
         }
     }
 });

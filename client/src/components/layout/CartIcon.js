@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+
 import styled from 'styled-components';
 import Badge from './Badge';
 
@@ -15,9 +17,10 @@ ${mobile({
 
 
 const CartIcon = (props) => {
+    const itemCount = useSelector(state=>state.cart.itemCount);
     return(
        <CartContainer>
-        <Badge cartItems={10} color={"red"}/>
+        <Badge cartItems={itemCount} color={"red"}/>
            <i className="fas fa-shopping-cart"></i>
        </CartContainer>
     )

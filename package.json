@@ -12,6 +12,7 @@
   "author": "Mike Search",
   "license": "MIT",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.6",
     "cors": "^2.8.5",

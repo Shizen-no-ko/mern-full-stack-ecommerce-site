@@ -229,7 +229,7 @@ ${landscapeTablet({
 
 const CartItem = (props) => {
 
-    const [amount, setAmount] = useState(1);
+    const [amount, setAmount] = useState(props.amount);
     const boxRef = useRef(null);
     const priceRef = useRef(null);
 
@@ -272,7 +272,7 @@ const CartItem = (props) => {
     return (
         <Container>
         <Wrapper>
-        <ItemImage src='https://source.unsplash.com/rplPKfKjC_c/1920x1280'/>
+        <ItemImage src={props.image}/>
         <ItemDetails>
         <Detail><strong>Product:</strong> {props.productName} </Detail>
         <Detail><strong>ID:</strong> {props.productId} </Detail>

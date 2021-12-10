@@ -7,6 +7,9 @@ import Footer from '../layout/Footer';
 import CartItem from '../layout/CartItem';
 import OrderSummary from '../layout/OrderSummary';
 
+import { useSelector } from 'react-redux';
+
+
 const Container = styled.div`
 ${'' /* height: 100vh; */}
 max-width: 100%;
@@ -109,6 +112,9 @@ ${mobile({
 
 
 const ShoppingCart = () => {
+
+const cart = useSelector(state=>state.cart);
+
     return (
         <div>
             <Navbar/>
@@ -121,9 +127,10 @@ const ShoppingCart = () => {
 </ButtonDiv>
 <DetailsDiv>
     <CartItems>
+    {cart.products.map((item)=> <CartItem image={item.image} productName={item.title} productId={item._id} size={item.size} color={item.color} amount={item.amount} price={item.price*item.amount} />)}
+        {/* <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
-        <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
-        <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
+        <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/> */}
     </CartItems>
     
     <OrderSummary/>

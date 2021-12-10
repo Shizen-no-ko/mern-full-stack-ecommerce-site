@@ -479,6 +479,7 @@ const IndividualProduct = () => {
             const getProduct = async () => {
                 const res = await publicReq.get(`products/find/${id}`);
                 setDisplayProduct(res.data);
+                setSelectedColor(res.data.color[0]);
             }
             getProduct()
         }
@@ -487,7 +488,7 @@ const IndividualProduct = () => {
     }, [])
 
     const handleClick = () => {
-        dispatch(addProduct({ product:displayProduct, amount, price:displayProduct.price*amount }));
+        dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));
     }
 
     return (

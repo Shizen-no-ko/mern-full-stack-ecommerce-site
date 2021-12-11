@@ -1,7 +1,9 @@
 import {useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
+import { decreaseItemAmount, increaseItemAmount } from '../../redux/shoppingCartRedux';
 
 const Container = styled.div`
 
@@ -232,6 +234,9 @@ const CartItem = (props) => {
     const [amount, setAmount] = useState(props.amount);
     const boxRef = useRef(null);
     const priceRef = useRef(null);
+    const dispatch = useDispatch();
+
+    const itemAmount = useSelector(state=>state.cart.products[props.index].amount);
 
 
     const boxAnimation = (minus) => {
@@ -249,12 +254,14 @@ const CartItem = (props) => {
     };
     
     const handleMinus = () => {
-        if(amount > 0){setAmount(amount - 1)};
+        dispatch(decreaseItemAmount({index: props.index}));
+        // if(amount > 0){setAmount(amount - 1)};
         boxAnimation(true)
     }
     
     const handlePlus = () => {
-        setAmount(amount + 1);
+        dispatch(increaseItemAmount({index: props.index}));
+        // setAmount(amount + 1);
         boxAnimation(false);
     }
 
@@ -282,7 +289,7 @@ const CartItem = (props) => {
         <PriceAndAmount>
         <PlusMinusContainer>
        <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles>
-           <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
+           <AmountDisplay ref={boxRef}>{itemAmount}</AmountDisplay>
            <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
        </PlusMinusContainer>
        <Price ref={priceRef}>${amount * props.price}</Price>

@@ -14,14 +14,16 @@ const shoppingCartSlice = createSlice({
             state.totalPrice += action.payload.price*action.payload.amount;
         },
         decreaseItemAmount: (state, action) => {
-            state.products[action.payload.index].amount -= 1;
+            const index = state.products.findIndex((item) => item._id === action.payload.id);
+            state.products[index].amount -= 1;
             state.itemCount -=1;
-            state.totalPrice -= state.products[action.payload.index].price*state.products[action.payload.index].amount;
+            state.totalPrice -= state.products[index].price*state.products[index].amount;
         },
         increaseItemAmount: (state, action) => {
-            state.products[action.payload.index].amount += 1;
+            const index = state.products.findIndex((item) => item._id === action.payload.id);
+            state.products[index].amount += 1;
             state.itemCount +=1;
-            state.totalPrice -= state.products[action.payload.index].price*state.products[action.payload.index].amount;
+            state.totalPrice -= state.products[index].price*state.products[index].amount;
 
         }
     }

@@ -254,13 +254,13 @@ const CartItem = (props) => {
     };
     
     const handleMinus = () => {
-        dispatch(decreaseItemAmount({index: props.index}));
+        dispatch(decreaseItemAmount({id: props.productId}));
         // if(amount > 0){setAmount(amount - 1)};
         boxAnimation(true)
     }
     
     const handlePlus = () => {
-        dispatch(increaseItemAmount({index: props.index}));
+        dispatch(increaseItemAmount({id: props.productId}));
         // setAmount(amount + 1);
         boxAnimation(false);
     }

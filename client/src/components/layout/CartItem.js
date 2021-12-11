@@ -231,7 +231,7 @@ ${landscapeTablet({
 
 const CartItem = (props) => {
 
-    const [amount, setAmount] = useState(props.amount);
+    // const [amount, setAmount] = useState(props.amount);
     const boxRef = useRef(null);
     const priceRef = useRef(null);
     const dispatch = useDispatch();
@@ -292,7 +292,7 @@ const CartItem = (props) => {
            <AmountDisplay ref={boxRef}>{itemAmount}</AmountDisplay>
            <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
        </PlusMinusContainer>
-       <Price ref={priceRef}>${amount * props.price}</Price>
+       <Price ref={priceRef}>${itemAmount * props.price}</Price>
         </PriceAndAmount>
         
         </Wrapper>

@@ -140,11 +140,14 @@ const cart = useSelector(state=>state.cart);
 </ButtonDiv>
 <DetailsDiv>
     <CartItems>
-    {cart.products.map((item, index)=> <CartItem key={index} index={index} />)}
+    {cart.products.length ? 
+    cart.products.map((item, index)=> <CartItem key={index} index={index} />) :
+    <h1>YOUR SHOPPING CART IS EMPTY</h1>}
     {/* {cart.products.map((item, index)=> <CartItem key={index} index={index} image={item.image} productName={item.title} productId={item._id} size={item.size} color={item.color} amount={item.amount} price={item.price} />)} */}
         {/* <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/> */}
+    
     </CartItems>
     
     <OrderSummary/>

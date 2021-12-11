@@ -9,7 +9,7 @@ const shoppingCartSlice = createSlice({
         freeDeliveryLevel: 80,
         subtotal: 0,
         totalPrice: 0,
-        deliveryCharge: 5.99
+        deliveryCharge: 4.99
     },
     reducers: {
         addProduct:(state, action) => {

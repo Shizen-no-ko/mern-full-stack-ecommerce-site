@@ -78,7 +78,7 @@ const OrderSummary = () => {
      <Wrapper>
             <Title>Order Summary</Title>
             <Info><Label>Subtotal:</Label><Amount>${subtotal}</Amount></Info>
-            {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : 0}
+            {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : null}
             {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null}
             <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
             <Button>Go to Checkout</Button>

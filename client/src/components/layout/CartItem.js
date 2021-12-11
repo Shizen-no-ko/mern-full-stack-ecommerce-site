@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
-import { decreaseItemAmount, increaseItemAmount } from '../../redux/shoppingCartRedux';
+import { decreaseItemAmount, increaseItemAmount, deleteItem } from '../../redux/shoppingCartRedux';
 
 const Container = styled.div`
 
@@ -238,6 +238,10 @@ const CartItem = (props) => {
 
     const itemAmount = useSelector(state=>state.cart.products[props.index].amount);
 
+{/* <CartItem key={index} index={index} image={item.image} productName={item.title} productId={item._id} size={item.size} color={item.color} amount={item.amount} price={item.price} */}
+
+    const { image, title, _id, size, color, amount, price } = useSelector(state=>state.cart.products[props.index]);
+
 
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
@@ -254,15 +258,21 @@ const CartItem = (props) => {
     };
     
     const handleMinus = () => {
-        dispatch(decreaseItemAmount({id: props.productId}));
+        // dispatch(decreaseItemAmount({id: props.productId}));
+        dispatch(decreaseItemAmount({id: _id}));
         // if(amount > 0){setAmount(amount - 1)};
         boxAnimation(true)
-    }
+    };
     
     const handlePlus = () => {
-        dispatch(increaseItemAmount({id: props.productId}));
+        // dispatch(increaseItemAmount({id: props.productId}));
+        dispatch(increaseItemAmount({id: _id}));
         // setAmount(amount + 1);
         boxAnimation(false);
+    };
+
+    const handleDelete = () => {
+        dispatch(deleteItem({id: _id}));
     }
 
   
@@ -279,24 +289,29 @@ const CartItem = (props) => {
     return (
         <Container>
         <Wrapper>
-        <ItemImage src={props.image}/>
+        <ItemImage src={image}/>
         <ItemDetails>
-        <Detail><strong>Product:</strong> {props.productName} </Detail>
-        <Detail><strong>ID:</strong> {props.productId} </Detail>
-        <Color color={props.color}/>
-        {props.size ? <Detail><strong>Size:</strong> {props.size} </Detail> : null}
+        {/* <Detail><strong>Product:</strong> {props.productName} </Detail> */}
+        <Detail><strong>Product:</strong> {title} </Detail>
+        {/* <Detail><strong>ID:</strong> {props.productId} </Detail> */}
+        <Detail><strong>ID:</strong> {_id} </Detail>
+        {/* <Color color={props.color}/> */}
+        <Color color={color}/>
+        {/* {props.size ? <Detail><strong>Size:</strong> {props.size} </Detail> : null} */}
+        {size ? <Detail><strong>Size:</strong> {size} </Detail> : null}
         </ItemDetails>
         <PriceAndAmount>
         <PlusMinusContainer>
         {itemAmount > 1 ? 
         <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles> :
-        <PlusMinusStyles><i class="fas fa-trash-alt"></i></PlusMinusStyles>
+        <PlusMinusStyles onClick={handleDelete}><i class="fas fa-trash-alt"></i></PlusMinusStyles>
         }
            <AmountDisplay ref={boxRef}>{itemAmount}</AmountDisplay>
            <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
        </PlusMinusContainer>
        
-       <Price ref={priceRef}>${itemAmount * props.price}</Price>
+       {/* <Price ref={priceRef}>${itemAmount * props.price}</Price> */}
+       <Price ref={priceRef}>${itemAmount * price}</Price>
         </PriceAndAmount>
         
         </Wrapper>

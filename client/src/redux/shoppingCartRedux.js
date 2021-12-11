@@ -4,6 +4,7 @@ const shoppingCartSlice = createSlice({
     name: 'cart',
     initialState: {
         products: [],
+        previousCartItems: [],
         itemCount: 0,
         freeDeliveryLevel: 80,
         subtotal: 0,
@@ -32,9 +33,16 @@ const shoppingCartSlice = createSlice({
             state.itemCount +=1;
             state.subtotal += state.products[index].price;
             state.totalPrice = state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0);
-        }
-    }
+        },
+        deleteItem: (state, action) => {
+            const index = state.products.findIndex((item) => item._id === action.payload.id);
+            state.previousCartItems.push(state.products[index]);
+            state.subtotal -= state.products[index].price * state.products[index].amount;
+            state.totalPrice = state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0);
+            state.products.splice(index, 1);
+          }
+     }
 });
 
-export const { addProduct, decreaseItemAmount, increaseItemAmount } = shoppingCartSlice.actions;
+export const { addProduct, decreaseItemAmount, increaseItemAmount, deleteItem } = shoppingCartSlice.actions;
 export default shoppingCartSlice.reducer; 

@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { mobile, portraitTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
@@ -7,7 +10,7 @@ import Footer from '../layout/Footer';
 import CartItem from '../layout/CartItem';
 import OrderSummary from '../layout/OrderSummary';
 
-import { useSelector } from 'react-redux';
+
 
 
 const Container = styled.div`
@@ -109,6 +112,16 @@ ${mobile({
 })};
 `
 
+const StyledLink = styled(Link)`
+color: black;
+text-decoration: none;
+
+&:active{
+    color: red;
+}
+
+`
+
 
 
 const ShoppingCart = () => {
@@ -122,7 +135,7 @@ const cart = useSelector(state=>state.cart);
 <Wrapper>
 <Title>Your Shopping Cart</Title>
 <ButtonDiv>
-<Button look='light'>Continue Shopping</Button>
+<StyledLink to='/products'><Button look='light'>Continue Shopping</Button></StyledLink>
 <Button>Checkout Now</Button>
 </ButtonDiv>
 <DetailsDiv>

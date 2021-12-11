@@ -1,6 +1,8 @@
 import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
+import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
+
 
 
 const Container = styled.div`
@@ -26,9 +28,12 @@ ${mobile({
 `
 
 const Messaging = () => {
+
+    const { freeDeliveryLevel } = useSelector(state=>state.cart);
+
     return (
         <Container>
-            Free Shipping on Orders Over $70
+            Free Shipping on Orders Over ${freeDeliveryLevel}
         </Container>
     )
 }

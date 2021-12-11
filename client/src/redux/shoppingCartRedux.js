@@ -5,7 +5,7 @@ const shoppingCartSlice = createSlice({
     initialState: {
         products: [],
         itemCount: 0,
-        freeDeliveryLevel: 70,
+        freeDeliveryLevel: 80,
         subtotal: 0,
         totalPrice: 0,
         deliveryCharge: 5.99

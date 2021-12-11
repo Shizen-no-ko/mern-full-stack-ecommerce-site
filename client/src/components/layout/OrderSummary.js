@@ -70,7 +70,7 @@ text-align: center;
 
 const OrderSummary = () => {
 
-    const { subtotal, totalPrice, freeDeliveryLevel } = useSelector(state=>state.cart);
+    const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = useSelector(state=>state.cart);
 
 
     return (
@@ -78,8 +78,8 @@ const OrderSummary = () => {
      <Wrapper>
             <Title>Order Summary</Title>
             <Info><Label>Subtotal:</Label><Amount>${subtotal}</Amount></Info>
-            <Info><Label>Delivery Charge:</Label><Amount>$5.99</Amount></Info>
-            {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-$5.99</Amount></Info> : null}
+            {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : 0}
+            {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null}
             <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
             <Button>Go to Checkout</Button>
             </Wrapper>

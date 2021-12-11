@@ -36,7 +36,8 @@ const shoppingCartSlice = createSlice({
         },
         deleteItem: (state, action) => {
             const index = state.products.findIndex((item) => item._id === action.payload.id);
-            state.previousCartItems.push(state.products[index]);
+            if(!state.previousCartItems.find(item => item._id === action.payload.id)){state.previousCartItems.push(state.products[index]);}
+            state.itemCount -= 1;
             state.subtotal -= state.products[index].price * state.products[index].amount;
             state.totalPrice = state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0);
             state.products.splice(index, 1);

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { mobile, portraitTablet } from '../../responsive';
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -121,7 +121,33 @@ text-decoration: none;
 }
 
 `
+const PreviousImage = styled.img`
+border-radius: 20px 0;
+margin: 20px;
+width: 200px;
 
+${mobile({
+    
+    height: 'auto',
+    margin: '20px 0 0 0',
+    maxWidth: '125px'
+})};
+
+${portraitTablet({
+    
+    height: 'auto',
+    margin: '20px 0 0 40px',
+    maxWidth: '175px'
+})};
+
+${landscapeTablet({
+    height: '150px',
+    margin: '20px 0 0 40px',
+    maxWidth: '175px',
+    width: 'auto'
+})};
+
+`
 
 
 const ShoppingCart = () => {
@@ -147,9 +173,9 @@ const cart = useSelector(state=>state.cart);
         {/* <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/> */}
-    
+    {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
+    <div>{cart.previousCartItems.map((item) => <StyledLink to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
     </CartItems>
-    
     <OrderSummary/>
 </DetailsDiv>
 </Wrapper>

@@ -296,7 +296,7 @@ const CartItem = (props) => {
         {/* <Detail><strong>ID:</strong> {props.productId} </Detail> */}
         <Detail><strong>ID:</strong> {_id} </Detail>
         {/* <Color color={props.color}/> */}
-        <Color color={color}/>
+        <Color color={color} style={{'border': color === 'white' ? '3px solid black': 'none' }}/>
         {/* {props.size ? <Detail><strong>Size:</strong> {props.size} </Detail> : null} */}
         {size ? <Detail><strong>Size:</strong> {size} </Detail> : null}
         </ItemDetails>

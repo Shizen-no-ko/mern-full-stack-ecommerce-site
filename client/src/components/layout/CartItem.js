@@ -288,10 +288,14 @@ const CartItem = (props) => {
         </ItemDetails>
         <PriceAndAmount>
         <PlusMinusContainer>
-       <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles>
+        {itemAmount > 1 ? 
+        <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles> :
+        <PlusMinusStyles><i class="fas fa-trash-alt"></i></PlusMinusStyles>
+        }
            <AmountDisplay ref={boxRef}>{itemAmount}</AmountDisplay>
            <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
        </PlusMinusContainer>
+       
        <Price ref={priceRef}>${itemAmount * props.price}</Price>
         </PriceAndAmount>
         

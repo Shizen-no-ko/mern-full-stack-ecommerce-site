@@ -277,7 +277,7 @@ const CartItem = (props) => {
         <Detail><strong>Product:</strong> {props.productName} </Detail>
         <Detail><strong>ID:</strong> {props.productId} </Detail>
         <Color color={props.color}/>
-        <Detail><strong>Size:</strong> {props.size} </Detail>
+        {props.size ? <Detail><strong>Size:</strong> {props.size} </Detail> : null}
         </ItemDetails>
         <PriceAndAmount>
         <PlusMinusContainer>

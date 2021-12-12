@@ -162,7 +162,7 @@ const cart = useSelector(state=>state.cart);
 <Title>Your Shopping Cart</Title>
 <ButtonDiv>
 <StyledLink to='/products'><Button look='light'>Continue Shopping</Button></StyledLink>
-<Button>Checkout Now</Button>
+{cart.subtotal > 0 ? <Button>Checkout Now</Button> : null}
 </ButtonDiv>
 <DetailsDiv>
     <CartItems>

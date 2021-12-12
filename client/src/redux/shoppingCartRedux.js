@@ -6,7 +6,7 @@ const shoppingCartSlice = createSlice({
         products: [],
         previousCartItems: [],
         itemCount: 0,
-        freeDeliveryLevel: 80,
+        freeDeliveryLevel: 70,
         subtotal: 0,
         totalPrice: 0,
         deliveryCharge: 4.99

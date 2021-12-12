@@ -12,7 +12,7 @@ import Register from './components/pages/Register';
 import ShoppingCart from './components/pages/ShoppingCart';
 
 function App() {
-  const user = true;
+  const user = false;
   
 
   return (

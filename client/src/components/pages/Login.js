@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
+import { login } from '../../redux/apiCalls';
 
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -197,8 +199,14 @@ const Login = (props) => {
     });
 
     const { email, password } = formData;
+    const dispatch = useDispatch();
 
     const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        login(dispatch, { email, password })
+    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -236,7 +244,7 @@ const Login = (props) => {
                             <Eye onClick={() => openEye(0)} ref={eyeRef} ><i className="fas fa-eye"></i></Eye>
                             <ClosedEye onClick={() => closeEye(0)} ref={closedEyeRef}><i className="fas fa-eye-slash"></i></ClosedEye>
                         </PasswordContainer>
-                        <Button>Let's Go Shopping</Button>
+                        <Button onClick={handleClick}>Let's Go Shopping</Button>
                         <PasswordForgotten>Forgotten Password?</PasswordForgotten>
                     </Form>
 

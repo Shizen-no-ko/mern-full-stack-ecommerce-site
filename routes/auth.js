@@ -83,7 +83,9 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
                 { expiresIn: 3600 },
                 (err, token) => {
                     if (err) console.log(err);
-                    res.json({ token });
+                    // remove password from response
+                    delete user._doc.password;
+                    res.json({ token, user });
                 });
             
 

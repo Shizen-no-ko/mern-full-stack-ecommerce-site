@@ -1,10 +1,34 @@
 import { configureStore } from '@reduxjs/toolkit';
-import shoppingCartReducer from './shoppingCartRedux';
+import {
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+  } from 'redux-persist'
+  import storage from 'redux-persist/lib/storage';
+
+  import shoppingCartReducer from './shoppingCartRedux';
 import userReducer from './userRedux';
 
-export default configureStore({
+  const persistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
+  }
+  
+  const persistedReducer = persistReducer(persistConfig, userReducer)
+
+
+
+export const store = configureStore({
     reducer: {
         cart: shoppingCartReducer,
-        user: userReducer
+        user: persistedReducer
     }
 })
+
+export let persistor = persistStore(store)

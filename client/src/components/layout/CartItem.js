@@ -1,4 +1,4 @@
-import {useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
@@ -236,9 +236,8 @@ const CartItem = (props) => {
     const priceRef = useRef(null);
     const dispatch = useDispatch();
 
-    const itemAmount = useSelector(state=>state.cart.products[props.index].amount);
+    // const itemAmount = useSelector(state=>state.cart.products[props.index].amount);
 
-{/* <CartItem key={index} index={index} image={item.image} productName={item.title} productId={item._id} size={item.size} color={item.color} amount={item.amount} price={item.price} */}
 
     const { image, title, _id, size, color, amount, price } = useSelector(state=>state.cart.products[props.index]);
 
@@ -302,16 +301,16 @@ const CartItem = (props) => {
         </ItemDetails>
         <PriceAndAmount>
         <PlusMinusContainer>
-        {itemAmount > 1 ? 
+        {amount > 1 ? 
         <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles> :
         <PlusMinusStyles onClick={handleDelete}><i class="fas fa-trash-alt"></i></PlusMinusStyles>
         }
-           <AmountDisplay ref={boxRef}>{itemAmount}</AmountDisplay>
+           <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
            <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
        </PlusMinusContainer>
        
        {/* <Price ref={priceRef}>${itemAmount * props.price}</Price> */}
-       <Price ref={priceRef}>${itemAmount * price}</Price>
+       <Price ref={priceRef}>${amount * price}</Price>
         </PriceAndAmount>
         
         </Wrapper>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { publicReq } from '../../axiosRequests.js';
 import styled from 'styled-components';
 // import {mobile} from '../../responsive';
@@ -7,8 +7,8 @@ import styled from 'styled-components';
 
 import ProductElement from './ProductElement.js';
 
-import { productData } from '../../data/data.js';
-import ProductsFilter from '../pages/ProductsFilter.js';
+// import { productData } from '../../data/data.js';
+// import ProductsFilter from '../pages/ProductsFilter.js';
 
 const Container = styled.div`
 display:flex;
@@ -107,7 +107,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         filteredSizes = filteredSizes.filter((element, index, array) => array.indexOf(element) === index);
         if(!landing) getAvailableColorsSizes({colors: filteredColors, sizes:filteredSizes});
 
-    }, [products, filter, category])
+    }, [products, filter, category ])
 
     useEffect(() => {
         if(sort === 'Most Recent'){
@@ -117,13 +117,13 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         }
     }, [sort])
 
-    useEffect(() => {
-        console.log("FILTERED CHANGED");
-        console.log("Filtered is:")
-        console.log(filtered);
-        console.log("Products is")
-        console.log(products)
-    }, [filtered]);
+    // useEffect(() => {
+    //     console.log("FILTERED CHANGED");
+    //     console.log("Filtered is:")
+    //     console.log(filtered);
+    //     console.log("Products is")
+    //     console.log(products)
+    // }, [filtered]);
 
     return (
         <Container>

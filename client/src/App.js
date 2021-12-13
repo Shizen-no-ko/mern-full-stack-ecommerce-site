@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect, useLocation} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
 import ScrollToTop from './utilities/ScrollToTop';

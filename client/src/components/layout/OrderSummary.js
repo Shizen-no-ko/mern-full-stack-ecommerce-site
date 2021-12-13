@@ -81,7 +81,7 @@ const OrderSummary = () => {
             {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : null}
             {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null}
             <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
-            <Button style={subtotal <=0 ? {'pointer-events': 'none', 'opacity' : '0.65' } : null}>{subtotal > 0 ? 'Go to Checkout' : 'Please add items to your cart'}</Button>
+            <Button style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}>{subtotal > 0 ? 'Go to Checkout' : 'Please add items to your cart'}</Button>
             </Wrapper>
         </Container>
        

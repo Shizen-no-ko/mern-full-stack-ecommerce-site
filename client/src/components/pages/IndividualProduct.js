@@ -485,7 +485,7 @@ const IndividualProduct = () => {
         }
         catch (err) { console.log(err) }
         return () => { isMounted = false };
-    }, [])
+    }, [id])
 
     const handleClick = () => {
         dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));

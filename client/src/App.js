@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './App.css';
 
 import ScrollToTop from './utilities/ScrollToTop';
@@ -12,7 +13,7 @@ import Register from './components/pages/Register';
 import ShoppingCart from './components/pages/ShoppingCart';
 
 function App() {
-  const user = false;
+  const user = useSelector(state => state.user.currentUser);
   
 
   return (

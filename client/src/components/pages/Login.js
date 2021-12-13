@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -167,6 +168,14 @@ width: 50%;
     transform: scale(97%);
 }
 
+&:disabled{
+    background-color: rgba(100, 0, 0, 0.5);
+    border: 3px solid rgb(200, 0, 0);
+    color: rgba(200, 0, 0, 0.5);
+    cursor: not-allowed;
+
+}
+
 ${mobile({
     fontSize: '17px',
     width: '80%'
@@ -190,6 +199,14 @@ ${landscapeTablet({
 
 `
 
+const ErrorMessage = styled.span`
+color: red;
+font-weight: bold;
+font-size: 1.5rem;
+margin: 10px;
+text-align: center;
+`
+
 
 const Login = (props) => {
 
@@ -200,6 +217,7 @@ const Login = (props) => {
 
     const { email, password } = formData;
     const dispatch = useDispatch();
+    const { isFetching, error, errorMessage } = useSelector(state => state.user);
 
     const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -244,7 +262,8 @@ const Login = (props) => {
                             <Eye onClick={() => openEye(0)} ref={eyeRef} ><i className="fas fa-eye"></i></Eye>
                             <ClosedEye onClick={() => closeEye(0)} ref={closedEyeRef}><i className="fas fa-eye-slash"></i></ClosedEye>
                         </PasswordContainer>
-                        <Button onClick={handleClick}>Let's Go Shopping</Button>
+                        <Button onClick={handleClick} disabled={isFetching}>Let's Go Shopping</Button>
+                        {error ? <ErrorMessage>{errorMessage ? errorMessage[0].msg: null}</ErrorMessage> : null}
                         <PasswordForgotten>Forgotten Password?</PasswordForgotten>
                     </Form>
 

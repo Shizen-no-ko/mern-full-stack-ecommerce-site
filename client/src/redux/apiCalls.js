@@ -8,7 +8,8 @@ export const login = async (dispatch, user) => {
         dispatch(loginSuccess(res.data));
     }
     catch (err) {
-        dispatch(loginFailure());
+        dispatch(loginFailure(err.response.data.errors));
+      
     }
 
 };

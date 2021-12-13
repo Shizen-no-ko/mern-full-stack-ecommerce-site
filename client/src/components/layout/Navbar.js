@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
 import Messaging from './Messaging';
@@ -247,6 +248,7 @@ ${mobile({
 const Navbar = () => {
 
     const [ searchState, setSearchState ] = useState("");
+    const user = useSelector(state => state.user.currentUser);
 
     const handleChange = (e) => {
         setSearchState(e.target.value);
@@ -282,8 +284,9 @@ const Navbar = () => {
                 </StyledLink>
                 <RZone>
                     <Menu>
-                        <MenuItem><StyledLink to='/login'>LOG IN</StyledLink></MenuItem>
-                        <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>
+                        {!user && <MenuItem><StyledLink to='/login'>LOG IN</StyledLink></MenuItem>}
+                        {! user && <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>}
+                        {user && <MenuItem><StyledLink to='/logout'>LOG OUT</StyledLink></MenuItem>}
                         <MenuItem><StyledLink to='/cart'><CartIcon /></StyledLink></MenuItem>
                     </Menu>
                 </RZone>

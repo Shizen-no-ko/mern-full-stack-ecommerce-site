@@ -17,7 +17,6 @@ ${mobile({
 
 
 const CartIcon = (props) => {
-    console.log(useSelector(state=>state.cart));
     const itemCount = useSelector(state=>state.cart.itemCount);
     return(
        <CartContainer>

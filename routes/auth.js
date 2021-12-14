@@ -7,12 +7,37 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const tokenAuth = require('../middleware/tokenAuth');
 
-router.post('/register', body('email').isEmail(), body('password').isLength({ min: 6 }), body('username').isLength({ min: 1 }), async (req, res) => {
+// .custom(() => {
+//     if (req.body.password === req.body.passwordConfirm) {
+//         console.log("THEY MATCH");
+//       return true;
+//     } else {
+//         console.log("THEY DO NOT MATCH");
+//       return false;
+//     }
+//   })
+//   .withMessage("Passwords don't match BANANAS.")
+
+
+router.post('/register', 
+body('email').isEmail().withMessage("Please enter a valid email"), 
+body('password').isLength({ min: 6 }).withMessage("Password must contain at least 6 characters"),
+body('passwordConfirm').custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error('Password confirmation does not match password');
+    }
+    return true;
+  }).withMessage("Passwords don't match.")
+, 
+body('username').isLength({ min: 1 }).withMessage("Username must not be empty"), 
+async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+
+
 
     try {
         let user = await User.findOne({ email: req.body.email });

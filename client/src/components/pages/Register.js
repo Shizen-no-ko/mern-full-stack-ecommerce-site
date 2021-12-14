@@ -1,7 +1,11 @@
 import {useRef, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { persistor } from '../../redux/store';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
+import { register } from '../../redux/apiCalls';
+// import { clearErrors } from '../../redux/userRedux';
 
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
@@ -190,6 +194,14 @@ ${landscapeTablet({
 })};
 `
 
+const ErrorMessage = styled.span`
+color: red;
+font-weight: bold;
+font-size: 1.5rem;
+margin: 10px;
+text-align: center;
+`
+
 const Register = (props) => {
 
 const [formData, setFormData] = useState({
@@ -199,7 +211,11 @@ const [formData, setFormData] = useState({
     passwordConfirm:''
 });
 
-const { name, email, password, passwordConfirm } = formData;
+const { username, email, password, passwordConfirm } = formData;
+
+const dispatch = useDispatch();
+// dispatch(clearErrors());
+const { isFetching, error, errorMessage } = useSelector(state => state.user);
 
 const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
 
@@ -210,6 +226,12 @@ const onSubmit = (e) => {
     }else{
         console.log(formData)
     }
+};
+
+const handleClick = (e) => {
+    e.preventDefault();
+    persistor.purge();
+    register(dispatch, { username, email, password, passwordConfirm })
 };
 
 const eyeRef1 = useRef(null);
@@ -225,13 +247,15 @@ const openEye = (pos) => {
     refsArray[pos][1].current.style.display = 'unset';
     refsArray[pos][0].current.style.display = 'none';
     refsArray[pos][2].current.type = 'text';
-}
+};
 
 const closeEye = (pos) => {
     refsArray[pos][1].current.style.display = 'none';
     refsArray[pos][0].current.style.display = 'unset';
     refsArray[pos][2].current.type = 'password';
-}
+};
+
+console.log(`ERROR IS ${JSON.stringify(errorMessage)} `);
 
     return (
         <div>
@@ -241,7 +265,7 @@ const closeEye = (pos) => {
             <Wrapper>
             <Title>Create Your Account</Title>
                     <Form onSubmit={e => onSubmit(e)}>
-                    <Input onChange={e => onChange(e)} required name='name' type='text' value={name} placeholder='Your Name'></Input>
+                    <Input onChange={e => onChange(e)} required name='username' type='text' value={username} placeholder='Your Name'></Input>
                         <Input onChange={e => onChange(e)} required name='email' type='email' value={email} placeholder='Your Email'></Input>
                         <PasswordContainer>
                         <Input onChange={e => onChange(e)} ref={passwordRef1} name='password' type='password' value={password} placeholder='Choose a Password'></Input>
@@ -254,7 +278,8 @@ const closeEye = (pos) => {
                         <ClosedEye onClick={() => closeEye(1)} ref={closedEyeRef2}><i className="fas fa-eye-slash"></i></ClosedEye>
                         </PasswordContainer>
                         <PrivacyPolicy>By creating this account, I consent to the processing of my personal data in accordance with the <b>Privacy Policy</b></PrivacyPolicy>
-                        <Button>Sign Me Up</Button>
+                        <Button onClick={handleClick}>Sign Me Up</Button>
+                        {error && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
                     </Form>
                 </Wrapper>
             </Container>

@@ -216,6 +216,7 @@ const Login = (props) => {
     });
 
     const { email, password } = formData;
+
     const dispatch = useDispatch();
     const { isFetching, error, errorMessage } = useSelector(state => state.user);
 
@@ -228,7 +229,7 @@ const Login = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        // console.log(formData);
     };
 
     const eyeRef = useRef(null);

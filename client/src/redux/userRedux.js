@@ -24,7 +24,12 @@ const userSlice = createSlice({
             state.error = true;
             state.errorMessage = action.payload
         }
-
+        // ,
+        // logout: (state) => {
+        //     state.currentUser = null;
+        //     state.error = false;
+        //     state.errorMessage = null;
+        // }
     }
 });
 

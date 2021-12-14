@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { persistor } from '../../redux/store';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
 import Messaging from './Messaging';
@@ -249,9 +250,15 @@ const Navbar = () => {
 
     const [ searchState, setSearchState ] = useState("");
     const user = useSelector(state => state.user.currentUser);
+ 
 
     const handleChange = (e) => {
         setSearchState(e.target.value);
+    }
+
+    const handleLogout = async () => {
+        await persistor.purge();
+        window.location.href = '/';
     }
 
     return (
@@ -286,7 +293,7 @@ const Navbar = () => {
                     <Menu>
                         {!user && <MenuItem><StyledLink to='/login'>LOG IN</StyledLink></MenuItem>}
                         {! user && <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>}
-                        {user && <MenuItem><StyledLink to='/logout'>LOG OUT</StyledLink></MenuItem>}
+                        {user && <MenuItem ><StyledLink onClick={handleLogout} to='/'>LOG OUT</StyledLink></MenuItem>}
                         <MenuItem><StyledLink to='/cart'><CartIcon /></StyledLink></MenuItem>
                     </Menu>
                 </RZone>

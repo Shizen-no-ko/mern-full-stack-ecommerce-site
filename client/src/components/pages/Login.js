@@ -218,13 +218,14 @@ const Login = (props) => {
     const { email, password } = formData;
 
     const dispatch = useDispatch();
-    const { isFetching, error, errorMessage } = useSelector(state => state.user);
+    const { isFetching } = useSelector(state => state.user);
+    const { error, errorMessage } = useSelector(state => state.error);
 
     const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleClick = (e) => {
         e.preventDefault();
-        login(dispatch, { email, password })
+        login(dispatch, { email, password });
     }
 
     const onSubmit = (e) => {

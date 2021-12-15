@@ -215,17 +215,18 @@ const { username, email, password, passwordConfirm } = formData;
 
 const dispatch = useDispatch();
 // dispatch(clearErrors());
-const { isFetching, error, errorMessage } = useSelector(state => state.user);
+const { isFetching } = useSelector(state => state.user);
+const { error, errorMessage } = useSelector(state => state.error);
 
 const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
 
 const onSubmit = (e) => {
     e.preventDefault();
-    if (password !== passwordConfirm){
-        console.log("Passwords Do Not Match")
-    }else{
-        console.log(formData)
-    }
+    // if (password !== passwordConfirm){
+    //     console.log("Passwords Do Not Match")
+    // }else{
+    //     console.log(formData)
+    // }
 };
 
 const handleClick = (e) => {

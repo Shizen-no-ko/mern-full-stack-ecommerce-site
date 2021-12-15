@@ -13,6 +13,8 @@ import storage from 'redux-persist/lib/storage';
 
 import shoppingCartReducer from './shoppingCartRedux';
 import userReducer from './userRedux';
+import errorReducer from './errorRedux';
+
 
 const persistConfig = {
     key: 'root',
@@ -21,7 +23,7 @@ const persistConfig = {
     blacklist: ['error', 'errorMessage']
 }
 
-const rootReducer = combineReducers({ user: userReducer, cart: shoppingCartReducer });
+const rootReducer = combineReducers({ user: userReducer, cart: shoppingCartReducer, error: errorReducer });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

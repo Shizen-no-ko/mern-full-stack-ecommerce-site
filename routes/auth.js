@@ -7,16 +7,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const tokenAuth = require('../middleware/tokenAuth');
 
-// .custom(() => {
-//     if (req.body.password === req.body.passwordConfirm) {
-//         console.log("THEY MATCH");
-//       return true;
-//     } else {
-//         console.log("THEY DO NOT MATCH");
-//       return false;
-//     }
-//   })
-//   .withMessage("Passwords don't match BANANAS.")
 
 
 router.post('/register', 

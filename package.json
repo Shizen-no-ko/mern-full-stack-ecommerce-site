@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
+    "admin": "npm start --prefix admin",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run admin\""
   },
   "author": "Mike Search",
   "license": "MIT",

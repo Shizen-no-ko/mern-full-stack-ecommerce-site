@@ -1,0 +1,21 @@
+
+
+body, html {
+  font-family: 'Lexend', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+
+
+input {
+  border: 1px solid lightgray;
+  margin: 5px;
+}
+
+.App {
+  text-align: center;
+}
+
+
+

@@ -45,16 +45,14 @@ const Icon = styled.div`
 background-color: rgba(0, 0, 0, 0.5);
 cursor: pointer;
 border: none;
-bottom: ${props => props.topbottom === 'bottom' ? '4px' : null};
+bottom: 4px;
 color: white;
-font-size: 25px;
-left: ${props => props.leftright === 'left' ? '0px' : null};
+font-size: 20px;
 padding: 3px;
 position:absolute;
-right: ${props => props.leftright === 'right' ? '0px' : null};
+right: 0px;
 text-align: center;
-top: ${props => props.topbottom === 'top' ? '0px' : null};
-width: 40px;
+width: 200px;
 
 &:hover{
     background-color: white;
@@ -93,9 +91,7 @@ const ProductElement = ({ element }) => {
         <Container>
             <Img src={element.image} />
             <IconContainer>
-                <Icon topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
-                <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon></Link>
-                <Icon topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
+                <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}>EDIT PRODUCT</Icon></Link>
             </IconContainer>
         </Container>
     )

@@ -285,7 +285,7 @@ const Navbar = () => {
                         <LogoText>
                             Nihon no Mono
                         </LogoText>
-                        <Subtitle>A whole world of Japanese Things</Subtitle>
+                        <Subtitle>Admin</Subtitle>
                     </LogoTextContainer>
                 </CZone>
                 </StyledLink>
@@ -293,13 +293,15 @@ const Navbar = () => {
                     <Menu>
                         {!user && <MenuItem><StyledLink to='/login'>LOG IN</StyledLink></MenuItem>}
                         {! user && <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>}
+                        {user && <MenuItem><StyledLink to='/'>PRODUCTS</StyledLink></MenuItem>}
+                        {user && <MenuItem><StyledLink to='/'>USERS</StyledLink></MenuItem>}
                         {user && <MenuItem ><StyledLink onClick={handleLogout} to='/'>LOG OUT</StyledLink></MenuItem>}
-                        <MenuItem><StyledLink to='/cart'><CartIcon /></StyledLink></MenuItem>
+                        {/* <MenuItem><StyledLink to='/cart'><CartIcon /></StyledLink></MenuItem> */}
                     </Menu>
                 </RZone>
             </Wrapper>
         </Container>
-<Messaging/>
+{/* <Messaging/> */}
         </div>
     )
 }

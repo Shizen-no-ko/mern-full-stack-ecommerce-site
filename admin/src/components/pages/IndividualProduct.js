@@ -421,6 +421,47 @@ ${landscapeTablet({
 })};
 `
 
+const ErrorMessage = styled.span`
+color: red;
+font-weight: bold;
+font-size: 1.5rem;
+margin: 10px;
+text-align: center;
+`
+
+const Form = styled.form`
+${'' /* border: 1px solid white; */}
+border-radius: 20px;
+${'' /* box-shadow: 5px 5px 15px rgb(255,192,203); */}
+display: flex;
+flex-direction: column;
+padding: 20px 15px;
+`
+
+const Input = styled.input`
+border-radius: 10px;
+font-size: 20px;
+margin: 10px;
+outline: none;
+padding: 10px;
+width: 94%;
+
+${mobile({
+   fontSize: '15px',
+   marginLeft: '0px'
+})};
+
+${portraitTablet({
+   fontSize: '20px',
+   marginLeft: '0px'
+})};
+`
+
+// const Label = styled.label`
+// font-size: 20px;
+// margin: 10px;
+// `
+
 // const product = sliderData[0];
 
 
@@ -432,15 +473,24 @@ const IndividualProduct = () => {
     const id = path[path.length -1];
     // console.log(id);
    
-
+   
     const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
+    const [formData, setFormData] = useState({
+        title: '',
+        image: '',
+        price: '',
+        description:'',
+        color: [],
+        size: []
+    });
     const [amount, setAmount] = useState(1);
     const [selectedColor, setSelectedColor] = useState();
     const [selectedSize, setSelectedSize] = useState();
     const boxRef = useRef(null);
     const dispatch = useDispatch();
 
-    const { title, image, price, description, color, size } = displayProduct;
+    // const { title, image, price, description, color, size } = displayProduct;
+    const { title, image, price, description, color, size } = formData;
 
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
@@ -478,8 +528,9 @@ const IndividualProduct = () => {
         try {
             const getProduct = async () => {
                 const res = await publicReq.get(`products/find/${id}`);
-                setDisplayProduct(res.data);
-                setSelectedColor(res.data.color[0]);
+                // setDisplayProduct(res.data);
+                // setSelectedColor(res.data.color[0]);
+                setFormData(res.data);
             }
             getProduct()
         }
@@ -490,6 +541,13 @@ const IndividualProduct = () => {
     const handleClick = () => {
         dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));
     }
+
+    const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
+
+const onSubmit = (e) => {
+    e.preventDefault();
+  
+};
 
     return (
         <div>
@@ -503,37 +561,25 @@ const IndividualProduct = () => {
                         </ImageContainer>
                         <DetailsContainer>
                             <Details>
-                                <Title>{title}</Title>
-                                <Description>{description}</Description>
-                                <Price>${price}</Price>
+                            <Form onSubmit={e => onSubmit(e)}>
+                            <Label>Title</Label>
+                    <Input onChange={e => onChange(e)} required name='title' type='text' value={title}></Input>
+                    <Label>Image Url</Label>
+                        <Input onChange={e => onChange(e)} required name='image' type='text' value={image}></Input>
+                        <Label>Price</Label>
+                        <Input onChange={e => onChange(e)}  name='price' type='number' value={price} ></Input>
+                        <Label>Description</Label>
+                        <Input onChange={e => onChange(e)}  name='description' type='text' value={description} ></Input>
+                        <Label>Colors</Label>
+                        <Input onChange={e => onChange(e)}  name='color' type='text' value={color} ></Input>
+                        <Label>Sizes</Label>
+                        <Input onChange={e => onChange(e)}  name='size' type='text' value={sizeChange} ></Input>
+
+                    </Form>
                                 <SelectorRow>
-                                    <SelectorContainer>
-                                        <SelectorGroup>
-                                            <Label>Size: </Label>
-                                            {size && size.length ?
-                                                <Selector onChange={sizeChange} name='size' pos='right' defaultValue="M" value={selectedSize}>
-                                                    {size.map((size, i) => <Option key={i}>{size.toUpperCase()}</Option>)}
-                                                </Selector>
-                                                : <Label>One Size Only</Label>
-                                            }
-                                        </SelectorGroup>
-                                        <SelectorGroup>
-                                            <Label>Color: </Label>
-                                            {color && color.length ?
-                                                <ColorContainer>
-                                                    {color.map((color, i) => <ColorOption onClick={colorClick} key={i} color={color} border={color === 'white' ? 'black' : color} style={{transform: color === selectedColor ? 'scale(150%) rotate(45deg)': ''}}></ColorOption>)}
-                                                </ColorContainer>
-                                                : null}
-                                        </SelectorGroup>
-                                    </SelectorContainer>
-                                </SelectorRow>
-                                <SelectorRow>
-                                    <PlusMinusContainer>
-                                        <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles>
-                                        <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
-                                        <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
-                                    </PlusMinusContainer>
-                                    <Button onClick={handleClick}>ADD TO CART <i className="fas fa-shopping-cart" style={{ 'paddingLeft': '10px' }}></i></Button>
+                                  
+                                    <Button onClick={handleClick}><i class="fas fa-edit"></i> UPDATE PRODUCT</Button>
+                                    <Button onClick={handleClick}><i class="fas fa-trash-alt"></i> DELETE PRODUCT</Button>
                                 </SelectorRow>
                             </Details>
                         </DetailsContainer>

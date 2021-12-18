@@ -25,8 +25,7 @@ width: 97vw;
 
 const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSizes }) => {
 
-    //   console.log("Category is");
-    //   console.log(category)
+
 
 
 
@@ -35,7 +34,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
 
 
-    // getAllProducts();
+
 
 
     console.log("Filter is:")
@@ -45,18 +44,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     useEffect(() => {
         const getAllProducts = async () => {
             try {
-                // publicReq.interceptors.request.use(function (config) {
-                //     // Do something before request is sent
-                //     console.log(config)
-                //     return config;
-                //   }, function (error) {
-                //     // Do something with request error
-                //     return Promise.reject(error);
-                //   });
-                // const res = await axios.get(category !== null && category !== ""
-                //     ? `http://localhost:5000/api/products/all?category=${category}`
-                //     : 'http://localhost:5000/api/products/all'
-                // );
+                
                 const res = await publicReq.get(category !== null && category !== ""
                     ? `/products/all?category=${category}`
                     : '/products/all'
@@ -70,20 +58,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     }, [category])
 
-    // useEffect(() => {
-    //     console.log("FilterCategory changed")
-    //     const updateCategory = async () => {
-    //         try{
-    //                 const res = await axios.get(filter.category && filter.category !== category
-    //                     ? `http://localhost:5000/api/products/all?category=${filter.category}`
-    //                     : 'http://localhost:5000/api/products/all' 
-    //                 );
-    //                setProducts(res.data);
-    //         }
-    //         catch (err) { console.log(err)}
-    //     };
-    //     updateCategory();
-    // }, [filter.category])
+
 
    
 
@@ -117,18 +92,9 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         }
     }, [sort])
 
-    // useEffect(() => {
-    //     console.log("FILTERED CHANGED");
-    //     console.log("Filtered is:")
-    //     console.log(filtered);
-    //     console.log("Products is")
-    //     console.log(products)
-    // }, [filtered]);
-
     return (
         <Container>
         {
-            !landing ?
             filtered.length ?
                 filtered.map((product, i) => {
                     return (
@@ -136,12 +102,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                     )
                 })
             : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>
-                : 
-                products.sort((a, b) =>new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 8).map((product, i) => {
-                    return (
-                        <ProductElement key={i} element={product} />
-                    )
-                })  
+               
             }
         </Container>
     )

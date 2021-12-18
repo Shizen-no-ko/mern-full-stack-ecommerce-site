@@ -18,10 +18,10 @@ const Landing = () => {
     return(
         <Container>
             <Navbar/>
-            <Slider/>
-            <Categories/>
+            {/* <Slider/>
+            <Categories/> */}
             <ProductDisplay filter={{}} category={null} landing={true}/>
-            <SubscriptionForm/>
+            {/* <SubscriptionForm/> */}
             <Footer/>
         </Container>
     )

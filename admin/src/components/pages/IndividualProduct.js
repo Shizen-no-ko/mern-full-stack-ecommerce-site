@@ -222,6 +222,7 @@ ${portraitTablet({
 `
 
 const Img = styled.img`
+margin-top: 40px;
 max-height: 80%;
 max-width: 100%;
 object-fit: cover;
@@ -291,7 +292,6 @@ const SelectorGroup = styled.div`
 `
 
 const Label = styled.span`
-${'' /* font-family: font-family: 'Lexend', sans-serif; */}
 font-size: 20px;
 font-weight: 200;
 padding: 10px 0 10px 20px;
@@ -310,116 +310,6 @@ ${landscapeTablet({
 })};
 `
 
-const Selector = styled.select`
-border: 1px solid lightgray;
-border-radius: ${props => props.pos === 'left' ? '20px 0 0 20px' : props.pos === 'right' ? '0 20px 20px 0' : '0'} ;
-font-size: 20px;
-font-weight: 500;
-${'' /* margin: 0 0px; */}
-outline: none;
-padding: 5px 15px;
-
-&:focus {
-    outline: none;
-}
-
-${landscapeTablet({
-    fontSize: '15px',
-    marginRight: 'auto'
-})};
-
-
-`
-
-const Option = styled.option`
-`
-
-const ColorContainer = styled.div`
-display: inline-flex;
-justify-content: space-between;
-position: relative; 
-top: 3px;
-
-
-`
-
-const ColorOption = styled.div`
-border: ${props => props.border ? '1px solid' : 'none'};
-border-color: ${props => props.border ? props.border : 'none'};
-border-radius: 30%;
-background-color: ${props => props.color};
-${'' /* to accomodate extra width of white color with border */}
-height: ${props => props.border ? '18px' : '20px'};
-margin: 5px;
-transition: ease-in-out 0.05s;
-width: ${props => props.border ? '18px' : '20px'};
-
-&:hover{
-   transform: rotate(45deg);
-}
-`
-
-const PlusMinusContainer = styled.div`
-display: flex;
-font-size: 28px;
-margin-left: 20px;
-
-${mobile({
-    alignItems: 'center',
-    fontSize: '18px',
-    margin: '0 20px 0 -20px'
-})};
-
-${portraitTablet({
-    alignItems: 'center',
-    fontSize: '22px',
-    margin: '0 20px 0 -20px'
-})};
-
-${landscapeTablet({
-    alignItems: 'center',
-    fontSize: '22px',
-    marginLeft: '0'
-})};
-
-`
-
-const PlusMinusStyles = styled.div`
-color: rgba(255, 0, 0, 0.6);
-margin: 5px;
-
-&:active {
-    color: red;
-}
-`
-
-const AmountDisplay = styled.div`
-border: 4px solid rgba(255, 0, 0, 0.6);
-border-radius: 15px;
-color: rgba(0, 0, 0, 0.8);
-height: 35px;
-text-align: center;
-transition: all ease-in-out 0.5s;
-width: 35px;
-
-${mobile({
-    borderRadius: '10px',
-    height: '25px',
-    width: '25px'
-})};
-
-${portraitTablet({
-    borderRadius: '12px',
-    height: '30px',
-    width: '30px'
-})};
-
-${landscapeTablet({
-    borderRadius: '12px',
-    height: '30px',
-    width: '30px'
-})};
-`
 
 const ErrorMessage = styled.span`
 color: red;
@@ -430,12 +320,9 @@ text-align: center;
 `
 
 const Form = styled.form`
-${'' /* border: 1px solid white; */}
-border-radius: 20px;
-${'' /* box-shadow: 5px 5px 15px rgb(255,192,203); */}
 display: flex;
 flex-direction: column;
-padding: 20px 15px;
+padding: 0px 15px;
 `
 
 const Input = styled.input`
@@ -457,14 +344,6 @@ ${portraitTablet({
 })};
 `
 
-// const Label = styled.label`
-// font-size: 20px;
-// margin: 10px;
-// `
-
-// const product = sliderData[0];
-
-
 
 const IndividualProduct = () => {
 
@@ -476,6 +355,7 @@ const IndividualProduct = () => {
    
     const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [formData, setFormData] = useState({
+        _id: '',
         title: '',
         image: '',
         price: '',
@@ -490,7 +370,7 @@ const IndividualProduct = () => {
     const dispatch = useDispatch();
 
     // const { title, image, price, description, color, size } = displayProduct;
-    const { title, image, price, description, color, size } = formData;
+    const { _id, title, image, price, description, color, size } = formData;
 
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
@@ -564,16 +444,17 @@ const onSubmit = (e) => {
                             <Form onSubmit={e => onSubmit(e)}>
                             <Label>Title</Label>
                     <Input onChange={e => onChange(e)} required name='title' type='text' value={title}></Input>
+                    <Label>Product Id: <strong>{_id}</strong></Label>
                     <Label>Image Url</Label>
                         <Input onChange={e => onChange(e)} required name='image' type='text' value={image}></Input>
                         <Label>Price</Label>
                         <Input onChange={e => onChange(e)}  name='price' type='number' value={price} ></Input>
                         <Label>Description</Label>
                         <Input onChange={e => onChange(e)}  name='description' type='text' value={description} ></Input>
-                        <Label>Colors</Label>
+                        <Label>Colors (Separated by commas)</Label>
                         <Input onChange={e => onChange(e)}  name='color' type='text' value={color} ></Input>
-                        <Label>Sizes</Label>
-                        <Input onChange={e => onChange(e)}  name='size' type='text' value={sizeChange} ></Input>
+                        <Label>Sizes (Separated by commas)</Label>
+                        <Input onChange={e => onChange(e)}  name='size' type='text' value={size} ></Input>
 
                     </Form>
                                 <SelectorRow>

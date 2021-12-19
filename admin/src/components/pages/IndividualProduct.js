@@ -344,6 +344,11 @@ ${portraitTablet({
 })};
 `
 
+const CheckBox = styled.input`
+margin: 0 0 0 10px;
+transform: scale(1.5);
+`
+
 
 const IndividualProduct = () => {
 
@@ -357,11 +362,15 @@ const IndividualProduct = () => {
     const [formData, setFormData] = useState({
         _id: '',
         title: '',
-        image: '',
-        price: '',
         description:'',
+        image: '',
+        category: [],
+        size: [],
         color: [],
-        size: []
+        price: '',
+        inStock: false
+       
+        
     });
     const [amount, setAmount] = useState(1);
     const [selectedColor, setSelectedColor] = useState();
@@ -370,7 +379,7 @@ const IndividualProduct = () => {
     const dispatch = useDispatch();
 
     // const { title, image, price, description, color, size } = displayProduct;
-    const { _id, title, image, price, description, color, size } = formData;
+    const { _id, title, description, image, category, size, color, price, inStock } = formData;
 
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
@@ -423,6 +432,7 @@ const IndividualProduct = () => {
     }
 
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
+    const setStock = (value) => setFormData({...formData, inStock: value });
 
 const onSubmit = (e) => {
     e.preventDefault();
@@ -451,11 +461,14 @@ const onSubmit = (e) => {
                         <Input onChange={e => onChange(e)}  name='price' type='number' value={price} ></Input>
                         <Label>Description</Label>
                         <Input onChange={e => onChange(e)}  name='description' type='text' value={description} ></Input>
+                        <Label>Categories (Separated by commas)</Label>
+                        <Input onChange={e => onChange(e)}  name='category' type='text' value={category} ></Input>
                         <Label>Colors (Separated by commas)</Label>
                         <Input onChange={e => onChange(e)}  name='color' type='text' value={color} ></Input>
                         <Label>Sizes (Separated by commas)</Label>
                         <Input onChange={e => onChange(e)}  name='size' type='text' value={size} ></Input>
-
+                        <Label>In Stock                         <CheckBox type='checkBox' label="In Stock" checked={inStock} value={inStock} onClick={() => setStock(!inStock)} />
+</Label>
                     </Form>
                                 <SelectorRow>
                                   

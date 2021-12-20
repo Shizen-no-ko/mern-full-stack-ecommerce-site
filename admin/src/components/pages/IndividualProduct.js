@@ -428,15 +428,14 @@ const IndividualProduct = () => {
     }, [id])
 
     const handleUpdate = () => {
-        console.log(formData);
+        // console.log(formData);
         try {
-            const getProduct = async () => {
-                const res = await publicReq.put(`products/find/${id}`);
-                // setDisplayProduct(res.data);
-                // setSelectedColor(res.data.color[0]);
-                setFormData(res.data);
+            const updateProduct = async () => {
+                const res = await publicReq.put(`products/${id}`, formData);
+                console.log(`response is ${res.data}`);
+                
             }
-            getProduct()
+            updateProduct()
         }
         catch (err) { console.log(err) }
         

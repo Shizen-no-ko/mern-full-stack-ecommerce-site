@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { publicReq } from '../../axiosRequests';
 import { useDispatch } from 'react-redux';
@@ -11,7 +11,7 @@ import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 
 // import { sliderData } from '../../data/data.js';
-import { addProduct } from '../../redux/shoppingCartRedux';
+// import { addProduct } from '../../redux/shoppingCartRedux';
 
 
 const Container = styled.div`
@@ -108,61 +108,61 @@ ${landscapeTablet({
     justifyContent: 'space-between'
 })};
 `
-const Title = styled.h1`
-font-weight: 400;
-margin-top: 0;
+// const Title = styled.h1`
+// font-weight: 400;
+// margin-top: 0;
 
-${mobile({
-    fontSize: '2.5rem',
-    marginBottom: '0px'
-})};
+// ${mobile({
+//     fontSize: '2.5rem',
+//     marginBottom: '0px'
+// })};
 
-${portraitTablet({
-    fontSize: '3rem',
-    margin: '20px auto 10px'
-})};
+// ${portraitTablet({
+//     fontSize: '3rem',
+//     margin: '20px auto 10px'
+// })};
 
-${landscapeTablet({
-    fontSize: '2rem',
-    margin: '10px 0 10px'
-})};
-`
+// ${landscapeTablet({
+//     fontSize: '2rem',
+//     margin: '10px 0 10px'
+// })};
+// `
 
-const Description = styled.p`
-font-weight: 200;
+// const Description = styled.p`
+// font-weight: 200;
 
-${mobile({
-    fontSize: '1rem'
-})};
+// ${mobile({
+//     fontSize: '1rem'
+// })};
 
-${portraitTablet({
-    fontSize: '1.25rem'
-})};
+// ${portraitTablet({
+//     fontSize: '1.25rem'
+// })};
 
-${landscapeTablet({
-    marginTop: '0'
-})};
-`
+// ${landscapeTablet({
+//     marginTop: '0'
+// })};
+// `
 
-const Price = styled.h4`
-font-weight: 200;
-font-size: 2rem;
+// const Price = styled.h4`
+// font-weight: 200;
+// font-size: 2rem;
 
-${mobile({
-    fontSize: '1.5rem',
-    margin: '0px'
-})};
+// ${mobile({
+//     fontSize: '1.5rem',
+//     margin: '0px'
+// })};
 
-${portraitTablet({
-    fontSize: '1.75rem',
-    margin: '0px'
-})};
+// ${portraitTablet({
+//     fontSize: '1.75rem',
+//     margin: '0px'
+// })};
 
-${landscapeTablet({
-    fontSize: '1.5rem',
-    margin: '0px'
-})};
-`
+// ${landscapeTablet({
+//     fontSize: '1.5rem',
+//     margin: '0px'
+// })};
+// `
 const Button = styled.button`
 all: unset;
 background-color: white;
@@ -271,25 +271,25 @@ ${landscapeTablet({
 `
 
 
-const SelectorContainer = styled.div`
-line-height: 30px;
+// const SelectorContainer = styled.div`
+// line-height: 30px;
 
-${mobile({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-})};
+// ${mobile({
+//     display: 'flex',
+//     flexDirection: 'column',
+//     alignItems: 'center',
+// })};
 
-${portraitTablet({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-})};
-`
+// ${portraitTablet({
+//     display: 'flex',
+//     flexDirection: 'column',
+//     alignItems: 'center',
+// })};
+// `
 
-const SelectorGroup = styled.div`
+// const SelectorGroup = styled.div`
 
-`
+// `
 
 const Label = styled.span`
 font-size: 20px;
@@ -358,7 +358,7 @@ const IndividualProduct = () => {
     // console.log(id);
    
    
-    const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
+    // const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [formData, setFormData] = useState({
         _id: '',
         title: '',
@@ -372,45 +372,45 @@ const IndividualProduct = () => {
        
         
     });
-    const [amount, setAmount] = useState(1);
-    const [selectedColor, setSelectedColor] = useState();
-    const [selectedSize, setSelectedSize] = useState();
-    const boxRef = useRef(null);
+    // const [amount, setAmount] = useState(1);
+    // const [selectedColor, setSelectedColor] = useState();
+    // const [selectedSize, setSelectedSize] = useState();
+    // const boxRef = useRef(null);
     const dispatch = useDispatch();
 
     // const { title, image, price, description, color, size } = displayProduct;
     const { _id, title, description, image, category, size, color, price, inStock } = formData;
 
-    const boxAnimation = (minus) => {
-        boxRef.current.style.borderColor = 'red';
-        boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)';
-        boxRef.current.style.color = 'white';
-        boxRef.current.style.backgroundColor = 'red';
-        setTimeout(() => {
-            boxRef.current.style.borderColor = 'rgba(255, 0, 0, 0.6)';
-            boxRef.current.style.transform = 'scale(100%) rotate(0deg)';
-            boxRef.current.style.color = 'rgba(0, 0, 0, 0.8)';
-            boxRef.current.style.backgroundColor = 'white';
-        }, 250)
-    };
+    // const boxAnimation = (minus) => {
+    //     boxRef.current.style.borderColor = 'red';
+    //     boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)';
+    //     boxRef.current.style.color = 'white';
+    //     boxRef.current.style.backgroundColor = 'red';
+    //     setTimeout(() => {
+    //         boxRef.current.style.borderColor = 'rgba(255, 0, 0, 0.6)';
+    //         boxRef.current.style.transform = 'scale(100%) rotate(0deg)';
+    //         boxRef.current.style.color = 'rgba(0, 0, 0, 0.8)';
+    //         boxRef.current.style.backgroundColor = 'white';
+    //     }, 250)
+    // };
 
-    const handleMinus = () => {
-        if (amount > 0) { setAmount(amount - 1) };
-        boxAnimation(true)
-    }
+    // const handleMinus = () => {
+    //     if (amount > 0) { setAmount(amount - 1) };
+    //     boxAnimation(true)
+    // }
 
-    const handlePlus = () => {
-        setAmount(amount + 1);
-        boxAnimation(false);
-    }
+    // const handlePlus = () => {
+    //     setAmount(amount + 1);
+    //     boxAnimation(false);
+    // }
 
-    const sizeChange = (e) => {
-        setSelectedSize(e.target.value);
-    }
+    // const sizeChange = (e) => {
+    //     setSelectedSize(e.target.value);
+    // }
 
-    const colorClick = (e) => {
-        setSelectedColor(e.target.getAttribute('color'))
-    }
+    // const colorClick = (e) => {
+    //     setSelectedColor(e.target.getAttribute('color'))
+    // }
 
     useEffect(() => {
         let isMounted = true;
@@ -427,8 +427,24 @@ const IndividualProduct = () => {
         return () => { isMounted = false };
     }, [id])
 
-    const handleClick = () => {
-        dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));
+    const handleUpdate = () => {
+        console.log(formData);
+        try {
+            const getProduct = async () => {
+                const res = await publicReq.put(`products/find/${id}`);
+                // setDisplayProduct(res.data);
+                // setSelectedColor(res.data.color[0]);
+                setFormData(res.data);
+            }
+            getProduct()
+        }
+        catch (err) { console.log(err) }
+        
+        // dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));
+    };
+
+    const handleDelete = () => {
+        console.log("Delete");
     }
 
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
@@ -436,7 +452,7 @@ const IndividualProduct = () => {
 
 const onSubmit = (e) => {
     e.preventDefault();
-  
+    
 };
 
     return (
@@ -458,22 +474,22 @@ const onSubmit = (e) => {
                     <Label>Image Url</Label>
                         <Input onChange={e => onChange(e)} required name='image' type='text' value={image}></Input>
                         <Label>Price</Label>
-                        <Input onChange={e => onChange(e)}  name='price' type='number' value={price} ></Input>
+                        <Input onChange={e => onChange(e)} required name='price' type='number' value={price} ></Input>
                         <Label>Description</Label>
-                        <Input onChange={e => onChange(e)}  name='description' type='text' value={description} ></Input>
+                        <Input onChange={e => onChange(e)} required name='description' type='text' value={description} ></Input>
                         <Label>Categories (Separated by commas)</Label>
-                        <Input onChange={e => onChange(e)}  name='category' type='text' value={category} ></Input>
+                        <Input onChange={e => onChange(e)} required name='category' type='text' value={category} ></Input>
                         <Label>Colors (Separated by commas)</Label>
                         <Input onChange={e => onChange(e)}  name='color' type='text' value={color} ></Input>
                         <Label>Sizes (Separated by commas)</Label>
                         <Input onChange={e => onChange(e)}  name='size' type='text' value={size} ></Input>
-                        <Label>In Stock                         <CheckBox type='checkBox' label="In Stock" checked={inStock} value={inStock} onClick={() => setStock(!inStock)} />
-</Label>
+                        <Label>In Stock                         <CheckBox type='checkBox' label="In Stock" checked={inStock} value={inStock} onChange={() => setStock(!inStock)}  /></Label>
+                        {/* onClick={() => setStock(!inStock)} */}
                     </Form>
                                 <SelectorRow>
                                   
-                                    <Button onClick={handleClick}><i class="fas fa-edit"></i> UPDATE PRODUCT</Button>
-                                    <Button onClick={handleClick}><i class="fas fa-trash-alt"></i> DELETE PRODUCT</Button>
+                                    <Button onClick={handleUpdate}><i className="fas fa-edit"></i> UPDATE PRODUCT</Button>
+                                    <Button onClick={handleDelete}><i className="fas fa-trash-alt"></i> DELETE PRODUCT</Button>
                                 </SelectorRow>
                             </Details>
                         </DetailsContainer>

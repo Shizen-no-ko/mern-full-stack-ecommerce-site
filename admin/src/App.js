@@ -14,8 +14,7 @@ import ShoppingCart from './components/pages/ShoppingCart';
 
 function App() {
   const user = useSelector(state => state.user.currentUser);
-
-
+  
   return (
     <Router>
  <Fragment>

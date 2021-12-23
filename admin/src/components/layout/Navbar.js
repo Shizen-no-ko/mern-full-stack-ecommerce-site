@@ -5,6 +5,7 @@ import { persistor } from '../../redux/store';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
 import Messaging from './Messaging';
+// import { logout } from '../../redux/userRedux';
 import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 
@@ -248,6 +249,8 @@ ${mobile({
 
 const Navbar = () => {
 
+    // const dispatch = useDispatch();
+
     const [ searchState, setSearchState ] = useState("");
     const user = useSelector(state => state.user.currentUser);
  
@@ -258,6 +261,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         await persistor.purge();
+        // logout(dispatch());
         window.location.href = '/';
     }
 

@@ -3,12 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        currentUser: {
-            token: null,
-            isAdmininstrator: false
-        },
+        currentUser: null,
         isFetching: false,
-
     },
     reducers: {
         loginStart: (state) =>  {
@@ -20,7 +16,7 @@ const userSlice = createSlice({
         },
         loginFailure: (state, action) => {
             state.isFetching = false;
-        },
+        }
     }
 });
 

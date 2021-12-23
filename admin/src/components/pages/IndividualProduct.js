@@ -427,17 +427,17 @@ const IndividualProduct = () => {
         return () => { isMounted = false };
     }, [id])
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
         // console.log(formData);
         try {
-            const updateProduct = async () => {
+            // const updateProduct = async () => {
                 const res = await publicReq.put(`products/${id}`, formData);
                 console.log(`response is ${res.data}`);
                 
-            }
-            updateProduct()
+            // }
+            // updateProduct()
         }
-        catch (err) { console.log(err) }
+        catch (err) { console.log(err.response.data.errors[0].msg) }
         
         // dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));
     };

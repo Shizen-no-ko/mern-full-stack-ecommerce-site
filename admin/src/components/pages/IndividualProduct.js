@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { publicReq } from '../../axiosRequests';
+import { publicReq, userReq } from '../../axiosRequests';
 import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
@@ -428,18 +428,20 @@ const IndividualProduct = () => {
     }, [id])
 
     const handleUpdate = async () => {
-        // console.log(formData);
-        try {
-            // const updateProduct = async () => {
-                const res = await publicReq.put(`products/${id}`, formData);
+        // SET category, size, color to lowercase
+        // set token for headers here as in axiosRequests it seems to be set at startup and doesn't update
+        const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
+        const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
+        console.log("LOCALSTORAGE IS:")
+        console.log(TOKEN);
+            try {
+                const headers = {
+                    token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
+                 }
+                const res = await userReq.put(`products/${id}`, formData, { headers: headers} );
                 console.log(`response is ${res.data}`);
-                
-            // }
-            // updateProduct()
         }
-        catch (err) { console.log(err.response.data.errors[0].msg) }
-        
-        // dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));
+        catch (err) { console.log(err.response.data.errors[0].msg) }  
     };
 
     const handleDelete = () => {

@@ -54,7 +54,7 @@ async (req, res) => {
             jwt.sign(
                 payload,
                 process.env.JWT_SECRET,
-                { expiresIn: 3600 },
+                { expiresIn: '24h' },
                 (err, token) => {
                     if (err) console.log(err);
                     res.json({ token });
@@ -95,7 +95,7 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
             jwt.sign(
                 payload,
                 process.env.JWT_SECRET,
-                { expiresIn: 3600 },
+                { expiresIn: '24h' },
                 (err, token) => {
                     if (err) console.log(err);
                     // remove password from response

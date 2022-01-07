@@ -372,13 +372,10 @@ ${portraitTablet({
 const IndividualProduct = () => {
 
     const path = useLocation().pathname.split('/');
-    // console.log(path);
     const id = path[path.length -1];
-    // console.log(id);
    
-    const [errorMessage, setErrorMessage] = useState('');
+  
    
-    // const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [formData, setFormData] = useState({
         _id: '',
         title: '',
@@ -392,45 +389,13 @@ const IndividualProduct = () => {
        
         
     });
-    // const [amount, setAmount] = useState(1);
-    // const [selectedColor, setSelectedColor] = useState();
-    // const [selectedSize, setSelectedSize] = useState();
-    // const boxRef = useRef(null);
-    const dispatch = useDispatch();
 
-    // const { title, image, price, description, color, size } = displayProduct;
+    // const dispatch = useDispatch();
+
     const { _id, title, description, image, category, size, color, price, inStock } = formData;
 
-    // const boxAnimation = (minus) => {
-    //     boxRef.current.style.borderColor = 'red';
-    //     boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)';
-    //     boxRef.current.style.color = 'white';
-    //     boxRef.current.style.backgroundColor = 'red';
-    //     setTimeout(() => {
-    //         boxRef.current.style.borderColor = 'rgba(255, 0, 0, 0.6)';
-    //         boxRef.current.style.transform = 'scale(100%) rotate(0deg)';
-    //         boxRef.current.style.color = 'rgba(0, 0, 0, 0.8)';
-    //         boxRef.current.style.backgroundColor = 'white';
-    //     }, 250)
-    // };
+    const [errorMessage, setErrorMessage] = useState('');
 
-    // const handleMinus = () => {
-    //     if (amount > 0) { setAmount(amount - 1) };
-    //     boxAnimation(true)
-    // }
-
-    // const handlePlus = () => {
-    //     setAmount(amount + 1);
-    //     boxAnimation(false);
-    // }
-
-    // const sizeChange = (e) => {
-    //     setSelectedSize(e.target.value);
-    // }
-
-    // const colorClick = (e) => {
-    //     setSelectedColor(e.target.getAttribute('color'))
-    // }
 
     useEffect(() => {
         let isMounted = true;
@@ -473,8 +438,36 @@ const IndividualProduct = () => {
         }  
     };
 
-    const handleDelete = () => {
-        console.log("Delete");
+    const handleDelete = async () => {
+         // set token for headers here as in axiosRequests it seems to be set at startup and doesn't update
+         const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
+         const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
+         console.log("CURRRRRRRRRRENT USEERRRR IS:")
+         console.log(CURRENT_USER);
+         console.log("TOKKKKKKEN IS:");
+         console.log(TOKEN);
+         try {
+            const headers = {
+                token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
+             }
+             console.log("HEADERSSSS IS:");
+             console.log(headers.token);
+             // if these fields have been altered - set to lowercase, split and trim, ready for putting to DB, otherwise leave as is
+            //  const tidyData = {...formData, 
+            //     color: typeof color === 'string' ? color.toLowerCase().split(',').map(item => item.trim()): color,
+            //     size: typeof size === 'string' ? size.toLowerCase().split(',').map(item => item.trim()): size,
+            //     category: typeof category === 'string' ? category.toLowerCase().split(',').map(item => item.trim()): category
+            // }
+            const res = await userReq.delete(`products/${id}`,{ headers: headers} );
+            // update form - force re-render with tidied updates
+            // setFormData(tidyData);
+            console.log(`response is ${res.data}`);
+    }
+    catch (err) { 
+        setErrorMessage(err.response.data.errors[0].msg)
+        // console.log(err.response.data.errors[0].msg) 
+    }
+       
     }
 
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});

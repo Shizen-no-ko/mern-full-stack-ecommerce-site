@@ -4,6 +4,7 @@ const tokenAuth = require('../middleware/tokenAuth');
 const checkAdmin = require('../middleware/checkAdmin');
 
 const Product = require('../models/Product');
+const DeletedProduct = require('../models/DeletedProduct');
 
 router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
     try {
@@ -75,12 +76,39 @@ router.get('/all', async (req, res) => {
 
 router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
-        await Product.findByIdAndDelete(req.params.id);
-        return res.status(200).json("Product has been deleted");
+        // let preExist = await DeletedProduct.findOne({ title: req.body.title });
+        // if (preExist) {
+        //     return res.status(400).json({ errors: [{ msg: "This product title already exists" }] });
+        console.log("ID IS")
+        console.log(req.params.id);
+        let toDeleteProduct = await Product.findById(req.params.id);
+        console.log("TO DELETE PRODUCT IS:")
+        console.log(toDeleteProduct);
+        
+        const newDeletedProduct = new DeletedProduct(toDeleteProduct);
+            await newDeletedProduct.save((err, product) => {
+                if(err) {
+                    console.log(err);
+                    return res.status(500).json({ errors: [{ msg: "Backup Product Error" }] });
+                }
+                return res.status(200).json(product);
+        })
     }
-    catch (err) {
-        return res.status(500).json({ errors: [{ msg: "Server Deletion Error" }] });
+     catch {
+        (err) => {
+            console.log(err)
+            res.status(500).json({ errors: [{ msg: "Server Error" }] });
+        }
     }
+
+
+    // try {
+    //     await Product.findByIdAndDelete(req.params.id);
+    //     return res.status(200).json("Product has been deleted");
+    // }
+    // catch (err) {
+    //     return res.status(500).json({ errors: [{ msg: "Server Deletion Error" }] });
+    // }
 });
 
 

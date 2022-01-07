@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { publicReq, userReq } from '../../axiosRequests';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -428,17 +428,22 @@ const IndividualProduct = () => {
     }, [id])
 
     const handleUpdate = async () => {
-        // SET category, size, color to lowercase
         // set token for headers here as in axiosRequests it seems to be set at startup and doesn't update
         const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
         const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
-        console.log("LOCALSTORAGE IS:")
-        console.log(TOKEN);
             try {
                 const headers = {
                     token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
                  }
-                const res = await userReq.put(`products/${id}`, formData, { headers: headers} );
+                 // if these fields have been altered - set to lowercase, split and trim, ready for putting to DB, otherwise leave as is
+                 const tidyData = {...formData, 
+                    color: typeof color === 'string' ? color.toLowerCase().split(',').map(item => item.trim()): color,
+                    size: typeof size === 'string' ? size.toLowerCase().split(',').map(item => item.trim()): size,
+                    category: typeof category === 'string' ? category.toLowerCase().split(',').map(item => item.trim()): category
+                }
+                const res = await userReq.put(`products/${id}`, tidyData, { headers: headers} );
+                // update form - force re-render with tidied updates
+                setFormData(tidyData);
                 console.log(`response is ${res.data}`);
         }
         catch (err) { console.log(err.response.data.errors[0].msg) }  

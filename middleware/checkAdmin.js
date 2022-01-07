@@ -4,7 +4,7 @@ const checkAdmin = (req, res, next) => {
         next();
     }
     else {
-        return res.status(403).json({ errors: [{ msg: "Forbidden" }] });
+        return res.status(403).json({ errors: [{ msg: "You are not authorized to edit" }] });
     }
 }
 

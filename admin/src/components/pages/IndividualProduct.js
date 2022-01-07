@@ -314,10 +314,12 @@ ${landscapeTablet({
 
 
 const ErrorMessage = styled.span`
-color: red;
+background-color: red;
+color: white;
 font-weight: bold;
 font-size: 1.5rem;
 margin: 10px;
+padding: 5px;
 text-align: center;
 `
 
@@ -374,6 +376,7 @@ const IndividualProduct = () => {
     const id = path[path.length -1];
     // console.log(id);
    
+    const [errorMessage, setErrorMessage] = useState('');
    
     // const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [formData, setFormData] = useState({
@@ -437,6 +440,7 @@ const IndividualProduct = () => {
                 // setDisplayProduct(res.data);
                 // setSelectedColor(res.data.color[0]);
                 setFormData(res.data);
+                setErrorMessage('');
             }
             getProduct()
         }
@@ -463,7 +467,10 @@ const IndividualProduct = () => {
                 setFormData(tidyData);
                 console.log(`response is ${res.data}`);
         }
-        catch (err) { console.log(err.response.data.errors[0].msg) }  
+        catch (err) { 
+            setErrorMessage(err.response.data.errors[0].msg)
+            // console.log(err.response.data.errors[0].msg) 
+        }  
     };
 
     const handleDelete = () => {
@@ -510,11 +517,13 @@ const onSubmit = (e) => {
                         <Label>In Stock                         <CheckBox type='checkBox' label="In Stock" checked={inStock} value={inStock} onChange={() => setStock(!inStock)}  /></Label>
                         {/* onClick={() => setStock(!inStock)} */}
                     </Form>
+                   {errorMessage !== '' ? <ErrorMessage>{errorMessage}</ErrorMessage>: null} 
                                 <SelectorRow>
                                   
                                     <Button onClick={handleUpdate}><i className="fas fa-edit"></i> UPDATE PRODUCT</Button>
                                     <Button onClick={handleDelete}><i className="fas fa-trash-alt"></i> DELETE PRODUCT</Button>
                                 </SelectorRow>
+                             
                             </Details>
                         </DetailsContainer>
                     </Slide>

@@ -11,9 +11,9 @@ const tokenAuth = (req, res, next) => {
     jwt.verify(token.substring(7), process.env.JWT_SECRET, (err, decoded) => {
         // handles malformed tokens
         if (err) {
-            console.log("ERROR IS:")
-            console.log(err);
-            return res.status(401).json({ errors: [{ msg: "Token is not valid" }] });
+            // console.log("ERROR IS:")
+            // console.log(err);
+            return res.status(401).json({ errors: [{ msg: "Forbidden" }] });
         }
         req.user = decoded.user;
     });

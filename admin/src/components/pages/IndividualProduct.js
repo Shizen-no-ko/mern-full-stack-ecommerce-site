@@ -32,9 +32,11 @@ ${portraitTablet({
 })}; */}
 
 ${landscapeTablet({
-    height: '300px',
+    height: 'auto',
+    overflow: 'visible'
 })};  
 `
+ 
 
 const Wrapper = styled.div`
 ${'' /* align-items: center; */}
@@ -64,10 +66,10 @@ ${portraitTablet({
 })};
 
 ${landscapeTablet({
-    height: '300px',
+    height: 'auto',
 })};
 `
-
+ 
 const DetailsContainer = styled.div`
 flex: 1;
 padding: 20px 80px 20px;
@@ -349,6 +351,21 @@ margin: 0 0 0 10px;
 transform: scale(1.5);
 `
 
+const Title = styled.h1`
+color: rgba(255, 0, 0, 0.9);
+font-size: 3rem;
+
+${mobile({
+    fontSize: '2rem',
+    marginBottom: '0'
+})};
+
+${portraitTablet({
+    fontSize: '2.5rem',
+    marginBottom: '0'
+})};
+`
+
 
 const IndividualProduct = () => {
 
@@ -473,6 +490,7 @@ const onSubmit = (e) => {
                         </ImageContainer>
                         <DetailsContainer>
                             <Details>
+                            <Title>Edit Product</Title>
                             <Form onSubmit={e => onSubmit(e)}>
                             <Label>Title</Label>
                     <Input onChange={e => onChange(e)} required name='title' type='text' value={title}></Input>
@@ -503,7 +521,7 @@ const onSubmit = (e) => {
                 </Wrapper>
             </Container>
 
-            <SubscriptionForm />
+            {/* <SubscriptionForm /> */}
             <Footer />
         </div>
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { publicReq, userReq } from '../../axiosRequests';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -370,7 +370,8 @@ ${portraitTablet({
 
 
 const IndividualProduct = () => {
-
+    const history = useHistory();
+    console.log(history);
     const path = useLocation().pathname.split('/');
     const id = path[path.length -1];
    
@@ -404,8 +405,14 @@ const IndividualProduct = () => {
                 const res = await publicReq.get(`products/find/${id}`);
                 // setDisplayProduct(res.data);
                 // setSelectedColor(res.data.color[0]);
-                setFormData(res.data);
-                setErrorMessage('');
+                if(res){  
+                    setFormData(res.data);
+                    setErrorMessage('');
+                } else {
+                    setErrorMessage('No Document with this ID');
+                }
+              
+                
             }
             getProduct()
         }
@@ -442,26 +449,16 @@ const IndividualProduct = () => {
          // set token for headers here as in axiosRequests it seems to be set at startup and doesn't update
          const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
          const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
-         console.log("CURRRRRRRRRRENT USEERRRR IS:")
-         console.log(CURRENT_USER);
-         console.log("TOKKKKKKEN IS:");
-         console.log(TOKEN);
          try {
             const headers = {
                 token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
              }
-             console.log("HEADERSSSS IS:");
-             console.log(headers.token);
-             // if these fields have been altered - set to lowercase, split and trim, ready for putting to DB, otherwise leave as is
-            //  const tidyData = {...formData, 
-            //     color: typeof color === 'string' ? color.toLowerCase().split(',').map(item => item.trim()): color,
-            //     size: typeof size === 'string' ? size.toLowerCase().split(',').map(item => item.trim()): size,
-            //     category: typeof category === 'string' ? category.toLowerCase().split(',').map(item => item.trim()): category
-            // }
             const res = await userReq.delete(`products/${id}`,{ headers: headers} );
-            // update form - force re-render with tidied updates
-            // setFormData(tidyData);
             console.log(`response is ${res.data}`);
+            setErrorMessage('Product has been moved to deleted products collection');
+            // replace history so that user can't back arrow to products page with deleted id
+            history.replace('/');
+            
     }
     catch (err) { 
         setErrorMessage(err.response.data.errors[0].msg)

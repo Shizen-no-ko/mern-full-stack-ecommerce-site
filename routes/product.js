@@ -75,8 +75,9 @@ router.get('/all', async (req, res) => {
 });
 
 router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
+    const id = (req.params.id);
     try {
-        let toDeleteProduct = await Product.findById(req.params.id);
+        let toDeleteProduct = await Product.findById(id);
         toDeleteProduct = toDeleteProduct.toObject();
         delete toDeleteProduct._id;
         const newDeletedProduct = new DeletedProduct(toDeleteProduct);
@@ -85,8 +86,9 @@ router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
                 console.log(err);
                 return res.status(500).json({ errors: [{ msg: "Backup Product Error" }] });
             }
-            return res.status(200).json(product);
         })
+        await Product.findByIdAndDelete(id);
+        return res.status(200).json({ errors: [{ msg: "Product has been deleted" }] });
     }
     catch {
         (err) => {
@@ -94,15 +96,6 @@ router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
             res.status(500).json({ errors: [{ msg: "Server Error" }] });
         }
     }
-
-
-    // try {
-    //     await Product.findByIdAndDelete(req.params.id);
-    //     return res.status(200).json("Product has been deleted");
-    // }
-    // catch (err) {
-    //     return res.status(500).json({ errors: [{ msg: "Server Deletion Error" }] });
-    // }
 });
 
 

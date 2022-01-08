@@ -1,5 +1,4 @@
 const checkAdmin = (req, res, next) => {
-    console.log("GOT INTO CHECKADMIN");
     if (req.user.isAdministrator) {
         next();
     }

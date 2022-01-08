@@ -86,12 +86,16 @@ ${landscapeTablet({
 })};
 `
 
-const ProductElement = ({ element }) => {
+const ProductElement = ({ element, deleted }) => {
     return (
         <Container>
             <Img src={element.image} />
             <IconContainer>
-                <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}>EDIT PRODUCT</Icon></Link>
+            {deleted ? 
+            <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon></Link> 
+            :
+            <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}>EDIT PRODUCT</Icon></Link>
+            }
             </IconContainer>
         </Container>
     )

@@ -103,7 +103,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
             filtered.length ?
                 filtered.map((product, i) => {
                     return (
-                        <ProductElement key={i} element={product} />
+                        <ProductElement key={i} element={product} deleted={category === 'deleted' ? true: false} />
                     )
                 })
             : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>

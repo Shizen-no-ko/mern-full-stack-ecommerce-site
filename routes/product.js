@@ -13,12 +13,12 @@ router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
             return res.status(400).json({ errors: [{ msg: "This product title already exists" }] });
         }
         const newProduct = new Product(req.body);
-            await newProduct.save((err, product) => {
-                if(err) return res.status(500).json({ errors: [{ msg: "Create Product Error" }] });
-                return res.status(200).json(product);
+        await newProduct.save((err, product) => {
+            if (err) return res.status(500).json({ errors: [{ msg: "Create Product Error" }] });
+            return res.status(200).json(product);
         })
     }
-     catch {
+    catch {
         (err) => {
             console.log(err)
             res.status(500).json({ errors: [{ msg: "Server Error" }] });
@@ -30,7 +30,7 @@ router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
 router.put('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, {
-          $set:req.body
+            $set: req.body
         }, { new: true });
         return res.status(200).json(updatedProduct);
     }
@@ -54,15 +54,15 @@ router.get('/all', async (req, res) => {
     queryValue = req.query[queryType];
     let productResult;
     try {
-        switch(queryType) {
-           case 'new':
+        switch (queryType) {
+            case 'new':
                 productResult = await Product.find().sort({ _id: -1 }).limit(3);
                 break;
             case 'category':
-                productResult = await Product.find({category: queryValue});
+                productResult = await Product.find({ category: queryValue });
                 break;
             case 'color':
-                productResult = await Product.find({color: queryValue});
+                productResult = await Product.find({ color: queryValue });
                 break;
             default:
                 productResult = await Product.find();
@@ -76,25 +76,19 @@ router.get('/all', async (req, res) => {
 
 router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
-        // let preExist = await DeletedProduct.findOne({ title: req.body.title });
-        // if (preExist) {
-        //     return res.status(400).json({ errors: [{ msg: "This product title already exists" }] });
-        console.log("ID IS")
-        console.log(req.params.id);
         let toDeleteProduct = await Product.findById(req.params.id);
-        console.log("TO DELETE PRODUCT IS:")
-        console.log(toDeleteProduct);
-        
+        toDeleteProduct = toDeleteProduct.toObject();
+        delete toDeleteProduct._id;
         const newDeletedProduct = new DeletedProduct(toDeleteProduct);
-            await newDeletedProduct.save((err, product) => {
-                if(err) {
-                    console.log(err);
-                    return res.status(500).json({ errors: [{ msg: "Backup Product Error" }] });
-                }
-                return res.status(200).json(product);
+        await newDeletedProduct.save((err, product) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ errors: [{ msg: "Backup Product Error" }] });
+            }
+            return res.status(200).json(product);
         })
     }
-     catch {
+    catch {
         (err) => {
             console.log(err)
             res.status(500).json({ errors: [{ msg: "Server Error" }] });

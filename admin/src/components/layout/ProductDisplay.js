@@ -44,13 +44,18 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     useEffect(() => {
         const getAllProducts = async () => {
             try {
+                if(category === 'deleted'){
+                    const res = await publicReq.get('/products/deleted');
+                     return setProducts(res.data);
                 
-                const res = await publicReq.get(category !== null && category !== ""
+                } 
+                    const res = await publicReq.get(category !== null && category !== ""
                     ? `/products/all?category=${category}`
                     : '/products/all'
                 );
                 setProducts(res.data);
-            }
+                }  
+            
             catch (err) { console.log(err) }
         };
         getAllProducts();

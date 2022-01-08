@@ -7,6 +7,7 @@ import ScrollToTop from './utilities/ScrollToTop';
 
 import Landing from './components/pages/Landing';
 import ProductsFilter from './components/pages/ProductsFilter';
+import DeletedProducts from './components/pages/DeletedProducts';
 import IndividualProduct from './components/pages/IndividualProduct';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
@@ -27,6 +28,7 @@ function App() {
    <Route exact path="/product/:id" component={IndividualProduct} />
    <Route exact path="/products/:category" component={ProductsFilter} />
    <Route exact path="/products" component={ProductsFilter} />
+   <Route exact path="/deleted" component={DeletedProducts} />
    {/* :category */}
    </Switch>
     </Fragment>

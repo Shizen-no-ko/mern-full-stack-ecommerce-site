@@ -11,17 +11,14 @@ overflow: hidden;
 
 `
 
-const Landing = () => {
+const DeletedProducts = () => {
     return(
         <Container>
             <Navbar/>
-            {/* <Slider/>
-            <Categories/> */}
-            <ProductDisplay filter={{}} category={null} landing={true}/>
-            {/* <SubscriptionForm/> */}
+            <ProductDisplay filter={{}} category={'deleted'} landing={true}/>
             <Footer/>
         </Container>
     )
 }
 
-export default Landing
+export default DeletedProducts

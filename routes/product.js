@@ -4,6 +4,7 @@ const tokenAuth = require('../middleware/tokenAuth');
 const checkAdmin = require('../middleware/checkAdmin');
 
 const Product = require('../models/Product');
+const DeletedProducts = require('../models/DeletedProduct');
 const DeletedProduct = require('../models/DeletedProduct');
 
 router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
@@ -67,6 +68,17 @@ router.get('/all', async (req, res) => {
             default:
                 productResult = await Product.find();
         }
+        return res.status(200).json(productResult);
+    }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+router.get('/deleted', async (req, res) => {
+    let productResult;
+    try {
+        productResult = await DeletedProduct.find();
         return res.status(200).json(productResult);
     }
     catch (err) {

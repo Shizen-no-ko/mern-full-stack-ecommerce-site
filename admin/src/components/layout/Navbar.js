@@ -299,6 +299,7 @@ const Navbar = () => {
                         {! user && <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>}
                         {user && <MenuItem><StyledLink to='/'>PRODUCTS</StyledLink></MenuItem>}
                         {user && <MenuItem><StyledLink to='/'>USERS</StyledLink></MenuItem>}
+                        {user && <MenuItem><StyledLink to='/deleted'>DELETED</StyledLink></MenuItem>}
                         {user && <MenuItem ><StyledLink onClick={handleLogout} to='/'>LOG OUT</StyledLink></MenuItem>}
                         {/* <MenuItem><StyledLink to='/cart'><CartIcon /></StyledLink></MenuItem> */}
                     </Menu>

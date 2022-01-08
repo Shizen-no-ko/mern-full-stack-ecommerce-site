@@ -27,6 +27,32 @@ router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+router.post('/reinstate/:id', tokenAuth, checkAdmin, async (req, res) => {
+    const id = (req.params.id);
+    try {
+        let toReinstateProduct = await DeletedProduct.findById(id);
+        toReinstateProduct = toReinstateProduct.toObject();
+        delete toReinstateProduct._id;
+        const newProduct = new Product(toReinstateProduct);
+        await newProduct.save((err, product) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ errors: [{ msg: "Reinstate Product Error" }] });
+            }
+        })
+        await DeletedProduct.findByIdAndDelete(id);
+        return res.status(200).json({ errors: [{ msg: "Product has been reinstated" }] });
+    }
+    catch {
+        (err) => {
+            console.log(err)
+            res.status(500).json({ errors: [{ msg: "Server Error" }] });
+        }
+    }
+});
+
+
+
 
 router.put('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {

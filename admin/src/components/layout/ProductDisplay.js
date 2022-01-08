@@ -31,6 +31,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     const [products, setProducts] = useState([]);
     const [filtered, setFiltered] = useState([]);
+    
 
 
 
@@ -62,7 +63,6 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
        
 
     }, [category])
-
 
 
    

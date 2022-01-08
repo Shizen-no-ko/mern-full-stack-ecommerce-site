@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
-
+import { userReq } from '../../axiosRequests';
 
 const Container = styled.div`
 
@@ -86,13 +86,34 @@ ${landscapeTablet({
 })};
 `
 
+
+
+
 const ProductElement = ({ element, deleted }) => {
+
+    const handleClick = async (id) => {
+        // set token for headers here as in axiosRequests it seems to be set at startup and doesn't update
+        const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
+        const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
+        try{
+            const headers = {
+                token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
+             }
+           const res = await userReq.post(`products/reinstate/${id}`, {}, {headers: headers});
+            //to activate link
+            return true;
+        }
+        catch  (err) {
+            console.log(err.response.data.errors[0].msg);
+        }
+    }
+
     return (
         <Container>
             <Img src={element.image} />
             <IconContainer>
             {deleted ? 
-            <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon></Link> 
+            <Link onClick={() => handleClick(element._id)} to={'/'}><Icon topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon></Link> 
             :
             <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}>EDIT PRODUCT</Icon></Link>
             }

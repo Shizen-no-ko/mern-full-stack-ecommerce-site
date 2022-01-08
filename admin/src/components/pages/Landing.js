@@ -11,13 +11,13 @@ overflow: hidden;
 
 `
 
-const Landing = () => {
+const Landing = (props) => {
     return(
         <Container>
             <Navbar/>
             {/* <Slider/>
             <Categories/> */}
-            <ProductDisplay filter={{}} category={null} landing={true}/>
+            <ProductDisplay filter={{}} category={null} landing={true} />
             {/* <SubscriptionForm/> */}
             <Footer/>
         </Container>

@@ -203,7 +203,7 @@ ${mobile({
 
 
 const LZone = styled.div`
-flex: 1;
+flex: 0.5;
 
 ${mobile({
     display: 'none'
@@ -297,10 +297,11 @@ const Navbar = () => {
                     <Menu>
                         {!user && <MenuItem><StyledLink to='/login'>LOG IN</StyledLink></MenuItem>}
                         {! user && <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>}
+                        {user && <MenuItem><StyledLink to='/add'>ADD</StyledLink></MenuItem>}
                         {user && <MenuItem><StyledLink to='/'>PRODUCTS</StyledLink></MenuItem>}
                         {user && <MenuItem><StyledLink to='/'>USERS</StyledLink></MenuItem>}
                         {user && <MenuItem><StyledLink to='/deleted'>DELETED</StyledLink></MenuItem>}
-                        {user && <MenuItem ><StyledLink onClick={handleLogout} to='/'>LOG OUT</StyledLink></MenuItem>}
+                        {user && <MenuItem ><StyledLink onClick={handleLogout} to='/'>LOGOUT</StyledLink></MenuItem>}
                         {/* <MenuItem><StyledLink to='/cart'><CartIcon /></StyledLink></MenuItem> */}
                     </Menu>
                 </RZone>

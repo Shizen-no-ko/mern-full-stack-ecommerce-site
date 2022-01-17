@@ -121,11 +121,11 @@ router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
         let toDeleteProduct = await Product.findById(id);
         // check if product with this title is already backed-up
         let preExist = await DeletedProduct.findOne({ title: toDeleteProduct.title });
-        if (preExist) {
-            // return res.status(400).json({ errors: [{ msg: "This product is already backed-up" }] });
-        }
+        // if (preExist) {
+        //     // return res.status(400).json({ errors: [{ msg: "This product is already backed-up" }] });
+        // }
         // if this product not backed-up, store in backup
-        else {
+        if(!preExist) {
             let toDeleteProduct = await Product.findById(id);
             toDeleteProduct = toDeleteProduct.toObject();
             delete toDeleteProduct._id;

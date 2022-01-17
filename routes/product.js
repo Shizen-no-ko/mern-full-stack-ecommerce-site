@@ -119,15 +119,25 @@ router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
     const id = (req.params.id);
     try {
         let toDeleteProduct = await Product.findById(id);
-        toDeleteProduct = toDeleteProduct.toObject();
-        delete toDeleteProduct._id;
-        const newDeletedProduct = new DeletedProduct(toDeleteProduct);
-        await newDeletedProduct.save((err, product) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).json({ errors: [{ msg: "Backup Product Error" }] });
-            }
-        })
+        // check if product with this title is already backed-up
+        let preExist = await DeletedProduct.findOne({ title: toDeleteProduct.title });
+        if (preExist) {
+            // return res.status(400).json({ errors: [{ msg: "This product is already backed-up" }] });
+        }
+        // if this product not backed-up, store in backup
+        else {
+            let toDeleteProduct = await Product.findById(id);
+            toDeleteProduct = toDeleteProduct.toObject();
+            delete toDeleteProduct._id;
+            const newDeletedProduct = new DeletedProduct(toDeleteProduct);
+            await newDeletedProduct.save((err, product) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({ errors: [{ msg: "Backup Product Error" }] });
+                }
+            })
+        }
+       // delete product from products database
         await Product.findByIdAndDelete(id);
         return res.status(200).json({ errors: [{ msg: "Product has been deleted" }] });
     }

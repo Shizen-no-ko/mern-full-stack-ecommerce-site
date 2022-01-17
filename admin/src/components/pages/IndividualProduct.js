@@ -369,12 +369,12 @@ ${portraitTablet({
 `
 
 
-const IndividualProduct = () => {
+const IndividualProduct = (props) => {
     const history = useHistory();
-    console.log(history);
+    // console.log(history);
     const path = useLocation().pathname.split('/');
     const id = path[path.length -1];
-   
+    const { add } = props;
   
    
     const [formData, setFormData] = useState({
@@ -414,7 +414,9 @@ const IndividualProduct = () => {
               
                 
             }
-            getProduct()
+            // only retrieve product by id if module not being used to add product
+            if(!add){getProduct()}
+            
         }
         catch (err) { console.log(err) }
         return () => { isMounted = false };
@@ -465,7 +467,23 @@ const IndividualProduct = () => {
         // console.log(err.response.data.errors[0].msg) 
     }
        
-    }
+    };
+
+    const handleReset = () => {
+        setFormData(
+            {
+                _id: '',
+                title: '',
+                description:'',
+                image: '',
+                category: [],
+                size: [],
+                color: [],
+                price: '',
+                inStock: false
+            }
+        )
+    };
 
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
     const setStock = (value) => setFormData({...formData, inStock: value });
@@ -483,15 +501,16 @@ const onSubmit = (e) => {
                 <Wrapper>
                     <Slide >
                         <ImageContainer>
-                            <Img src={image} />
+                           {add ? null : <Img src={image} />} 
                         </ImageContainer>
                         <DetailsContainer>
                             <Details>
-                            <Title>Edit Product</Title>
+                           
+                            <Title>{add ? 'Add Product' : 'Edit Product'}</Title>
                             <Form onSubmit={e => onSubmit(e)}>
                             <Label>Title</Label>
                     <Input onChange={e => onChange(e)} required name='title' type='text' value={title}></Input>
-                    <Label>Product Id: <strong>{_id}</strong></Label>
+                   {add? null : <Label>Product Id: <strong>{_id}</strong></Label> } 
                     <Label>Image Url</Label>
                         <Input onChange={e => onChange(e)} required name='image' type='text' value={image}></Input>
                         <Label>Price</Label>
@@ -508,11 +527,18 @@ const onSubmit = (e) => {
                         {/* onClick={() => setStock(!inStock)} */}
                     </Form>
                    {errorMessage !== '' ? <ErrorMessage>{errorMessage}</ErrorMessage>: null} 
-                                <SelectorRow>
-                                  
+                   {add ? 
+                    <SelectorRow>
+                                    <Button onClick={handleReset}><i className="fas fa-eraser"></i> RESET PRODUCT</Button>
+                                    <Button onClick={handleDelete}><i className="far fa-save"></i> SAVE PRODUCT</Button>
+                                </SelectorRow>
+                   :
+                   <SelectorRow>
                                     <Button onClick={handleUpdate}><i className="fas fa-edit"></i> UPDATE PRODUCT</Button>
                                     <Button onClick={handleDelete}><i className="fas fa-trash-alt"></i> DELETE PRODUCT</Button>
                                 </SelectorRow>
+                    }
+                                
                              
                             </Details>
                         </DetailsContainer>

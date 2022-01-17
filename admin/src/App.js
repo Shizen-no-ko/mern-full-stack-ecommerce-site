@@ -29,6 +29,7 @@ function App() {
    <Route exact path="/products/:category" component={ProductsFilter} />
    <Route exact path="/products" component={ProductsFilter} />
    <Route exact path="/deleted" component={DeletedProducts} />
+   <Route exact path="/add" component={() => (<IndividualProduct add='true' />)}/>
    {/* :category */}
    </Switch>
     </Fragment>

@@ -386,9 +386,7 @@ const IndividualProduct = (props) => {
         size: [],
         color: [],
         price: '',
-        inStock: false
-       
-        
+        inStock: false 
     });
 
     // const dispatch = useDispatch();
@@ -485,6 +483,33 @@ const IndividualProduct = (props) => {
         )
     };
 
+    const handleAdd = async () => {
+        // set token for headers here as in axiosRequests it seems to be set at startup and doesn't update
+        const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
+        const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
+            try {
+                const headers = {
+                    token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
+                 };
+                 // if these fields have been altered - set to lowercase, split and trim, ready for putting to DB, otherwise leave as is
+                 const tidyData = {...formData, 
+                    color: typeof color === 'string' ? color.toLowerCase().split(',').map(item => item.trim()): color,
+                    size: typeof size === 'string' ? size.toLowerCase().split(',').map(item => item.trim()): size,
+                    category: typeof category === 'string' ? category.toLowerCase().split(',').map(item => item.trim()): category
+                };
+                // remove id key before posting
+                delete tidyData._id; 
+                const res = await userReq.post('products/add', tidyData, { headers: headers} );
+                // update form - force re-render with tidied updates
+                setFormData(tidyData);
+                console.log(`response is ${res.data}`);
+        }
+        catch (err) { 
+            setErrorMessage(err.response.data.errors[0].msg)
+            // console.log(err.response.data.errors[0].msg) 
+        }  
+    };
+
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
     const setStock = (value) => setFormData({...formData, inStock: value });
 
@@ -530,7 +555,7 @@ const onSubmit = (e) => {
                    {add ? 
                     <SelectorRow>
                                     <Button onClick={handleReset}><i className="fas fa-eraser"></i> RESET PRODUCT</Button>
-                                    <Button onClick={handleDelete}><i className="far fa-save"></i> SAVE PRODUCT</Button>
+                                    <Button onClick={handleAdd}><i className="far fa-save"></i> ADD PRODUCT</Button>
                                 </SelectorRow>
                    :
                    <SelectorRow>

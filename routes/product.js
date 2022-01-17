@@ -15,7 +15,10 @@ router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
         }
         const newProduct = new Product(req.body);
         await newProduct.save((err, product) => {
-            if (err) return res.status(500).json({ errors: [{ msg: "Create Product Error" }] });
+            if (err){
+                console.log(err);
+                return res.status(500).json({ errors: [{ msg: "Create Product Error" }] });
+            } 
             return res.status(200).json(product);
         })
     }

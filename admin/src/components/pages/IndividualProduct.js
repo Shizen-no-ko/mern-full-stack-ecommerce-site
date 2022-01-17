@@ -502,7 +502,10 @@ const IndividualProduct = (props) => {
                 const res = await userReq.post('products/add', tidyData, { headers: headers} );
                 // update form - force re-render with tidied updates
                 setFormData(tidyData);
-                console.log(`response is ${res.data}`);
+                history.replace(`/product/${res.data._id}`);
+                // console.log(`response is ${res.data}`);
+                // console.log('RESPONSE ID IS ');
+                // console.log(res.data._id);
         }
         catch (err) { 
             setErrorMessage(err.response.data.errors[0].msg)

@@ -112,6 +112,7 @@ const ProductElement = ({ element, deleted }) => {
         <Container>
             <Img src={element.image} />
             <IconContainer>
+            // FIGURE OUT HOW TO FORCE REFRESH AFTER LINK
             {deleted ? 
             <Link onClick={() => handleClick(element._id)} to={'/'}><Icon topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon></Link> 
             :

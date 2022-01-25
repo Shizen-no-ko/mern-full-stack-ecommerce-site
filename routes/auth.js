@@ -115,6 +115,60 @@ router.post('/login', body('email').isEmail(), async (req, res) => {
     }
 });
 
+
+
+
+router.post('/login-admin', body('email').isEmail(), async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+        await User.findOne({ email: req.body.email }, function (err, user) {
+            if (!user) {
+                return res.status(401).json({ errors: [{ msg: "Incorrect Credentials" }] });
+            }
+            const decryptedPassword = CryptoJS.AES.decrypt(user.password, process.env.ENCRYPTION_SECRET).toString(CryptoJS.enc.Utf8);
+            if (decryptedPassword !== req.body.password) {
+                return res.status(401).json({ errors: [{ msg: "Incorrect Credentials" }] });
+            }
+            // Check if admin and return Unauthorized
+            if(!user.isAdministrator){
+                return res.status(401).json({ errors: [{ msg: "Unauthorized" }] });
+            }
+            const payload = {
+                user: {
+                    id: user.id,
+                    isAdministrator: user.isAdministrator
+                }
+            };
+    
+            jwt.sign(
+                payload,
+                process.env.JWT_SECRET,
+                { expiresIn: '24h' },
+                (err, token) => {
+                    if (err) console.log(err);
+                    // remove password from response
+                    delete user._doc.password;
+                    res.json({ token, user });
+                });
+            
+
+            // return res.status(200).json(userWithoutPassword);
+        });
+    }
+    catch {
+        (err) => {
+            console.log(err)
+            res.status(500).json("Server Error");
+        }
+    }
+});
+
+
+
+
 router.get('/tokentest', tokenAuth, async (req, res) => {
     await User.findById(req.user.id, (err, user) => {
         if(err){

@@ -5,7 +5,7 @@ import { success, failure } from './errorRedux';
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
     try{
-        const res = await publicReq.post('auth/login', user);
+        const res = await publicReq.post('auth/login-admin', user);
         dispatch(success());
         dispatch(loginSuccess(res.data));
     }

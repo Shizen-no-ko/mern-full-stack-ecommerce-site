@@ -15,12 +15,17 @@ import ShoppingCart from './components/pages/ShoppingCart';
 
 function App() {
   const user = useSelector(state => state.user.currentUser);
+  const isAdmin = user ? user.user.isAdministrator : null;
+
+  console.log(user);
+  console.log(isAdmin);
   
   return (
     <Router>
  <Fragment>
  <ScrollToTop/>
-   <Route exact path="/" component={Landing} />
+   {/* <Route exact path="/" component={Landing} /> */}
+   <Route exact path="/">{isAdmin ? <Landing/> : <Login/>}</Route>
    <Switch>
    <Route exact path="/login">{user ? <Redirect to='/'/> : <Login/>}</Route>
    <Route exact path="/register">{user ? <Redirect to='/'/> : <Register/>}</Route>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -90,20 +90,24 @@ ${landscapeTablet({
 
 
 const ProductElement = ({ element, deleted }) => {
+    const history = useHistory();
 
     const handleClick = async (id) => {
+
         // set token for headers here as in axiosRequests it seems to be set at startup and doesn't update
         const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
-        const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
-        try{
+        const TOKEN = CURRENT_USER ? CURRENT_USER.token : null;
+        try {
             const headers = {
                 token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
-             }
-           const res = await userReq.post(`products/reinstate/${id}`, {}, {headers: headers});
+            }
+            const res = await userReq.post(`products/reinstate/${id}`, {}, { headers: headers });
             //to activate link
-            return true;
+            // return true;
+            history.replace('/');
+
         }
-        catch  (err) {
+        catch (err) {
             console.log(err.response.data.errors[0].msg);
         }
     }
@@ -112,12 +116,14 @@ const ProductElement = ({ element, deleted }) => {
         <Container>
             <Img src={element.image} />
             <IconContainer>
-            // FIGURE OUT HOW TO FORCE REFRESH AFTER LINK
-            {deleted ? 
-            <Link onClick={() => handleClick(element._id)} to={'/'}><Icon topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon></Link> 
-            :
-            <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}>EDIT PRODUCT</Icon></Link>
-            }
+                {/* // FIGURE OUT HOW TO FORCE REFRESH AFTER LINK */}
+                {/* <Link onClick={() => handleClick(element._id)}  to={'/'} ><Icon topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon></Link>  */}
+
+                {deleted ?
+                    <Icon onClick={() => handleClick(element._id)} topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon>
+                    :
+                    <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}>EDIT PRODUCT</Icon></Link>
+                }
             </IconContainer>
         </Container>
     )

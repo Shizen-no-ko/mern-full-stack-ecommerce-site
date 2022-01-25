@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 // import axios from 'axios';
 import { publicReq } from '../../axiosRequests.js';
 import styled from 'styled-components';
@@ -31,6 +32,9 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     const [products, setProducts] = useState([]);
     const [filtered, setFiltered] = useState([]);
+
+    const history = useHistory();
+    
     
 
 
@@ -41,6 +45,9 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     console.log("Filter is:")
     console.log(filter);
 
+    // useEffect(() => {
+      
+    // }, [history]);
 
     useEffect(() => {
         const getAllProducts = async () => {

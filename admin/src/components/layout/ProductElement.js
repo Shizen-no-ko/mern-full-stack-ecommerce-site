@@ -101,9 +101,7 @@ const ProductElement = ({ element, deleted }) => {
             const headers = {
                 token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
             }
-            const res = await userReq.post(`products/reinstate/${id}`, {}, { headers: headers });
-            //to activate link
-            // return true;
+            await userReq.post(`products/reinstate/${id}`, {}, { headers: headers });
             history.replace('/');
 
         }
@@ -116,9 +114,6 @@ const ProductElement = ({ element, deleted }) => {
         <Container>
             <Img src={element.image} />
             <IconContainer>
-                {/* // FIGURE OUT HOW TO FORCE REFRESH AFTER LINK */}
-                {/* <Link onClick={() => handleClick(element._id)}  to={'/'} ><Icon topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon></Link>  */}
-
                 {deleted ?
                     <Icon onClick={() => handleClick(element._id)} topbottom={'bottom'} leftright={'right'}>REINSTATE PRODUCT</Icon>
                     :

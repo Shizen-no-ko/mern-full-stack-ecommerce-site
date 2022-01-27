@@ -23,11 +23,12 @@ function App() {
    <Route exact path="/">{user ? <Landing/> : <Login/>}</Route>
    <Switch>
    <Route exact path="/login">{user ? <Redirect to='/'/> : <Login/>}</Route>
-   <Route exact path="/product/:id" component={IndividualProduct} />
-   <Route exact path="/products/:category" component={ProductsFilter} />
-   <Route exact path="/products" component={ProductsFilter} />
-   <Route exact path="/deleted" component={DeletedProducts} />
-   <Route exact path="/add" component={() => (<IndividualProduct add='true' />)}/>
+   <Route exact path="/product/:id">{user ? <IndividualProduct/> : <Login/>}</Route> 
+   <Route exact path="/products/:category">{user ? <ProductsFilter/> : <Login/>}</Route> 
+   <Route exact path="/products">{user ? <ProductsFilter/> : <Login/>}</Route>
+   <Route exact path="/deleted">{user ? <DeletedProducts/> : <Login/>}</Route>
+   <Route exact path="/add">{user ? <IndividualProduct add='true' /> : <Login/>}</Route>
+   {/* component={() => (<IndividualProduct add='true' />)}/>  */}
    {/* :category */}
    </Switch>
     </Fragment>

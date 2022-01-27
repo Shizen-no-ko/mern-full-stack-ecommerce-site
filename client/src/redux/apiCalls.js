@@ -5,7 +5,8 @@ import { success, failure } from './errorRedux';
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
     try{
-        const res = await publicReq.post('auth/login', user);
+        // Uses 'main' param to enable condition in auth login route
+        const res = await publicReq.post('auth/login/main', user);
         dispatch(success());
         dispatch(loginSuccess(res.data));
     }

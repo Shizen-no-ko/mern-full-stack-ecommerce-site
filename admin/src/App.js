@@ -10,8 +10,7 @@ import ProductsFilter from './components/pages/ProductsFilter';
 import DeletedProducts from './components/pages/DeletedProducts';
 import IndividualProduct from './components/pages/IndividualProduct';
 import Login from './components/pages/Login';
-import Register from './components/pages/Register';
-import ShoppingCart from './components/pages/ShoppingCart';
+
 
 function App() {
   const user = useSelector(state => state.user.currentUser);

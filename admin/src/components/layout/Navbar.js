@@ -296,7 +296,6 @@ const Navbar = () => {
                 <RZone>
                     <Menu>
                         {!user && <MenuItem><StyledLink to='/login'>LOG IN</StyledLink></MenuItem>}
-                        {! user && <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>}
                         {user && <MenuItem><StyledLink to='/add'>ADD</StyledLink></MenuItem>}
                         {user && <MenuItem><StyledLink to='/'>PRODUCTS</StyledLink></MenuItem>}
                         {user && <MenuItem><StyledLink to='/'>USERS</StyledLink></MenuItem>}

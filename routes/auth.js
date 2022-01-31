@@ -88,7 +88,6 @@ router.post('/login/:isAdmin', body('email').isEmail(), async (req, res) => {
             }
             // Only checks this condition if this route was accessed through the admin page
             if(isAdminRoute && !user.isAdministrator){
-                console.log("GOT INTO THE CONTROL");
                 return res.status(401).json({ errors: [{ msg: "Unauthorized" }] });
             }
             const payload = {

@@ -9,7 +9,6 @@ const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorag
 const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
 
 
-
 export const publicReq = axios.create({
     baseURL: BASE_URL
 });
@@ -17,6 +16,6 @@ export const publicReq = axios.create({
 
 export const userReq = axios.create({
     baseURL: BASE_URL,
-    // headers: {token: `Bearer ${TOKEN}`}
+    headers: {token: `Bearer ${TOKEN}`}
 })
 

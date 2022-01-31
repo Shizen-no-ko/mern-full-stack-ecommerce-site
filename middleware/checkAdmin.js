@@ -1,5 +1,6 @@
 const checkAdmin = (req, res, next) => {
-    if (req.user.isAdministrator) {
+    const isAdmin = req.user ? req.user.isAdministrator : null;
+    if (isAdmin) {
         next();
     }
     else {

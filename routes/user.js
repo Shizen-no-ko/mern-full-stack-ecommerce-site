@@ -35,22 +35,35 @@ router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
 router.get('/recent', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const recentUserData = await User.aggregate([
-            { $match: { createdAt: {$gte: startSortDate} }},
+            { $match: { createdAt: { $gte: startSortDate } } },
             {
                 $project: { month: { $month: "$createdAt" } }
             },
             {
                 $group: {
-                _id: "$month",
-                total: { $sum: 1 }
+                    _id: "$month",
+                    total: { $sum: 1 }
+                }
             }
-        }
-         ]);
-return res.status(200).json(recentUserData);  
+        ]);
+        return res.status(200).json(recentUserData);
     }
     catch (err) {
-    return res.status(500).json({ errors: [{ msg: "Server Error" }] });
-}
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+router.get('/latest', tokenAuth, checkAdmin, async (req, res) => {
+    try {
+
+        const tenMostRecent = await User.find().sort({ createdAt: -1 }).limit(10);
+        console.log(tenMostRecent);
+        return res.status(200).json(tenMostRecent);
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
 });
 
 

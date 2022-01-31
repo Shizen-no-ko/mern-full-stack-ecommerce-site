@@ -56,8 +56,7 @@ router.get('/recent', tokenAuth, checkAdmin, async (req, res) => {
 router.get('/latest', tokenAuth, checkAdmin, async (req, res) => {
     try {
 
-        const tenMostRecent = await User.find().sort({ createdAt: -1 }).limit(10);
-        console.log(tenMostRecent);
+        const tenMostRecent = await User.find().sort({ createdAt: -1 }).limit(10).select('-password');
         return res.status(200).json(tenMostRecent);
     }
     catch (err) {

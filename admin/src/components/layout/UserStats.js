@@ -5,20 +5,41 @@ import { publicReq, userReq } from '../../axiosRequests';
 import styled from 'styled-components';
 
 const Container = styled.div`
+align-items: center;
+border: 1px solid lightgray;
 display:flex;
 flex-direction: column;
 height: auto;
 margin: 20px 100px;
-max-width: 100%;
+max-width: 50vw;
+padding: 10px 20px 10px;
+text-align: left;
+width: auto;
 `
 const UserDiv = styled.div`
 border: 1px solid lightgray;
 margin: 2px;
 padding: 10px;
 width: 100%;
+
+&:hover {
+    background-color: pink;
+    border: 1px solid red;
+    box-shadow: 3px 3px 3px lightgray;
+    transform: scale(101%);
+}
 `
-const Title = styled.h1`
-font-size: 1.5rem;
+
+const TitleDiv = styled.div`
+margin-left: -20px;
+padding-bottom: 10px;
+text-align: left;
+width: 100%;
+`
+
+
+
+const Title = styled.h3`
 margin: 5px 10px;
 padding: 0px;
 `
@@ -50,7 +71,10 @@ const UserStats = () => {
     return (
         <div>
             <Container>
-                USER STATS
+            <TitleDiv>
+            <Title>Most Recently Registered Users</Title>
+            </TitleDiv>
+                
                 { recentUsers.map((user) => {
                     return <UserDiv key={user._id}>
                     <Title>{user.username}</Title>

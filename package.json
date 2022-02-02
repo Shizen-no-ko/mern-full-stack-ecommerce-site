@@ -23,7 +23,8 @@
     "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "stripe": "^8.201.0"
   },
   "devDependencies": {
     "concurrently": "^6.3.0",

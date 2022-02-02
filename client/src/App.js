@@ -11,6 +11,9 @@ import IndividualProduct from './components/pages/IndividualProduct';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import ShoppingCart from './components/pages/ShoppingCart';
+import Pay from './components/pages/Pay';
+import Success from './components/pages/Success';
+
 
 function App() {
   const user = useSelector(state => state.user.currentUser);
@@ -26,6 +29,8 @@ function App() {
    <Route exact path="/register">{user ? <Redirect to='/'/> : <Register/>}</Route>
    <Route exact path="/cart" component={ShoppingCart} />
    <Route exact path="/product/:id" component={IndividualProduct} />
+   <Route exact path="/pay" component={Pay} />
+   <Route exact path="/success" component={Success} />
    <Route exact path="/products/:category" component={ProductsFilter} />
    <Route exact path="/products" component={ProductsFilter} />
    {/* :category */}

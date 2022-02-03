@@ -9,6 +9,8 @@ import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 import CartItem from '../layout/CartItem';
 import OrderSummary from '../layout/OrderSummary';
+import { unwrapResult } from '@reduxjs/toolkit';
+
 
 
 const Container = styled.div`
@@ -147,6 +149,28 @@ ${landscapeTablet({
 
 `
 
+// Hides previous items for mobile and portrait tablet to prevent them appearing before the order summary
+const PreviousDiv1 = styled.div`
+${mobile({
+display: 'none'
+})};
+
+${portraitTablet({
+    display: 'none'
+})};
+` 
+
+const PreviousDiv2 = styled.div`
+display: none;
+
+${mobile({
+display: 'unset'
+})};
+
+${portraitTablet({
+    display: 'unset'
+})};
+` 
 
 const ShoppingCart = () => {
   
@@ -171,10 +195,16 @@ const cart = useSelector(state=>state.cart);
         {/* <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/> */}
+    <PreviousDiv1>
     {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
     <div>{cart.previousCartItems.map((item, index) => <StyledLink key={index} to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
+    </PreviousDiv1>
     </CartItems>
     <OrderSummary/>
+    <PreviousDiv2>
+    {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
+    <div>{cart.previousCartItems.map((item, index) => <StyledLink key={index} to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
+    </PreviousDiv2>
 </DetailsDiv>
 </Wrapper>
             </Container>

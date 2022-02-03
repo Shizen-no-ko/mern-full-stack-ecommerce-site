@@ -42,6 +42,7 @@ const Amount = styled.div`
 `
 
 const Button = styled.button`
+align-self: center;
 all: unset;
 background-color: red;
 border: 4px solid red;
@@ -54,7 +55,7 @@ margin: 10px 40px 10px 0;
 outline: none;
 padding: 10px;
 text-align: center;
-width: 80%;
+
 
 
 
@@ -73,6 +74,11 @@ width: 80%;
     transform: scale(97%);
 }
 `
+
+const CheckoutButtonDiv = styled.div`
+text-align: center;
+`
+
 
 const OrderSummary = () => {
 
@@ -122,6 +128,7 @@ const OrderSummary = () => {
             <StripeCheckout
                                 name='Nihon no Mono'
                                 image='https://source.unsplash.com/tkxzEhfdxMc/640x425'
+                                ComponentClass={CheckoutButtonDiv}
                                 billingAddress
                                 shippingAddress
                                 description={`The total for your purchases is $${totalPrice}`}

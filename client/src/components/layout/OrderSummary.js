@@ -1,8 +1,13 @@
 // import {useState, useRef } from 'react';
-
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
+import StripeCheckout from 'react-stripe-checkout';
 import styled from 'styled-components';
+
+import { publicReq } from '../../axiosRequests';
+
+const KEY = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
 const Container = styled.div`
 
@@ -49,6 +54,7 @@ margin: 10px 40px 10px 0;
 outline: none;
 padding: 10px;
 text-align: center;
+width: 80%;
 
 
 
@@ -70,8 +76,34 @@ text-align: center;
 
 const OrderSummary = () => {
 
+    const [stripeToken, setStripeToken] = useState();
+    const history = useHistory();
+
+    const onToken = (token) => {
+        setStripeToken(token);
+    };
+
     const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = useSelector(state=>state.cart);
 
+    useEffect(() => {
+        const makePayment = async () => {
+            try {
+                const res = await publicReq.post(
+                    '/checkout/payment',
+                    {
+                        tokenId: stripeToken.id,
+                        amount: totalPrice * 100
+                    }
+                );
+                console.log(res.data);
+                history.replace('/success');
+            }
+            catch (err) {
+                console.log(err)
+            }
+        };
+        stripeToken && makePayment();
+    }, [stripeToken]);
 
     return (
         <Container>
@@ -81,7 +113,28 @@ const OrderSummary = () => {
             {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : null}
             {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null}
             <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
-            <Button style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}>{subtotal > 0 ? 'Go to Checkout' : 'Please add items to your cart'}</Button>
+
+
+            
+            {/* style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}> */}
+            {subtotal > 0 ? 
+            stripeToken ? <span>Processing. Please wait...</span> : 
+            <StripeCheckout
+                                name='Nihon no Mono'
+                                image='https://source.unsplash.com/tkxzEhfdxMc/640x425'
+                                billingAddress
+                                shippingAddress
+                                description={`The total for your purchases is $${totalPrice}`}
+                                amount={totalPrice * 100}
+                                token={onToken}
+                                stripeKey={KEY}
+                            >
+                                <Button>Pay With Card</Button>
+                            </StripeCheckout>
+            : 
+            <Button  style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}>
+            Please add items to your cart
+            </Button>}
             </Wrapper>
         </Container>
        

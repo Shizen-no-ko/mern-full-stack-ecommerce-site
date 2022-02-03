@@ -11,8 +11,6 @@ import CartItem from '../layout/CartItem';
 import OrderSummary from '../layout/OrderSummary';
 
 
-
-
 const Container = styled.div`
 ${'' /* height: 100vh; */}
 max-width: 100%;
@@ -151,7 +149,7 @@ ${landscapeTablet({
 
 
 const ShoppingCart = () => {
-
+  
 const cart = useSelector(state=>state.cart);
 
     return (
@@ -162,7 +160,7 @@ const cart = useSelector(state=>state.cart);
 <Title>Your Shopping Cart</Title>
 <ButtonDiv>
 <StyledLink to='/products'><Button look='light'>Continue Shopping</Button></StyledLink>
-{cart.subtotal > 0 ? <Button>Checkout Now</Button> : null}
+{/* {cart.subtotal > 0 ? <Button>Checkout Now</Button> : null} */}
 </ButtonDiv>
 <DetailsDiv>
     <CartItems>

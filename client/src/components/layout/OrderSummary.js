@@ -1,11 +1,10 @@
-// import {useState, useRef } from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 import styled from 'styled-components';
 
-import { publicReq } from '../../axiosRequests';
+import { userReq } from '../../axiosRequests';
 
 const KEY = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
@@ -82,6 +81,8 @@ text-align: center;
 
 const OrderSummary = () => {
 
+    const user = useSelector(state => state.user.currentUser);
+
     const [stripeToken, setStripeToken] = useState();
     const history = useHistory();
 
@@ -94,7 +95,7 @@ const OrderSummary = () => {
     useEffect(() => {
         const makePayment = async () => {
             try {
-                const res = await publicReq.post(
+                const res = await userReq.post(
                     '/checkout/payment',
                     {
                         tokenId: stripeToken.id,
@@ -123,7 +124,7 @@ const OrderSummary = () => {
 
             
             {/* style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}> */}
-            {subtotal > 0 ? 
+            {user && subtotal > 0 ? 
             stripeToken ? <span>Processing. Please wait...</span> : 
             <StripeCheckout
                                 name='Nihon no Mono'
@@ -139,8 +140,8 @@ const OrderSummary = () => {
                                 <Button>Pay With Card</Button>
                             </StripeCheckout>
             : 
-            <Button  style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}>
-            Please add items to your cart
+            <Button  style={!user || subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}>
+            {subtotal <=0 ? 'Please add items to your cart' : 'Please login to checkout'}
             </Button>}
             </Wrapper>
         </Container>

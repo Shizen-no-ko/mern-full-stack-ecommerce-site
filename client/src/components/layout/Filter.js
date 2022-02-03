@@ -163,12 +163,12 @@ const Filter = (props) => {
        <Selector onChange={(e) => {onChange(e)}} name='color' defaultValue='Color' value={color} pos='center'>
        <Option  bold={true} disabled>Color</Option>
        <Option>All Colors</Option> 
-       {props.availableColorsSizes.colors ? props.availableColorsSizes.colors.map((color) => <Option>{color.charAt(0).toUpperCase() + color.slice(1)}</Option>) : null};
+       {props.availableColorsSizes.colors ? props.availableColorsSizes.colors.map((color) => <Option key={color}>{color.charAt(0).toUpperCase() + color.slice(1)}</Option>) : null};
        </Selector>
        <Selector onChange={(e) => {onChange(e)}} name='size' defaultValue='Size' value={size} pos='right' >
        <Option bold={true}  disabled>Size</Option>
        <Option>All Sizes</Option>
-       {props.availableColorsSizes.sizes ? props.availableColorsSizes.sizes.map((size) => <Option>{size.toUpperCase()}</Option>) : null};
+       {props.availableColorsSizes.sizes ? props.availableColorsSizes.sizes.map((size) => <Option key={size}>{size.toUpperCase()}</Option>) : null};
        </Selector>
        </SelectorContainer>
        <SelectorContainer>

@@ -174,7 +174,7 @@ const cart = useSelector(state=>state.cart);
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
         <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/> */}
     {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
-    <div>{cart.previousCartItems.map((item) => <StyledLink to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
+    <div>{cart.previousCartItems.map((item, index) => <StyledLink key={index} to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
     </CartItems>
     <OrderSummary/>
 </DetailsDiv>

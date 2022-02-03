@@ -303,7 +303,7 @@ const CartItem = (props) => {
         <PlusMinusContainer>
         {amount > 1 ? 
         <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles> :
-        <PlusMinusStyles onClick={handleDelete}><i class="fas fa-trash-alt"></i></PlusMinusStyles>
+        <PlusMinusStyles onClick={handleDelete}><i className="fas fa-trash-alt"></i></PlusMinusStyles>
         }
            <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
            <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>

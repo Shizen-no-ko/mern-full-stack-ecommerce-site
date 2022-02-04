@@ -14,9 +14,23 @@ const OrderSchema = new mongoose.Schema(
                 amount: {
                     type: Number,
                     default: 1
+                }, 
+                color: {
+                    type:String
+                },
+                size: {
+                    type:String
                 }
             }
         ],
+        subTotal: {
+            type: Number,
+            required: true
+        },
+        deliveryCharge: {
+            type: Number,
+            required: true
+        },
         totalPrice: {
             type: Number,
             required: true

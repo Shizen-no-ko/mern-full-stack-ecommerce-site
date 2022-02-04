@@ -90,7 +90,9 @@ const OrderSummary = () => {
         setStripeToken(token);
     };
 
-    const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = useSelector(state=>state.cart);
+    const cart = useSelector(state=>state.cart);
+    const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = cart;
+    // const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = useSelector(state=>state.cart);
 
     useEffect(() => {
         const makePayment = async () => {
@@ -102,8 +104,8 @@ const OrderSummary = () => {
                         amount: totalPrice * 100
                     }
                 );
-                console.log(res.data);
-                history.replace('/success');
+                // console.log(res.data);
+                history.replace('/success', {data:res.data, cart: cart, user: user});
             }
             catch (err) {
                 console.log(err)

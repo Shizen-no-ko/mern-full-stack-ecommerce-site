@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
@@ -149,6 +149,17 @@ font-size: 1.5rem;
 
 const Success = () => {
 
+const location = useLocation();
+const data = location.state.data;
+const user = location.state.user;
+const cart = location.state.cart;
+console.log('DATA IS:')
+console.log(data);
+console.log('USER IS: ')
+console.log(user);
+console.log('CART IS: ')
+console.log(cart);
+
 const history = useHistory();
 
 const handleClick = (e) => {
@@ -156,6 +167,34 @@ const handleClick = (e) => {
     history.replace('/');
 }
  
+// user.user.username
+// user.user._id
+// user.user.email
+
+// cart.deliveryCharge
+// cart.itemCount
+// cart.products (array). _id, color, size, price, title 
+// cart.totalPrice
+// cart.subtotal
+
+// data.billing_details.city: "Lalala Town"
+// country: "United States"
+// line1: "Lalalal 344"
+// line2: null
+// postal_code: "1234"
+// state: "NY"
+// data.balance_transaction: 
+// data.name 
+// data.currency 
+// data.amount
+// data.amount_captured
+// data.paid(bool)
+// data.status
+
+
+
+
+
 return (
     <div>
         <Navbar/>
@@ -165,6 +204,7 @@ return (
                 <Logo>
                 <i className="fas fa-torii-gate"></i>
                 </Logo>
+                <p>{user.user.username}</p>
                     <Title>Payment was successful.</Title>
                     <Text>We have received your order.</Text>
                     <Text>Thank you for your custom.</Text>

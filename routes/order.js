@@ -9,9 +9,9 @@ const checkAuthorizedToEdit = require('../middleware/checkAuthorizedToEdit');
 const now = new Date();
 const twoMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
 
+// checkAuthorizedToEdit,
 
-
-router.post('/add', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
+router.post('/add', tokenAuth, async (req, res) => {
     try {
         const newlyCreatedOrder = new Order(req.body);
         await newlyCreatedOrder.save((err, order) => {

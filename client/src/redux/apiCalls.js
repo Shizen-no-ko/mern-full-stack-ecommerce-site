@@ -1,5 +1,6 @@
-import { publicReq } from "../axiosRequests";
+import { publicReq, userReq } from "../axiosRequests";
 import { loginFailure, loginStart, loginSuccess } from './userRedux';
+import { clearCart } from './shoppingCartRedux';
 import { success, failure } from './errorRedux';
 
 export const login = async (dispatch, user) => {
@@ -28,5 +29,15 @@ export const register = async (dispatch, user) => {
     catch (err) {
         dispatch(failure(err.response.data.errors));
         dispatch(loginFailure()); 
+    }
+};
+
+export const order = async (dispatch, order) => {
+    try{
+        const res = await userReq.post('orders/add', order);
+        dispatch(clearCart());
+    }
+    catch (err) {
+        dispatch(failure(err.response.data.errors));
     }
 };

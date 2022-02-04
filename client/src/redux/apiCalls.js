@@ -1,7 +1,7 @@
-import { publicReq, userReq } from "../axiosRequests";
 import { loginFailure, loginStart, loginSuccess } from './userRedux';
 import { clearCart } from './shoppingCartRedux';
 import { success, failure } from './errorRedux';
+import { publicReq, userReq } from "../axiosRequests";
 
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
@@ -32,12 +32,23 @@ export const register = async (dispatch, user) => {
     }
 };
 
-export const order = async (dispatch, order) => {
+export const order = async (dispatch, orderData) => {
+    //Token not setting correctly in axiosRequests
+    const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
+    const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
+    
+    const headers = {
+        token: `Bearer ${TOKEN}`
+    };
+
     try{
-        const res = await userReq.post('orders/add', order);
+        const res = await userReq.post('orders/add', orderData, {headers:headers});
+        console.log('INSIDE ORDER');
+        console.log(res.data);
         dispatch(clearCart());
     }
     catch (err) {
+        console.log(err);
         dispatch(failure(err.response.data.errors));
     }
 };

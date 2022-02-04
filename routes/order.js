@@ -12,10 +12,15 @@ const twoMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
 // checkAuthorizedToEdit,
 
 router.post('/add', tokenAuth, async (req, res) => {
+    console.log('BODY ISSSSSS: ')
+    console.log(req.body);
     try {
         const newlyCreatedOrder = new Order(req.body);
         await newlyCreatedOrder.save((err, order) => {
-            if (err) return res.status(500).json({ errors: [{ msg: "Create Order Error" }] });
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ errors: [{ msg: "Create Order Error" }] });
+            } 
             return res.status(200).json(order);
         })
     }

@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import { order } from '../../redux/apiCalls';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
@@ -149,14 +152,19 @@ font-size: 1.5rem;
 
 const Success = () => {
 
+const dispatch = useDispatch();
 const location = useLocation();
+
+const { error, errorMessage } = useSelector(state => state.error);
+const { user } = useSelector(state => state.user.currentUser);
+
 const data = location.state.data;
-const user = location.state.user;
+const userData = location.state.user.user;
 const cart = location.state.cart;
 console.log('DATA IS:')
 console.log(data);
 console.log('USER IS: ')
-console.log(user);
+console.log(userData);
 console.log('CART IS: ')
 console.log(cart);
 
@@ -167,6 +175,27 @@ const handleClick = (e) => {
     history.replace('/');
 }
  
+useEffect(() => {
+    const orderData =  {
+        userId: userData._id,
+        items: cart.products.map(item => ({
+            itemId:item._id,
+            amount:item.amount,
+            color:item.color ? item.color: null,
+            size:item.size ? item.size: null,
+    })),
+        subTotal: cart.subtotal,
+        deliveryCharge: cart.deliveryCharge,
+        totalPrice: cart.totalPrice,
+        userAddress : data.billing_details,
+    };
+    console.log('ORDER DATA IS: ');
+    console.log(orderData);
+    order(dispatch, orderData);
+
+    
+}, []);
+
 // user.user.username
 // user.user._id
 // user.user.email
@@ -190,6 +219,8 @@ const handleClick = (e) => {
 // data.amount_captured
 // data.paid(bool)
 // data.status
+
+
 
 // const OrderSchema = new mongoose.Schema(
 //     {
@@ -249,7 +280,6 @@ return (
                 <Logo>
                 <i className="fas fa-torii-gate"></i>
                 </Logo>
-                <p>{user.user.username}</p>
                     <Title>Payment was successful.</Title>
                     <Text>We have received your order.</Text>
                     <Text>Thank you for your custom.</Text>

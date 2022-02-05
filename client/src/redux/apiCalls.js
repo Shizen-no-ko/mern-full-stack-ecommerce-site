@@ -35,12 +35,9 @@ export const register = async (dispatch, user) => {
 export const order = async (dispatch, orderData) => {
     try{
         const res = await userReq.post('orders/add', orderData);
-        console.log('INSIDE ORDER');
-        console.log(res.data);
         dispatch(clearCart());
     }
     catch (err) {
-        console.log(err);
         dispatch(failure(err.response.data.errors));
     }
 };

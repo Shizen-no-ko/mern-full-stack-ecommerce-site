@@ -161,12 +161,6 @@ const { user } = useSelector(state => state.user.currentUser);
 const data = location.state.data;
 const userData = location.state.user.user;
 const cart = location.state.cart;
-console.log('DATA IS:')
-console.log(data);
-console.log('USER IS: ')
-console.log(userData);
-console.log('CART IS: ')
-console.log(cart);
 
 const history = useHistory();
 
@@ -189,85 +183,11 @@ useEffect(() => {
         totalPrice: cart.totalPrice,
         userAddress : data.billing_details,
     };
-    console.log('ORDER DATA IS: ');
-    console.log(orderData);
     order(dispatch, orderData);
 
     
 }, []);
 
-// user.user.username
-// user.user._id
-// user.user.email
-
-// cart.deliveryCharge
-// cart.itemCount
-// cart.products (array). _id, color, size, price, title 
-// cart.totalPrice
-// cart.subtotal
-
-// data.billing_details.city: "Lalala Town"
-// country: "United States"
-// line1: "Lalalal 344"
-// line2: null
-// postal_code: "1234"
-// state: "NY"
-// data.balance_transaction: 
-// data.name 
-// data.currency 
-// data.amount
-// data.amount_captured
-// data.paid(bool)
-// data.status
-
-
-
-// const OrderSchema = new mongoose.Schema(
-//     {
-//         userId: {
-//             type: String,
-//             required: true,
-//         },
-//         items: [
-//             {
-//                 itemId: {
-//                     type: String,
-//                 },
-//                 amount: {
-//                     type: Number,
-//                     default: 1
-//                 }, 
-//                 color: {
-//                     type:String
-//                 },
-//                 size: {
-//                     type:String
-//                 }
-//             }
-//         ],
-//         subTotal: {
-//             type: Number,
-//             required: true
-//         },
-//         deliveryCharge: {
-//             type: Number,
-//             required: true
-//         },
-//         totalPrice: {
-//             type: Number,
-//             required: true
-//         },
-//         userAddress : {
-//             type: Object,
-//             required: true
-//         },
-//         status: {
-//             type: String,
-//             default: "Order Received"
-//         }
-//     },
-//     { timestamps: true }
-// );
 
 
 

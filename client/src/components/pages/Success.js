@@ -160,70 +160,79 @@ text-align: center;
 
 const Success = () => {
 
-const dispatch = useDispatch();
-const location = useLocation();
+    const dispatch = useDispatch();
+    const location = useLocation();
 
-const { error, errorMessage } = useSelector(state => state.error);
-// const { user } = useSelector(state => state.user.currentUser);
+    const { error, errorMessage } = useSelector(state => state.error);
+    // const { user } = useSelector(state => state.user.currentUser);
 
-const data = location.state.data;
-const userData = location.state.user.user;
-const cart = location.state.cart;
+    const data = location.state.data;
+    const userData = location.state.user.user;
+    const cart = location.state.cart;
 
-const history = useHistory();
+    const history = useHistory();
 
-const handleClick = (e) => {
-    e.preventDefault();
-    history.replace('/');
-}
- 
-useEffect(() => {
-    const orderData =  {
-        userId: userData._id,
-        items: cart.products.map(item => ({
-            itemId:item._id,
-            amount:item.amount,
-            color:item.color ? item.color: null,
-            size:item.size ? item.size: null,
-    })),
-        subTotal: cart.subtotal,
-        deliveryCharge: cart.deliveryCharge,
-        totalPrice: cart.totalPrice,
-        userAddress : data.billing_details,
-    };
-    order(dispatch, orderData);
+    const handleClick = (e) => {
+        e.preventDefault();
+        history.replace('/');
+    }
 
-    
-}, []);
+    const handleErrorClick = (e) => {
+        e.preventDefault();
+        history.push('/cart');
+    }
+
+    useEffect(() => {
+        const orderData = {
+            userId: userData._id,
+            items: cart.products.map(item => ({
+                itemId: item._id,
+                amount: item.amount,
+                color: item.color ? item.color : null,
+                size: item.size ? item.size : null,
+            })),
+            subTotal: cart.subtotal,
+            deliveryCharge: cart.deliveryCharge,
+            totalPrice: cart.totalPrice,
+            userAddress: data.billing_details,
+        };
+        order(dispatch, orderData);
+
+
+    }, []);
 
 
 
 
-return (
-    <div>
-        <Navbar/>
-        <Container>
-            <Wrapper>
-                <Form>
-                <Logo>
-                <i className="fas fa-torii-gate"></i>
-                </Logo>
-                {error ? <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage> 
-                :
-                <div>
-                <Title>Payment was successful.</Title>
-                    <Text>We have received your order.</Text>
-                    <Text>Thank you for your custom.</Text>
-                    <Button onClick={handleClick}>Continue Shopping</Button>
-                </div>
-                    }
-                </Form>
-            </Wrapper>
-        </Container>
-        <SubscriptionForm/>
-        <Footer/>
-    </div>
-)
+    return (
+        <div>
+            <Navbar />
+            <Container>
+                <Wrapper>
+                    <Form>
+                        <Logo>
+                            <i className="fas fa-torii-gate"></i>
+                        </Logo>
+                        {error ? <div>
+                            <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>
+                            <Button onClick={handleErrorClick}>Try Again?</Button>
+                        </div>
+
+                            :
+                            <div>
+                                <Title>Payment was successful.</Title>
+                                <Text>We have received your order.</Text>
+                                <Text>Thank you for your custom.</Text>
+                                <Button onClick={handleClick}>Continue Shopping</Button>
+                            </div>
+                        }
+                    </Form>
+                </Wrapper>
+            </Container>
+            <SubscriptionForm />
+            <Footer />
+        </div>
+    )
 
 };
 

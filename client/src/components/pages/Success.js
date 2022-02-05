@@ -150,13 +150,21 @@ color: red;
 font-size: 1.5rem;
 `
 
+const ErrorMessage = styled.div`
+color: red;
+font-weight: bold;
+font-size: 1.5rem;
+margin: 20px;
+text-align: center;
+`
+
 const Success = () => {
 
 const dispatch = useDispatch();
 const location = useLocation();
 
 const { error, errorMessage } = useSelector(state => state.error);
-const { user } = useSelector(state => state.user.currentUser);
+// const { user } = useSelector(state => state.user.currentUser);
 
 const data = location.state.data;
 const userData = location.state.user.user;
@@ -200,10 +208,15 @@ return (
                 <Logo>
                 <i className="fas fa-torii-gate"></i>
                 </Logo>
-                    <Title>Payment was successful.</Title>
+                {error ? <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage> 
+                :
+                <div>
+                <Title>Payment was successful.</Title>
                     <Text>We have received your order.</Text>
                     <Text>Thank you for your custom.</Text>
                     <Button onClick={handleClick}>Continue Shopping</Button>
+                </div>
+                    }
                 </Form>
             </Wrapper>
         </Container>

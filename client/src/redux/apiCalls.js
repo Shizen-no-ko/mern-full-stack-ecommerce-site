@@ -33,16 +33,8 @@ export const register = async (dispatch, user) => {
 };
 
 export const order = async (dispatch, orderData) => {
-    //Token not setting correctly in axiosRequests
-    const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
-    const TOKEN =  CURRENT_USER ? CURRENT_USER.token : null;
-    
-    const headers = {
-        token: `Bearer ${TOKEN}`
-    };
-
     try{
-        const res = await userReq.post('orders/add', orderData, {headers:headers});
+        const res = await userReq.post('orders/add', orderData);
         console.log('INSIDE ORDER');
         console.log(res.data);
         dispatch(clearCart());

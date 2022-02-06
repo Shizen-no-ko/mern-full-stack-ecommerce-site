@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import { userReq } from '../../axiosRequests';
@@ -16,7 +17,7 @@ padding: 10px 20px 10px;
 text-align: left;
 width: auto;
 `
-const UserDiv = styled.div`
+const OrderDiv = styled.div`
 border: 1px solid lightgray;
 margin: 2px;
 padding: 10px;
@@ -39,7 +40,7 @@ width: 100%;
 
 
 
-const Title = styled.h3`
+const Title = styled.h4`
 margin: 5px 10px;
 padding: 0px;
 `
@@ -59,14 +60,26 @@ margin: 5px 10px;
 padding: 0px;
 `
 
+const OrderIdDiv = styled.div`
+display: flex;
+flex-direction: row;
+`
+
+const DetailsDiv = styled.div`
+font-size: 0px;
+transition: all 0.3s ease-in-out;
+visibility: hidden;
+`
+
 const Detail = styled.p`
 margin: 5px 10px;
 `
 
 
 const OrderStats = () => {
-    const orderRef = useRef(null);
+    const detailsRef = useRef([]);
     const [currentOrders, setCurrentOrders] = useState([]);
+
 
     useEffect(() => {
 
@@ -80,116 +93,46 @@ const OrderStats = () => {
 
         };
         getOrders();
+        
     }, []);
 
+    useEffect(() => {
+        detailsRef.current = detailsRef.current.slice(0, currentOrders.length);
+    }, [currentOrders]);
 
-    // _id
-    // :
-    // 61fce5292d0eef12f884767c
-    // userId
-    // :
-    // "61810bb75cb7333023bad734"
-    // items
-    // :
-    // Array
-    // 0
-    // :
-    // Object
-    // itemId
-    // :
-    // "61a72dea18550bd39465242b"
-    // amount
-    // :
-    // 1
-    // color
-    // :
-    // "brown"
-    // size
-    // :
-    // null
-    // _id
-    // :
-    // 61fce5292d0eef12f884767d
-    // 1
-    // :
-    // Object
-    // 2
-    // :
-    // Object
-    // subTotal
-    // :
-    // 293
-    // deliveryCharge
-    // :
-    // 4.99
-    // totalPrice
-    // :
-    // 293
-    // userAddress
-    // :
-    // Object
-    // address
-    // :
-    // Object
-    // city
-    // :
-    // "Gläk"
-    // country
-    // :
-    // "Finland"
-    // line1
-    // :
-    // "Chamb Road 79798"
-    // line2
-    // :
-    // null
-    // postal_code
-    // :
-    // "7581"
-    // state
-    // :
-    // null
-    // email
-    // :
-    // null
-    // name
-    // :
-    // "Steve Finally"
-    // phone
-    // :
-    // null
-    // status
-    // :
-    // "Order Received"
-    // createdAt
-    // :
-    // 2022-02-04T08:34:49.342+00:00
-    // updatedAt
-    // :
-    // 2022-02-04T08:34:49.342+00:00
-    // __v
-    // :
-    // 0
+    const toggleOrder = () => {
+        
+    }
+
+    const handleClick = (index) => {
+        const style = detailsRef.current[index].style;
+        style.fontSize =  style.fontSize === '0px' ? '1rem' : '0px';
+        style.visibility = style.visibility === 'hidden' ? 'visible' : 'hidden';
+        // toggleOrder();
+    }
+
 
     return (
         <div>
             <Container>
             <TitleDiv>
-            <Title>Current Active Orders</Title>
+            <Title>Current Active Orders - Click To Expand</Title>
             </TitleDiv>
-                { currentOrders.map((order) => {
+                { currentOrders.map((order, index) => {
+                    {console.log(detailsRef.current)};
                     const { line1, line2, postal_code, city, state, country} = order.userAddress.address;
-                    return <UserDiv key={order._id}>
-                    <div>
+                    return <OrderDiv onClick={() => handleClick(index)} key={index}>
+                    <OrderIdDiv>
                     <IdLabel>Order Id: </IdLabel>
                     <OrderId>{order._id}</OrderId>
-                    </div>
-                    
+                    </OrderIdDiv>
                     <Detail><strong>Customer Id: </strong>{order.userId}</Detail>
+                    <DetailsDiv ref={el => detailsRef.current[index] = el}>
                     <Detail><strong>Address:  </strong></Detail>
                     <Detail>{order.userAddress.name}, {line1}, {line2 && `${line2}, `}{postal_code}, {city}, {state && `${state}, `}{country}</Detail>
                     <Detail><strong>Order Date: </strong>{moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Detail>
-                    </UserDiv>
+                    </DetailsDiv>
+                    </OrderDiv>
                 }) }
             </Container>
 

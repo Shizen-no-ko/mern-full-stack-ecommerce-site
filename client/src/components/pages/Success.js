@@ -192,7 +192,7 @@ const Success = () => {
                 size: item.size ? item.size : null,
             })),
             subTotal: cart.subtotal,
-            deliveryCharge: cart.deliveryCharge,
+            deliveryCharge: cart.totalPrice - cart.subTotal,
             totalPrice: cart.totalPrice,
             userAddress: data.billing_details,
         };

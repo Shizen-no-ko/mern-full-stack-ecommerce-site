@@ -70,7 +70,18 @@ router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
     catch (err) {
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
-})
+});
+
+router.get('/active', tokenAuth, checkAdmin, async (req, res) => {
+    try {
+        const activeOrders = await Order.find({status:"Order Received"}).exec();
+        return res.status(200).json(activeOrders);
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
 
 router.get('/sales', tokenAuth, checkAdmin, async (req, res) => {
     try {

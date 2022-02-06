@@ -4,6 +4,7 @@ import { publicReq, userReq } from '../../axiosRequests';
 import Navbar from '../layout/Navbar';
 import Footer from '../layout/Footer';
 import UserStats from '../layout/UserStats';
+import OrderStats from '../layout/OrderStats';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -39,6 +40,7 @@ const Stats = () => {
             <Navbar />
             <Container>
             <UserStats/>
+            <OrderStats/>
             </Container>
            
             <Footer />

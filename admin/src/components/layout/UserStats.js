@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
-import { publicReq, userReq } from '../../axiosRequests';
+import { userReq } from '../../axiosRequests';
 
 import styled from 'styled-components';
 

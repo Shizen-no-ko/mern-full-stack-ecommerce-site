@@ -67,6 +67,7 @@ flex-direction: row;
 
 const DetailsDiv = styled.div`
 font-size: 0px;
+height: 0px;
 transition: all 0.3s ease-in-out;
 visibility: hidden;
 `
@@ -90,50 +91,56 @@ const OrderStats = () => {
                 setCurrentOrders(res.data);
             }
             catch (err) { console.log(err) };
-
         };
         getOrders();
-        
     }, []);
 
     useEffect(() => {
+        // Set Refs array
         detailsRef.current = detailsRef.current.slice(0, currentOrders.length);
+        // Intialize styles
+        detailsRef.current.forEach((element) => {
+            element.style.fontSize = '0px';
+            element.style.visibility = 'hidden';
+            element.style.height = '0px';
+
+        })
     }, [currentOrders]);
 
-    const toggleOrder = () => {
-        
+    const toggle = (style) => {
+        style.fontSize = style.fontSize === '0px' ? '1rem' : '0px';
+        style.visibility = style.visibility === 'hidden' ? 'visible' : 'hidden';
+        style.height = style.height === '0px' ? '200px' : '0px';
     }
+
 
     const handleClick = (index) => {
         const style = detailsRef.current[index].style;
-        style.fontSize =  style.fontSize === '0px' ? '1rem' : '0px';
-        style.visibility = style.visibility === 'hidden' ? 'visible' : 'hidden';
-        // toggleOrder();
+        toggle(style);
     }
 
 
     return (
         <div>
             <Container>
-            <TitleDiv>
-            <Title>Current Active Orders - Click To Expand</Title>
-            </TitleDiv>
-                { currentOrders.map((order, index) => {
-                    {console.log(detailsRef.current)};
-                    const { line1, line2, postal_code, city, state, country} = order.userAddress.address;
+                <TitleDiv>
+                    <Title>Current Active Orders - Click To Expand</Title>
+                </TitleDiv>
+                {currentOrders.map((order, index) => {
+                    const { line1, line2, postal_code, city, state, country } = order.userAddress.address;
                     return <OrderDiv onClick={() => handleClick(index)} key={index}>
-                    <OrderIdDiv>
-                    <IdLabel>Order Id: </IdLabel>
-                    <OrderId>{order._id}</OrderId>
-                    </OrderIdDiv>
-                    <Detail><strong>Customer Id: </strong>{order.userId}</Detail>
-                    <DetailsDiv ref={el => detailsRef.current[index] = el}>
-                    <Detail><strong>Address:  </strong></Detail>
-                    <Detail>{order.userAddress.name}, {line1}, {line2 && `${line2}, `}{postal_code}, {city}, {state && `${state}, `}{country}</Detail>
-                    <Detail><strong>Order Date: </strong>{moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Detail>
-                    </DetailsDiv>
+                        <OrderIdDiv>
+                            <IdLabel>Order Id: </IdLabel>
+                            <OrderId>{order._id}</OrderId>
+                        </OrderIdDiv>
+                        <DetailsDiv ref={el => detailsRef.current[index] = el}>
+                        <Detail><strong>Customer Id: </strong>{order.userId}</Detail>
+                            <Detail><strong>Address:  </strong></Detail>
+                            <Detail>{order.userAddress.name}, {line1}, {line2 && `${line2}, `}{postal_code}, {city}, {state && `${state}, `}{country}</Detail>
+                            <Detail><strong>Order Date: </strong>{moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Detail>
+                        </DetailsDiv>
                     </OrderDiv>
-                }) }
+                })}
             </Container>
 
         </div>

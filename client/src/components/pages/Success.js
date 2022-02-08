@@ -169,6 +169,14 @@ const Success = () => {
     const data = location.state.data;
     const userData = location.state.user.user;
     const cart = location.state.cart;
+    const userAddress = {...data.billing_details};
+    console.log('USER ADDRESS IS:');
+    console.log(typeof userAddress);
+    console.log(userAddress);
+    var  { address, name }  = userAddress;
+    address = {...address, name: name};
+    console.log('address is: ');
+    console.log(address);
 
     const history = useHistory();
 
@@ -192,10 +200,11 @@ const Success = () => {
                 size: item.size ? item.size : null,
             })),
             subTotal: cart.subtotal,
-            deliveryCharge: cart.totalPrice - cart.subTotal,
+            deliveryCharge: cart.totalPrice === cart.subTotal ? 0 : cart.deliveryCharge,
             totalPrice: cart.totalPrice,
-            userAddress: data.billing_details,
+            userAddress: address,
         };
+        console.log(orderData);
         order(dispatch, orderData);
 
 

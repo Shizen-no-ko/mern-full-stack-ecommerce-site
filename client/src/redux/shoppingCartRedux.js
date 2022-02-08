@@ -16,7 +16,7 @@ const shoppingCartSlice = createSlice({
             state.itemCount += action.payload.amount;
             state.products.push(action.payload);
             state.subtotal += action.payload.price * action.payload.amount;
-            state.totalPrice = state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0);
+            state.totalPrice = (state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0)).toFixed(2);
         },
         decreaseItemAmount: (state, action) => {
             const index = state.products.findIndex((item) => item._id === action.payload.id);
@@ -24,7 +24,7 @@ const shoppingCartSlice = createSlice({
                 state.products[index].amount -= 1;
                 state.itemCount -= 1;
                 state.subtotal -= state.products[index].price;
-                state.totalPrice = state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0);
+                state.totalPrice = (state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0)).toFixed(2);
             }
         },
         increaseItemAmount: (state, action) => {
@@ -32,14 +32,14 @@ const shoppingCartSlice = createSlice({
             state.products[index].amount += 1;
             state.itemCount += 1;
             state.subtotal += state.products[index].price;
-            state.totalPrice = state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0);
+            state.totalPrice = (state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0)).toFixed(2);
         },
         deleteItem: (state, action) => {
             const index = state.products.findIndex((item) => item._id === action.payload.id);
             if (!state.previousCartItems.find(item => item._id === action.payload.id)) { state.previousCartItems.push(state.products[index]); }
             state.itemCount -= 1;
             state.subtotal -= state.products[index].price * state.products[index].amount;
-            state.totalPrice = state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0);
+            state.totalPrice = (state.subtotal + (state.subtotal < state.freeDeliveryLevel && state.subtotal > 0 ? state.deliveryCharge : 0)).toFixed(2);
             state.products.splice(index, 1);
         },
         clearCart: (state) => {

@@ -2,8 +2,11 @@ import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import { userReq } from '../../axiosRequests';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
+
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 const Container = styled.div`
 align-items: center;
@@ -76,6 +79,43 @@ const Detail = styled.p`
 margin: 5px 10px;
 `
 
+const Button = styled.button`
+all: unset;
+background-color: ${props => props.look === 'light' ? 'white' : 'red'};
+border: 4px solid red;
+border-radius: 20px 0;
+${'' /* box-sizing: border-box; */}
+color: ${props => props.look === 'light' ? 'red' : 'white'};
+cursor: pointer;
+font-size: 20px;
+font-weight: 400;
+margin: 10px;
+outline: none;
+padding: 0px 10px;
+text-align: center;
+
+&:hover{
+    background-color: ${props => props.look === 'light' ? 'red' : 'white'};
+    border: 4px solid red;
+    color: ${props => props.look === 'light' ? 'white' : 'red'};
+    transform: scale(103%);
+}
+
+&:active{
+    background-color: green;
+    border: 4px solid green;
+    color: white; 
+    transform: scale(97%);
+}
+
+${mobile({
+    fontSize: '15px',
+    padding:'5px 7px'
+    
+})};
+`
+
+
 
 const OrderStats = () => {
     const detailsRef = useRef([]);
@@ -110,7 +150,7 @@ const OrderStats = () => {
     const toggle = (style) => {
         style.fontSize = style.fontSize === '0px' ? '1rem' : '0px';
         style.visibility = style.visibility === 'hidden' ? 'visible' : 'hidden';
-        style.height = style.height === '0px' ? '200px' : '0px';
+        style.height = style.height === '0px' ? '120px' : '0px';
     }
 
 
@@ -138,6 +178,7 @@ const OrderStats = () => {
                             <Detail><strong>Address:  </strong></Detail>
                             <Detail>{order.userAddress.name}, {line1}, {line2 && `${line2}, `}{postal_code}, {city}, {state && `${state}, `}{country}</Detail>
                             <Detail><strong>Order Date: </strong>{moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Detail>
+                            <Link to={`order/${order._id}`} style={{ textDecoration: 'none' }}><Button>Go To Order</Button></Link>
                         </DetailsDiv>
                     </OrderDiv>
                 })}

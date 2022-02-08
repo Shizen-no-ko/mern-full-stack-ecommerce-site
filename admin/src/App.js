@@ -11,6 +11,7 @@ import DeletedProducts from './components/pages/DeletedProducts';
 import IndividualProduct from './components/pages/IndividualProduct';
 import Login from './components/pages/Login';
 import Stats from './components/pages/Stats';
+import IndividualOrder from './components/pages/IndividualOrder';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
    <Route exact path="/deleted">{user ? <DeletedProducts/> : <Login/>}</Route>
    <Route exact path="/add">{user ? <IndividualProduct add='true' /> : <Login/>}</Route>
    <Route exact path="/statistics">{user ? <Stats /> : <Login/>}</Route>
+   <Route exact path="/order/:id">{user ? <IndividualOrder/> : <Login/>}</Route> 
    {/* component={() => (<IndividualProduct add='true' />)}/>  */}
    {/* :category */}
    </Switch>

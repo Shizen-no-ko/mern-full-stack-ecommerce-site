@@ -167,7 +167,7 @@ const OrderStats = () => {
                     <Title>Current Active Orders - Click To Expand</Title>
                 </TitleDiv>
                 {currentOrders.map((order, index) => {
-                    const { line1, line2, postal_code, city, state, country } = order.userAddress.address;
+                    const { line1, line2, postal_code, city, state, country } = order.userAddress;
                     return <OrderDiv onClick={() => handleClick(index)} key={index}>
                         <OrderIdDiv>
                             <IdLabel>Order Id: </IdLabel>

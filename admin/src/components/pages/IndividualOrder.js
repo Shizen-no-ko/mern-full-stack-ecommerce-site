@@ -57,6 +57,17 @@ ${portraitTablet({
     fontSize: '0.75rem'
 })};
 `
+const InfoDiv = styled.div`
+border: 1px solid lightgray;
+margin: 20px auto;
+padding: 20px;
+text-align: left;
+width: 50%;
+`
+
+const AddressDiv = styled.div`
+margin-left: 75px;
+`
 
 const ButtonDiv = styled.div`
 display: flex;
@@ -124,8 +135,8 @@ text-align: center;
 
 ${mobile({
     fontSize: '15px',
-    padding:'5px 7px'
-    
+    padding: '5px 7px'
+
 })};
 `
 
@@ -144,14 +155,14 @@ margin: 20px;
 width: 200px;
 
 ${mobile({
-    
+
     height: 'auto',
     margin: '20px 0 0 0',
     maxWidth: '125px'
 })};
 
 ${portraitTablet({
-    
+
     height: 'auto',
     margin: '20px 0 0 40px',
     maxWidth: '175px'
@@ -170,81 +181,102 @@ ${landscapeTablet({
 const IndividualOrder = () => {
 
     const path = useLocation().pathname.split('/');
-    const id = path[path.length -1];
-// const cart = useSelector(state=>state.cart);
+    const id = path[path.length - 1];
+    // const cart = useSelector(state=>state.cart);
 
-const [ orderData, setOrderData ] = useState({});
-const [errorMessage, setErrorMessage] = useState('');
+    const [orderData, setOrderData] = useState({
+        items: [],
+        userAddress: {
+            line1: '',
+            line2: '',
+            city: '',
+            state: '',
+            postal_code: '',
+            country: '',
+            name: ''
+        }
+    });
+    const { userData, setUserData } = useState();
+    const [errorMessage, setErrorMessage] = useState('');
 
-useEffect(() => {
-    let isMounted = true;
-    try {
-        const getOrder = async () => {
-            const res = await userReq.get(`orders/find/${id}`);
-            if(res){  
-                console.log(res.data);
-                console.log(res);
-                setOrderData(res.data);
-                setErrorMessage('');
-            } else {
-                console.log('no res');
-                setErrorMessage('No Order with this ID');
-            }    
-        } 
-        getOrder(); 
-    }
-    catch (err) { console.log(err) }
-    return () => { isMounted = false };
-}, [])
+    useEffect(() => {
+        let isMounted = true;
+        try {
+            const getOrder = async () => {
+                const res = await userReq.get(`orders/find/${id}`);
+                if (res) {
+                    console.log(res.data);
+                    console.log(res);
+                    setOrderData(res.data);
+                    setErrorMessage('');
+                } else {
+                    console.log('no res');
+                    setErrorMessage('No Order with this ID');
+                }
+            }
+            getOrder();
+        }
+        catch (err) { console.log(err) }
+        return () => { isMounted = false };
+    }, [])
 
-useEffect(() => {
-    console.log(orderData);
-}, [orderData]);
-
-
-const { createdAt, items, status, subtotal, totalPrice, userAddress, userId, _id } = orderData;
-// const { address } = userAddress;
-// const {  line1, line2, city, state, postal_code, country } =  address;
+    useEffect(() => {
+        // console.log(orderData);
+    }, [orderData]);
 
 
-// const { itemId, amount, color, size, _id } = item;
+    const { createdAt, items, status, subtotal, totalPrice, userAddress, userId, _id } = orderData;
+    const { line1, line2, city, state, postal_code, country, name } = userAddress;
+
+
+    console.log('USER ADDRESS IS: ');
+    console.log(orderData.userAddress);
+
+
+    // const { itemId, amount, color, size, _id } = item;
 
 
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <Container>
-<Wrapper>
-<Title>Order Number: {_id}</Title>
-{/* <OrderInfo>Order Received On: {createdAt}</OrderInfo>
-<OrderInfo>User Id: {userId}</OrderInfo>
-<OrderInfo>Address:</OrderInfo>
-<OrderInfo>{line1}</OrderInfo>
-{line2 && <OrderInfo>{line2}</OrderInfo>}
-<OrderInfo>{city}</OrderInfo>
-{state && <OrderInfo>{state}</OrderInfo>}
-<OrderInfo>{postal_code}</OrderInfo>
-<OrderInfo>{country}</OrderInfo> */}
+                <Wrapper>
+                    <Title>Order Number: {_id}</Title>
+                    <InfoDiv>
+                        <OrderInfo><strong>Order Received On: </strong>{createdAt}</OrderInfo>
+                        <OrderInfo><strong>User Id: </strong>{userId}</OrderInfo>
+                        <OrderInfo><strong>Address: </strong>{name}</OrderInfo>
+                        <AddressDiv>
+                            <OrderInfo>{line1}</OrderInfo>
+                            {line2 && <OrderInfo>{line2}</OrderInfo>}
+                            <OrderInfo>{city}</OrderInfo>
+                            {state && <OrderInfo>{state}</OrderInfo>}
+                            <OrderInfo>{postal_code}</OrderInfo>
+                            <OrderInfo>{country}</OrderInfo>
+                        </AddressDiv>
+
+                    </InfoDiv>
 
 
-{/* <ButtonDiv>
+
+                    {/* <ButtonDiv>
 <StyledLink to='/products'><Button look='light'>Continue Shopping</Button></StyledLink>
 {cart.subtotal > 0 ? <Button>Checkout Now</Button> : null}
 </ButtonDiv> */}
-<DetailsDiv>
-    {/* <CartItems>
+                    <DetailsDiv>
+                        {/* <CartItems>
     {cart.products.length ? 
     cart.products.map((item, index)=> <CartItem key={index} index={index} />) :
     <h1>YOUR SHOPPING CART IS EMPTY</h1>}
     {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
     <div>{cart.previousCartItems.map((item) => <StyledLink to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
     </CartItems> */}
-    <OrderSummary/>
-</DetailsDiv>
-</Wrapper>
+                        <OrderSummary />
+                    </DetailsDiv>
+                </Wrapper>
             </Container>
-            <Footer/>
+            <Footer />
         </div>
     )
 }

@@ -196,7 +196,16 @@ const IndividualOrder = () => {
             name: ''
         }
     });
-    const { userData, setUserData } = useState();
+
+
+    const [ userData, setUserData ] = useState({
+        username: '',
+        email: ''
+    });
+
+    const [ orderItems, setOrderItems] = useState([]);
+    
+
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
@@ -216,26 +225,70 @@ const IndividualOrder = () => {
             }
             getOrder();
         }
-        catch (err) { console.log(err) }
+        catch (err) { console.log(err) };
+
+       
+
+
         return () => { isMounted = false };
     }, [])
 
     useEffect(() => {
-        // console.log(orderData);
+
+        try {
+            const getUser = async () => {
+                const res = await userReq.get(`users/find/${userId}`);
+                if (res) {
+                    console.log(res.data);
+                    console.log(res);
+                    setUserData(res.data);
+                    setErrorMessage('');
+                } else {
+                    console.log('no res');
+                    setErrorMessage('No User with this ID');
+                }
+            }
+            getUser();
+        }
+        catch (err) { console.log(err) };  
+
     }, [orderData]);
+
+
+    // useEffect(() => {
+    //     var tempData = orderData;
+    //     console.log('INITIAL TEMP DATA IS:');
+    //     console.log(tempData);
+    //     orderData.items.forEach((item, index) => {
+    //         try {
+    //             const getProduct = async () => {
+    //                 const res = await userReq.get(`products/find/${item._id}`);
+    //                 if (res) {
+    //                     console.log(res.data);
+    //                     console.log(res);
+    //                     tempData(items[index]['image'] = res.data.image);
+    //                     console.log('TEMPDATA IS: ');
+    //                     console.log(tempData);
+    //                     // setOrderData();
+    //                     setErrorMessage('');
+    //                 } else {
+    //                     console.log('no res');
+    //                     setErrorMessage('No Product with this ID');
+    //                 }
+    //             }
+    //             getProduct();
+    //         }
+    //         catch (err) { console.log(err) };
+    //     })
+
+    // }, [orderData]);
 
 
     const { createdAt, items, status, subtotal, totalPrice, userAddress, userId, _id } = orderData;
     const { line1, line2, city, state, postal_code, country, name } = userAddress;
+    const { username, email } = userData;
 
-
-    console.log('USER ADDRESS IS: ');
-    console.log(orderData.userAddress);
-
-
-    // const { itemId, amount, color, size, _id } = item;
-
-
+    console.log(items);
 
     return (
         <div>
@@ -246,6 +299,8 @@ const IndividualOrder = () => {
                     <InfoDiv>
                         <OrderInfo><strong>Order Received On: </strong>{createdAt}</OrderInfo>
                         <OrderInfo><strong>User Id: </strong>{userId}</OrderInfo>
+                        <OrderInfo><strong>Account Holder Name: </strong>{username}</OrderInfo>
+                        <OrderInfo><strong>email: </strong>{email}</OrderInfo>
                         <OrderInfo><strong>Address: </strong>{name}</OrderInfo>
                         <AddressDiv>
                             <OrderInfo>{line1}</OrderInfo>
@@ -255,6 +310,25 @@ const IndividualOrder = () => {
                             <OrderInfo>{postal_code}</OrderInfo>
                             <OrderInfo>{country}</OrderInfo>
                         </AddressDiv>
+                        <OrderInfo><strong>Items: </strong></OrderInfo>
+                        <AddressDiv>
+                            {items.map((item, index) => {
+                                const { itemId, amount, color, size, _id } = item;
+                                return (
+                                    <div key={index}>
+                                    <OrderInfo><strong><u>#{index + 1}</u></strong></OrderInfo>
+                                <OrderInfo><strong>Id Number: </strong>{itemId}</OrderInfo>
+                                <OrderInfo><strong>Color: </strong>{color}</OrderInfo>
+                                <OrderInfo><strong>Size: </strong>{size}</OrderInfo>
+                                <OrderInfo><strong>Amount Ordered: </strong>{amount}</OrderInfo>
+                                {/* <OrderInfo><strong>Image: </strong>{image}</OrderInfo> */}
+                                </div>
+                                )
+                                
+                                
+                            })}
+                        </AddressDiv>
+
 
                     </InfoDiv>
 

@@ -320,7 +320,7 @@ const IndividualOrder = () => {
                             <OrderInfo>{postal_code}</OrderInfo>
                             <OrderInfo>{country}</OrderInfo>
                         </AddressDiv>
-                        <OrderInfo><strong>Items: </strong></OrderInfo>
+                        {/* <OrderInfo><strong>Items: </strong></OrderInfo>
                         <AddressDiv>
                             {items.map((item, index) => {
                                 const { itemId, amount, color, size, _id, image } = item;
@@ -333,11 +333,9 @@ const IndividualOrder = () => {
                                 <OrderInfo><strong>Amount Ordered: </strong>{amount}</OrderInfo>
                                 <OrderInfo><strong>Image: </strong>{image}</OrderInfo>
                                 </div>
-                                )
-                                
-                                
+                                )        
                             })}
-                        </AddressDiv>
+                        </AddressDiv> */}
 
 
                     </InfoDiv>

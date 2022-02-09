@@ -295,9 +295,13 @@ const CartItem = (props) => {
         {/* <Detail><strong>ID:</strong> {props.productId} </Detail> */}
         <Detail><strong>ID:</strong> {itemId} </Detail>
         {/* <Color color={props.color}/> */}
-        <Color color={color} style={{'border': color === 'white' ? '3px solid black': 'none' }}/>
+        {/* <Color color={color} style={{'border': color === 'white' ? '3px solid black': 'none' }}/> */}
         {/* {props.size ? <Detail><strong>Size:</strong> {props.size} </Detail> : null} */}
-        {size ? <Detail><strong>Size:</strong> {size} </Detail> : null}
+        <Detail><strong>Color: </strong>{color.charAt(0).toUpperCase() + color.slice(1)}</Detail> 
+        {size ? <Detail><strong>Size:</strong> {size.charAt(0).toUpperCase() + size.slice(1)} </Detail> : null}
+        <Detail><strong>Amount Ordered: </strong>{amount}</Detail> 
+        <Detail><strong>Price Per Item: </strong>{price}</Detail>
+        <Detail><strong>Total For Item: </strong>{price * amount}</Detail>  
         </ItemDetails>
         <PriceAndAmount>
         <PlusMinusContainer>
@@ -306,13 +310,13 @@ const CartItem = (props) => {
         <PlusMinusStyles onClick={handleDelete}><i class="fas fa-trash-alt"></i></PlusMinusStyles>
         } */}
         {/* ref={boxRef} */}
-           <AmountDisplay>{amount}</AmountDisplay>
+        
            {/* <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles> */}
        </PlusMinusContainer>
        
        {/* <Price ref={priceRef}>${itemAmount * props.price}</Price> */}
        {/* ref={priceRef} */}
-       <Price >${amount * price}</Price>
+       {/* <Price >${amount * price}</Price> */}
         </PriceAndAmount>
         
         </Wrapper>

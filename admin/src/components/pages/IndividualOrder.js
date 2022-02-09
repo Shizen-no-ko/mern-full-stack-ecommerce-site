@@ -226,69 +226,70 @@ const IndividualOrder = () => {
             getOrder();
         }
         catch (err) { console.log(err) };
-
-       
-
-
         return () => { isMounted = false };
     }, [])
 
     useEffect(() => {
-
-        try {
-            const getUser = async () => {
-                const res = await userReq.get(`users/find/${userId}`);
-                if (res) {
-                    console.log(res.data);
-                    console.log(res);
-                    setUserData(res.data);
-                    setErrorMessage('');
-                } else {
-                    console.log('no res');
-                    setErrorMessage('No User with this ID');
+        
+        if(orderData.userId){
+            try {
+                const getUser = async () => {
+                    const res = await userReq.get(`users/find/${orderData.userId}`);
+                    if (res) {
+                        console.log(res.data);
+                        console.log(res);
+                        setUserData(res.data);
+                        setErrorMessage('');
+                    } else {
+                        console.log('no res');
+                        setErrorMessage('No User with this ID');
+                    }
                 }
+                getUser();
             }
-            getUser();
-        }
-        catch (err) { console.log(err) };  
+            catch (err) { console.log(err) }; 
+        } 
+         
 
     }, [orderData]);
 
 
-    // useEffect(() => {
-    //     var tempData = orderData;
-    //     console.log('INITIAL TEMP DATA IS:');
-    //     console.log(tempData);
-    //     orderData.items.forEach((item, index) => {
-    //         try {
-    //             const getProduct = async () => {
-    //                 const res = await userReq.get(`products/find/${item._id}`);
-    //                 if (res) {
-    //                     console.log(res.data);
-    //                     console.log(res);
-    //                     tempData(items[index]['image'] = res.data.image);
-    //                     console.log('TEMPDATA IS: ');
-    //                     console.log(tempData);
-    //                     // setOrderData();
-    //                     setErrorMessage('');
-    //                 } else {
-    //                     console.log('no res');
-    //                     setErrorMessage('No Product with this ID');
-    //                 }
-    //             }
-    //             getProduct();
-    //         }
-    //         catch (err) { console.log(err) };
-    //     })
-
-    // }, [orderData]);
+    useEffect(() => {
+        var tempData = orderData;
+        console.log('INITIAL TEMP DATA IS:');
+        console.log(tempData);
+        if(orderData.items !== []){
+            orderData.items.forEach((item, index) => {
+                try {
+                    const getProduct = async () => {
+                        console.log(item.itemId);
+                        const res = await userReq.get(`products/find/${item.itemId}`);
+                        if (res) {
+                            console.log(res.data);
+                            console.log(res);
+                            tempData.items[index]['image'] = res.data.image;
+                            console.log('TEMPDATA IS: ');
+                            console.log(tempData);
+                            setOrderData(tempData);
+                            setErrorMessage('');
+                        } else {
+                            console.log('no res');
+                            setErrorMessage('No Product with this ID');
+                        }
+                    }
+                    getProduct();
+                }
+                catch (err) { console.log(err) };
+            })
+        }
+    }, [orderData]);
 
 
     const { createdAt, items, status, subtotal, totalPrice, userAddress, userId, _id } = orderData;
     const { line1, line2, city, state, postal_code, country, name } = userAddress;
     const { username, email } = userData;
 
-    console.log(items);
+    // console.log(items);
 
     return (
         <div>
@@ -321,7 +322,7 @@ const IndividualOrder = () => {
                                 <OrderInfo><strong>Color: </strong>{color}</OrderInfo>
                                 <OrderInfo><strong>Size: </strong>{size}</OrderInfo>
                                 <OrderInfo><strong>Amount Ordered: </strong>{amount}</OrderInfo>
-                                {/* <OrderInfo><strong>Image: </strong>{image}</OrderInfo> */}
+                                <OrderInfo><strong>Image: </strong>{item.image}</OrderInfo>
                                 </div>
                                 )
                                 

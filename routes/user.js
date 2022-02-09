@@ -18,6 +18,7 @@ router.get('/find/:id', tokenAuth, checkAdmin, async (req, res) => {
         return res.status(200).json(userWithoutPassword);
     }
     catch (err) {
+        console.log(err);
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
 });

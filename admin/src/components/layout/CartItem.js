@@ -32,7 +32,8 @@ ${landscapeTablet({
 const ItemImage = styled.img`
 border-radius: 20px 0;
 margin: 20px;
-width: 250px;
+height: 150px;
+
 
 ${mobile({
     
@@ -123,25 +124,25 @@ ${portraitTablet({
     margin: '10px 0'
 })};
 `
-const Color = styled.div`
-border-radius: 25%;
-background-color: ${props => props.color};
-height: 25px;
-margin: 0 0 20px 0;
-width: 25px;
+// const Color = styled.div`
+// border-radius: 25%;
+// background-color: ${props => props.color};
+// height: 25px;
+// margin: 0 0 20px 0;
+// width: 25px;
 
-${mobile({
-    height: '15px',
-    margin: '5px auto',
-    width: '15px'
-})};
+// ${mobile({
+//     height: '15px',
+//     margin: '5px auto',
+//     width: '15px'
+// })};
 
-${portraitTablet({
-    height: '20px',
-    margin: '10px 0',
-    width: '20px'
-})};
-`
+// ${portraitTablet({
+//     height: '20px',
+//     margin: '10px 0',
+//     width: '20px'
+// })};
+// `
 const PlusMinusContainer = styled.div`
 align-items: center;
 display: flex;

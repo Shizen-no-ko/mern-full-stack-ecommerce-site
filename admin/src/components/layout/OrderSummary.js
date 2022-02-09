@@ -70,7 +70,7 @@ text-align: center;
 
 const OrderSummary = (props) => {
 
-    const { subtotal, totalPrice, status, } = props.details;
+    const { subtotal, totalPrice } = props.details;
 
 
     return (

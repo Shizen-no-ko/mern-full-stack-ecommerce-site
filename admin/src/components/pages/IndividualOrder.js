@@ -59,10 +59,15 @@ ${portraitTablet({
 `
 const InfoDiv = styled.div`
 border: 1px solid lightgray;
+display: flex;
 margin: 20px auto;
 padding: 20px;
 text-align: left;
 width: 50%;
+`
+
+const InfoSubDiv = styled.div`
+margin: 20px;
 `
 
 const AddressDiv = styled.div`
@@ -256,8 +261,8 @@ const IndividualOrder = () => {
 
     useEffect(() => {
         var tempData = orderData;
-        console.log('INITIAL TEMP DATA IS:');
-        console.log(tempData);
+        // console.log('INITIAL TEMP DATA IS:');
+        // console.log(tempData);
         if(orderData.items !== []){
             orderData.items.forEach((item, index) => {
                 try {
@@ -265,13 +270,13 @@ const IndividualOrder = () => {
                         console.log(item.itemId);
                         const res = await userReq.get(`products/find/${item.itemId}`);
                         if (res) {
-                            console.log(res.data);
-                            console.log(res);
+                            // console.log(res.data);
+                            // console.log(res);
                             tempData.items[index]['image'] = res.data.image;
                             tempData.items[index]['title'] = res.data.title;
                             tempData.items[index]['price'] = res.data.price;
-                            console.log('TEMPDATA IS: ');
-                            console.log(tempData);
+                            // console.log('TEMPDATA IS: ');
+                            // console.log(tempData);
                             setOrderData(tempData);
                             setErrorMessage('');
                         } else {
@@ -293,7 +298,6 @@ const IndividualOrder = () => {
     const { line1, line2, city, state, postal_code, country, name } = userAddress;
     const { username, email } = userData;
     const summaryDetails = {
-        status: status,
         subtotal: subTotal,
         totalPrice: totalPrice
     };
@@ -306,11 +310,15 @@ const IndividualOrder = () => {
             <Container>
                 <Wrapper>
                     <Title>Order Number: {_id}</Title>
+                    <Title>Order Status: {status}</Title>
                     <InfoDiv>
-                        <OrderInfo><strong>Order Received On: </strong>{createdAt}</OrderInfo>
+                    <InfoSubDiv>
+                    <OrderInfo><strong>Order Received On: </strong>{createdAt}</OrderInfo>
                         <OrderInfo><strong>User Id: </strong>{userId}</OrderInfo>
                         <OrderInfo><strong>Account Holder Name: </strong>{username}</OrderInfo>
                         <OrderInfo><strong>email: </strong>{email}</OrderInfo>
+                    </InfoSubDiv>
+                        <InfoSubDiv>
                         <OrderInfo><strong>Address: </strong>{name}</OrderInfo>
                         <AddressDiv>
                             <OrderInfo>{line1}</OrderInfo>
@@ -320,24 +328,8 @@ const IndividualOrder = () => {
                             <OrderInfo>{postal_code}</OrderInfo>
                             <OrderInfo>{country}</OrderInfo>
                         </AddressDiv>
-                        {/* <OrderInfo><strong>Items: </strong></OrderInfo>
-                        <AddressDiv>
-                            {items.map((item, index) => {
-                                const { itemId, amount, color, size, _id, image } = item;
-                                return (
-                                    <div key={index}>
-                                    <OrderInfo><strong><u>#{index + 1}</u></strong></OrderInfo>
-                                <OrderInfo><strong>Id Number: </strong>{itemId}</OrderInfo>
-                                <OrderInfo><strong>Color: </strong>{color}</OrderInfo>
-                                <OrderInfo><strong>Size: </strong>{size}</OrderInfo>
-                                <OrderInfo><strong>Amount Ordered: </strong>{amount}</OrderInfo>
-                                <OrderInfo><strong>Image: </strong>{image}</OrderInfo>
-                                </div>
-                                )        
-                            })}
-                        </AddressDiv> */}
-
-
+                        </InfoSubDiv>
+                        
                     </InfoDiv>
 
 

@@ -238,10 +238,12 @@ const CartItem = (props) => {
     // const dispatch = useDispatch();
 
     // const itemAmount = useSelector(state=>state.cart.products[props.index].amount);
+   
 
 
+
+    
     const { image, title, _id, size, color, amount, price, itemId } = props.item;
-
 
     // const boxAnimation = (minus) => {
     //     boxRef.current.style.borderColor = 'red';

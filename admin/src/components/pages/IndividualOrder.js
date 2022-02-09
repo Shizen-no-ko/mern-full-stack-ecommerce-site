@@ -203,13 +203,14 @@ const IndividualOrder = () => {
     });
 
 
-    const [ userData, setUserData ] = useState({
+    const [userData, setUserData] = useState({
         username: '',
         email: ''
     });
 
-    const [ orderItems, setOrderItems] = useState([]);
     
+    const [orderItems, setOrderItems] = useState([]);
+
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -235,8 +236,9 @@ const IndividualOrder = () => {
     }, [])
 
     useEffect(() => {
-        
-        if(orderData.userId){
+
+        if (orderData.userId) {
+
             try {
                 const getUser = async () => {
                     const res = await userReq.get(`users/find/${orderData.userId}`);
@@ -252,10 +254,8 @@ const IndividualOrder = () => {
                 }
                 getUser();
             }
-            catch (err) { console.log(err) }; 
-        } 
-         
-
+            catch (err) { console.log(err) };
+        }
     }, [orderData]);
 
 
@@ -291,7 +291,7 @@ const IndividualOrder = () => {
         }
     }, [orderData]);
 
-    
+
     // const { image, title, _id, size, color, amount, price }
 
     const { createdAt, items, status, subTotal, totalPrice, userAddress, userId, _id } = orderData;
@@ -312,24 +312,24 @@ const IndividualOrder = () => {
                     <Title>Order Number: {_id}</Title>
                     <Title>Order Status: {status}</Title>
                     <InfoDiv>
-                    <InfoSubDiv>
-                    <OrderInfo><strong>Order Received On: </strong>{createdAt}</OrderInfo>
-                        <OrderInfo><strong>User Id: </strong>{userId}</OrderInfo>
-                        <OrderInfo><strong>Account Holder Name: </strong>{username}</OrderInfo>
-                        <OrderInfo><strong>email: </strong>{email}</OrderInfo>
-                    </InfoSubDiv>
                         <InfoSubDiv>
-                        <OrderInfo><strong>Address: </strong>{name}</OrderInfo>
-                        <AddressDiv>
-                            <OrderInfo>{line1}</OrderInfo>
-                            {line2 && <OrderInfo>{line2}</OrderInfo>}
-                            <OrderInfo>{city}</OrderInfo>
-                            {state && <OrderInfo>{state}</OrderInfo>}
-                            <OrderInfo>{postal_code}</OrderInfo>
-                            <OrderInfo>{country}</OrderInfo>
-                        </AddressDiv>
+                            <OrderInfo><strong>Order Received On: </strong>{createdAt}</OrderInfo>
+                            <OrderInfo><strong>User Id: </strong>{userId}</OrderInfo>
+                            <OrderInfo><strong>Account Holder Name: </strong>{username}</OrderInfo>
+                            <OrderInfo><strong>email: </strong>{email}</OrderInfo>
                         </InfoSubDiv>
-                        
+                        <InfoSubDiv>
+                            <OrderInfo><strong>Address: </strong>{name}</OrderInfo>
+                            <AddressDiv>
+                                <OrderInfo>{line1}</OrderInfo>
+                                {line2 && <OrderInfo>{line2}</OrderInfo>}
+                                <OrderInfo>{city}</OrderInfo>
+                                {state && <OrderInfo>{state}</OrderInfo>}
+                                <OrderInfo>{postal_code}</OrderInfo>
+                                <OrderInfo>{country}</OrderInfo>
+                            </AddressDiv>
+                        </InfoSubDiv>
+
                     </InfoDiv>
 
 
@@ -340,11 +340,11 @@ const IndividualOrder = () => {
 </ButtonDiv> */}
                     <DetailsDiv>
                         <CartItems>
-    {items.map((item, index)=>  <CartItem key={index} item={item} />)}
-   </CartItems>
+                            {items.map((item, index) => <CartItem key={index} item={item} />)}
+                        </CartItems>
 
 
-    {/* <CartItems>
+                        {/* <CartItems>
     {cart.products.length ? 
     cart.products.map((item, index)=> <CartItem key={index} index={index} />) :
     <h1>YOUR SHOPPING CART IS EMPTY</h1>}

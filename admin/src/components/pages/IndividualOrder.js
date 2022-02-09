@@ -289,9 +289,14 @@ const IndividualOrder = () => {
     
     // const { image, title, _id, size, color, amount, price }
 
-    const { createdAt, items, status, subtotal, totalPrice, userAddress, userId, _id } = orderData;
+    const { createdAt, items, status, subTotal, totalPrice, userAddress, userId, _id } = orderData;
     const { line1, line2, city, state, postal_code, country, name } = userAddress;
     const { username, email } = userData;
+    const summaryDetails = {
+        status: status,
+        subtotal: subTotal,
+        totalPrice: totalPrice
+    };
 
     // console.log(items);
 
@@ -358,7 +363,7 @@ const IndividualOrder = () => {
     </CartItems> */}
 
 
-                        <OrderSummary />
+                        <OrderSummary details={summaryDetails} />
                     </DetailsDiv>
                 </Wrapper>
             </Container>

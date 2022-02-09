@@ -1,9 +1,9 @@
-import { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useRef } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
-import { decreaseItemAmount, increaseItemAmount, deleteItem } from '../../redux/shoppingCartRedux';
+// import { decreaseItemAmount, increaseItemAmount, deleteItem } from '../../redux/shoppingCartRedux';
 
 const Container = styled.div`
 
@@ -232,58 +232,58 @@ ${landscapeTablet({
 const CartItem = (props) => {
 
     // const [amount, setAmount] = useState(props.amount);
-    const boxRef = useRef(null);
-    const priceRef = useRef(null);
-    const dispatch = useDispatch();
+    // const boxRef = useRef(null);
+    // const priceRef = useRef(null);
+    // const dispatch = useDispatch();
 
     // const itemAmount = useSelector(state=>state.cart.products[props.index].amount);
 
 
-    const { image, title, _id, size, color, amount, price } = useSelector(state=>state.cart.products[props.index]);
+    const { image, title, _id, size, color, amount, price, itemId } = props.item;
 
 
-    const boxAnimation = (minus) => {
-        boxRef.current.style.borderColor = 'red';
-        boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)' ;
-        boxRef.current.style.color = 'white';
-        boxRef.current.style.backgroundColor = 'red';
-        priceChange();
-        setTimeout(() => {
-            boxRef.current.style.borderColor = 'rgba(255, 0, 0, 0.6)';
-            boxRef.current.style.transform = 'scale(100%) rotate(0deg)';
-            boxRef.current.style.color = 'rgba(0, 0, 0, 0.8)';
-            boxRef.current.style.backgroundColor = 'white';
-    }, 250)
-    };
+    // const boxAnimation = (minus) => {
+    //     boxRef.current.style.borderColor = 'red';
+    //     boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)' ;
+    //     boxRef.current.style.color = 'white';
+    //     boxRef.current.style.backgroundColor = 'red';
+    //     priceChange();
+    //     setTimeout(() => {
+    //         boxRef.current.style.borderColor = 'rgba(255, 0, 0, 0.6)';
+    //         boxRef.current.style.transform = 'scale(100%) rotate(0deg)';
+    //         boxRef.current.style.color = 'rgba(0, 0, 0, 0.8)';
+    //         boxRef.current.style.backgroundColor = 'white';
+    // }, 250)
+    // };
     
-    const handleMinus = () => {
-        // dispatch(decreaseItemAmount({id: props.productId}));
-        dispatch(decreaseItemAmount({id: _id}));
-        // if(amount > 0){setAmount(amount - 1)};
-        boxAnimation(true)
-    };
+    // const handleMinus = () => {
+    //     // dispatch(decreaseItemAmount({id: props.productId}));
+    //     dispatch(decreaseItemAmount({id: _id}));
+    //     // if(amount > 0){setAmount(amount - 1)};
+    //     boxAnimation(true)
+    // };
     
-    const handlePlus = () => {
-        // dispatch(increaseItemAmount({id: props.productId}));
-        dispatch(increaseItemAmount({id: _id}));
-        // setAmount(amount + 1);
-        boxAnimation(false);
-    };
+    // const handlePlus = () => {
+    //     // dispatch(increaseItemAmount({id: props.productId}));
+    //     dispatch(increaseItemAmount({id: _id}));
+    //     // setAmount(amount + 1);
+    //     boxAnimation(false);
+    // };
 
-    const handleDelete = () => {
-        dispatch(deleteItem({id: _id}));
-    }
+    // const handleDelete = () => {
+    //     dispatch(deleteItem({id: _id}));
+    // }
 
   
     
-    const priceChange = () => {
-        priceRef.current.style.transform = 'scale(115%)';
-        priceRef.current.style.color = 'red';
-        setTimeout(() => {
-            priceRef.current.style.transform = 'scale(100%)';
-            priceRef.current.style.color = 'rgba(0 , 0, 0, 0.7)';
-        }, 500);
-    }
+    // const priceChange = () => {
+    //     priceRef.current.style.transform = 'scale(115%)';
+    //     priceRef.current.style.color = 'red';
+    //     setTimeout(() => {
+    //         priceRef.current.style.transform = 'scale(100%)';
+    //         priceRef.current.style.color = 'rgba(0 , 0, 0, 0.7)';
+    //     }, 500);
+    // }
 
     return (
         <Container>
@@ -293,7 +293,7 @@ const CartItem = (props) => {
         {/* <Detail><strong>Product:</strong> {props.productName} </Detail> */}
         <Detail><strong>Product:</strong> {title} </Detail>
         {/* <Detail><strong>ID:</strong> {props.productId} </Detail> */}
-        <Detail><strong>ID:</strong> {_id} </Detail>
+        <Detail><strong>ID:</strong> {itemId} </Detail>
         {/* <Color color={props.color}/> */}
         <Color color={color} style={{'border': color === 'white' ? '3px solid black': 'none' }}/>
         {/* {props.size ? <Detail><strong>Size:</strong> {props.size} </Detail> : null} */}
@@ -301,16 +301,18 @@ const CartItem = (props) => {
         </ItemDetails>
         <PriceAndAmount>
         <PlusMinusContainer>
-        {amount > 1 ? 
+        {/* {amount > 1 ? 
         <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles> :
         <PlusMinusStyles onClick={handleDelete}><i class="fas fa-trash-alt"></i></PlusMinusStyles>
-        }
-           <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
-           <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
+        } */}
+        {/* ref={boxRef} */}
+           <AmountDisplay>{amount}</AmountDisplay>
+           {/* <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles> */}
        </PlusMinusContainer>
        
        {/* <Price ref={priceRef}>${itemAmount * props.price}</Price> */}
-       <Price ref={priceRef}>${amount * price}</Price>
+       {/* ref={priceRef} */}
+       <Price >${amount * price}</Price>
         </PriceAndAmount>
         
         </Wrapper>

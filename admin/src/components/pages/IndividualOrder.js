@@ -268,6 +268,8 @@ const IndividualOrder = () => {
                             console.log(res.data);
                             console.log(res);
                             tempData.items[index]['image'] = res.data.image;
+                            tempData.items[index]['title'] = res.data.title;
+                            tempData.items[index]['price'] = res.data.price;
                             console.log('TEMPDATA IS: ');
                             console.log(tempData);
                             setOrderData(tempData);
@@ -284,6 +286,8 @@ const IndividualOrder = () => {
         }
     }, [orderData]);
 
+    
+    // const { image, title, _id, size, color, amount, price }
 
     const { createdAt, items, status, subtotal, totalPrice, userAddress, userId, _id } = orderData;
     const { line1, line2, city, state, postal_code, country, name } = userAddress;
@@ -314,7 +318,7 @@ const IndividualOrder = () => {
                         <OrderInfo><strong>Items: </strong></OrderInfo>
                         <AddressDiv>
                             {items.map((item, index) => {
-                                const { itemId, amount, color, size, _id } = item;
+                                const { itemId, amount, color, size, _id, image } = item;
                                 return (
                                     <div key={index}>
                                     <OrderInfo><strong><u>#{index + 1}</u></strong></OrderInfo>
@@ -322,7 +326,7 @@ const IndividualOrder = () => {
                                 <OrderInfo><strong>Color: </strong>{color}</OrderInfo>
                                 <OrderInfo><strong>Size: </strong>{size}</OrderInfo>
                                 <OrderInfo><strong>Amount Ordered: </strong>{amount}</OrderInfo>
-                                <OrderInfo><strong>Image: </strong>{item.image}</OrderInfo>
+                                <OrderInfo><strong>Image: </strong>{image}</OrderInfo>
                                 </div>
                                 )
                                 
@@ -340,13 +344,20 @@ const IndividualOrder = () => {
 {cart.subtotal > 0 ? <Button>Checkout Now</Button> : null}
 </ButtonDiv> */}
                     <DetailsDiv>
-                        {/* <CartItems>
+                        <CartItems>
+    {items.map((item, index)=>  <CartItem key={index} item={item} />)}
+   </CartItems>
+
+
+    {/* <CartItems>
     {cart.products.length ? 
     cart.products.map((item, index)=> <CartItem key={index} index={index} />) :
     <h1>YOUR SHOPPING CART IS EMPTY</h1>}
     {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
     <div>{cart.previousCartItems.map((item) => <StyledLink to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
     </CartItems> */}
+
+
                         <OrderSummary />
                     </DetailsDiv>
                 </Wrapper>

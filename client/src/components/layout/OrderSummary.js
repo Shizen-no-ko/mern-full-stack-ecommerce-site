@@ -93,7 +93,7 @@ const OrderSummary = () => {
     const cart = useSelector(state=>state.cart);
     const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = cart;
     // const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = useSelector(state=>state.cart);
-
+    
     useEffect(() => {
         const makePayment = async () => {
             try {

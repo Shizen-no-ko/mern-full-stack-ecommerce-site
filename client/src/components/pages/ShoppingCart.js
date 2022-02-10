@@ -43,7 +43,7 @@ ${portraitTablet({
 
 const ButtonDiv = styled.div`
 display: flex;
-justify-content: space-between;
+justify-content: space-evenly;
 width: 100%;
 
 

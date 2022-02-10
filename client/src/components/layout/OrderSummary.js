@@ -82,6 +82,7 @@ text-align: center;
 const OrderSummary = () => {
 
     const user = useSelector(state => state.user.currentUser);
+    const userDetails = user.user;
 
     const [stripeToken, setStripeToken] = useState();
     const history = useHistory();
@@ -91,6 +92,7 @@ const OrderSummary = () => {
     };
 
     const cart = useSelector(state=>state.cart);
+
     const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = cart;
     // const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = useSelector(state=>state.cart);
     
@@ -133,6 +135,7 @@ const OrderSummary = () => {
                                 image='https://source.unsplash.com/tkxzEhfdxMc/640x425'
                                 ComponentClass={CheckoutButtonDiv}
                                 billingAddress
+                                email={userDetails.email}
                                 shippingAddress
                                 description={`The total for your purchases is $${totalPrice}`}
                                 amount={totalPrice * 100}

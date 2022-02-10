@@ -1,14 +1,12 @@
 import { useState, useEffect, useReq } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { userReq } from '../../axiosRequests';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
-// import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 import CartItem from '../layout/CartItem';
 import OrderSummary from '../layout/OrderSummary';
@@ -78,8 +76,6 @@ const ButtonDiv = styled.div`
 display: flex;
 justify-content: space-between;
 width: 100%;
-
-
 `
 
 const DetailsDiv = styled.div`
@@ -101,10 +97,6 @@ const CartItems = styled.div`
 flex: 3;
 `
 
-
-// const SummaryDiv = styled.div`
-// flex: 1;
-// `
 
 const Button = styled.button`
 all: unset;
@@ -187,7 +179,6 @@ const IndividualOrder = () => {
 
     const path = useLocation().pathname.split('/');
     const id = path[path.length - 1];
-    // const cart = useSelector(state=>state.cart);
 
     const [orderData, setOrderData] = useState({
         items: [],
@@ -207,9 +198,6 @@ const IndividualOrder = () => {
         username: '',
         email: ''
     });
-
-    
-    // const [orderItems, setOrderItems] = useState([]);
 
 
     const [errorMessage, setErrorMessage] = useState('');
@@ -261,41 +249,6 @@ const IndividualOrder = () => {
     }, [orderData]);
 
 
-    // useEffect(() => {
-    //     var tempData = orderData;
-    //     // console.log('INITIAL TEMP DATA IS:');
-    //     // console.log(tempData);
-    //     if(orderData.items !== []){
-    //         orderData.items.forEach((item, index) => {
-    //             try {
-    //                 const getProduct = async () => {
-    //                     console.log(item.itemId);
-    //                     const res = await userReq.get(`products/find/${item.itemId}`);
-    //                     if (res) {
-    //                         // console.log(res.data);
-    //                         // console.log(res);
-    //                         tempData.items[index]['image'] = res.data.image;
-    //                         tempData.items[index]['title'] = res.data.title;
-    //                         tempData.items[index]['price'] = res.data.price;
-    //                         // console.log('TEMPDATA IS: ');
-    //                         // console.log(tempData);
-    //                         setOrderData(tempData);
-    //                         setErrorMessage('');
-    //                     } else {
-    //                         console.log('no res');
-    //                         setErrorMessage('No Product with this ID');
-    //                     }
-    //                 }
-    //                 getProduct();
-    //             }
-    //             catch (err) { console.log(err) };
-    //         })
-    //     }
-    // }, [orderData]);
-
-
-    // const { image, title, _id, size, color, amount, price }
-
     const { createdAt, items, status, subTotal, totalPrice, userAddress, userId, _id } = orderData;
     const { line1, line2, city, state, postal_code, country, name } = userAddress;
     const { username, email } = userData;
@@ -304,7 +257,7 @@ const IndividualOrder = () => {
         totalPrice: totalPrice
     };
 
-    // console.log(items);
+  
 
     return (
         <div>
@@ -334,27 +287,18 @@ const IndividualOrder = () => {
 
                     </InfoDiv>
 
-
-
-                    {/* <ButtonDiv>
-<StyledLink to='/products'><Button look='light'>Continue Shopping</Button></StyledLink>
-{cart.subtotal > 0 ? <Button>Checkout Now</Button> : null}
-</ButtonDiv> */}
                     <DetailsDiv>
                         <CartItems>
-                            {items.map((item, index) => <CartItem key={index} itemId={item.itemId} />)}
+                            {items.map((item, index) => {
+                                const itemData = {
+                                    size: item.size,
+                                    color: item.color,
+                                    amount: item.amount,
+                                    itemId: item.itemId
+                                };
+                                return <CartItem key={index} itemData={itemData}/>
+                                })}
                         </CartItems>
-
-
-                        {/* <CartItems>
-    {cart.products.length ? 
-    cart.products.map((item, index)=> <CartItem key={index} index={index} />) :
-    <h1>YOUR SHOPPING CART IS EMPTY</h1>}
-    {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
-    <div>{cart.previousCartItems.map((item) => <StyledLink to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
-    </CartItems> */}
-
-
                         <OrderSummary details={summaryDetails} />
                     </DetailsDiv>
                 </Wrapper>

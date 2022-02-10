@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { publicReq } from '../../axiosRequests';
 import { useDispatch } from 'react-redux';
 
@@ -432,6 +432,7 @@ const IndividualProduct = () => {
     const id = path[path.length -1];
     // console.log(id);
    
+    const history = useHistory();
 
     const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [amount, setAmount] = useState(1);
@@ -489,6 +490,7 @@ const IndividualProduct = () => {
 
     const handleClick = () => {
         dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));
+        history.push('/cart');
     }
 
     return (

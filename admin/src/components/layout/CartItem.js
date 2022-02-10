@@ -1,7 +1,9 @@
-// import { useRef } from 'react';
+import { useState, useEffect } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
+
+import { userReq } from '../../axiosRequests';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 // import { decreaseItemAmount, increaseItemAmount, deleteItem } from '../../redux/shoppingCartRedux';
 
@@ -165,70 +167,70 @@ ${landscapeTablet({
 })};
 `
 
-const PlusMinusStyles = styled.div`
-color: rgba(255, 0, 0, 0.6);
-font-size: 30px;
-margin: 5px;
+// const PlusMinusStyles = styled.div`
+// color: rgba(255, 0, 0, 0.6);
+// font-size: 30px;
+// margin: 5px;
 
-&:active {
-    color: red;
-}
-`
+// &:active {
+//     color: red;
+// }
+// `
 
-const AmountDisplay = styled.div`
-border: 4px solid rgba(255, 0, 0, 0.6);
-border-radius: 15px;
-color: rgba(0, 0, 0, 0.8);
-font-size: 25px;
-height: 35px;
-text-align: center;
-transition: all ease-in-out 0.5s;
-width: 35px;
+// const AmountDisplay = styled.div`
+// border: 4px solid rgba(255, 0, 0, 0.6);
+// border-radius: 15px;
+// color: rgba(0, 0, 0, 0.8);
+// font-size: 25px;
+// height: 35px;
+// text-align: center;
+// transition: all ease-in-out 0.5s;
+// width: 35px;
 
-${mobile({
-    borderRadius: '10px', 
-    fontSize: '20px',
-    height: '25px',
-    width: '25px'
-})};
+// ${mobile({
+//     borderRadius: '10px', 
+//     fontSize: '20px',
+//     height: '25px',
+//     width: '25px'
+// })};
 
-${portraitTablet({
-    borderRadius: '12px', 
-    fontSize: '23px',
-    height: '30px',
-    width: '30px'
-})};
+// ${portraitTablet({
+//     borderRadius: '12px', 
+//     fontSize: '23px',
+//     height: '30px',
+//     width: '30px'
+// })};
 
-${landscapeTablet({
-    borderRadius: '12px', 
-    fontSize: '23px',
-    height: '30px',
-    width: '30px'
-})};
-`
-const Price = styled.div`
-color: rgba(0 , 0, 0, 0.7);
-font-size: 3rem;
-font-weight: 200;
-margin: 0 30px 20px;
+// ${landscapeTablet({
+//     borderRadius: '12px', 
+//     fontSize: '23px',
+//     height: '30px',
+//     width: '30px'
+// })};
+// `
+// const Price = styled.div`
+// color: rgba(0 , 0, 0, 0.7);
+// font-size: 3rem;
+// font-weight: 200;
+// margin: 0 30px 20px;
 
-transition: all ease 0.5s;
+// transition: all ease 0.5s;
 
-${mobile({
-    fontSize: '2rem',
-    margin: '0'
-})};
+// ${mobile({
+//     fontSize: '2rem',
+//     margin: '0'
+// })};
 
-${portraitTablet({
-    fontSize: '2.25rem',
-    margin: '0'
-})};
+// ${portraitTablet({
+//     fontSize: '2.25rem',
+//     margin: '0'
+// })};
 
-${landscapeTablet({
-    fontSize: '2.25rem',
-    margin: '0'
-})};
-`
+// ${landscapeTablet({
+//     fontSize: '2.25rem',
+//     margin: '0'
+// })};
+// `
 
 const CartItem = (props) => {
 
@@ -238,12 +240,56 @@ const CartItem = (props) => {
     // const dispatch = useDispatch();
 
     // const itemAmount = useSelector(state=>state.cart.products[props.index].amount);
+
+    const [errorMessage, setErrorMessage] = useState('');
+   
+    const [ itemState, setItemState ] = useState({
+        image: '',
+        title: '',
+        _id: '',
+        size: '',
+        color: '',
+        amount: '',
+        price: 0,
+        itemId: ''
+    });
+
    
 
+    // const [ itemState, setItemState ] = useState(props.item);
 
+    useEffect(() => {
+                try {
+                    const getProduct = async () => {
+                        console.log('PROPS ID IS');
+                        console.log(props.itemId);
+                        const res = await userReq.get(`products/find/${props.itemId}`);
+                        if (res) {
+                            // // console.log(res.data);
+                            // // console.log(res);
+                            // tempData.items[index]['image'] = res.data.image;
+                            // tempData.items[index]['title'] = res.data.title;
+                            // tempData.items[index]['price'] = res.data.price;
+                            // // console.log('TEMPDATA IS: ');
+                            // // console.log(tempData);
+                            setItemState(itemState);
+                            setErrorMessage('');
+                        } else {
+                            console.log('no res');
+                            setErrorMessage('No Product with this ID');
+                        }
+                    }
+                    getProduct();
+                }
+                catch (err) { console.log(err) };
+            }, []);
 
+            useEffect(()=> {
+                console.log('ItemSTATE is: ');
+                console.log(itemState);
+            }, [itemState]);
     
-    const { image, title, _id, size, color, amount, price, itemId } = props.item;
+    const { image, title, _id, size, color, amount, price, itemId } = itemState;
 
     // const boxAnimation = (minus) => {
     //     boxRef.current.style.borderColor = 'red';
@@ -300,8 +346,8 @@ const CartItem = (props) => {
         {/* <Color color={props.color}/> */}
         {/* <Color color={color} style={{'border': color === 'white' ? '3px solid black': 'none' }}/> */}
         {/* {props.size ? <Detail><strong>Size:</strong> {props.size} </Detail> : null} */}
-        <Detail><strong>Color: </strong>{color.charAt(0).toUpperCase() + color.slice(1)}</Detail> 
-        {size ? <Detail><strong>Size:</strong> {size.charAt(0).toUpperCase() + size.slice(1)} </Detail> : null}
+        {/* <Detail><strong>Color: </strong>{color.charAt(0).toUpperCase() + color.slice(1)}</Detail> 
+        {size ? <Detail><strong>Size:</strong> {size.charAt(0).toUpperCase() + size.slice(1)} </Detail> : null} */}
         <Detail><strong>Amount Ordered: </strong>{amount}</Detail> 
         <Detail><strong>Price Per Item: </strong>{price}</Detail>
         <Detail><strong>Total For Item: </strong>{price * amount}</Detail>  

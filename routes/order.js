@@ -42,6 +42,18 @@ router.put('/:id', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+router.patch('/:id', tokenAuth, checkAdmin, async (req, res) => {
+    try {
+        const updatedOrder = await Order.findByIdAndUpdate(req.params.id, {
+            $set: { status: 'Dispatched'}
+        }, { new: true });
+        return res.status(200).json(updatedOrder);
+    }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
 router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
         await Order.findByIdAndDelete(req.params.id);

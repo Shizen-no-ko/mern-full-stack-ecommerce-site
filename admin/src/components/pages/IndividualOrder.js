@@ -299,7 +299,7 @@ const IndividualOrder = () => {
                                 return <CartItem key={index} itemData={itemData}/>
                                 })}
                         </CartItems>
-                        <OrderSummary details={summaryDetails} />
+                        <OrderSummary details={summaryDetails} orderId={id} />
                     </DetailsDiv>
                 </Wrapper>
             </Container>

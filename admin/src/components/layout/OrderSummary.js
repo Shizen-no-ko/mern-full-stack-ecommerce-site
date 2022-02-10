@@ -1,11 +1,9 @@
-// import {useState, useRef } from 'react';
-
-import { useSelector } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Container = styled.div`
+import { userReq } from '../../axiosRequests';
 
+const Container = styled.div`
 `
 
 const Wrapper = styled.div`
@@ -70,8 +68,22 @@ text-align: center;
 
 const OrderSummary = (props) => {
 
-    const { subtotal, totalPrice } = props.details;
+    const history = useHistory();
 
+    const { details, orderId } = props;
+    const { subtotal, totalPrice } = details;
+
+
+    const handleClick = async () => {
+        try{
+            const res = await userReq.patch(`orders/${orderId}`);
+            console.log(res.data);
+            history.replace('/statistics');
+        }
+        catch (err) {
+            console.log(err)
+        }
+    };
 
     return (
         <Container>
@@ -79,18 +91,8 @@ const OrderSummary = (props) => {
             <Title>Order Summary</Title>
             <Info><Label>Subtotal:</Label><Amount>${subtotal}</Amount></Info>
             <Info><Label>Delivery Charge:</Label><Amount>${(totalPrice - subtotal).toFixed(2)}</Amount></Info>
-            {/* {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null} */}
             <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
-            <Button>Set Order to "Dispatched"</Button>
-            
-
-
-             {/* <Info><Label>Subtotal:</Label><Amount>${subtotal}</Amount></Info>
-            {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : null}
-            {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null}
-            <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
-            <Button style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}>{subtotal > 0 ? 'Go to Checkout' : 'Please add items to your cart'}</Button>
-             */}
+            <Button onClick={handleClick}>Update to "Dispatched"</Button>
             </Wrapper>
         </Container>
        

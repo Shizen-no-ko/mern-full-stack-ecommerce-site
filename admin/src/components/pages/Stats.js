@@ -11,7 +11,9 @@ import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 const Container = styled.div`
 display:flex;
+flex-wrap: wrap;
 height: auto;
+justify-content: space-evenly;
 margin: 20px 0;
 max-width: 100%;
 overflow: hidden;

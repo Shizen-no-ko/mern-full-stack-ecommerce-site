@@ -87,9 +87,9 @@ border-radius: 20px 0;
 ${'' /* box-sizing: border-box; */}
 color: ${props => props.look === 'light' ? 'red' : 'white'};
 cursor: pointer;
-font-size: 20px;
+font-size: 15px;
 font-weight: 400;
-margin: 10px;
+margin: 5px 10px 0px;
 outline: none;
 padding: 0px 10px;
 text-align: center;
@@ -172,13 +172,14 @@ const OrderStats = () => {
                         <OrderIdDiv>
                             <IdLabel>Order Id: </IdLabel>
                             <OrderId>{order._id}</OrderId>
+                            <Link to={`order/${order._id}`} style={{ textDecoration: 'none' }}><Button>Go To Order</Button></Link>
+
                         </OrderIdDiv>
                         <DetailsDiv ref={el => detailsRef.current[index] = el}>
                         <Detail><strong>Customer Id: </strong>{order.userId}</Detail>
                             <Detail><strong>Address:  </strong></Detail>
                             <Detail>{order.userAddress.name}, {line1}, {line2 && `${line2}, `}{postal_code}, {city}, {state && `${state}, `}{country}</Detail>
                             <Detail><strong>Order Date: </strong>{moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Detail>
-                            <Link to={`order/${order._id}`} style={{ textDecoration: 'none' }}><Button>Go To Order</Button></Link>
                         </DetailsDiv>
                     </OrderDiv>
                 })}

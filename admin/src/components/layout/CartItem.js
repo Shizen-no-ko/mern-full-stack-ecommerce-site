@@ -168,8 +168,6 @@ const CartItem = (props) => {
     useEffect(() => {
                 try {
                     const getProduct = async () => {
-                        console.log('PROPS ID IS');
-                        console.log(itemData.itemId);
                         const res = await userReq.get(`products/find/${itemData.itemId}`);
                         if (res) {
                             setItemState({...itemState, image: res.data.image, title: res.data.title, price: res.data.price});

@@ -54,7 +54,6 @@ router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
 
 router.get('/find/:orderId', tokenAuth, checkAdmin,  async (req, res) => {
     try {
-        console.log('GOT INTO FIND');
         const foundOrder = await Order.findById(req.params.orderId);
         return res.status(200).json(foundOrder);
     }

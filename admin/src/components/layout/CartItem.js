@@ -184,10 +184,6 @@ const CartItem = (props) => {
                 catch (err) { console.log(err) };
             }, []);
 
-            useEffect(()=> {
-                console.log('ItemSTATE is: ');
-                console.log(itemState);
-            }, [itemState]);
     
     const { image, title, size, color, amount, price, itemId } = itemState;
 

@@ -3,6 +3,7 @@ import { publicReq, userReq } from '../../axiosRequests';
 
 import Navbar from '../layout/Navbar';
 import Footer from '../layout/Footer';
+import SalesChart from '../layout/SalesChart';
 import UserStats from '../layout/UserStats';
 import OrderStats from '../layout/OrderStats';
 
@@ -41,6 +42,7 @@ const Stats = () => {
         <div>
             <Navbar />
             <Container>
+            <SalesChart/>
             <UserStats/>
             <OrderStats/>
             </Container>

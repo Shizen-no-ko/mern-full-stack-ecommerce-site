@@ -7,7 +7,7 @@ const Order = require('../models/Order');
 const checkAuthorizedToEdit = require('../middleware/checkAuthorizedToEdit');
 
 const now = new Date();
-const twoMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
+const twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
 
 
 router.post('/add', tokenAuth, async (req, res) => {
@@ -99,14 +99,15 @@ router.get('/active', tokenAuth, checkAdmin, async (req, res) => {
 router.get('/sales', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const previousMonthsData = await Order.aggregate([
-            { $match: { createdAt: { $gte: twoMonthsAgo } } },
+            { $match: { createdAt: { $gte: twelveMonthsAgo } } },
             {
                 $project: {
                     month: { $month: "$createdAt" },
+                    year: { $year: "$createdAt" },
                     total: "$totalPrice"
                 }
             },
-            { $group: { _id: "$month", sum: { $sum: "$total" } } }
+            { $group: { _id: {month: "$month", year: "$year"}, sum: { $sum: "$total" } } }
         ]);
         return res.status(200).json(previousMonthsData);
     }

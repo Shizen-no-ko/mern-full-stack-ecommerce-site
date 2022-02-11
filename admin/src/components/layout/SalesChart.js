@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label } from 'recharts';
+import styled from 'styled-components';
+
 import { userReq } from '../../axiosRequests';
 
-import styled from 'styled-components';
+
 
 const Container = styled.div`
 align-items: center;
@@ -53,15 +56,32 @@ const SalesChart = () => {
 
     const [salesData, setSalesData ] = useState([]);
 
+    const renderLineChart = (
+        <LineChart width={600} height={300} data={salesData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+          <Line type="monotone" dataKey="Sales" stroke="#8884d8" />
+          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <XAxis dataKey="Month">
+          <Label value="Month" offset={-5} position="insideBottom" />
+          </XAxis>
+          <YAxis label={{ value: 'Sales in USD', angle: -90, position: 'insideLeft' }} dataKey = "Sales" angle={-45} />
+          <Tooltip />
+        </LineChart>
+      );
+
     useEffect(() => {
 
         const getSalesData = async () => {
             try {
                 const res = await userReq.get('/orders/sales');
                 if(res){
-                    const data = res.data;
-                    data.sort((a, b) => a._id.month - b._id.month);
-                    data.sort((a, b) => a._id.year - b._id.year);
+                    res.data.sort((a, b) => a._id.month - b._id.month);
+                    res.data.sort((a, b) => a._id.year - b._id.year);
+                    const data = res.data.map((item) => {
+                        return {
+                            Month: `${item._id.month}-${item._id.year}`,
+                            Sales: item.sum
+                        }
+                    });
                     console.log(data);
                     setSalesData(data);
                 }
@@ -78,9 +98,9 @@ const SalesChart = () => {
         <div>
             <Container>
             <TitleDiv>
-            <Title>Sales Data</Title>
+            <Title>Monthly Sales</Title>
             </TitleDiv>
-                
+               {renderLineChart}
             </Container>
 
         </div>

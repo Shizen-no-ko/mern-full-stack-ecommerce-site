@@ -4,6 +4,7 @@ import { publicReq, userReq } from '../../axiosRequests';
 import Navbar from '../layout/Navbar';
 import Footer from '../layout/Footer';
 import SalesChart from '../layout/SalesChart';
+import TopSellersChart from '../layout/TopSellersChart';
 import UserStats from '../layout/UserStats';
 import OrderStats from '../layout/OrderStats';
 
@@ -43,6 +44,7 @@ const Stats = () => {
             <Navbar />
             <Container>
             <SalesChart/>
+            <TopSellersChart/>
             <UserStats/>
             <OrderStats/>
             </Container>

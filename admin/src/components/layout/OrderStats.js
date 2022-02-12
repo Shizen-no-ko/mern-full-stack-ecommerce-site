@@ -66,6 +66,8 @@ padding: 0px;
 const OrderIdDiv = styled.div`
 display: flex;
 flex-direction: row;
+justify-content: space-evenly;
+width: 100%;
 `
 
 const DetailsDiv = styled.div`
@@ -89,7 +91,7 @@ color: ${props => props.look === 'light' ? 'red' : 'white'};
 cursor: pointer;
 font-size: 15px;
 font-weight: 400;
-margin: 5px 10px 0px;
+margin: 5px 10px 0px auto;
 outline: none;
 padding: 0px 10px;
 text-align: center;

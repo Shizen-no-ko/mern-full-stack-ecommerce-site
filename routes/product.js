@@ -85,7 +85,7 @@ router.get('/findall/:ids', async (req, res) => {
     try{
         // split ids string into array so it can be passed to mongoose
         ids = req.params.ids.split(',');
-        const foundProducts = await Product.find({}, 'title').where('_id').in(ids).exec();
+        const foundProducts = await Product.find({}, 'title price').where('_id').in(ids).exec();
         return res.status(200).json(foundProducts);
     }
     catch(err){

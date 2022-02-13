@@ -80,10 +80,12 @@ const TopSellersChart = () => {
                 const ids = topData.map((item) => {
                     return item._id;
                 })
+                console.log("IDs are");
+                console.log(ids);
                 const res = await userReq.get(`/products/findall/${ids}`);
                 const tempData = topData;
                 res.data.map((item, index) => {
-                    tempData[index] = {...tempData[index], title: item.title.substring(0, 8)};
+                    tempData.find(x => x._id === item._id ).title = item.title.substring(0, 8);
                 })
                 setTopData(tempData);
                 setBarChart(

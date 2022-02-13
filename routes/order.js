@@ -122,7 +122,9 @@ router.get('/topsellers', tokenAuth, checkAdmin, async (req, res) => {
         const topSellersData = await Order.aggregate([
             { $match: { createdAt: { $gte: twelveMonthsAgo } } },
             {
-                "$unwind": "$items"
+                "$unwind": "$orders",
+                "$unwind": "$items",
+
               },
               {
                 '$group': {

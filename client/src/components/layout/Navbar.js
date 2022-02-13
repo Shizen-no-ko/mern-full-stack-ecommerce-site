@@ -5,6 +5,7 @@ import { persistor } from '../../redux/store';
 import styled from 'styled-components';
 import CartIcon from './CartIcon';
 import Messaging from './Messaging';
+import SearchBar from './SearchBar';
 import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 
@@ -251,9 +252,9 @@ const Navbar = () => {
     const [ searchState, setSearchState ] = useState("");
     const user = useSelector(state => state.user.currentUser);
 
-    const handleChange = (e) => {
-        setSearchState(e.target.value);
-    }
+    // const handleChange = (e) => {
+    //     setSearchState(e.target.value);
+    // }
 
     const handleLogout = async () => {
         await persistor.purge();
@@ -267,7 +268,8 @@ const Navbar = () => {
         <Container>
             <Wrapper>
                 <LZone>
-                    <Search>
+                <SearchBar />
+                    {/* <Search>
                         <Input
                             type="text"
                             value={searchState}
@@ -275,7 +277,7 @@ const Navbar = () => {
                             // placeholder='Search' 
                             />
                         <SearchIcon><i className="fas fa-search"></i></SearchIcon>
-                    </Search>
+                    </Search> */}
                 </LZone>
                 <StyledLink to='/'>
                 <CZone>

@@ -119,6 +119,17 @@ router.get('/all', async (req, res) => {
     }
 });
 
+router.get('/keywords', async (req, res) => {
+    try {
+               const productResult = await Product.find({}, 'title color size');
+                return res.status(200).json(productResult);
+        }
+    catch (err) {
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+
 router.get('/deleted', async (req, res) => {
     let productResult;
     try {

@@ -15,10 +15,10 @@ router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
         }
         const newProduct = new Product(req.body);
         await newProduct.save((err, product) => {
-            if (err){
+            if (err) {
                 console.log(err);
                 return res.status(500).json({ errors: [{ msg: "Create Product Error" }] });
-            } 
+            }
             return res.status(200).json(product);
         })
     }
@@ -82,13 +82,13 @@ router.get('/find/:id', async (req, res) => {
 
 //finds all products matching array of ids
 router.get('/findall/:ids', async (req, res) => {
-    try{
+    try {
         // split ids string into array so it can be passed to mongoose
         ids = req.params.ids.split(',');
         const foundProducts = await Product.find({}, 'title price').where('_id').in(ids).exec();
         return res.status(200).json(foundProducts);
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
@@ -98,6 +98,8 @@ router.get('/all', async (req, res) => {
     queryType = Object.keys(req.query)[0];
     queryValue = req.query[queryType];
     let productResult;
+    console.log(queryType);
+    console.log(queryValue);
     try {
         switch (queryType) {
             case 'new':
@@ -108,6 +110,16 @@ router.get('/all', async (req, res) => {
                 break;
             case 'color':
                 productResult = await Product.find({ color: queryValue });
+                break;
+            case 'size':
+                productResult = await Product.find({ size: queryValue });
+                break;
+            case 'title':
+                productResult = await Product.find({ title: queryValue });
+                break;
+                // 'searchcategory' to differentiate from 'category' above
+            case 'searchcategory':
+                productResult = await Product.find({ category: queryValue });
                 break;
             default:
                 productResult = await Product.find();
@@ -121,9 +133,9 @@ router.get('/all', async (req, res) => {
 
 router.get('/keywords', async (req, res) => {
     try {
-               const productResult = await Product.find({}, 'title color size category');
-                return res.status(200).json(productResult);
-        }
+        const productResult = await Product.find({}, 'title color size category');
+        return res.status(200).json(productResult);
+    }
     catch (err) {
         return res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
@@ -151,7 +163,7 @@ router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
         //     // return res.status(400).json({ errors: [{ msg: "This product is already backed-up" }] });
         // }
         // if this product not backed-up, store in backup
-        if(!preExist) {
+        if (!preExist) {
             let toDeleteProduct = await Product.findById(id);
             toDeleteProduct = toDeleteProduct.toObject();
             delete toDeleteProduct._id;
@@ -163,7 +175,7 @@ router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
                 }
             })
         }
-       // delete product from products database
+        // delete product from products database
         await Product.findByIdAndDelete(id);
         return res.status(200).json({ errors: [{ msg: "Product has been deleted" }] });
     }

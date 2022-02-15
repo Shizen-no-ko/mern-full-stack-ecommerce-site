@@ -58,7 +58,8 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                 //     : 'http://localhost:5000/api/products/all'
                 // );
                 if(category === 'search'){
-                    const res = await publicReq.get(`/products/all?color=${searchValue}`  
+                    // const res = await publicReq.get(`/products/all?color=${searchValue}`
+                    const res = await publicReq.get(`/products/all?${searchField}=${searchValue}`   
                 );
                 setProducts(res.data);
                 }

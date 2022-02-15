@@ -55,6 +55,7 @@ ${mobile({
 `
 
 const DropDown = styled.div`
+background-color: white;
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
@@ -71,6 +72,11 @@ border: 1px solid lightgray;
 margin: 1px;
 overflow: hidden;
 padding: 5px 10px;
+
+
+&:hover {
+    background-color: pink;
+}
 `
 
 

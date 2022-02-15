@@ -121,7 +121,7 @@ router.get('/all', async (req, res) => {
 
 router.get('/keywords', async (req, res) => {
     try {
-               const productResult = await Product.find({}, 'title color size');
+               const productResult = await Product.find({}, 'title color size category');
                 return res.status(200).json(productResult);
         }
     catch (err) {

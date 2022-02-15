@@ -59,16 +59,17 @@ background-color: white;
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
-left: 21px;
+left: 24px;
 position: absolute;
 top: 60px;
-width: 262px;
+width: 15vw;
 z-index: 20;
 `
 
 const DropElement = styled.div`
 background-color: white;
 border: 1px solid lightgray;
+font-size: 20px;
 margin: 1px;
 overflow: hidden;
 padding: 5px 10px;
@@ -105,20 +106,24 @@ const SearchBar = () => {
                 var colors = [];
                 var sizes = [];
                 var titles = [];
+                var categories = [];
                 res.data.map((item) => {
                     ids.push(item._id);
                     titles.push(item.title);
                     item.color.map(color => colors.push(color));
                     item.size.map(size => sizes.push(size));
+                    item.category.map(category => categories.push(category));
                 });
                 sizes = [...new Set(sizes)];
                 colors = [...new Set(colors)];
+                categories = [...new Set(categories)];
                 const tempState = {
                     ids: ids,
                     titles: titles,
                     sizes: sizes,
                     colors: colors,
-                    keyWords: ids.concat(titles).concat(colors).concat(sizes)
+                    categories: categories,
+                    keyWords: ids.concat(titles).concat(colors).concat(sizes).concat(categories)
                 };
                 setKeyWords(tempState);
             }

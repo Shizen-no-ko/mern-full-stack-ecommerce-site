@@ -92,6 +92,10 @@ const SearchBar = () => {
     const handleChange = (e) => {
         setSearchState(e.target.value);
     }
+    
+    const handleClick = (word) => {
+        setSearchState(word);
+    }
 
     useEffect(() => {
         const getKeywords = async () => {
@@ -145,7 +149,7 @@ const SearchBar = () => {
                 />
                 <SearchIcon><i className="fas fa-search"></i></SearchIcon>
                 <DropDown>
-                    {dropText && dropText.map(word => <DropElement>{word}</DropElement>)}
+                    {dropText && dropText.map((word, index) => <DropElement key={index} value={word} onClick={() => handleClick(word)}>{word}</DropElement>)}
                 </DropDown>
             </Search>
         </Container>

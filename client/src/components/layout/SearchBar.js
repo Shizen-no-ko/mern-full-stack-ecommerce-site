@@ -1,8 +1,14 @@
+import { ConnectionStates } from 'mongoose';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { userReq } from '../../axiosRequests.js';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
+
+const Container = styled.div`
+display: flex;
+flex-direction: column;
+`
 
 const Search = styled.div`
 align-items: center;
@@ -48,11 +54,32 @@ ${mobile({
 })};
 `
 
+const DropDown = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+left: 21px;
+position: absolute;
+top: 60px;
+width: 262px;
+z-index: 20;
+`
+
+const DropElement = styled.div`
+background-color: white;
+border: 1px solid lightgray;
+margin: 1px;
+overflow: hidden;
+padding: 5px 10px;
+`
+
+
 
 const SearchBar = () => {
 
-    const [ searchState, setSearchState ] = useState("");
-    const [ keyWords, setKeyWords] = useState("");
+    const [searchState, setSearchState] = useState('');
+    const [keyWords, setKeyWords] = useState('');
+    const [dropText, setDropText] = useState([]);
 
 
 
@@ -62,8 +89,8 @@ const SearchBar = () => {
 
     useEffect(() => {
         const getKeywords = async () => {
-            try{
-                const res =  await userReq.get('/products/keywords');
+            try {
+                const res = await userReq.get('/products/keywords');
                 var ids = [];
                 var colors = [];
                 var sizes = [];
@@ -75,16 +102,14 @@ const SearchBar = () => {
                     item.size.map(size => sizes.push(size));
                 });
                 sizes = [...new Set(sizes)];
-                colors =  [...new Set(colors)];
+                colors = [...new Set(colors)];
                 const tempState = {
-                    ids : ids,
+                    ids: ids,
                     titles: titles,
                     sizes: sizes,
-                    colors:colors,
+                    colors: colors,
                     keyWords: ids.concat(titles).concat(colors).concat(sizes)
                 };
-                console.log('KEYWORDS OBJECT IS');
-                console.log(tempState);
                 setKeyWords(tempState);
             }
             catch (err) {
@@ -92,18 +117,33 @@ const SearchBar = () => {
             }
         };
         getKeywords();
-    },[])
+    }, [])
+
+    useEffect(() => {
+        if (keyWords !== '') {
+            const words = searchState !== '' ? keyWords.keyWords.filter(word => word.includes(searchState)) : [];
+            if (words) {
+                setDropText(words);
+            }
+        }
+
+    }, [searchState])
 
     return (
-        <Search>
-            <Input
-                type="text"
-                value={searchState}
-                onChange={handleChange}
-            // placeholder='Search' 
-            />
-            <SearchIcon><i className="fas fa-search"></i></SearchIcon>
-        </Search>
+        <Container>
+            <Search>
+                <Input
+                    type="text"
+                    value={searchState}
+                    onChange={handleChange}
+                />
+                <SearchIcon><i className="fas fa-search"></i></SearchIcon>
+                <DropDown>
+                    {dropText && dropText.map(word => <DropElement>{word}</DropElement>)}
+                </DropDown>
+            </Search>
+        </Container>
+
     )
 }
 

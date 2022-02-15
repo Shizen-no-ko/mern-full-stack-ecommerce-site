@@ -98,8 +98,6 @@ router.get('/all', async (req, res) => {
     queryType = Object.keys(req.query)[0];
     queryValue = req.query[queryType];
     let productResult;
-    console.log(queryType);
-    console.log(queryValue);
     try {
         switch (queryType) {
             case 'new':

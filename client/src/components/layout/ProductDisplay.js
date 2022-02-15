@@ -23,7 +23,7 @@ width: 97vw;
 
 
 
-const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSizes }) => {
+const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSizes, searchField, searchValue }) => {
 
     //   console.log("Category is");
     //   console.log(category)
@@ -57,11 +57,21 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                 //     ? `http://localhost:5000/api/products/all?category=${category}`
                 //     : 'http://localhost:5000/api/products/all'
                 // );
-                const res = await publicReq.get(category !== null && category !== ""
+                if(category === 'search'){
+                    const res = await publicReq.get(`/products/all?color=${searchValue}`  
+                );
+                setProducts(res.data);
+                }
+                else{
+                    const res = await publicReq.get(category !== null && category !== ""
                     ? `/products/all?category=${category}`
                     : '/products/all'
                 );
                 setProducts(res.data);
+                }
+
+
+                
             }
             catch (err) { console.log(err) }
         };

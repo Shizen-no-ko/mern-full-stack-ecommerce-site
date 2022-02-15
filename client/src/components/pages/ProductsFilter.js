@@ -12,9 +12,18 @@ import Filter from '../layout/Filter';
 const ProductsFilter = (props) => {
     const path = useLocation().pathname.split('/');
     const category = path[2] ? path[2].toLowerCase() : null;
+   
     const [filterState, setFilterState] = useState(category ? {category:  category} : {});
     const [sortState, setSortState] = useState(category ? {category:  category} : {});
     const [availableColorsSizes, setAvailableColorsSizes] = useState({});
+    var searchField, searchValue;
+
+
+    if(category === 'search'){
+        const params = (new URL(document.location)).searchParams;
+        searchField = params.get('field');
+        searchValue = params.get('value');
+    }
    
   
    
@@ -47,7 +56,7 @@ const ProductsFilter = (props) => {
         <div>
             <Navbar/>
             <Filter getFilterState={getFilterState} getSortState={getSortState} category={category} availableColorsSizes={availableColorsSizes}/>
-            <ProductDisplay filter={filterState} sort={sortState} category={category} getAvailableColorsSizes={getAvailableColorsSizes}/>
+            <ProductDisplay searchField={searchField} searchValue={searchValue} filter={filterState} sort={sortState} category={category} getAvailableColorsSizes={getAvailableColorsSizes}/>
             <SubscriptionForm/>
             <Footer/>
         </div>

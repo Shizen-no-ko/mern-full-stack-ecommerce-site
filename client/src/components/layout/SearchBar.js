@@ -124,8 +124,6 @@ const SearchBar = () => {
                 });
                 sizes = [...new Set(sizes)].map(size => [size, 'size']);
                 colors = [...new Set(colors)].map(color => [color, 'color']);
-                console.log('COLORS ARE');
-                console.log(colors);
                 categories = [...new Set(categories)].map(category => [category, 'searchcategory']);
                 const tempState = {
                     ids: ids,

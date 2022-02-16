@@ -56,7 +56,7 @@ const ProductsFilter = (props) => {
     return(
         <div>
             <Navbar/>
-            <Filter getFilterState={getFilterState} getSortState={getSortState} category={category} availableColorsSizes={availableColorsSizes}/>
+            <Filter getFilterState={getFilterState} getSortState={getSortState} category={category} availableColorsSizes={availableColorsSizes} searchField={searchField} searchValue={searchValue}/>
             <ProductDisplay searchField={searchField} searchValue={searchValue} filter={filterState} sort={sortState} category={category} getAvailableColorsSizes={getAvailableColorsSizes}/>
             <SubscriptionForm/>
             <Footer/>

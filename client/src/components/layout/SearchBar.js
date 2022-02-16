@@ -66,10 +66,11 @@ width: 15vw;
 z-index: 20;
 `
 
-const DropElement = styled.div`
+const DropElement = styled.li`
 background-color: white;
 border: 1px solid lightgray;
 font-size: 20px;
+list-style-type: none;
 margin: 1px;
 overflow: hidden;
 padding: 5px 10px;
@@ -161,11 +162,15 @@ const SearchBar = () => {
                     onChange={handleChange}
                 />
                 <SearchIcon><i className="fas fa-search"></i></SearchIcon>
+                <ul>
                 <DropDown>
-                    {dropText && dropText.map((word, index) =>
-                            <DropElement key={index}  onClick={() => handleClick(word)}>{word[0]}</DropElement>
+                {dropText && dropText.map((word, index) =>
+                <DropElement key={index}  onClick={() => handleClick(word)}>{word[0]}</DropElement>
                     )}
+                    
                 </DropDown>
+                </ul>
+               
             </Search>
         </Container>
 

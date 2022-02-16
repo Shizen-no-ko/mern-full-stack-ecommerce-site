@@ -123,7 +123,7 @@ const SearchBar = () => {
                     sizes: sizes,
                     colors: colors,
                     categories: categories,
-                    keyWords: ids.concat(titles).concat(colors).concat(sizes).concat(categories)
+                    keyWords: titles.concat(colors).concat(sizes).concat(categories)
                 };
                 setKeyWords(tempState);
             }

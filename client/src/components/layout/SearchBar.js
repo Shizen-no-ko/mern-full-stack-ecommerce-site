@@ -118,13 +118,15 @@ const SearchBar = () => {
                 res.data.map((item) => {
                     ids.push([item._id, 'id']);
                     titles.push([item.title, 'title']);
-                    item.color.map(color => colors.push([color, 'color']));
-                    item.size.map(size => sizes.push([size, 'size']));
-                    item.category.map(category => categories.push([category, 'searchcategory']));
+                    item.color.map(color => colors.push(color));
+                    item.size.map(size => sizes.push(size));
+                    item.category.map(category => categories.push(category));
                 });
-                sizes = [...new Set(sizes)];
-                colors = [...new Set(colors)];
-                categories = [...new Set(categories)];
+                sizes = [...new Set(sizes)].map(size => [size, 'size']);
+                colors = [...new Set(colors)].map(color => [color, 'color']);
+                console.log('COLORS ARE');
+                console.log(colors);
+                categories = [...new Set(categories)].map(category => [category, 'searchcategory']);
                 const tempState = {
                     ids: ids,
                     titles: titles,

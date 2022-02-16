@@ -28,8 +28,6 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     //   console.log("Category is");
     //   console.log(category)
 
-
-
     const [products, setProducts] = useState([]);
     const [filtered, setFiltered] = useState([]);
 
@@ -79,7 +77,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         getAllProducts();
        
 
-    }, [category])
+    }, [category, searchField, searchValue])
 
     // useEffect(() => {
     //     console.log("FilterCategory changed")

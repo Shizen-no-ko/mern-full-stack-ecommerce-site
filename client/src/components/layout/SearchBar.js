@@ -1,5 +1,5 @@
-import { ConnectionStates } from 'mongoose';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { userReq } from '../../axiosRequests.js';
@@ -81,22 +81,29 @@ padding: 5px 10px;
 `
 
 
-
 const SearchBar = () => {
+
+    const history = useHistory();
 
     const [searchState, setSearchState] = useState('');
     const [keyWords, setKeyWords] = useState('');
     const [dropText, setDropText] = useState([]);
+
+    
 
 
 
     const handleChange = (e) => {
         setSearchState(e.target.value);
     }
-    
+
     const handleClick = (word) => {
         setSearchState(word[0]);
         console.log(word);
+        setSearchState('');
+        history.push(`/products/search?field=${word[1]}&value=${word[0]}`);
+
+
     }
 
     useEffect(() => {
@@ -137,7 +144,7 @@ const SearchBar = () => {
 
     useEffect(() => {
         if (keyWords !== '') {
-            const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(searchState) || word[0].includes(searchState.toLowerCase()) || word[0].toLowerCase().includes(searchState) ) : [];
+            const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(searchState) || word[0].includes(searchState.toLowerCase()) || word[0].toLowerCase().includes(searchState)) : [];
             if (words) {
                 setDropText(words);
             }
@@ -155,7 +162,9 @@ const SearchBar = () => {
                 />
                 <SearchIcon><i className="fas fa-search"></i></SearchIcon>
                 <DropDown>
-                    {dropText && dropText.map((word, index) => <DropElement key={index} onClick={() => handleClick(word)}>{word[0]}</DropElement>)}
+                    {dropText && dropText.map((word, index) =>
+                            <DropElement key={index}  onClick={() => handleClick(word)}>{word[0]}</DropElement>
+                    )}
                 </DropDown>
             </Search>
         </Container>

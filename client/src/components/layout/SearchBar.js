@@ -95,7 +95,8 @@ const SearchBar = () => {
     }
     
     const handleClick = (word) => {
-        setSearchState(word);
+        setSearchState(word[0]);
+        console.log(word);
     }
 
     useEffect(() => {
@@ -108,11 +109,11 @@ const SearchBar = () => {
                 var titles = [];
                 var categories = [];
                 res.data.map((item) => {
-                    ids.push(item._id);
-                    titles.push(item.title);
-                    item.color.map(color => colors.push(color));
-                    item.size.map(size => sizes.push(size));
-                    item.category.map(category => categories.push(category));
+                    ids.push([item._id, 'id']);
+                    titles.push([item.title, 'title']);
+                    item.color.map(color => colors.push([color, 'color']));
+                    item.size.map(size => sizes.push([size, 'size']));
+                    item.category.map(category => categories.push([category, 'searchcategory']));
                 });
                 sizes = [...new Set(sizes)];
                 colors = [...new Set(colors)];
@@ -136,7 +137,7 @@ const SearchBar = () => {
 
     useEffect(() => {
         if (keyWords !== '') {
-            const words = searchState !== '' ? keyWords.keyWords.filter(word => word.includes(searchState) || word.includes(searchState.toLowerCase()) || word.toLowerCase().includes(searchState) ) : [];
+            const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(searchState) || word[0].includes(searchState.toLowerCase()) || word[0].toLowerCase().includes(searchState) ) : [];
             if (words) {
                 setDropText(words);
             }
@@ -154,7 +155,7 @@ const SearchBar = () => {
                 />
                 <SearchIcon><i className="fas fa-search"></i></SearchIcon>
                 <DropDown>
-                    {dropText && dropText.map((word, index) => <DropElement key={index} value={word} onClick={() => handleClick(word)}>{word}</DropElement>)}
+                    {dropText && dropText.map((word, index) => <DropElement key={index} onClick={() => handleClick(word)}>{word[0]}</DropElement>)}
                 </DropDown>
             </Search>
         </Container>

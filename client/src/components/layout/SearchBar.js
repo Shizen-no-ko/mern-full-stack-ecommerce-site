@@ -136,7 +136,7 @@ const SearchBar = () => {
 
     useEffect(() => {
         if (keyWords !== '') {
-            const words = searchState !== '' ? keyWords.keyWords.filter(word => word.includes(searchState)) : [];
+            const words = searchState !== '' ? keyWords.keyWords.filter(word => word.includes(searchState) || word.includes(searchState.toLowerCase()) || word.toLowerCase().includes(searchState) ) : [];
             if (words) {
                 setDropText(words);
             }

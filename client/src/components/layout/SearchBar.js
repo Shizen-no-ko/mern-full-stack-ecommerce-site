@@ -24,6 +24,7 @@ cursor: pointer;
 font-size: 20px;
 padding: 5px;
   margin: 5px;
+  width: 90%;
 
 &:focus{
     border: 1px solid red;
@@ -62,7 +63,7 @@ justify-content: space-evenly;
 left: 24px;
 position: absolute;
 top: 60px;
-width: 15vw;
+width: 28vw;
 z-index: 20;
 `
 
@@ -89,8 +90,12 @@ const SearchBar = () => {
     const [searchState, setSearchState] = useState('');
     const [keyWords, setKeyWords] = useState('');
     const [dropText, setDropText] = useState([]);
+    const [dropListState, setDropListState] = useState({
+        cursor: 0,
+        value: ''
+    });
 
-    
+
 
 
 
@@ -103,7 +108,28 @@ const SearchBar = () => {
         console.log(word);
         setSearchState('');
         history.push(`/products/search?field=${word[1]}&value=${word[0]}`);
+    }
 
+    const handleKeyDown = (e) => {
+        console.log(e.keyCode);
+        console.log('DROPTEXT LENGTH IS:');
+        console.log(dropText.length);
+        if (e.keyCode === 40) {
+            setDropListState(prevState => ({
+                cursor: prevState.cursor < dropText.length ? prevState.cursor + 1 : prevState.cursor,
+                value: dropText[prevState.cursor < dropText.length - 1 ? prevState.cursor + 1 : prevState.cursor]
+            })
+            )
+            console.log(dropListState.value);
+        }
+        if (e.keyCode === 38) {
+            setDropListState(prevState => ({
+                cursor: prevState.cursor > 0 ? prevState.cursor - 1 : prevState.cursor,
+                value: dropText[prevState.cursor > 0 ? prevState.cursor + 1 : 0]
+            })
+            )
+            console.log(dropListState.value);
+        }
 
     }
 
@@ -160,17 +186,17 @@ const SearchBar = () => {
                     type="text"
                     value={searchState}
                     onChange={handleChange}
+                    onKeyDown={handleKeyDown}
                 />
                 <SearchIcon><i className="fas fa-search"></i></SearchIcon>
                 <ul>
-                <DropDown>
-                {dropText && dropText.map((word, index) =>
-                <DropElement key={index}  onClick={() => handleClick(word)}>{word[0]}</DropElement>
-                    )}
-                    
-                </DropDown>
+                    <DropDown>
+                        {dropText && dropText.map((word, index) =>
+                            <DropElement key={index} style={{ backgroundColor: dropListState.cursor - 1 === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{word[0]}</DropElement>
+                        )}
+                    </DropDown>
                 </ul>
-               
+
             </Search>
         </Container>
 

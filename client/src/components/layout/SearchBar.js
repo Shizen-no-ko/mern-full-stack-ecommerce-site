@@ -205,8 +205,19 @@ const SearchBar = () => {
                 <SearchIcon><i className="fas fa-search"></i></SearchIcon>
                 <ul>
                     <DropDown>
-                        {dropText && dropText.map((word, index) =>
-                            <DropElement key={index} style={{ backgroundColor: dropListState.cursor === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{word[0]}</DropElement>
+                        {dropText && dropText.map((word, index) => {
+                            const splitStart = word[0].toLowerCase().indexOf(searchTerm.toLowerCase());
+                            const splitEnd = splitStart + searchTerm.length;
+                            const highlight = word[0].substring(splitStart, splitEnd);
+                            const before = word[0].substring(0, splitStart);
+                            const after = word[0].substring(splitEnd);
+                            console.log('WORD FRAGMENT IS');
+                            console.log(word[0].substring(splitStart, splitEnd));
+                            return <DropElement key={index} style={{ backgroundColor: dropListState.cursor === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{before}<strong>{highlight}</strong>{after}</DropElement>
+
+                        }
+                        
+                        
                         )}
                     </DropDown>
                 </ul>

@@ -115,6 +115,7 @@ const SearchBar = () => {
         console.log(e.keyCode);
         console.log('DROPTEXT LENGTH IS:');
         console.log(dropText.length);
+        // down arrow
         if (e.keyCode === 40) {
             setDropListState(prevState => ({
                 cursor: prevState.cursor < dropText.length - 1 ? prevState.cursor + 1 : prevState.cursor,
@@ -123,6 +124,8 @@ const SearchBar = () => {
             )
             // console.log(dropListState.value);
         }
+
+        //up arrow
         if (e.keyCode === 38) {
             setDropListState(prevState => ({
                 cursor: prevState.cursor > -1 ? prevState.cursor - 1 : prevState.cursor,
@@ -132,6 +135,14 @@ const SearchBar = () => {
             // console.log(dropListState.value);
         }
 
+        // enter key
+        if (e.keyCode === 13) {
+            if(dropListState.cursor !== -1){
+            history.push(`/products/search?field=${dropText[dropListState.cursor][1]}&value=${dropText[dropListState.cursor][0]}`);
+            }
+        }
+
+        // backspace
         if (e.keyCode === 8) {
             if(dropListState.cursor !== -1){
                 e.preventDefault();
@@ -143,15 +154,15 @@ const SearchBar = () => {
     }
 
 
-const getWords = (matchWord) => {
-    if (keyWords !== '') {
-        const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(matchWord) || word[0].includes(matchWord.toLowerCase()) || word[0].toLowerCase().includes(matchWord)) : [];
-        if (words && dropListState.cursor === -1) {
-            setDropText(words);
-            setSearchTerm(matchWord);
-        }
-    }
-}
+// const getWords = (matchWord) => {
+//     if (keyWords !== '') {
+//         const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(matchWord) || word[0].includes(matchWord.toLowerCase()) || word[0].toLowerCase().includes(matchWord)) : [];
+//         if (words && dropListState.cursor === -1) {
+//             setDropText(words);
+//             setSearchTerm(matchWord);
+//         }
+//     }
+// }
 
     useEffect(() => {
     //     console.log('DROPLIST STATE IS');

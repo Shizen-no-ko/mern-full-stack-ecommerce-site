@@ -132,15 +132,34 @@ const SearchBar = () => {
             // console.log(dropListState.value);
         }
 
+        if (e.keyCode === 8) {
+            if(dropListState.cursor !== -1){
+                e.preventDefault();
+                setSearchState(searchTerm);
+                setDropListState({cursor: -1, value: ''}) 
+            };
+        }
+
     }
 
+
+const getWords = (matchWord) => {
+    if (keyWords !== '') {
+        const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(matchWord) || word[0].includes(matchWord.toLowerCase()) || word[0].toLowerCase().includes(matchWord)) : [];
+        if (words && dropListState.cursor === -1) {
+            setDropText(words);
+            setSearchTerm(matchWord);
+        }
+    }
+}
+
     useEffect(() => {
-        console.log('DROPLIST STATE IS');
-       console.log(dropListState.value[0]);
-       console.log('CURSOR IS');
-       console.log(dropListState.cursor);
-       console.log('SEARCH TERM IS');
-       console.log(searchTerm);
+    //     console.log('DROPLIST STATE IS');
+    //    console.log(dropListState.value[0]);
+    //    console.log('CURSOR IS');
+    //    console.log(dropListState.cursor);
+    //    console.log('SEARCH TERM IS');
+    //    console.log(searchTerm);
        dropListState.cursor !== -1 && setSearchState(dropText[dropListState.cursor][0]);
        dropListState.cursor === -1 && setSearchState(searchTerm);
     }, [dropListState])
@@ -211,9 +230,7 @@ const SearchBar = () => {
                             const highlight = word[0].substring(splitStart, splitEnd);
                             const before = word[0].substring(0, splitStart);
                             const after = word[0].substring(splitEnd);
-                            console.log('WORD FRAGMENT IS');
-                            console.log(word[0].substring(splitStart, splitEnd));
-                            return <DropElement key={index} style={{ backgroundColor: dropListState.cursor === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{before}<strong>{highlight}</strong>{after}</DropElement>
+                            return <DropElement key={index} style={{ backgroundColor: dropListState.cursor === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{before}<strong style={{ color: 'red'}}>{highlight}</strong>{after}</DropElement>
 
                         }
                         

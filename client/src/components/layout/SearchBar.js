@@ -88,10 +88,11 @@ const SearchBar = () => {
     const history = useHistory();
 
     const [searchState, setSearchState] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
     const [keyWords, setKeyWords] = useState('');
     const [dropText, setDropText] = useState([]);
     const [dropListState, setDropListState] = useState({
-        cursor: 0,
+        cursor: -1,
         value: ''
     });
 
@@ -116,22 +117,34 @@ const SearchBar = () => {
         console.log(dropText.length);
         if (e.keyCode === 40) {
             setDropListState(prevState => ({
-                cursor: prevState.cursor < dropText.length ? prevState.cursor + 1 : prevState.cursor,
+                cursor: prevState.cursor < dropText.length - 1 ? prevState.cursor + 1 : prevState.cursor,
                 value: dropText[prevState.cursor < dropText.length - 1 ? prevState.cursor + 1 : prevState.cursor]
             })
             )
-            console.log(dropListState.value);
+            // console.log(dropListState.value);
         }
         if (e.keyCode === 38) {
             setDropListState(prevState => ({
-                cursor: prevState.cursor > 0 ? prevState.cursor - 1 : prevState.cursor,
-                value: dropText[prevState.cursor > 0 ? prevState.cursor + 1 : 0]
+                cursor: prevState.cursor > -1 ? prevState.cursor - 1 : prevState.cursor,
+                value: prevState.cursor > 0 ? dropText[prevState.cursor -1] : searchTerm
             })
             )
-            console.log(dropListState.value);
+            // console.log(dropListState.value);
         }
 
     }
+
+    useEffect(() => {
+        console.log('DROPLIST STATE IS');
+       console.log(dropListState.value[0]);
+       console.log('CURSOR IS');
+       console.log(dropListState.cursor);
+       console.log('SEARCH TERM IS');
+       console.log(searchTerm);
+       dropListState.cursor !== -1 && setSearchState(dropText[dropListState.cursor][0]);
+       dropListState.cursor === -1 && setSearchState(searchTerm);
+    }, [dropListState])
+
 
     useEffect(() => {
         const getKeywords = async () => {
@@ -172,8 +185,9 @@ const SearchBar = () => {
     useEffect(() => {
         if (keyWords !== '') {
             const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(searchState) || word[0].includes(searchState.toLowerCase()) || word[0].toLowerCase().includes(searchState)) : [];
-            if (words) {
+            if (words && dropListState.cursor === -1) {
                 setDropText(words);
+                setSearchTerm(searchState);
             }
         }
 
@@ -192,7 +206,7 @@ const SearchBar = () => {
                 <ul>
                     <DropDown>
                         {dropText && dropText.map((word, index) =>
-                            <DropElement key={index} style={{ backgroundColor: dropListState.cursor - 1 === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{word[0]}</DropElement>
+                            <DropElement key={index} style={{ backgroundColor: dropListState.cursor === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{word[0]}</DropElement>
                         )}
                     </DropDown>
                 </ul>

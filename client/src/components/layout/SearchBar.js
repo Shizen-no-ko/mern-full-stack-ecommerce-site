@@ -96,7 +96,7 @@ const SearchBar = () => {
         value: ''
     });
 
-
+    // resets all states upon redirect or blur
     const resetStates = () => {
         setDropListState({
             cursor: -1,
@@ -108,10 +108,12 @@ const SearchBar = () => {
     }
 
 
+    // controlled input state
     const handleChange = (e) => {
         setSearchState(e.target.value);
     }
 
+    // direct click on dropdown suggestion
     const handleClick = (word) => {
         setSearchState(word[0]);
         console.log(word);
@@ -120,9 +122,7 @@ const SearchBar = () => {
     }
 
     const handleKeyDown = (e) => {
-        console.log(e.keyCode);
-        console.log('DROPTEXT LENGTH IS:');
-        console.log(dropText.length);
+
         // down arrow
         if (e.keyCode === 40) {
             setDropListState(prevState => ({
@@ -130,47 +130,49 @@ const SearchBar = () => {
                 value: dropText[prevState.cursor < dropText.length - 1 ? prevState.cursor + 1 : prevState.cursor]
             })
             )
-            // console.log(dropListState.value);
         }
 
         //up arrow
         if (e.keyCode === 38) {
             setDropListState(prevState => ({
                 cursor: prevState.cursor > -1 ? prevState.cursor - 1 : prevState.cursor,
-                value: prevState.cursor > 0 ? dropText[prevState.cursor -1] : searchTerm
+                value: prevState.cursor > 0 ? dropText[prevState.cursor - 1] : searchTerm
             })
             )
-            // console.log(dropListState.value);
         }
 
         // enter key
         if (e.keyCode === 13) {
-            if(dropListState.cursor !== -1){
+            if (dropListState.cursor !== -1) {
                 const field = dropText[dropListState.cursor][1];
                 const value = dropText[dropListState.cursor][0];
                 resetStates();
-                history.push(`/products/search?field=${field}&value=${value}`);            }
+                history.push(`/products/search?field=${field}&value=${value}`);
+            }
         }
 
         // backspace
         if (e.keyCode === 8) {
-            if(dropListState.cursor !== -1){
+            if (dropListState.cursor !== -1) {
                 e.preventDefault();
                 setSearchState(searchTerm);
-                setDropListState({cursor: -1, value: ''}) 
+                setDropListState({ cursor: -1, value: '' })
             };
         }
-
     }
 
-   const handleBlur = () => {
-      resetStates();
-   } 
+    const handleBlur = () => {
+        window.onclick = e => {
+            if (!e.target.classList.contains('DropElement')) {
+                resetStates();
+            }
+        };
+    }
 
 
     useEffect(() => {
-       dropListState.cursor !== -1 && setSearchState(dropText[dropListState.cursor][0]);
-       dropListState.cursor === -1 && setSearchState(searchTerm);
+        dropListState.cursor !== -1 && setSearchState(dropText[dropListState.cursor][0]);
+        dropListState.cursor === -1 && setSearchState(searchTerm);
     }, [dropListState])
 
 
@@ -222,8 +224,8 @@ const SearchBar = () => {
     }, [searchState])
 
     return (
-        <Container>
-            <Search>
+        <Container >
+            <Search >
                 <Input
                     type="text"
                     value={searchState}
@@ -240,18 +242,14 @@ const SearchBar = () => {
                             const highlight = word[0].substring(splitStart, splitEnd);
                             const before = word[0].substring(0, splitStart);
                             const after = word[0].substring(splitEnd);
-                            return <DropElement key={index} style={{ backgroundColor: dropListState.cursor === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{before}<strong style={{ color: 'red'}}>{highlight}</strong>{after}</DropElement>
-
+                            return <DropElement key={index} className='DropElement' style={{ backgroundColor: dropListState.cursor === index ? 'pink' : 'white' }} onClick={() => handleClick(word)}>{before}<strong style={{ color: 'red' }}>{highlight}</strong>{after}</DropElement>
                         }
-                        
-                        
                         )}
                     </DropDown>
                 </ul>
 
             </Search>
         </Container>
-
     )
 }
 

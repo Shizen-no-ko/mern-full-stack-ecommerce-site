@@ -97,7 +97,15 @@ const SearchBar = () => {
     });
 
 
-
+    const resetStates = () => {
+        setDropListState({
+            cursor: -1,
+            value: ''
+        });
+        setDropText([]);
+        setSearchState('');
+        setSearchTerm('');
+    }
 
 
     const handleChange = (e) => {
@@ -140,13 +148,7 @@ const SearchBar = () => {
             if(dropListState.cursor !== -1){
                 const field = dropText[dropListState.cursor][1];
                 const value = dropText[dropListState.cursor][0];
-                setDropListState({
-                    cursor: -1,
-                    value: ''
-                });
-                setDropText([]);
-                setSearchState('');
-                setSearchTerm('');
+                resetStates();
                 history.push(`/products/search?field=${field}&value=${value}`);            }
         }
 
@@ -160,6 +162,10 @@ const SearchBar = () => {
         }
 
     }
+
+   const handleBlur = () => {
+      resetStates();
+   } 
 
 
     useEffect(() => {
@@ -223,6 +229,7 @@ const SearchBar = () => {
                     value={searchState}
                     onChange={handleChange}
                     onKeyDown={handleKeyDown}
+                    onBlur={handleBlur}
                 />
                 <SearchIcon><i className="fas fa-search"></i></SearchIcon>
                 <ul>

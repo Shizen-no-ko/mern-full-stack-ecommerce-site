@@ -163,6 +163,9 @@ const SearchBar = () => {
 
     const handleBlur = () => {
         window.onclick = e => {
+            // checks if element clicked that is causing the blur 
+            // is not an element from the drop down suggestions list,
+            // otherwise clicking on suggestion doesn't re-route
             if (!e.target.classList.contains('DropElement')) {
                 resetStates();
             }

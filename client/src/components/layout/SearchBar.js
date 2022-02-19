@@ -138,8 +138,16 @@ const SearchBar = () => {
         // enter key
         if (e.keyCode === 13) {
             if(dropListState.cursor !== -1){
-            history.push(`/products/search?field=${dropText[dropListState.cursor][1]}&value=${dropText[dropListState.cursor][0]}`);
-            }
+                const field = dropText[dropListState.cursor][1];
+                const value = dropText[dropListState.cursor][0];
+                setDropListState({
+                    cursor: -1,
+                    value: ''
+                });
+                setDropText([]);
+                setSearchState('');
+                setSearchTerm('');
+                history.push(`/products/search?field=${field}&value=${value}`);            }
         }
 
         // backspace
@@ -154,23 +162,7 @@ const SearchBar = () => {
     }
 
 
-// const getWords = (matchWord) => {
-//     if (keyWords !== '') {
-//         const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(matchWord) || word[0].includes(matchWord.toLowerCase()) || word[0].toLowerCase().includes(matchWord)) : [];
-//         if (words && dropListState.cursor === -1) {
-//             setDropText(words);
-//             setSearchTerm(matchWord);
-//         }
-//     }
-// }
-
     useEffect(() => {
-    //     console.log('DROPLIST STATE IS');
-    //    console.log(dropListState.value[0]);
-    //    console.log('CURSOR IS');
-    //    console.log(dropListState.cursor);
-    //    console.log('SEARCH TERM IS');
-    //    console.log(searchTerm);
        dropListState.cursor !== -1 && setSearchState(dropText[dropListState.cursor][0]);
        dropListState.cursor === -1 && setSearchState(searchTerm);
     }, [dropListState])

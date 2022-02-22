@@ -142,4 +142,30 @@ router.get('/topsellers', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+router.get('/allsales', tokenAuth, checkAdmin, async (req, res) => {
+    try {
+        const topSellersData = await Order.aggregate([
+            { $match: { createdAt: { $gte: twelveMonthsAgo } } },
+            {
+                "$unwind": "$orders",
+                "$unwind": "$items",
+
+              },
+              {
+                '$group': {
+                    '_id': '$items.itemId',
+                       'count' :{ '$sum': '$items.amount' } 
+                    
+              }        
+            }
+            ]).sort({'count': -1});
+        return res.status(200).json(topSellersData);
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+
 module.exports = router;

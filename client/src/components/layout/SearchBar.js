@@ -24,7 +24,7 @@ cursor: pointer;
 font-size: 20px;
 padding: 5px;
   margin: 5px;
-  width: 90%;
+  width: 28vw;
 
 &:focus{
     border: 1px solid red;
@@ -38,7 +38,7 @@ padding: 5px;
 
 ${landscapeTablet({
     fontSize: '15px',
-    width: '150px'
+   
 })};
 
 `

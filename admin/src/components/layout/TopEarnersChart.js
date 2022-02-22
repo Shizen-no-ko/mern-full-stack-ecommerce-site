@@ -100,7 +100,7 @@ const TopEarnersChart = () => {
                     <BarChart width={500} height={200} data={topData} margin={{ top: 5, right: 20, bottom: 20, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis style={{fontSize: '0.8rem'}} dataKey="title" label={{ value: 'Products', offset: '-10', position: 'insideBottom' }}  />
-              <YAxis dataKey="totalEarned" label={{ value: 'Total Earned', angle: -90, position: 'insideLeft' }} />
+              <YAxis dataKey="totalEarned" label={{ value: 'Total Earned USD', angle: -90, position: 'insideBottomLeft', offset: '10' }} />
               <Tooltip />
               {/* <Legend /> */}
               <Bar barSize={25} dataKey="totalEarned" fill="#8884d8" />

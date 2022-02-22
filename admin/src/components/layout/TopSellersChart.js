@@ -92,7 +92,7 @@ const TopSellersChart = () => {
                     <BarChart width={500} height={200} data={topData} margin={{ top: 5, right: 20, bottom: 20, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis style={{fontSize: '0.8rem'}} dataKey="title" label={{ value: 'Products', offset: '-10', position: 'insideBottom' }}  />
-              <YAxis dataKey="count" label={{ value: 'Units Sold', angle: -90, position: 'insideLeft' }} />
+              <YAxis dataKey="count" label={{ value: 'Units Sold', angle: -90, position: 'insideBottomLeft', offset: '15' }} />
               <Tooltip />
               {/* <Legend /> */}
               <Bar barSize={25} dataKey="count" fill="#8884d8" />

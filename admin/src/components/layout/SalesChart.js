@@ -62,7 +62,7 @@ const SalesChart = () => {
           <XAxis dataKey="Month">
           <Label value="Month" offset={-5} position="insideBottom" />
           </XAxis>
-          <YAxis label={{ value: 'Sales in USD', angle: -90, position: 'insideLeft' }} dataKey = "Sales" angle={-45} />
+          <YAxis label={{ value: 'Sales in USD', angle: -90, position: 'insideBottomLeft', offset: '12' }} dataKey = "Sales" angle={-45} />
           <Tooltip />
         </LineChart>
       );

@@ -48,12 +48,28 @@ max-width: 100%;
 overflow: hidden;
 width: 100vw;`
 
+const Title = styled.h1`
+color: rgba(255, 0, 0, 0.9);
+font-size: 3rem;
+font-weight: 400;
+margin-bottom: 0;
+
+${mobile({
+    fontSize: '2rem'
+})};
+
+${portraitTablet({
+    fontSize: '2.75rem'
+})};
+`
+
 const Stats = () => {
 
     return (
         <div>
             <Navbar />
             <Container>
+            <Title>Statistics</Title>
             <ChartsContainer>
             <SalesChart/>
             <TopSellersChart/>

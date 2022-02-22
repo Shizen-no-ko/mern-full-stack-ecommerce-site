@@ -86,7 +86,7 @@ const TopEarnersChart = () => {
                 console.log(ids);
                 const res = await userReq.get(`/products/findall/${ids}`);
                 const tempData = topData;
-                res.data.map((item, index) => {
+                res.data.map((item) => {
                     tempData.find(x => x._id === item._id ).price = item.price;
                     tempData.find(x => x._id === item._id ).title = item.title.substring(0, 8);   
                 })

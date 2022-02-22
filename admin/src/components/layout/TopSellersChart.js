@@ -89,9 +89,9 @@ const TopSellersChart = () => {
                 })
                 setTopData(tempData);
                 setBarChart(
-                    <BarChart width={750} height={250} data={topData} margin={{ top: 5, right: 20, bottom: 20, left: 0 }}>
+                    <BarChart width={500} height={200} data={topData} margin={{ top: 5, right: 20, bottom: 20, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="title" label={{ value: 'Products', offset: '-10', position: 'insideBottom' }}  />
+              <XAxis style={{fontSize: '0.8rem'}} dataKey="title" label={{ value: 'Products', offset: '-10', position: 'insideBottom' }}  />
               <YAxis dataKey="count" label={{ value: 'Units Sold', angle: -90, position: 'insideLeft' }} />
               <Tooltip />
               {/* <Legend /> */}

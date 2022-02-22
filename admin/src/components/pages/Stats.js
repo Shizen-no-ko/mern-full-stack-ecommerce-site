@@ -5,6 +5,7 @@ import Navbar from '../layout/Navbar';
 import Footer from '../layout/Footer';
 import SalesChart from '../layout/SalesChart';
 import TopSellersChart from '../layout/TopSellersChart';
+import TopEarnersChart from '../layout/TopEarnersChart';
 import UserStats from '../layout/UserStats';
 import OrderStats from '../layout/OrderStats';
 
@@ -36,6 +37,16 @@ ${landscapeTablet({
 })};  
 `
 
+const ChartsContainer = styled.div`
+display:flex;
+flex-direction: row;
+flex-wrap: wrap;
+height: auto;
+justify-content: space-evenly;
+margin: 20px 20px;
+max-width: 100%;
+overflow: hidden;
+width: 100vw;`
 
 const Stats = () => {
 
@@ -43,8 +54,10 @@ const Stats = () => {
         <div>
             <Navbar />
             <Container>
+            <ChartsContainer>
             <SalesChart/>
             <TopSellersChart/>
+            </ChartsContainer>
             <UserStats/>
             <OrderStats/>
             </Container>

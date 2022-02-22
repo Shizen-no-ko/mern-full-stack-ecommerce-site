@@ -75,8 +75,11 @@ const Stats = () => {
             <TopSellersChart/>
             <TopEarnersChart/>
             </ChartsContainer>
+            <ChartsContainer>
             <UserStats/>
             <OrderStats/>
+            </ChartsContainer>
+            
             </Container>
            
             <Footer />

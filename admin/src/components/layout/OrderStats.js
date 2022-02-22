@@ -14,7 +14,7 @@ border: 1px solid lightgray;
 display:flex;
 flex-direction: column;
 height: auto;
-margin: 20px 100px;
+margin: 20px 20px;
 max-width: 50vw;
 padding: 10px 20px 10px;
 text-align: left;

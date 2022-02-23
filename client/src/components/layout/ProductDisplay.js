@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 
 import ProductElement from './ProductElement.js';
+import Modal from './Modal';
 
 // import { productData } from '../../data/data.js';
 // import ProductsFilter from '../pages/ProductsFilter.js';
@@ -136,6 +137,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     return (
         <Container>
+        <Modal/>
         {
             !landing ?
             filtered.length ?

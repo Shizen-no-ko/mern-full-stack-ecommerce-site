@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
-import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
+import { mobile } from '../../responsive';
+import { addProduct } from '../../redux/shoppingCartRedux';
+
 
 
 const Container = styled.div`
@@ -23,6 +25,7 @@ height: auto;
 left: 50%;
 margin-left: -150px;
 margin-top: -175px;
+min-width: 350px;
 position: absolute;
 text-align: center;
 top: 50%;
@@ -61,16 +64,63 @@ const Option = styled.option`
 
 `
 
+const Button = styled.button`
+all: unset;
+background-color: ${props => props.look === 'light' ? 'white' : 'red'};
+border: 4px solid red;
+border-radius: 20px 0;
+${'' /* box-sizing: border-box; */}
+color: ${props => props.look === 'light' ? 'red' : 'white'};
+cursor: pointer;
+font-size: 20px;
+font-weight: 400;
+margin: 30px 20px 10px;
+outline: none;
+padding: 10px;
+text-align: center;
+
+
+
+
+&:hover{
+    background-color: ${props => props.look === 'light' ? 'red' : 'white'};
+    border: 4px solid red;
+    color: ${props => props.look === 'light' ? 'white' : 'red'};
+    transform: scale(103%);
+}
+
+&:active{
+    background-color: green;
+    border: 4px solid green;
+    color: white; 
+    transform: scale(97%);
+}
+
+${mobile({
+    fontSize: '15px',
+    padding:'5px 7px'
+    
+})};
+`
+
+
 const Modal = ({showModal, getModalClick, modalContent}) => {
 
 const [display, setDisplay] = useState(false);
-console.log('modal content size is');
-console.log(modalContent.size);
+const [selectedColor, setSelectedColor] = useState('');
+const [selectedSize, setSelectedSize] = useState('');
+
+const dispatch = useDispatch();
 
 
 useEffect(() => {
     setDisplay(showModal);
 }, [showModal]);
+
+useEffect(() => {
+    setSelectedColor(modalContent.color[0]);
+    setSelectedSize(modalContent.size[0]);
+}, [modalContent]);
 
 const handleClick = () => {
     getModalClick();   
@@ -80,35 +130,47 @@ const handleBoxClick = (e) => {
     e.stopPropagation();
 }
 
+const handleChange = (e) => {
+    e.target.name === 'color' && setSelectedColor(e.target.value);
+    e.target.name === 'size' && setSelectedSize(e.target.value);
+}
+
+const addToCartClick = (e) => {
+    e.preventDefault();
+    const amount = 1;
+    // console.log(selectedColor + ' ' + selectedSize);
+    dispatch(addProduct({ ...modalContent, amount, color: selectedColor, size: selectedSize }));
+    // makes modal disappear
+    getModalClick();
+}
+
     return (
         <Container style={{display: display ? 'unset': 'none'}} onClick={handleClick}>
             <ProductBox onClick={handleBoxClick}>
                 <Title>{modalContent.title}</Title>
                 <Image src={modalContent.image}/>
                 <Form>
-                {modalContent !=={} && modalContent.color.length ? 
+                {modalContent.color.length ? 
                 <div>
                 <Label>Color</Label>
-        <Select>
+        <Select name='color' onChange={handleChange}>
             {modalContent.color && modalContent.color.map(color => <Option key={color} value={color}>{color[0].toUpperCase() + color.slice(1)}</Option>)}
         </Select>
                 </div>
                 :
                 null
                 }
-        {modalContent !=={} && modalContent.size.length ?
+        {modalContent.size.length ?
             <div>
         <Label>Size</Label>
-        <Select>
+        <Select name='size' onChange={handleChange}>
             {modalContent.size && modalContent.size.map(size => <Option key={size} value={size}>{size[0].toUpperCase() + size.slice(1)}</Option>)}
         </Select>
         </div> 
         :
         null
         }
-        
-        
-        
+        <Button onClick={addToCartClick}>ADD TO CART <i className="fas fa-shopping-cart" style={{ 'paddingLeft': '10px' }}></i></Button>
                 </Form>
             </ProductBox>
         </Container>

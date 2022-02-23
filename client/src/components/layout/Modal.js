@@ -29,7 +29,7 @@ width: 300px;
 z-index: 40;
 `
 
-const Modal = ({showModal, getModalClick}) => {
+const Modal = ({showModal, getModalClick, modalContent}) => {
 console.log('SHOW MODAL IS');
 console.log(showModal);
 const [display, setDisplay] = useState(false);
@@ -49,7 +49,9 @@ const handleBoxClick = (e) => {
 
     return (
         <Container style={{display: display ? 'unset': 'none'}} onClick={handleClick}>
-            <ProductBox onClick={handleBoxClick}/>
+            <ProductBox onClick={handleBoxClick}>
+                <h1>{modalContent.title}</h1>
+            </ProductBox>
         </Container>
     )
 }

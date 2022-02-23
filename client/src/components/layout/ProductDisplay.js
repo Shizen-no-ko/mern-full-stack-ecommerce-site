@@ -32,6 +32,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     const [products, setProducts] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState({});
 
 
 
@@ -129,8 +130,8 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     }, [sort])
 
 
-    const getCartClick = () => {
-        console.log('Cart Icon Clicked');
+    const getCartClick = (product) => {
+        setModalContent(product);
         setShowModal(true);
     }
 
@@ -151,7 +152,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     return (
         <Container>
-        <Modal showModal={showModal} getModalClick={getModalClick}/>
+        <Modal showModal={showModal} getModalClick={getModalClick} modalContent={modalContent}/>
         {
             !landing ?
             filtered.length ?

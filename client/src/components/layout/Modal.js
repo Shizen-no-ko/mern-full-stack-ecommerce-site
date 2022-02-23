@@ -138,7 +138,6 @@ const handleChange = (e) => {
 const addToCartClick = (e) => {
     e.preventDefault();
     const amount = 1;
-    // console.log(selectedColor + ' ' + selectedSize);
     dispatch(addProduct({ ...modalContent, amount, color: selectedColor, size: selectedSize }));
     // makes modal disappear
     getModalClick();
@@ -170,6 +169,7 @@ const addToCartClick = (e) => {
         :
         null
         }
+        <Title>${modalContent.price}</Title>
         <Button onClick={addToCartClick}>ADD TO CART <i className="fas fa-shopping-cart" style={{ 'paddingLeft': '10px' }}></i></Button>
                 </Form>
             </ProductBox>

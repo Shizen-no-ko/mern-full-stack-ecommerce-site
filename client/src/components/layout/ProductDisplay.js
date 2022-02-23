@@ -158,7 +158,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
             filtered.length ?
                 filtered.map((product, i) => {
                     return (
-                        <ProductElement key={i} element={product} />
+                        <ProductElement key={i} getCartClick={getCartClick} element={product} />
                     )
                 })
             : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>

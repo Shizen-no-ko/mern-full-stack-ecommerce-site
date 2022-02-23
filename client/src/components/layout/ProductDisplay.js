@@ -32,7 +32,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     const [products, setProducts] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [modalContent, setModalContent] = useState({});
+    const [modalContent, setModalContent] = useState({size: [], color: []});
 
 
 

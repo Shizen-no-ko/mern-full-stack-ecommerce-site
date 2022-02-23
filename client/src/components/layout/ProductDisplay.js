@@ -31,6 +31,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     const [products, setProducts] = useState([]);
     const [filtered, setFiltered] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
 
 
@@ -127,6 +128,19 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         }
     }, [sort])
 
+
+    const getCartClick = () => {
+        console.log('Cart Icon Clicked');
+        setShowModal(true);
+    }
+
+    const getModalClick = () => {
+        console.log('Modal Clicked');
+        setShowModal(false);
+    }
+
+   
+
     // useEffect(() => {
     //     console.log("FILTERED CHANGED");
     //     console.log("Filtered is:")
@@ -137,7 +151,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     return (
         <Container>
-        <Modal/>
+        <Modal showModal={showModal} getModalClick={getModalClick}/>
         {
             !landing ?
             filtered.length ?
@@ -150,7 +164,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                 : 
                 products.sort((a, b) =>new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 8).map((product, i) => {
                     return (
-                        <ProductElement key={i} element={product} />
+                        <ProductElement key={i} getCartClick={getCartClick} element={product} />
                     )
                 })  
             }

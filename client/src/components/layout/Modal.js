@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -29,16 +29,22 @@ width: 300px;
 z-index: 40;
 `
 
-const Modal = () => {
-
-const [displayState, setDisplayState] = useState({display: 'unset'});
+const Modal = ({showModal, getModalClick}) => {
+console.log('SHOW MODAL IS');
+console.log(showModal);
+const [display, setDisplay] = useState(false);
+console.log('DISPLAY IS');
+console.log(display);
+useEffect(() => {
+    setDisplay(showModal);
+}, [showModal]);
 
 const handleClick = () => {
-    setDisplayState({display: 'none'});
+    getModalClick();   
 }
 
     return (
-        <Container style={displayState} onClick={handleClick}>
+        <Container style={{display: display ? 'unset': 'none'}} onClick={handleClick}>
             <ProductBox/>
         </Container>
     )

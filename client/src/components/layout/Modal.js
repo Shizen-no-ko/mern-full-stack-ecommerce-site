@@ -43,9 +43,13 @@ const handleClick = () => {
     getModalClick();   
 }
 
+const handleBoxClick = (e) => {
+    e.stopPropagation();
+}
+
     return (
         <Container style={{display: display ? 'unset': 'none'}} onClick={handleClick}>
-            <ProductBox/>
+            <ProductBox onClick={handleBoxClick}/>
         </Container>
     )
 }

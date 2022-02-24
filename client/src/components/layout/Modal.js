@@ -28,7 +28,7 @@ margin-top: -175px;
 min-width: 350px;
 position: absolute;
 text-align: center;
-top: 50%;
+top: 40%;
 width: auto;
 z-index: 40;
 `

@@ -91,11 +91,17 @@ router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
     res.send('Middleware Working');
 });
 
-router.patch('/addLike/:id/:productId', tokenAuth, (req, res) => {
-    console.log('PRODUCT ID IS:')
-    console.log(req.params.productId);
-    console.log('USER ID IS:')
-    console.log(req.params.id);
+router.patch('/addLike/:id/:productId', tokenAuth, async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+            $push: {likedProducts: req.params.productId}
+        }, { new: true });
+        return res.status(200).json(updatedUser);
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
 });
 
 router.delete('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {

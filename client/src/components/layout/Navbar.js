@@ -252,6 +252,7 @@ const Navbar = () => {
     const [ searchState, setSearchState ] = useState("");
     const user = useSelector(state => state.user.currentUser);
 
+    
     // const handleChange = (e) => {
     //     setSearchState(e.target.value);
     // }

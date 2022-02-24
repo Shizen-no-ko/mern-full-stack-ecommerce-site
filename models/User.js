@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema(
         isAdministrator: {
             type: Boolean,
             default: false
+        },
+        likedProducts: {
+            type: Array
         }
     },
     { timestamps: true }

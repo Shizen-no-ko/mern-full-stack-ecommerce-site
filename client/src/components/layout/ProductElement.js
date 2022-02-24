@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
@@ -88,14 +90,16 @@ ${landscapeTablet({
 })};
 `
 
-const ProductElement = ({ element, getCartClick }) => {
+const ProductElement = ({ element, getLikeClick, getCartClick }) => {
+
+    
     return (
         <Container>
             <Img src={element.image} />
             <IconContainer>
                 <Icon onClick={() => getCartClick(element)} topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
                 <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon></Link>
-                <Icon topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
+                <Icon onClick={() => getLikeClick(element._id)} topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
             </IconContainer>
         </Container>
     )

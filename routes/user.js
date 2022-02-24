@@ -91,6 +91,13 @@ router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
     res.send('Middleware Working');
 });
 
+router.patch('/addLike/:id/:productId', tokenAuth, (req, res) => {
+    console.log('PRODUCT ID IS:')
+    console.log(req.params.productId);
+    console.log('USER ID IS:')
+    console.log(req.params.id);
+});
+
 router.delete('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 // import axios from 'axios';
-import { publicReq } from '../../axiosRequests.js';
+import { publicReq, userReq } from '../../axiosRequests.js';
 import styled from 'styled-components';
 // import {mobile} from '../../responsive';
 
@@ -33,6 +34,10 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     const [filtered, setFiltered] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState({size: [], color: []});
+
+    const user = useSelector(state => state.user.currentUser);
+    const userId = user.user._id;
+    
 
 
 
@@ -133,12 +138,22 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     const getCartClick = (product) => {
         setModalContent(product);
         setShowModal(true);
-    }
+    };
+
+    const getLikeClick = async (productId) => {
+        console.log(productId);
+        try{
+            const addLike = await userReq.patch(`/users/addLike/${userId}/${productId}`);
+        }
+        catch (err) {
+            console.log(err);
+        };
+        
+    };
 
     const getModalClick = () => {
-        console.log('Modal Clicked');
         setShowModal(false);
-    }
+    };
 
    
 
@@ -158,14 +173,14 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
             filtered.length ?
                 filtered.map((product, i) => {
                     return (
-                        <ProductElement key={i} getCartClick={getCartClick} element={product} />
+                        <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick}  element={product} />
                     )
                 })
             : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>
                 : 
                 products.sort((a, b) =>new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 8).map((product, i) => {
                     return (
-                        <ProductElement key={i} getCartClick={getCartClick} element={product} />
+                        <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick} element={product} />
                     )
                 })  
             }

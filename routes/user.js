@@ -93,8 +93,12 @@ router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
 
 router.patch('/addLike/:id/:productId', tokenAuth, async (req, res) => {
     try {
+        const result = await User.findById(req.params.id).select('likedProducts');
+        if(!result.likedProducts.includes(req.params.productId)){
+            result.likedProducts.push(req.params.productId)
+        };
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-            $push: {likedProducts: req.params.productId}
+            likedProducts: result.likedProducts
         }, { new: true });
         return res.status(200).json(updatedUser);
     }

@@ -36,7 +36,8 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     const [modalContent, setModalContent] = useState({size: [], color: []});
 
     const user = useSelector(state => state.user.currentUser);
-    const userId = user.user._id;
+
+    const userId = user? user.user._id : null;
     
 
 
@@ -142,12 +143,15 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     const getLikeClick = async (productId) => {
         console.log(productId);
-        try{
-            const addLike = await userReq.patch(`/users/addLike/${userId}/${productId}`);
+        if(user){
+            try{
+                const addLike = await userReq.patch(`/users/addLike/${userId}/${productId}`);
+            }
+            catch (err) {
+                console.log(err);
+            };
         }
-        catch (err) {
-            console.log(err);
-        };
+        
         
     };
 

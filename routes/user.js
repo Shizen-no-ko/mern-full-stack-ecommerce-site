@@ -94,9 +94,32 @@ router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
 router.patch('/addLike/:id/:productId', tokenAuth, async (req, res) => {
     try {
         const result = await User.findById(req.params.id).select('likedProducts');
-        if(!result.likedProducts.includes(req.params.productId)){
+        if (!result.likedProducts.includes(req.params.productId)) {
             result.likedProducts.push(req.params.productId)
         };
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+            likedProducts: result.likedProducts
+        }, { new: true });
+        return res.status(200).json(updatedUser);
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
+router.patch('/toggleLike/:id/:productId', tokenAuth, async (req, res) => {
+    try {
+        const result = await User.findById(req.params.id).select('likedProducts');
+        const index = result.likedProducts.indexOf(req.params.productId);
+        if (index > -1) {
+            result.likedProducts.splice(index, 1);
+            console.log('removed product');
+        }
+        else {
+            result.likedProducts.push(req.params.productId);
+            console.log('added product');
+        } 
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
             likedProducts: result.likedProducts
         }, { new: true });

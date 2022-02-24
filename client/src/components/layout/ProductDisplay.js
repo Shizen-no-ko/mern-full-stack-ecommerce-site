@@ -145,7 +145,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         console.log(productId);
         if(user){
             try{
-                const addLike = await userReq.patch(`/users/addLike/${userId}/${productId}`);
+                const addLike = await userReq.patch(`/users/toggleLike/${userId}/${productId}`);
             }
             catch (err) {
                 console.log(err);

@@ -72,7 +72,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                 );
                 setProducts(res.data);
                 }
-                else if (category === 'liked'){
+                else if (category === 'liked' && user.user.likedProducts){
                     // const res = await publicReq.get(`/products/all?color=${searchValue}`
                     const res = await publicReq.get(`/products/findfaves/${user.user.likedProducts}`);
                     // console.log(res.data); 

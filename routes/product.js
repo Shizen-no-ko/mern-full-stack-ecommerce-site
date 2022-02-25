@@ -103,9 +103,9 @@ router.get('/findfaves/:ids', async (req, res) => {
         return res.status(200).json(foundProducts);
     }
     catch (err) {
-        console.log(err);
-        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
-    }
+    console.log(err);
+    return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+}
 })
 
 router.get('/all', async (req, res) => {
@@ -129,7 +129,7 @@ router.get('/all', async (req, res) => {
             case 'title':
                 productResult = await Product.find({ title: queryValue });
                 break;
-                // 'searchcategory' to differentiate from 'category' above
+            // 'searchcategory' to differentiate from 'category' above
             case 'searchcategory':
                 productResult = await Product.find({ category: queryValue });
                 break;

@@ -41,22 +41,38 @@ transition: ease 0.5s;
 }
 
 `
+const LikeContainer = styled.div`
+height: 100%;
+left: 0;
+width: 100%;
+opacity: 100%;
+position: absolute;
+top: 0;
+transition: ease 0.5s;
+z-index: 20;
 
+${'' /* &:hover {
+    opacity: 100%;
+} */}
+
+`
 
 const Icon = styled.div`
-background-color: rgba(0, 0, 0, 0.5);
+background-color: ${props => props.liked ? 'rgba(255, 255, 255, 0.75)' : 'rgba(0, 0, 0, 0.5)'};
 cursor: pointer;
 border: none;
 bottom: ${props => props.topbottom === 'bottom' ? '4px' : null};
-color: white;
+color: ${props => props.liked ? 'red' : 'white'};
 font-size: 25px;
 left: ${props => props.leftright === 'left' ? '0px' : null};
+opacity: ${props => props.liked ? '100%': null};
 padding: 3px;
 position:absolute;
 right: ${props => props.leftright === 'right' ? '0px' : null};
 text-align: center;
 top: ${props => props.topbottom === 'top' ? '0px' : null};
 width: 40px;
+
 
 &:hover{
     background-color: white;
@@ -67,7 +83,7 @@ width: 40px;
 &:active{
     border-radius: ${props => props.topbottom === 'top' ? '0 0 10px 0' : props.leftright === 'right' ? '10px 0 0 0' : '60px'};
     opacity: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? '0%' : '100%'};
-    transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'translate(1000%, -750%) scale(0%)' : 'scale(120%)'};
+    transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'translate(2000%, -1500%) scale(0%)' : 'scale(120%)'};
     transition: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'linear 0.5s' : ''};
 }
 
@@ -90,17 +106,24 @@ ${landscapeTablet({
 })};
 `
 
-const ProductElement = ({ element, getLikeClick, getCartClick }) => {
+const ProductElement = ({ element, getLikeClick, getCartClick, liked }) => {
 
     
     return (
         <Container>
             <Img src={element.image} />
-            <IconContainer>
+            <IconContainer liked={liked}>
                 <Icon onClick={() => getCartClick(element)} topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
                 <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon></Link>
                 <Icon onClick={() => getLikeClick(element._id)} topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
-            </IconContainer>
+                </IconContainer>
+            {liked ? 
+            <LikeContainer style={{opacity: '100%'}}>
+            <Icon style={{opacity: '100%'}} liked={liked} onClick={() => getLikeClick(element._id)} topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
+            </LikeContainer>
+               : null}
+             
+           
         </Container>
     )
 }

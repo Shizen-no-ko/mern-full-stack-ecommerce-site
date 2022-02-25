@@ -20,7 +20,7 @@ const userSlice = createSlice({
         },
         updateUser: (state, action) => {
             state.currentUser.user.likedProducts = action.payload;
-        },
+        }
     }
 });
 

@@ -298,7 +298,7 @@ const Navbar = () => {
                         {!user && <MenuItem><StyledLink to='/login'>LOG IN</StyledLink></MenuItem>}
                         {! user && <MenuItem><StyledLink to='/register'>REGISTER</StyledLink></MenuItem>}
                         {user && <MenuItem ><StyledLink onClick={handleLogout} to='/'>LOG OUT</StyledLink></MenuItem>}
-                        {user && <MenuItem ><StyledLink to='/'><i className="far fa-grin-hearts"></i></StyledLink></MenuItem>}
+                        {user && <MenuItem ><StyledLink style={{color: 'red', fontSize: '1.5rem'}} to='/'><i className="far fa-grin-hearts"></i></StyledLink></MenuItem>}
                         <MenuItem><StyledLink to='/cart'><CartIcon /></StyledLink></MenuItem>
                     </Menu>
                 </RZone>

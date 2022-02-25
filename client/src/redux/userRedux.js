@@ -18,8 +18,11 @@ const userSlice = createSlice({
         loginFailure: (state, action) => {
             state.isFetching = false;
         },
+        updateUser: (state, action) => {
+            state.currentUser.user.likedProducts = action.payload;
+        },
     }
 });
 
-export const { loginStart, loginSuccess, loginFailure } = userSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, updateUser } = userSlice.actions;
 export default userSlice.reducer;

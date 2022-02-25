@@ -68,8 +68,14 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                 // );
                 if(category === 'search'){
                     // const res = await publicReq.get(`/products/all?color=${searchValue}`
-                    const res = await publicReq.get(`/products/all?${searchField}=${searchValue}`   
+                    const res = await publicReq.get(`/products/all?${searchField}=${searchValue}` 
                 );
+                setProducts(res.data);
+                }
+                else if (category === 'liked'){
+                    // const res = await publicReq.get(`/products/all?color=${searchValue}`
+                    const res = await publicReq.get(`/products/findfaves/${user.user.likedProducts}`);
+                    // console.log(res.data); 
                 setProducts(res.data);
                 }
                 else{
@@ -88,7 +94,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         getAllProducts();
        
 
-    }, [category, searchField, searchValue])
+    }, [category, searchField, searchValue, user.user.likedProducts])
 
     // useEffect(() => {
     //     console.log("FilterCategory changed")

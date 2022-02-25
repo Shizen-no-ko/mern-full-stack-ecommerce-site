@@ -1,4 +1,4 @@
-import { loginFailure, loginStart, loginSuccess } from './userRedux';
+import { loginFailure, loginStart, loginSuccess, updateUser } from './userRedux';
 import { clearCart } from './shoppingCartRedux';
 import { success, failure } from './errorRedux';
 import { publicReq, userReq } from "../axiosRequests";
@@ -29,6 +29,17 @@ export const register = async (dispatch, user) => {
     catch (err) {
         dispatch(failure(err.response.data.errors));
         dispatch(loginFailure()); 
+    }
+};
+
+export const update = async (dispatch, user) => {
+    dispatch(updateUser());
+    try{
+        const res = await userReq.get(`users/updateCurrent/${user.user._id}`);
+        dispatch(updateUser(res.data));
+    }
+    catch (err) {
+        dispatch(failure(err.response.data.errors));
     }
 };
 

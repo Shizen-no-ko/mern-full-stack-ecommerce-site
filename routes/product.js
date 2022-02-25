@@ -94,6 +94,20 @@ router.get('/findall/:ids', async (req, res) => {
     }
 })
 
+//finds all products matching array of ids
+router.get('/findfaves/:ids', async (req, res) => {
+    try {
+        // split ids string into array so it can be passed to mongoose
+        ids = req.params.ids.split(',');
+        const foundProducts = await Product.find().where('_id').in(ids).exec();
+        return res.status(200).json(foundProducts);
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+})
+
 router.get('/all', async (req, res) => {
     queryType = Object.keys(req.query)[0];
     queryValue = req.query[queryType];

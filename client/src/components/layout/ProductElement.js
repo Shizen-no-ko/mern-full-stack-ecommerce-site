@@ -42,30 +42,30 @@ transition: ease 0.5s;
 
 `
 const LikeContainer = styled.div`
-height: 100%;
+height: 25px;
 left: 0;
-width: 100%;
+width: 40px;
 opacity: 100%;
 position: absolute;
-top: 0;
-transition: ease 0.5s;
+bottom: 0;
+${'' /* transition: ease 0.5s; */}
 z-index: 20;
 
 ${'' /* &:hover {
-    opacity: 100%;
+    display: none;
 } */}
 
 `
 
 const Icon = styled.div`
-background-color: ${props => props.liked ? 'rgba(255, 255, 255, 0.75)' : 'rgba(0, 0, 0, 0.5)'};
+background-color: ${props => props.liked ? 'red' : 'rgba(0, 0, 0, 0.5)'};
 cursor: pointer;
 border: none;
 bottom: ${props => props.topbottom === 'bottom' ? '4px' : null};
-color: ${props => props.liked ? 'red' : 'white'};
+color: white;
 font-size: 25px;
 left: ${props => props.leftright === 'left' ? '0px' : null};
-opacity: ${props => props.liked ? '100%': null};
+${'' /* opacity: ${props => props.liked ? '100%': 'null'}; */}
 padding: 3px;
 position:absolute;
 right: ${props => props.leftright === 'right' ? '0px' : null};
@@ -81,10 +81,14 @@ width: 40px;
 }
 
 &:active{
-    border-radius: ${props => props.topbottom === 'top' ? '0 0 10px 0' : props.leftright === 'right' ? '10px 0 0 0' : '60px'};
-    opacity: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? '0%' : '100%'};
-    transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'translate(2000%, -1500%) scale(0%)' : 'scale(120%)'};
-    transition: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'linear 0.5s' : ''};
+    border-radius: ${props => props.topbottom === 'top' ? '0 0 10px 0' : props.leftright === 'right' ? '10px 0 0 0' : '0px'};
+    transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'scale(80%)' : 'scale(120%)'};
+    ${'' /* background-color: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'red' : 'white'}; */}
+    ${'' /* opacity: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? '0%' : '100%'}; */}
+    ${'' /* transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'translate(2000%, -1500%) scale(0%)' : 'scale(120%)'}; */}
+    ${'' /* transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? '' : 'scale(120%)'}; */}
+    ${'' /* transform: scale(120%); */}
+    ${'' /* transition: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'ease-in-out 0.5s' : ''}; */}
 }
 
 ${mobile({
@@ -112,10 +116,10 @@ const ProductElement = ({ element, getLikeClick, getCartClick, liked }) => {
     return (
         <Container>
             <Img src={element.image} />
-            <IconContainer liked={liked}>
+            <IconContainer>
                 <Icon onClick={() => getCartClick(element)} topbottom={'top'} leftright={'left'}><i className="fas fa-cart-plus"></i></Icon>
                 <Link to={`../product/${element._id}`}><Icon topbottom={'bottom'} leftright={'right'}><i className="far fa-eye"></i></Icon></Link>
-                <Icon onClick={() => getLikeClick(element._id)} topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
+                <Icon liked={liked} onClick={() => getLikeClick(element._id)} topbottom={'bottom'} leftright={'left'}><i className="far fa-grin-hearts"></i></Icon>
                 </IconContainer>
             {liked ? 
             <LikeContainer style={{opacity: '100%'}}>

@@ -66,6 +66,17 @@ router.get('/latest', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+router.get('/updateCurrent/:id', tokenAuth, async (req, res) => {
+    try {
+        const result = await User.findById(req.params.id).select('likedProducts');
+        return res.status(200).json(result.likedProducts);
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
+});
+
 
 router.put('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
     if (req.body.password) {
@@ -91,22 +102,6 @@ router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
     res.send('Middleware Working');
 });
 
-router.patch('/addLike/:id/:productId', tokenAuth, async (req, res) => {
-    try {
-        const result = await User.findById(req.params.id).select('likedProducts');
-        if (!result.likedProducts.includes(req.params.productId)) {
-            result.likedProducts.push(req.params.productId)
-        };
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-            likedProducts: result.likedProducts
-        }, { new: true });
-        return res.status(200).json(updatedUser);
-    }
-    catch (err) {
-        console.log(err);
-        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
-    }
-});
 
 router.patch('/toggleLike/:id/:productId', tokenAuth, async (req, res) => {
     try {

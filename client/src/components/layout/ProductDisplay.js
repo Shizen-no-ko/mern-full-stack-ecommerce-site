@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // import axios from 'axios';
 import { publicReq, userReq } from '../../axiosRequests.js';
+import { update } from '../../redux/apiCalls';
 import styled from 'styled-components';
 // import {mobile} from '../../responsive';
 
@@ -35,6 +36,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState({size: [], color: []});
 
+    const dispatch = useDispatch();
     const user = useSelector(state => state.user.currentUser);
 
     const userId = user? user.user._id : null;
@@ -146,6 +148,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         if(user){
             try{
                 const addLike = await userReq.patch(`/users/toggleLike/${userId}/${productId}`);
+                update(dispatch, user);
             }
             catch (err) {
                 console.log(err);
@@ -176,15 +179,20 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
             !landing ?
             filtered.length ?
                 filtered.map((product, i) => {
+                   const liked = user.user.likedProducts ? user.user.likedProducts.includes(product._id): false;
                     return (
-                        <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick}  element={product} />
+                        <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick}  element={product} liked={liked} />
                     )
                 })
             : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>
                 : 
                 products.sort((a, b) =>new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 8).map((product, i) => {
+                    console.log(user.user.likedProducts);
+                    {/* console.log('ELEMENT IN USER');
+                    console.log(user.user.likedProducts ? user.user.likedProducts.includes(product._id): 'No Liked Products'); */}
+                   const liked = user.user.likedProducts ? user.user.likedProducts.includes(product._id): false;
                     return (
-                        <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick} element={product} />
+                        <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick} element={product} liked={liked} />
                     )
                 })  
             }

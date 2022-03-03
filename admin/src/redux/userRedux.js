@@ -5,7 +5,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         currentUser: null,
-        isFetching: false,
+        isFetching: false
     },
     reducers: {
         loginStart: (state) =>  {

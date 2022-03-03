@@ -11,6 +11,8 @@ const currentYear = new Date(new Date().getFullYear());
 const endOfPreviousYear = new Date(currentYear - 1, 11, 31);
 const startSortDate = endOfPreviousYear;
 
+
+// Get user by id
 router.get('/find/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const foundUser = await User.findById(req.params.id)
@@ -23,6 +25,7 @@ router.get('/find/:id', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+//Get all users
 router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const allUsers = await User.find().select('-password');
@@ -33,6 +36,7 @@ router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+// User count per month for the last year
 router.get('/recent', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const recentUserData = await User.aggregate([
@@ -54,6 +58,7 @@ router.get('/recent', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+// Get 10 most recent registered users
 router.get('/latest', tokenAuth, checkAdmin, async (req, res) => {
     try {
 
@@ -66,6 +71,7 @@ router.get('/latest', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+// Update liked products array for currently logged in user
 router.get('/updateCurrent/:id', tokenAuth, async (req, res) => {
     try {
         const result = await User.findById(req.params.id).select('likedProducts');
@@ -78,6 +84,7 @@ router.get('/updateCurrent/:id', tokenAuth, async (req, res) => {
 });
 
 
+// Update user
 router.put('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
     if (req.body.password) {
         encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.ENCRYPTION_SECRET).toString();
@@ -98,27 +105,23 @@ router.put('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
     }
 });
 
-router.patch('/:id', tokenAuth, checkAuthorizedToEdit, (req, res) => {
-    res.send('Middleware Working');
-});
 
-
+// Toggles users likes in DB; if product already in likedProducts then remove, otherwise add.
 router.patch('/toggleLike/:id/:productId', tokenAuth, async (req, res) => {
     try {
         const result = await User.findById(req.params.id).select('likedProducts');
         const index = result.likedProducts.indexOf(req.params.productId);
         if (index > -1) {
             result.likedProducts.splice(index, 1);
-            console.log('removed product');
         }
         else {
             result.likedProducts.push(req.params.productId);
-            console.log('added product');
         } 
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
             likedProducts: result.likedProducts
         }, { new: true });
-        return res.status(200).json(updatedUser);
+        // return res.status(200).json(updatedUser);
+        return res.status(200).json('Updated Successfully');
     }
     catch (err) {
         console.log(err);
@@ -126,6 +129,8 @@ router.patch('/toggleLike/:id/:productId', tokenAuth, async (req, res) => {
     }
 });
 
+
+// Delete user
 router.delete('/:id', tokenAuth, checkAuthorizedToEdit, async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);

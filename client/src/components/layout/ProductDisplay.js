@@ -38,8 +38,11 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.currentUser);
+    console.log('USER IS');
+    console.log(user);
 
-    const userId = user? user.user._id : null;
+    const userId = user ? user.user._id : null;
+    const likedArray = user ? user.user.likedProducts : [];
     
 
 
@@ -94,7 +97,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         getAllProducts();
        
 
-    }, [category, searchField, searchValue, user.user.likedProducts])
+    }, [category, searchField, searchValue, likedArray])
 
     // useEffect(() => {
     //     console.log("FilterCategory changed")

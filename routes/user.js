@@ -116,7 +116,7 @@ router.patch('/toggleLike/:id/:productId', tokenAuth, async (req, res) => {
         }
         else {
             result.likedProducts.push(req.params.productId);
-        } 
+        }
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
             likedProducts: result.likedProducts
         }, { new: true });

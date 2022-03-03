@@ -4,15 +4,18 @@ const tokenAuth = require('../middleware/tokenAuth');
 const checkAdmin = require('../middleware/checkAdmin');
 
 const Product = require('../models/Product');
-const DeletedProducts = require('../models/DeletedProduct');
 const DeletedProduct = require('../models/DeletedProduct');
 
+
+// Create new product
 router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
     try {
+        // Check is title already exists
         let preExist = await Product.findOne({ title: req.body.title });
         if (preExist) {
             return res.status(400).json({ errors: [{ msg: "This product title already exists" }] });
         }
+        // If title is unique, create product
         const newProduct = new Product(req.body);
         await newProduct.save((err, product) => {
             if (err) {
@@ -30,12 +33,16 @@ router.post('/add', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+
+// Reinstate a deleted product back into shop
 router.post('/reinstate/:id', tokenAuth, checkAdmin, async (req, res) => {
     const id = (req.params.id);
     try {
         let toReinstateProduct = await DeletedProduct.findById(id);
         toReinstateProduct = toReinstateProduct.toObject();
+        // Strip _id so that new one can be created
         delete toReinstateProduct._id;
+        // Add to-reinstate product to products DB
         const newProduct = new Product(toReinstateProduct);
         await newProduct.save((err, product) => {
             if (err) {
@@ -43,6 +50,7 @@ router.post('/reinstate/:id', tokenAuth, checkAdmin, async (req, res) => {
                 return res.status(500).json({ errors: [{ msg: "Reinstate Product Error" }] });
             }
         })
+        // Remove from deleted products DB
         await DeletedProduct.findByIdAndDelete(id);
         return res.status(200).json({ errors: [{ msg: "Product has been reinstated" }] });
     }
@@ -56,7 +64,7 @@ router.post('/reinstate/:id', tokenAuth, checkAdmin, async (req, res) => {
 
 
 
-
+// Update Product Details
 router.put('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, {
@@ -69,6 +77,8 @@ router.put('/:id', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+
+// Retrieve product by id
 router.get('/find/:id', async (req, res) => {
     try {
         const foundProduct = await Product.findById(req.params.id)
@@ -94,7 +104,7 @@ router.get('/findall/:ids', async (req, res) => {
     }
 })
 
-//finds all products matching array of ids
+//finds all favorite products matching array of ids
 router.get('/findfaves/:ids', async (req, res) => {
     try {
         // split ids string into array so it can be passed to mongoose
@@ -103,29 +113,35 @@ router.get('/findfaves/:ids', async (req, res) => {
         return res.status(200).json(foundProducts);
     }
     catch (err) {
-    console.log(err);
-    return res.status(500).json({ errors: [{ msg: "Server Error" }] });
-}
+        console.log(err);
+        return res.status(500).json({ errors: [{ msg: "Server Error" }] });
+    }
 })
 
+// Conditional Retrieval of Products
 router.get('/all', async (req, res) => {
     queryType = Object.keys(req.query)[0];
     queryValue = req.query[queryType];
     let productResult;
     try {
         switch (queryType) {
+            // Most recent
             case 'new':
                 productResult = await Product.find().sort({ _id: -1 }).limit(3);
                 break;
+            // By category
             case 'category':
                 productResult = await Product.find({ category: queryValue });
                 break;
+            // By color
             case 'color':
                 productResult = await Product.find({ color: queryValue });
                 break;
+            // By size
             case 'size':
                 productResult = await Product.find({ size: queryValue });
                 break;
+            // By title
             case 'title':
                 productResult = await Product.find({ title: queryValue });
                 break;
@@ -143,6 +159,7 @@ router.get('/all', async (req, res) => {
     }
 });
 
+// Get keywords for setting dropdown selectors
 router.get('/keywords', async (req, res) => {
     try {
         const productResult = await Product.find({}, 'title color size category');
@@ -154,6 +171,7 @@ router.get('/keywords', async (req, res) => {
 });
 
 
+// Retrieve Deleted Products
 router.get('/deleted', async (req, res) => {
     let productResult;
     try {
@@ -165,15 +183,13 @@ router.get('/deleted', async (req, res) => {
     }
 });
 
+// First Backup then Delete Product
 router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
     const id = (req.params.id);
     try {
         let toDeleteProduct = await Product.findById(id);
         // check if product with this title is already backed-up
         let preExist = await DeletedProduct.findOne({ title: toDeleteProduct.title });
-        // if (preExist) {
-        //     // return res.status(400).json({ errors: [{ msg: "This product is already backed-up" }] });
-        // }
         // if this product not backed-up, store in backup
         if (!preExist) {
             let toDeleteProduct = await Product.findById(id);

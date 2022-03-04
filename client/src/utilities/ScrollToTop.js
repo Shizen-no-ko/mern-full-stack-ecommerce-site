@@ -1,3 +1,4 @@
+// Scrolls to top of page on history change
 import { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 

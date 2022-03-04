@@ -4,12 +4,11 @@ const tokenAuth = require('../middleware/tokenAuth');
 const checkAdmin = require('../middleware/checkAdmin');
 
 const Order = require('../models/Order');
-const checkAuthorizedToEdit = require('../middleware/checkAuthorizedToEdit');
 
 const now = new Date();
 const twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
 
-
+// Place new order in DB
 router.post('/add', tokenAuth, async (req, res) => {
     try {
         const newlyCreatedOrder = new Order(req.body);
@@ -17,7 +16,7 @@ router.post('/add', tokenAuth, async (req, res) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json({ errors: [{ msg: "Create Order Error" }] });
-            } 
+            }
             return res.status(200).json(order);
         })
     }
@@ -30,6 +29,7 @@ router.post('/add', tokenAuth, async (req, res) => {
 });
 
 
+// Modify entire order
 router.put('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const updatedOrder = await Order.findByIdAndUpdate(req.params.id, {
@@ -42,10 +42,12 @@ router.put('/:id', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+
+// Change status of order to dispatched
 router.patch('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const updatedOrder = await Order.findByIdAndUpdate(req.params.id, {
-            $set: { status: 'Dispatched'}
+            $set: { status: 'Dispatched' }
         }, { new: true });
         return res.status(200).json(updatedOrder);
     }
@@ -54,6 +56,8 @@ router.patch('/:id', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+
+// Delete Order
 router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
     try {
         await Order.findByIdAndDelete(req.params.id);
@@ -64,7 +68,9 @@ router.delete('/:id', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
-router.get('/find/:orderId', tokenAuth, checkAdmin,  async (req, res) => {
+
+// Find Order by Id
+router.get('/find/:orderId', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const foundOrder = await Order.findById(req.params.orderId);
         return res.status(200).json(foundOrder);
@@ -75,6 +81,8 @@ router.get('/find/:orderId', tokenAuth, checkAdmin,  async (req, res) => {
     }
 });
 
+
+// Get all orders
 router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const allOrders = await Order.find();
@@ -85,9 +93,11 @@ router.get('/all', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+
+// Get all orders with status 'Order Received'; for use in admin site
 router.get('/active', tokenAuth, checkAdmin, async (req, res) => {
     try {
-        const activeOrders = await Order.find({status:"Order Received"}).exec();
+        const activeOrders = await Order.find({ status: "Order Received" }).exec();
         return res.status(200).json(activeOrders);
     }
     catch (err) {
@@ -96,6 +106,8 @@ router.get('/active', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+
+// Get previous years sales totals, by month
 router.get('/sales', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const previousMonthsData = await Order.aggregate([
@@ -107,7 +119,7 @@ router.get('/sales', tokenAuth, checkAdmin, async (req, res) => {
                     total: "$totalPrice"
                 }
             },
-            { $group: { _id: {month: "$month", year: "$year"}, sum: { $sum: "$total" } } }
+            { $group: { _id: { month: "$month", year: "$year" }, sum: { $sum: "$total" } } }
         ]);
         return res.status(200).json(previousMonthsData);
     }
@@ -117,6 +129,8 @@ router.get('/sales', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+
+// Get top 5 items which sold the most units
 router.get('/topsellers', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const topSellersData = await Order.aggregate([
@@ -125,15 +139,15 @@ router.get('/topsellers', tokenAuth, checkAdmin, async (req, res) => {
                 "$unwind": "$orders",
                 "$unwind": "$items",
 
-              },
-              {
+            },
+            {
                 '$group': {
                     '_id': '$items.itemId',
-                       'count' :{ '$sum': '$items.amount' } 
-                    
-              }        
+                    'count': { '$sum': '$items.amount' }
+
+                }
             }
-            ]).sort({'count': -1}).limit(5);
+        ]).sort({ 'count': -1 }).limit(5);
         return res.status(200).json(topSellersData);
     }
     catch (err) {
@@ -142,6 +156,8 @@ router.get('/topsellers', tokenAuth, checkAdmin, async (req, res) => {
     }
 });
 
+
+// Get all sales for using to create top earners chart in admin
 router.get('/allsales', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const topSellersData = await Order.aggregate([
@@ -150,15 +166,15 @@ router.get('/allsales', tokenAuth, checkAdmin, async (req, res) => {
                 "$unwind": "$orders",
                 "$unwind": "$items",
 
-              },
-              {
+            },
+            {
                 '$group': {
                     '_id': '$items.itemId',
-                       'count' :{ '$sum': '$items.amount' } 
-                    
-              }        
+                    'count': { '$sum': '$items.amount' }
+
+                }
             }
-            ]).sort({'count': -1});
+        ]).sort({ 'count': -1 });
         return res.status(200).json(topSellersData);
     }
     catch (err) {

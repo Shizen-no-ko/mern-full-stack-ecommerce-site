@@ -14,12 +14,12 @@ const OrderSchema = new mongoose.Schema(
                 amount: {
                     type: Number,
                     default: 1
-                }, 
+                },
                 color: {
-                    type:String
+                    type: String
                 },
                 size: {
-                    type:String
+                    type: String
                 }
             }
         ],
@@ -35,7 +35,7 @@ const OrderSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-        userAddress : {
+        userAddress: {
             type: Object,
             required: true
         },

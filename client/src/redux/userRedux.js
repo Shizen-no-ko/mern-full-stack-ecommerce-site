@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// updateUser for updating likedProducts for like-button functionality
 const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -8,14 +9,14 @@ const userSlice = createSlice({
 
     },
     reducers: {
-        loginStart: (state) =>  {
+        loginStart: (state) => {
             state.isFetching = true;
         },
         loginSuccess: (state, action) => {
             state.isFetching = false;
             state.currentUser = action.payload;
         },
-        loginFailure: (state, action) => {
+        loginFailure: (state) => {
             state.isFetching = false;
         },
         updateUser: (state, action) => {

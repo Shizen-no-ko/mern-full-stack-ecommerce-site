@@ -1,4 +1,5 @@
-import {css} from 'styled-components';
+// Responsive breakpoints for styled-components
+import { css } from 'styled-components';
 
 export const mobile = (props) => {
     return css`
@@ -13,7 +14,7 @@ export const portraitTablet = (props) => {
     @media only screen and (min-device-width: 600px) and (max-device-width: 768px) {
         ${props}
     };
-    `     
+    `
 };
 
 export const landscapeTablet = (props) => {
@@ -21,5 +22,5 @@ export const landscapeTablet = (props) => {
     @media only screen and (min-device-width: 768px) and (max-device-width: 1060px) {
         ${props}
     };
-    `     
+    `
 };

@@ -1,3 +1,4 @@
+// Middleware for checking if user is administrator
 const checkAdmin = (req, res, next) => {
     const isAdmin = req.user ? req.user.isAdministrator : null;
     if (isAdmin) {

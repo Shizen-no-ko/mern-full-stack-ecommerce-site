@@ -12,7 +12,6 @@ import Footer from '../layout/Footer';
 
 
 
-
 const Container = styled.div`
 background: linear-gradient(rgba(255,192,203, 0.5), rgba(255,255,255, 1)), url('https://source.unsplash.com/9Qwbfa_RM94/1920x1280'), center;
 backgroundSize: 100% 101%;
@@ -62,7 +61,6 @@ ${landscapeTablet({
 `
 
 const Form = styled.div`
-${'' /* border: 1px solid white; */}
 border-radius: 20px;
 padding: 20px 15px;
 text-align: center;
@@ -87,7 +85,6 @@ all: unset;
 background-color: white;
 border: 4px solid red;
 border-radius: 20px 0;
-${'' /* border-radius: 10px; */}
 color: red;
 cursor: pointer;
 font-size: 20px;
@@ -97,8 +94,6 @@ outline: none;
 padding: 10px;
 text-align: center;
 width: 50%;
-
-
 
 &:hover{
     background-color: red;
@@ -117,7 +112,6 @@ width: 50%;
     border: 3px solid rgb(200, 0, 0);
     color: rgba(200, 0, 0, 0.5);
     cursor: not-allowed;
-
 }
 
 ${mobile({
@@ -129,7 +123,6 @@ ${portraitTablet({
     fontSize: '22px',
     width: '80%'
 })};
-
 `
 
 const Logo = styled.div`
@@ -158,38 +151,39 @@ margin: 20px;
 text-align: center;
 `
 
+// Handle placing order after successful payment by Stripe
 const Success = () => {
 
     const dispatch = useDispatch();
     const location = useLocation();
 
     const { error, errorMessage } = useSelector(state => state.error);
-    // const { user } = useSelector(state => state.user.currentUser);
 
+    // Retrieve data for creating order
     const data = location.state.data;
     const userData = location.state.user.user;
     const cart = location.state.cart;
-    const userAddress = {...data.billing_details};
-    console.log('USER ADDRESS IS:');
-    console.log(typeof userAddress);
-    console.log(userAddress);
-    var  { address, name }  = userAddress;
-    address = {...address, name: name};
-    console.log('address is: ');
-    console.log(address);
+    const userAddress = { ...data.billing_details };
+    var { address, name } = userAddress;
+    // Append name to address
+    address = { ...address, name: name };
+
 
     const history = useHistory();
 
+    // Return to home after completion
     const handleClick = (e) => {
         e.preventDefault();
         history.replace('/');
     }
 
+    // Reload cart for 'try again'
     const handleErrorClick = (e) => {
         e.preventDefault();
         history.push('/cart');
     }
 
+    // Create order, and dispatch it via Redux
     useEffect(() => {
         const orderData = {
             userId: userData._id,
@@ -204,13 +198,8 @@ const Success = () => {
             totalPrice: cart.totalPrice,
             userAddress: address,
         };
-        console.log(orderData);
         order(dispatch, orderData);
-
-
     }, []);
-
-
 
 
     return (
@@ -226,7 +215,6 @@ const Success = () => {
                             <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>
                             <Button onClick={handleErrorClick}>Try Again?</Button>
                         </div>
-
                             :
                             <div>
                                 <Title>Payment was successful.</Title>
@@ -242,7 +230,6 @@ const Success = () => {
             <Footer />
         </div>
     )
-
 };
 
 export default Success;

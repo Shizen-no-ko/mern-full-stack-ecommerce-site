@@ -1,3 +1,4 @@
+// For handling error message display
 import { createSlice } from "@reduxjs/toolkit";
 
 const errorSlice = createSlice({
@@ -5,7 +6,6 @@ const errorSlice = createSlice({
     initialState: {
         error: false,
         errorMessage: null
-
     },
     reducers: {
         success: (state) => {

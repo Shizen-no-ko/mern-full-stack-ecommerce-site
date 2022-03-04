@@ -4,7 +4,7 @@ const errorSlice = createSlice({
     name: 'error',
     initialState: {
         error: false,
-        errorMessage:null
+        errorMessage: null
 
     },
     reducers: {

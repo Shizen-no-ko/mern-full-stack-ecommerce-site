@@ -9,12 +9,9 @@ import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 import CartItem from '../layout/CartItem';
 import OrderSummary from '../layout/OrderSummary';
-import { unwrapResult } from '@reduxjs/toolkit';
-
 
 
 const Container = styled.div`
-${'' /* height: 100vh; */}
 max-width: 100%;
 overflow: hidden;
 width: 100vw;
@@ -45,8 +42,6 @@ const ButtonDiv = styled.div`
 display: flex;
 justify-content: space-evenly;
 width: 100%;
-
-
 `
 
 const DetailsDiv = styled.div`
@@ -60,8 +55,6 @@ ${mobile({
 ${portraitTablet({
     flexDirection: 'column'
 })};
-
-
 `
 
 const CartItems = styled.div`
@@ -69,16 +62,11 @@ flex: 3;
 `
 
 
-// const SummaryDiv = styled.div`
-// flex: 1;
-// `
-
 const Button = styled.button`
 all: unset;
 background-color: ${props => props.look === 'light' ? 'white' : 'red'};
 border: 4px solid red;
 border-radius: 20px 0;
-${'' /* box-sizing: border-box; */}
 color: ${props => props.look === 'light' ? 'red' : 'white'};
 cursor: pointer;
 font-size: 20px;
@@ -87,9 +75,6 @@ margin: 30px 20px 10px;
 outline: none;
 padding: 10px;
 text-align: center;
-
-
-
 
 &:hover{
     background-color: ${props => props.look === 'light' ? 'red' : 'white'};
@@ -107,8 +92,8 @@ text-align: center;
 
 ${mobile({
     fontSize: '15px',
-    padding:'5px 7px'
-    
+    padding: '5px 7px'
+
 })};
 `
 
@@ -119,7 +104,6 @@ text-decoration: none;
 &:active{
     color: red;
 }
-
 `
 const PreviousImage = styled.img`
 border-radius: 20px 0;
@@ -127,14 +111,14 @@ margin: 20px;
 width: 200px;
 
 ${mobile({
-    
+
     height: 'auto',
     margin: '20px 0 0 0',
     maxWidth: '125px'
 })};
 
 ${portraitTablet({
-    
+
     height: 'auto',
     margin: '20px 0 0 40px',
     maxWidth: '175px'
@@ -146,70 +130,68 @@ ${landscapeTablet({
     maxWidth: '175px',
     width: 'auto'
 })};
-
 `
 
 // Hides previous items for mobile and portrait tablet to prevent them appearing before the order summary
 const PreviousDiv1 = styled.div`
 ${mobile({
-display: 'none'
+    display: 'none'
 })};
 
 ${portraitTablet({
     display: 'none'
 })};
-` 
+`
 
+// Shows previous items for mobile and portrait tablet to make them appear after the order summary
 const PreviousDiv2 = styled.div`
 display: none;
 
 ${mobile({
-display: 'unset'
+    display: 'unset'
 })};
 
 ${portraitTablet({
     display: 'unset'
 })};
-` 
+`
 
 const ShoppingCart = () => {
-  
-const cart = useSelector(state=>state.cart);
+
+    const cart = useSelector(state => state.cart);
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <Container>
-<Wrapper>
-<Title>Your Shopping Cart</Title>
-<ButtonDiv>
-<StyledLink to='/products'><Button look='light'>Continue Shopping</Button></StyledLink>
-{/* {cart.subtotal > 0 ? <Button>Checkout Now</Button> : null} */}
-</ButtonDiv>
-<DetailsDiv>
-    <CartItems>
-    {cart.products.length ? 
-    cart.products.map((item, index)=> <CartItem key={index} index={index} />) :
-    <h1>YOUR SHOPPING CART IS EMPTY</h1>}
-    {/* {cart.products.map((item, index)=> <CartItem key={index} index={index} image={item.image} productName={item.title} productId={item._id} size={item.size} color={item.color} amount={item.amount} price={item.price} />)} */}
-        {/* <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
-        <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/>
-        <CartItem productName='Product Name' productId='Product ID' size='M' color='green' price='250'/> */}
-    <PreviousDiv1>
-    {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
-    <div>{cart.previousCartItems.map((item, index) => <StyledLink key={index} to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
-    </PreviousDiv1>
-    </CartItems>
-    <OrderSummary/>
-    <PreviousDiv2>
-    {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
-    <div>{cart.previousCartItems.map((item, index) => <StyledLink key={index} to={`product/${item._id}`}><PreviousImage src={item.image}/></StyledLink>)}</div>
-    </PreviousDiv2>
-</DetailsDiv>
-</Wrapper>
+                <Wrapper>
+                    <Title>Your Shopping Cart</Title>
+                    <ButtonDiv>
+                        <StyledLink to='/products'><Button look='light'>Continue Shopping</Button></StyledLink>
+                    </ButtonDiv>
+                    <DetailsDiv>
+                        <CartItems>
+                            {/* Map through and display products in CartItem component */}
+                            {/* If cart.products empty, display message */}
+                            {cart.products.length ?
+                                cart.products.map((item, index) => <CartItem key={index} index={index} />) :
+                                <h1>YOUR SHOPPING CART IS EMPTY</h1>}
+                            <PreviousDiv1>
+                                {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
+                                <div>{cart.previousCartItems.map((item, index) => <StyledLink key={index} to={`product/${item._id}`}><PreviousImage src={item.image} /></StyledLink>)}</div>
+                            </PreviousDiv1>
+                        </CartItems>
+                        {/* OrderSummary containing totals, delivery charge and checkout button */}
+                        <OrderSummary />
+                        <PreviousDiv2>
+                            {cart.previousCartItems.length ? <Title>Previous Items From Your Cart</Title> : null}
+                            <div>{cart.previousCartItems.map((item, index) => <StyledLink key={index} to={`product/${item._id}`}><PreviousImage src={item.image} /></StyledLink>)}</div>
+                        </PreviousDiv2>
+                    </DetailsDiv>
+                </Wrapper>
             </Container>
-            <SubscriptionForm/>
-            <Footer/>
+            <SubscriptionForm />
+            <Footer />
         </div>
     )
 }

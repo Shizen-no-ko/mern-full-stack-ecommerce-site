@@ -130,10 +130,11 @@ const OrderSummary = () => {
             {/* style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}> */}
             {user && subtotal > 0 ? 
             stripeToken ? <span>Processing. Please wait...</span> : 
+            <CheckoutButtonDiv>
             <StripeCheckout
                                 name='Nihon no Mono'
                                 image='https://source.unsplash.com/tkxzEhfdxMc/640x425'
-                                ComponentClass={CheckoutButtonDiv}
+                                ComponentClass='div'
                                 billingAddress
                                 email={userDetails.email}
                                 shippingAddress
@@ -144,6 +145,8 @@ const OrderSummary = () => {
                             >
                                 <Button>Pay With Card</Button>
                             </StripeCheckout>
+            </CheckoutButtonDiv>
+            
             : 
             <Button  style={!user || subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}>
             {subtotal <=0 ? 'Please add items to your cart' : 'Please login to checkout'}

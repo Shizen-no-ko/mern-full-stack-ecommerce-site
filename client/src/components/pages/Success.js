@@ -199,6 +199,7 @@ const Success = () => {
             userAddress: address,
         };
         order(dispatch, orderData);
+        // Only want effect to run once, hence empty dependency array.
     }, []);
 
 

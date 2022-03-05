@@ -91,11 +91,11 @@ const OrderSummary = () => {
         setStripeToken(token);
     };
 
-    const cart = useSelector(state=>state.cart);
+    const cart = useSelector(state => state.cart);
 
     const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = cart;
     // const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = useSelector(state=>state.cart);
-    
+
     useEffect(() => {
         const makePayment = async () => {
             try {
@@ -107,7 +107,7 @@ const OrderSummary = () => {
                     }
                 );
                 // console.log(res.data);
-                history.replace('/success', {data:res.data, cart: cart, user: user});
+                history.replace('/success', { data: res.data, cart: cart, user: user });
             }
             catch (err) {
                 console.log(err)
@@ -118,20 +118,20 @@ const OrderSummary = () => {
 
     return (
         <Container>
-     <Wrapper>
-            <Title>Order Summary</Title>
-            <Info><Label>Subtotal:</Label><Amount>${subtotal}</Amount></Info>
-            {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : null}
-            {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null}
-            <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
+            <Wrapper>
+                <Title>Order Summary</Title>
+                <Info><Label>Subtotal:</Label><Amount>${subtotal}</Amount></Info>
+                {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : null}
+                {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null}
+                <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
 
 
-            
-            {/* style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}> */}
-            {user && subtotal > 0 ? 
-            stripeToken ? <span>Processing. Please wait...</span> : 
-            <CheckoutButtonDiv>
-            <StripeCheckout
+
+                {/* style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}> */}
+                {user && subtotal > 0 ?
+                    stripeToken ? <span>Processing. Please wait...</span> :
+                        <CheckoutButtonDiv>
+                            <StripeCheckout
                                 name='Nihon no Mono'
                                 image='https://source.unsplash.com/tkxzEhfdxMc/640x425'
                                 ComponentClass='div'
@@ -145,15 +145,15 @@ const OrderSummary = () => {
                             >
                                 <Button>Pay With Card</Button>
                             </StripeCheckout>
-            </CheckoutButtonDiv>
-            
-            : 
-            <Button  style={!user || subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}>
-            {subtotal <=0 ? 'Please add items to your cart' : 'Please login to checkout'}
-            </Button>}
+                        </CheckoutButtonDiv>
+
+                    :
+                    <Button style={!user || subtotal <= 0 ? { 'pointerEvents': 'none', 'opacity': '0.65' } : null}>
+                        {subtotal <= 0 ? 'Please add items to your cart' : 'Please login to checkout'}
+                    </Button>}
             </Wrapper>
         </Container>
-       
+
     )
 }
 

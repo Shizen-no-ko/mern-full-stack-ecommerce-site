@@ -10,6 +10,7 @@ import SearchBar from './SearchBar';
 import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
 
 
+
 const Container = styled.div`
     height: 80px;
 

@@ -11,18 +11,18 @@ import styled from 'styled-components';
 const Container = styled.div`
 max-width: 100%;
 overflow: hidden;
-
 `
 
+// Render landing page with all its components
 const Landing = () => {
-    return(
+    return (
         <Container>
-            <Navbar/>
-            <Slider/>
-            <Categories/>
-            <ProductDisplay filter={{}} category={null} landing={true}/>
-            <SubscriptionForm/>
-            <Footer/>
+            <Navbar />
+            <Slider />
+            <Categories />
+            <ProductDisplay filter={{}} category={null} landing={true} />
+            <SubscriptionForm />
+            <Footer />
         </Container>
     )
 }

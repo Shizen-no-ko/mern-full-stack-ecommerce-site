@@ -9,8 +9,6 @@ import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
-
-// import { sliderData } from '../../data/data.js';
 import { addProduct } from '../../redux/shoppingCartRedux';
 
 
@@ -22,31 +20,17 @@ max-width: 100%;
 overflow: hidden;
 width: 100vw;
 
-${'' /* ${mobile({
-    height: 'auto'
-})};
-
-
-${portraitTablet({
-    height: 'auto'
-})}; */}
-
 ${landscapeTablet({
     height: '300px',
 })};  
 `
 
 const Wrapper = styled.div`
-${'' /* align-items: center; */}
 display:flex;
-${'' /* transform: translate(${props => props.scrollPos * -100}vw); */}
-${'' /* transition: all 1.5s ease; */}
 width: 100vw;
-
-
 `
+
 const Slide = styled.div`
-${'' /* align-items: center; */}
 display: flex;
 height: auto;
 justify-content: flex-start;
@@ -83,8 +67,6 @@ ${portraitTablet({
 ${landscapeTablet({
     padding: '0px 20px 15px',
 })};
-
-
 `
 
 const Details = styled.div`
@@ -108,6 +90,7 @@ ${landscapeTablet({
     justifyContent: 'space-between'
 })};
 `
+
 const Title = styled.h1`
 font-weight: 400;
 margin-top: 0;
@@ -163,18 +146,17 @@ ${landscapeTablet({
     margin: '0px'
 })};
 `
+
 const Button = styled.button`
 all: unset;
 background-color: white;
 border: 4px solid red;
 border-radius: 20px 0;
-${'' /* border-radius: 10px; */}
 color: red;
 cursor: pointer;
 font-size: 17px;
 outline: none;
 padding: 10px;
-
 
 &:hover{
     background-color: red;
@@ -201,9 +183,6 @@ ${landscapeTablet({
     fontSize: '18px',
     padding: '5px 10px'
 })};
-
-
-
 `
 
 const ImageContainer = styled.div`
@@ -239,7 +218,6 @@ ${portraitTablet({
 ${landscapeTablet({
     maxHeight: '100%'
 })};
-
 `
 
 const SelectorRow = styled.div`
@@ -264,11 +242,7 @@ ${landscapeTablet({
     padding: '0px',
     flexWrap: 'wrap',
 })};
-
-
-
 `
-
 
 const SelectorContainer = styled.div`
 line-height: 30px;
@@ -287,11 +261,9 @@ ${portraitTablet({
 `
 
 const SelectorGroup = styled.div`
-
 `
 
 const Label = styled.span`
-${'' /* font-family: font-family: 'Lexend', sans-serif; */}
 font-size: 20px;
 font-weight: 200;
 padding: 10px 0 10px 20px;
@@ -315,7 +287,6 @@ border: 1px solid lightgray;
 border-radius: ${props => props.pos === 'left' ? '20px 0 0 20px' : props.pos === 'right' ? '0 20px 20px 0' : '0'} ;
 font-size: 20px;
 font-weight: 500;
-${'' /* margin: 0 0px; */}
 outline: none;
 padding: 5px 15px;
 
@@ -327,8 +298,6 @@ ${landscapeTablet({
     fontSize: '15px',
     marginRight: 'auto'
 })};
-
-
 `
 
 const Option = styled.option`
@@ -339,8 +308,6 @@ display: inline-flex;
 justify-content: space-between;
 position: relative; 
 top: 3px;
-
-
 `
 
 const ColorOption = styled.div`
@@ -348,7 +315,6 @@ border: ${props => props.border ? '1px solid' : 'none'};
 border-color: ${props => props.border ? props.border : 'none'};
 border-radius: 30%;
 background-color: ${props => props.color};
-${'' /* to accomodate extra width of white color with border */}
 height: ${props => props.border ? '18px' : '20px'};
 margin: 5px;
 transition: ease-in-out 0.05s;
@@ -381,7 +347,6 @@ ${landscapeTablet({
     fontSize: '22px',
     marginLeft: '0'
 })};
-
 `
 
 const PlusMinusStyles = styled.div`
@@ -421,16 +386,12 @@ ${landscapeTablet({
 })};
 `
 
-// const product = sliderData[0];
-
-
 
 const IndividualProduct = () => {
 
+    // Get product id from path
     const path = useLocation().pathname.split('/');
-    // console.log(path);
     const id = path[path.length -1];
-    // console.log(id);
    
     const history = useHistory();
 
@@ -457,7 +418,7 @@ const IndividualProduct = () => {
     };
 
     const handleMinus = () => {
-        if (amount > 0) { setAmount(amount - 1) };
+        if (amount > 1) { setAmount(amount - 1) };
         boxAnimation(true)
     }
 

@@ -10,6 +10,7 @@ import Navbar from '../layout/Navbar';
 import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 
+
 const Container = styled.div`
 background: linear-gradient(rgba(255,192,203, 0.5), rgba(255,255,255, 1)), url('https://source.unsplash.com/9Qwbfa_RM94/1920x1280'), center;
 backgroundSize: 100% 101%;
@@ -57,6 +58,7 @@ ${landscapeTablet({
     width: '60%'
 })};
 `
+
 const Title = styled.h1`
 color: rgba(255, 0, 0, 0.9);
 font-size: 3rem;
@@ -73,15 +75,11 @@ ${portraitTablet({
 `
 
 const Form = styled.form`
-${'' /* border: 1px solid white; */}
 border-radius: 20px;
 display: flex;
 flex-direction: column;
 padding: 20px 15px;
-
 `
-
-
 
 const Input = styled.input`
 border-radius: 10px;
@@ -102,11 +100,13 @@ ${portraitTablet({
     marginLeft: '0px'
 })};
 `
+
 const PasswordContainer = styled.div`
 align-items: center;
 display: flex;
 width: 100%;
 `
+
 const Eye = styled.div`
 cursor: pointer;
 font-size: 20px;
@@ -154,8 +154,6 @@ padding: 10px;
 text-align: center;
 width: 50%;
 
-
-
 &:hover{
     background-color: red;
     color: white;
@@ -173,7 +171,6 @@ width: 50%;
     border: 3px solid rgb(200, 0, 0);
     color: rgba(200, 0, 0, 0.5);
     cursor: not-allowed;
-
 }
 
 ${mobile({
@@ -185,7 +182,6 @@ ${portraitTablet({
     fontSize: '22px',
     width: '80%'
 })};
-
 `
 
 const PasswordForgotten = styled.div`
@@ -196,7 +192,6 @@ width: 75%;
 ${landscapeTablet({
     fontSize: '18px'
 })};
-
 `
 
 const ErrorMessage = styled.span`
@@ -208,7 +203,7 @@ text-align: center;
 `
 
 
-const Login = (props) => {
+const Login = () => {
 
     const [formData, setFormData] = useState({
         email: '',
@@ -218,7 +213,6 @@ const Login = (props) => {
     const { email, password } = formData;
 
     const dispatch = useDispatch();
-    const { isFetching } = useSelector(state => state.user);
     const { error, errorMessage } = useSelector(state => state.error);
 
     const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -230,9 +224,9 @@ const Login = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        // console.log(formData);
     };
 
+    // For eye icon open/close, password hide/reveal
     const eyeRef = useRef(null);
     const closedEyeRef = useRef(null);
     const passwordRef = useRef(null);
@@ -253,7 +247,6 @@ const Login = (props) => {
     return (
         <div>
             <Navbar />
-
             <Container>
                 <Wrapper>
                     <Title>Login To Your Account</Title>
@@ -264,12 +257,10 @@ const Login = (props) => {
                             <Eye onClick={() => openEye(0)} ref={eyeRef} ><i className="fas fa-eye"></i></Eye>
                             <ClosedEye onClick={() => closeEye(0)} ref={closedEyeRef}><i className="fas fa-eye-slash"></i></ClosedEye>
                         </PasswordContainer>
-                       
                         <Button onClick={handleClick}   >Let's Go Shopping</Button>
                         {error && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
                         <PasswordForgotten>Forgotten Password?</PasswordForgotten>
                     </Form>
-
                 </Wrapper>
             </Container>
             <SubscriptionForm />

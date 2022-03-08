@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
@@ -111,7 +111,8 @@ const Filter = (props) => {
     console.log(props);
     const { availableColorsSizes, category, searchValue, setParentSortState, setParentFilterState } = props;
 
-
+    const colorRef = useRef(null);
+    const sizeRef = useRef(null);
 
 
     const [filterState, setFilterState] = useState({});
@@ -119,10 +120,11 @@ const Filter = (props) => {
 
     const { filterCategory, color, size, sort } = filterState;
 
-
     let history = useHistory();
 
     const onChange = (e) => {
+        console.log('E-TARGET VALUE');
+        console.log(e.target.value);
         // deletes All Colors/All Sizes from filter when setting to All Colors or All Sizes
         if (e.target.value === 'All Colors' || e.target.value === 'All Sizes') {
             const tempState = { ...filterState };
@@ -132,6 +134,7 @@ const Filter = (props) => {
             setFilterState({ ...filterState, [e.target.name]: e.target.value });
         }
     }
+
 
     // When category changed, push new category onto url
     const onCategoryChange = (e) => {
@@ -144,11 +147,19 @@ const Filter = (props) => {
         setSortState(e.target.value);
     }
 
-    // // Send up state of filter up to ProductsFilter for handling
-    // useEffect(() => {
-        
-    //     getFilterState(filterState);
-    // }, [filterState]);
+    // Reset size and color select to unselected when 
+    // changing category and selected size/color is not present
+    useEffect(() => {
+                if(availableColorsSizes){
+            if(color && !availableColorsSizes.colors.includes(color.toLowerCase())){
+            colorRef.current.selectedIndex = 0;
+            }
+                if(size && !availableColorsSizes.sizes.includes(size.toLowerCase())){
+                   sizeRef.current.selectedIndex = 0;
+                }
+            }
+    }, [availableColorsSizes])
+
 
 
     // Send up state of filter up to ProductsFilter for handling
@@ -159,6 +170,7 @@ const Filter = (props) => {
         });
         setParentFilterState(lowerCaseFilterState);
     }, [filterState, setParentFilterState]);
+
 
     // Send up sortState to ProductsFilter for handling
     useEffect(() => {
@@ -182,15 +194,13 @@ const Filter = (props) => {
                         <Option>Homeware</Option>
                         <Option>Iro-Iro</Option>
                     </Selector>
-                    <Selector onChange={(e) => { onChange(e) }} name='color' defaultValue='Color' value={color} pos='center'>
+                    <Selector onChange={(e) => { onChange(e) }} name='color' defaultValue='Color' value={color} ref={colorRef} pos='center'>
                         <Option bold={true} disabled>Color</Option>
-                        <Option>All Colors</Option>
                         {availableColorsSizes.colors ? availableColorsSizes.colors.map((color, index) => <Option key={index}>{color.charAt(0).toUpperCase() + color.slice(1)}</Option>) : null};
                     </Selector>
-                    <Selector onChange={(e) => { onChange(e) }} name='size' defaultValue='Size' value={size} pos='right' >
+                    <Selector onChange={(e) => { onChange(e) }} name='size' defaultValue='Size' value={size} ref={sizeRef} pos='right' >
                         <Option bold={true} disabled>Size</Option>
-                        <Option>All Sizes</Option>
-                        {availableColorsSizes.sizes ? availableColorsSizes.sizes.map((size, index) => <Option key={index}>{size.toUpperCase()}</Option>) : null};
+                        {availableColorsSizes.sizes ? availableColorsSizes.sizes.map((size, index) => <Option key={index}>{size === 'All Sizes' ? 'All Sizes' : size.toUpperCase()}</Option>) : null};
                     </Selector>
                 </SelectorContainer>
                 <SelectorContainer>

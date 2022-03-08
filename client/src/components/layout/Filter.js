@@ -23,7 +23,6 @@ ${mobile({
         ${portraitTablet({
     textAlign: 'center'
 })};
-
 `
 
 const SelectorRow = styled.div`
@@ -61,8 +60,6 @@ ${mobile({
         ${portraitTablet({
     flex: '100%',
 })};
-
-
 `
 
 const Label = styled.span`
@@ -105,26 +102,24 @@ const Option = styled.option`
 font-weight: ${props => props.bold === true ? 'bold' : 'normal'};
 `
 
-
+// Filter Selectors Bar and its functionality in relation to ProductsFilter and ProductDisplay.
 const Filter = (props) => {
 
-    console.log(props);
     const { availableColorsSizes, category, searchValue, setParentSortState, setParentFilterState } = props;
 
+    // For resetting selectors
     const colorRef = useRef(null);
     const sizeRef = useRef(null);
 
 
     const [filterState, setFilterState] = useState({});
-    const [sortState, setSortState] = useState();
 
     const { filterCategory, color, size, sort } = filterState;
 
     let history = useHistory();
 
+
     const onChange = (e) => {
-        console.log('E-TARGET VALUE');
-        console.log(e.target.value);
         // deletes All Colors/All Sizes from filter when setting to All Colors or All Sizes
         if (e.target.value === 'All Colors' || e.target.value === 'All Sizes') {
             const tempState = { ...filterState };
@@ -136,46 +131,43 @@ const Filter = (props) => {
     }
 
 
-    // When category changed, push new category onto url
+    // When category is changed, push new category onto url
     const onCategoryChange = (e) => {
         history.push(`/products${e.target.value === 'All Products' ? '' : '/' + e.target.value.toLowerCase()}`);
     }
 
+
     // Handle sort filter, setting sortState which is then 
-    // passed up to ProductsFilter via a useEffect employing props.getSortState
+    // passed up to ProductsFilter using setParentSortState
     const onSortChange = (e) => {
-        setSortState(e.target.value);
+        // setSortState(e.target.value);
+        setParentSortState(e.target.value);
     }
+
 
     // Reset size and color select to unselected when 
     // changing category and selected size/color is not present
+    // Otherwise 'All Colors' or 'All Sizes' are pre-selected and cannot be selected.
     useEffect(() => {
-                if(availableColorsSizes){
-            if(color && !availableColorsSizes.colors.includes(color.toLowerCase())){
-            colorRef.current.selectedIndex = 0;
+        if (availableColorsSizes) {
+            if (color && !availableColorsSizes.colors.includes(color.toLowerCase())) {
+                colorRef.current.selectedIndex = 0;
             }
-                if(size && !availableColorsSizes.sizes.includes(size.toLowerCase())){
-                   sizeRef.current.selectedIndex = 0;
-                }
+            if (size && !availableColorsSizes.sizes.includes(size.toLowerCase())) {
+                sizeRef.current.selectedIndex = 0;
             }
+        }
     }, [availableColorsSizes])
-
 
 
     // Send up state of filter up to ProductsFilter for handling
     useEffect(() => {
         const lowerCaseFilterState = {};
-      Object.entries(filterState).forEach((entry) => {
-          lowerCaseFilterState[entry[0]] = entry[1].toLowerCase();
+        Object.entries(filterState).forEach((entry) => {
+            lowerCaseFilterState[entry[0]] = entry[1].toLowerCase();
         });
         setParentFilterState(lowerCaseFilterState);
     }, [filterState, setParentFilterState]);
-
-
-    // Send up sortState to ProductsFilter for handling
-    useEffect(() => {
-        setParentSortState(sortState);
-    }, [sortState, setParentSortState]);
 
 
     return (
@@ -196,10 +188,12 @@ const Filter = (props) => {
                     </Selector>
                     <Selector onChange={(e) => { onChange(e) }} name='color' defaultValue='Color' value={color} ref={colorRef} pos='center'>
                         <Option bold={true} disabled>Color</Option>
+                        {/* Populate Colors Selector */}
                         {availableColorsSizes.colors ? availableColorsSizes.colors.map((color, index) => <Option key={index}>{color.charAt(0).toUpperCase() + color.slice(1)}</Option>) : null};
                     </Selector>
                     <Selector onChange={(e) => { onChange(e) }} name='size' defaultValue='Size' value={size} ref={sizeRef} pos='right' >
                         <Option bold={true} disabled>Size</Option>
+                        {/* Populate Sizes Selector */}
                         {availableColorsSizes.sizes ? availableColorsSizes.sizes.map((size, index) => <Option key={index}>{size === 'All Sizes' ? 'All Sizes' : size.toUpperCase()}</Option>) : null};
                     </Selector>
                 </SelectorContainer>

@@ -1,8 +1,7 @@
-
-import {useState} from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import {sliderData} from '../../data/data.js';
-import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
+import { sliderData } from '../../data/data.js';
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 
 const Container = styled.div`
@@ -13,25 +12,20 @@ overflow: hidden;
 width: 100%;
 
 ${mobile({
-        display: 'none'
-        })};
+    display: 'none'
+})};
 
         ${portraitTablet({
-        display: 'none'
-        })};
+    display: 'none'
+})};
 
         
         ${landscapeTablet({
     height: '300px',
-        })};    
-
-     
-
-
+})};    
 `
 
 const Wrapper = styled.div`
-${'' /* align-items: center; */}
 display:flex;
 transform: translate(${props => props.scrollPos * -100}vw);
 transition: all 1.5s ease;
@@ -39,12 +33,10 @@ width: 100vw;
 
 ${landscapeTablet({
     height: '300px',
-        })};
-
-
+})};
 `
+
 const Slide = styled.div`
-${'' /* align-items: center; */}
 display: flex;
 height: 100vh;
 justify-content: flex-start;
@@ -53,9 +45,7 @@ width: 100vw;
 
 ${landscapeTablet({
     height: '300px',
-        })};
-
-
+})};
 `
 
 const DetailsContainer = styled.div`
@@ -65,21 +55,17 @@ padding: 50px 80px 50px;
 ${landscapeTablet({
     height: '300px',
     padding: '0px 60px 30px'
-        })};
-
+})};
 `
 
 const Details = styled.div`
 font-size: 2rem;
 
 ${landscapeTablet({
-  fontSize: '1rem'
-        })};
-
-     
+    fontSize: '1rem'
+})};   
 `
 const Title = styled.h1`
-
 `
 
 const Description = styled.p`
@@ -87,17 +73,17 @@ letter-spacing: 5px;
 
 ${landscapeTablet({
     letterSpacing: '3px'
-        })};
+})};
 `
 
 const Price = styled.h4`
 opacity: 80%;
 `
+
 const Button = styled.button`
 all: unset;
 background-color: red;
 border-radius: 20px 0;
-${'' /* border-radius: 10px; */}
 color: white;
 font-size: 17px;
 outline: none;
@@ -114,8 +100,7 @@ cursor: pointer;
 
 ${landscapeTablet({
     fontSize: '15px'
-        })};
-
+})};
 `
 
 const ImageContainer = styled.div`
@@ -123,11 +108,9 @@ flex: 2;
 height: 100%;
 max-width: 100%;
 
-
 ${landscapeTablet({
     height: '300px',
-        })};
-
+})};
 `
 
 const Img = styled.img`
@@ -135,11 +118,10 @@ height: 80%;
 max-width: 100%;
 object-fit: cover;
 
-
 ${landscapeTablet({
     height: 'auto',
     width: '50vw'
-        })};
+})};
 `
 
 const Scroller = styled.div`
@@ -147,10 +129,9 @@ background-color: red;
 border-radius: 25%;
 color: white;
 font-size: 40px;
-${'' /* left: 20px; */}
-left: ${props => props.pos === "left" ? "20px": "none"};
+left: ${props => props.pos === "left" ? "20px" : "none"};
 opacity: 50%;
-right: ${props => props.pos === "right" ? "20px": "none"};
+right: ${props => props.pos === "right" ? "20px" : "none"};
 position: absolute;
 text-align: center;
 top: 50%;
@@ -171,45 +152,49 @@ ${landscapeTablet({
     height: '40px',
     top: '240px',
     width: '40px'
-        })};
+})};
 `
 
-const Slider = (props) => {
-const [scrollPos, setScrollPos] = useState(0);
+// Animated slider for landing page with hard-wired images/text
+// Go to product button not yet functioning
+const Slider = () => {
+    // State for handling which slide currently on display
+    const [scrollPos, setScrollPos] = useState(0);
 
-const clickHandler = (direction) => {
-    if(direction === "left"){
-        setScrollPos(scrollPos > 0 ? scrollPos - 1 : 2)
+    // Handle direction of slide according to where clicked
+    const clickHandler = (direction) => {
+        if (direction === "left") {
+            setScrollPos(scrollPos > 0 ? scrollPos - 1 : 2)
+        }
+        else {
+            setScrollPos(scrollPos < 2 ? scrollPos + 1 : 0)
+        };
     }
-    else{
-        setScrollPos(scrollPos < 2 ? scrollPos + 1 : 0)
-    };
-}
 
-    return(
-       <Container>
-       <Scroller onClick={() =>  clickHandler('left')} pos="left" ><i className="fas fa-chevron-left"></i></Scroller>
-       <Scroller onClick={() =>  clickHandler('right')} pos="right"><i className="fas fa-chevron-right"></i></Scroller>
-       {sliderData.map((product, i) => {
-           return(
-               <Wrapper scrollPos={scrollPos} key={i}>
-               <Slide >
-                  <ImageContainer>
-                  <Img src={product.img}/>
-                  </ImageContainer> 
-                  <DetailsContainer>
-               <Details>
-           <Title>{product.title}</Title>
-           <Description>{product.description}</Description>
-           <Price>{product.price}</Price>
-           <Button>GO TO PRODUCT</Button>
-       </Details>
-               </DetailsContainer>
-               </Slide>
-               </Wrapper>
-       )
-       })}
-       </Container>
+    return (
+        <Container>
+            <Scroller onClick={() => clickHandler('left')} pos="left" ><i className="fas fa-chevron-left"></i></Scroller>
+            <Scroller onClick={() => clickHandler('right')} pos="right"><i className="fas fa-chevron-right"></i></Scroller>
+            {sliderData.map((product, i) => {
+                return (
+                    <Wrapper scrollPos={scrollPos} key={i}>
+                        <Slide >
+                            <ImageContainer>
+                                <Img src={product.img} />
+                            </ImageContainer>
+                            <DetailsContainer>
+                                <Details>
+                                    <Title>{product.title}</Title>
+                                    <Description>{product.description}</Description>
+                                    <Price>{product.price}</Price>
+                                    <Button>GO TO PRODUCT</Button>
+                                </Details>
+                            </DetailsContainer>
+                        </Slide>
+                    </Wrapper>
+                )
+            })}
+        </Container>
     )
 }
 

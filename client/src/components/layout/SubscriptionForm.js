@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
-
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 import styled from 'styled-components';
 
@@ -19,52 +18,49 @@ text-align: center;
 width: 40%;
 
 ${mobile({
-        width: '80%'
-        })};
+    width: '80%'
+})};
 
         ${portraitTablet({
-        width: '80%'
-        })};
+    width: '80%'
+})};
 
         ${landscapeTablet({
-        width: '80%'
-        })};
-
-      
-
+    width: '80%'
+})};
 `
+
 const Heading = styled.h1`
 font-size: 3rem;
 margin: 0;
 
-
 ${mobile({
-        fontSize: '2rem'
-        })};
+    fontSize: '2rem'
+})};
 
         ${portraitTablet({
-        fontSize: '2.5rem'
-        })};
+    fontSize: '2.5rem'
+})};
 
         ${landscapeTablet({
-        fontSize: '2.5rem'
-        })};
+    fontSize: '2.5rem'
+})};
 `
+
 const Message = styled.h3`
-${'' /* padding: 0; */}
 margin: 0 0 20px;
 
 ${mobile({
-        fontSize: '1rem'
-        })};
+    fontSize: '1rem'
+})};
 
         ${portraitTablet({
-        fontSize: '1.35rem'
-        })};
+    fontSize: '1.35rem'
+})};
 
         ${landscapeTablet({
-        fontSize: '1.35rem'
-        })};
+    fontSize: '1.35rem'
+})};
 `
 
 const InputContainer = styled.div`
@@ -76,39 +72,38 @@ width: 100%;
 ${mobile({
     borderRadius: '7px',
     height: '22px'
-        })};
+})};
 
         ${portraitTablet({
     borderRadius: '10px',
     height: '35px'
-        })};
+})};
 
         ${landscapeTablet({
     borderRadius: '10px',
     height: '35px',
-    margin:'auto',
+    margin: 'auto',
     width: '70%'
-        })};
-
+})};
 `
+
 const InputBox = styled.input`
 border: none;
 flex: 7;
 font-size: 20px;
 line-height:28px;
 padding: 5px;
-${'' /* height: 100%; */}
 
 &:focus{
     outline: none;
 }
 
 ${mobile({
-        fontSize: '12px',
-        lineHeight: '12px'
-        })};
-
+    fontSize: '12px',
+    lineHeight: '12px'
+})};
 `
+
 const SendButton = styled.button`
 all: unset;
 background-color: red;
@@ -133,11 +128,11 @@ transform: scale(103%);
 
 ${mobile({
     borderRadius: '0 7px 7px 0',
-    fontSize: '12px'        
-        })};
-
+    fontSize: '12px'
+})};
 `
 
+// Subscription form, non-functioning yet
 const SubscriptionForm = () => {
 
     const [formState, setFormState] = useState("Your email here...");

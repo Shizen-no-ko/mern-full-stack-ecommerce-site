@@ -391,19 +391,22 @@ const IndividualProduct = () => {
 
     // Get product id from path
     const path = useLocation().pathname.split('/');
-    const id = path[path.length -1];
-   
+    const id = path[path.length - 1];
+
     const history = useHistory();
 
     const [displayProduct, setDisplayProduct] = useState({ title: '', image: '', price: '', description: '', color: null, size: null });
     const [amount, setAmount] = useState(1);
     const [selectedColor, setSelectedColor] = useState();
     const [selectedSize, setSelectedSize] = useState();
+    // For amount box
     const boxRef = useRef(null);
+
     const dispatch = useDispatch();
 
     const { title, image, price, description, color, size } = displayProduct;
 
+    // Animate amount box accordingly to whether minus or plus icons are clicked
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
         boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)';
@@ -417,30 +420,36 @@ const IndividualProduct = () => {
         }, 250)
     };
 
+    // Handle click of minus icon
     const handleMinus = () => {
         if (amount > 1) { setAmount(amount - 1) };
         boxAnimation(true)
     }
 
+    // Handle click of plus icon
     const handlePlus = () => {
         setAmount(amount + 1);
         boxAnimation(false);
     }
 
+    // Handle changing of product size
     const sizeChange = (e) => {
         setSelectedSize(e.target.value);
     }
 
+    // Handle selection of color
     const colorClick = (e) => {
         setSelectedColor(e.target.getAttribute('color'))
     }
 
+    // Retrieve product from DB upon change of id in path
     useEffect(() => {
         let isMounted = true;
         try {
             const getProduct = async () => {
                 const res = await publicReq.get(`products/find/${id}`);
                 setDisplayProduct(res.data);
+                // Set selected color to first color in array
                 setSelectedColor(res.data.color[0]);
             }
             getProduct()
@@ -449,6 +458,7 @@ const IndividualProduct = () => {
         return () => { isMounted = false };
     }, [id])
 
+    // Handle adding of product(s) to cart and redirect to cart using history
     const handleClick = () => {
         dispatch(addProduct({ ...displayProduct, amount, color: selectedColor, size: selectedSize }));
         history.push('/cart');
@@ -458,7 +468,6 @@ const IndividualProduct = () => {
         <div>
             <Navbar />
             <Container>
-                {/* <Wrapper scrollPos={scrollPos} key={i}> */}
                 <Wrapper>
                     <Slide >
                         <ImageContainer>
@@ -484,7 +493,7 @@ const IndividualProduct = () => {
                                             <Label>Color: </Label>
                                             {color && color.length ?
                                                 <ColorContainer>
-                                                    {color.map((color, i) => <ColorOption onClick={colorClick} key={i} color={color} border={color === 'white' ? 'black' : color} style={{transform: color === selectedColor ? 'scale(150%) rotate(45deg)': ''}}></ColorOption>)}
+                                                    {color.map((color, i) => <ColorOption onClick={colorClick} key={i} color={color} border={color === 'white' ? 'black' : color} style={{ transform: color === selectedColor ? 'scale(150%) rotate(45deg)' : '' }}></ColorOption>)}
                                                 </ColorContainer>
                                                 : null}
                                         </SelectorGroup>
@@ -503,11 +512,9 @@ const IndividualProduct = () => {
                     </Slide>
                 </Wrapper>
             </Container>
-
             <SubscriptionForm />
             <Footer />
         </div>
-
     )
 }
 

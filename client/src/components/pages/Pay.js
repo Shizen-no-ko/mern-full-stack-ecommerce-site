@@ -62,7 +62,6 @@ ${landscapeTablet({
 `
 
 const Form = styled.div`
-${'' /* border: 1px solid white; */}
 border-radius: 20px;
 padding: 20px 15px;
 text-align: center;
@@ -72,7 +71,6 @@ all: unset;
 background-color: white;
 border: 4px solid red;
 border-radius: 20px 0;
-${'' /* border-radius: 10px; */}
 color: red;
 cursor: pointer;
 font-size: 20px;
@@ -135,6 +133,7 @@ color: red;
 padding: 20px;
 `
 
+// Stripe Payment
 const Pay = () => {
 
     const [stripeToken, setStripeToken] = useState();
@@ -154,7 +153,7 @@ const Pay = () => {
                         amount: 2000
                     }
                 );
-                console.log(res.data);
+                // console.log(res.data);
                 history.replace('/success');
             }
             catch (err) {
@@ -164,15 +163,17 @@ const Pay = () => {
         stripeToken && makePayment();
     }, [stripeToken]);
 
+
+
     return (
         <div>
             <Navbar />
             <Container>
                 <Wrapper>
                     <Form>
-                    <Logo>
-                <i className="fas fa-torii-gate"></i>
-                </Logo>
+                        <Logo>
+                            <i className="fas fa-torii-gate"></i>
+                        </Logo>
                         {stripeToken ? <ProcessingDiv>Processing. Please wait...</ProcessingDiv> :
                             <StripeCheckout
                                 name='Nihon no Mono'

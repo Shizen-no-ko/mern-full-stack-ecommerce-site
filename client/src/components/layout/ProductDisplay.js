@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 
 import ProductElement from './ProductElement.js';
+// Modal for 'quick-add to cart' pop-up
 import Modal from './Modal';
 
 
@@ -16,7 +17,6 @@ justify-content: space-evenly;
 margin: auto;
 width: 97vw;
 `
-
 
 
 const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSizes, searchField, searchValue }) => {
@@ -32,9 +32,12 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
 
     const userId = user ? user.user._id : null;
+    // For triggering API call if product is liked/unliked and thus changes likedProducts
     const likedArray = user ? user.user.likedProducts : undefined;
-    
-   
+
+
+    // Retrieve all products to display from DB via API, according to category, search-term, 
+    //or if products are liked (for likes page)
     useEffect(() => {
         const getAllProducts = async () => {
             try {
@@ -62,6 +65,8 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
 
     useEffect(() => {
+        // Filter through retrieved products and set filterResult to 
+        // items which match settings in Filter.js
         const filterResult = products.filter((item) => {
             return Object.entries(filter).every(([key, value]) => {
                 return item[key].includes(value);
@@ -70,20 +75,21 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         }
         )
         setFiltered(filterResult);
-        console.log('FILTER GETTING SET');
         var filteredColors = [];
         var filteredSizes = [];
         products.forEach(product => {
             filteredColors.push(...product.color);
             filteredSizes.push(...product.size);
-
         });
+        // Make colors and sizes arrays of unique values
         filteredColors = filteredColors.filter((element, index, array) => array.indexOf(element) === index);
         filteredSizes = filteredSizes.filter((element, index, array) => array.indexOf(element) === index);
-        if (!landing) getAvailableColorsSizes({ colors: filteredColors, sizes: filteredSizes });
-
+        // If not landing page, set colors and values for selectors in Filter.js
+        if (!landing) getAvailableColorsSizes({ colors: ['All Colors', ...filteredColors], sizes: ['All Sizes', ...filteredSizes] });
     }, [products, filter, category])
 
+
+    // Sort products functionality by price/most recent 
     useEffect(() => {
         if (sort === 'Most Recent') {
             setFiltered(prev => [...prev].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)));
@@ -93,13 +99,15 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
     }, [sort])
 
 
+    // Handle click on shopping cart icon, upon product element
+    // Set content for modal, and display modal
     const getCartClick = (product) => {
         setModalContent(product);
         setShowModal(true);
     };
 
+    // Handle click on like icon on product element
     const getLikeClick = async (productId) => {
-        console.log(productId);
         if (user) {
             try {
                 await userReq.patch(`/users/toggleLike/${userId}/${productId}`);
@@ -111,19 +119,12 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         }
     };
 
+    // For retrieving click from modal
     const getModalClick = () => {
         setShowModal(false);
     };
 
 
-
-    useEffect(() => {
-        console.log("FILTERED CHANGED");
-        console.log("Filtered is:")
-        console.log(filtered);
-        console.log("Products is")
-        console.log(products)
-    }, [filtered]);
 
     return (
         <Container>
@@ -132,6 +133,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                 !landing ?
                     filtered.length ?
                         filtered.map((product, i) => {
+                            {/* Check if product is liked by user */ }
                             const liked = user && user.user.likedProducts ? user.user.likedProducts.includes(product._id) : false;
                             return (
                                 <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick} element={product} liked={liked} />
@@ -140,6 +142,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                         : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>
                     :
                     products.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 8).map((product, i) => {
+                        {/* Present most recent products on landing page first. Check if product is liked by user */ }
                         const liked = user && user.user.likedProducts ? user.user.likedProducts.includes(product._id) : false;
                         return (
                             <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick} element={product} liked={liked} />

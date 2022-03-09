@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-
 
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';

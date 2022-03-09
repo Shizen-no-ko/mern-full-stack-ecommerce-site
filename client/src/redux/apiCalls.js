@@ -52,7 +52,7 @@ export const update = async (dispatch, user) => {
 // Add order to DB and clear shopping cart
 export const order = async (dispatch, orderData) => {
     try {
-        const res = await userReq.post('orders/add', orderData);
+        await userReq.post('orders/add', orderData);
         dispatch(clearCart());
     }
     catch (err) {

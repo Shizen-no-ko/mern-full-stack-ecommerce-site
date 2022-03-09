@@ -74,7 +74,7 @@ const CheckoutButtonDiv = styled.div`
 text-align: center;
 `
 
-
+// Order Summary component with stripe payment integration
 const OrderSummary = () => {
 
     const user = useSelector(state => state.user.currentUser);
@@ -112,6 +112,8 @@ const OrderSummary = () => {
     }, [stripeToken, cart, totalPrice, user, history]);
 
 
+
+    // disables checkout button if no user logged in or cart is empty
     return (
         <Container>
             <Wrapper>

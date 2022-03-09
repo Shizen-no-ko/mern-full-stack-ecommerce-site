@@ -9,7 +9,6 @@ import { userReq } from '../../axiosRequests';
 const KEY = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
 const Container = styled.div`
-
 `
 
 const Wrapper = styled.div`
@@ -37,6 +36,7 @@ margin: 5px 40px 5px 0;
 
 const Label = styled.div`
 `
+
 const Amount = styled.div`
 `
 
@@ -54,10 +54,6 @@ margin: 10px 40px 10px 0;
 outline: none;
 padding: 10px;
 text-align: center;
-
-
-
-
 
 &:hover{
     background-color: white;
@@ -94,7 +90,7 @@ const OrderSummary = () => {
     const cart = useSelector(state => state.cart);
 
     const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = cart;
-    // const { subtotal, totalPrice, freeDeliveryLevel, deliveryCharge } = useSelector(state=>state.cart);
+
 
     useEffect(() => {
         const makePayment = async () => {
@@ -106,7 +102,6 @@ const OrderSummary = () => {
                         amount: totalPrice * 100
                     }
                 );
-                // console.log(res.data);
                 history.replace('/success', { data: res.data, cart: cart, user: user });
             }
             catch (err) {
@@ -114,7 +109,8 @@ const OrderSummary = () => {
             }
         };
         stripeToken && makePayment();
-    }, [stripeToken]);
+    }, [stripeToken, cart, totalPrice, user, history]);
+
 
     return (
         <Container>
@@ -124,10 +120,6 @@ const OrderSummary = () => {
                 {subtotal > 0 ? <Info><Label>Delivery Charge:</Label><Amount>${deliveryCharge}</Amount></Info> : null}
                 {subtotal > freeDeliveryLevel ? <Info><Label>Delivery Discount:</Label><Amount>-${deliveryCharge}</Amount></Info> : null}
                 <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
-
-
-
-                {/* style={subtotal <=0 ? {'pointerEvents': 'none', 'opacity' : '0.65' } : null}> */}
                 {user && subtotal > 0 ?
                     stripeToken ? <span>Processing. Please wait...</span> :
                         <CheckoutButtonDiv>
@@ -146,14 +138,12 @@ const OrderSummary = () => {
                                 <Button>Pay With Card</Button>
                             </StripeCheckout>
                         </CheckoutButtonDiv>
-
                     :
                     <Button style={!user || subtotal <= 0 ? { 'pointerEvents': 'none', 'opacity': '0.65' } : null}>
                         {subtotal <= 0 ? 'Please add items to your cart' : 'Please login to checkout'}
                     </Button>}
             </Wrapper>
         </Container>
-
     )
 }
 

@@ -38,7 +38,7 @@ padding: 5px;
 
 ${landscapeTablet({
     fontSize: '15px',
-   
+
 })};
 `
 
@@ -103,12 +103,12 @@ const SearchBar = () => {
         setDropText([]);
         setSearchState('');
         setSearchTerm('');
-    }
+    };
 
     // controlled input state
     const handleChange = (e) => {
         setSearchState(e.target.value);
-    }
+    };
 
     // direct click on dropdown suggestion
     const handleClick = (word) => {
@@ -116,7 +116,7 @@ const SearchBar = () => {
         console.log(word);
         setSearchState('');
         history.push(`/products/search?field=${word[1]}&value=${word[0]}`);
-    }
+    };
 
     // Handle key navigation of dropdown
     const handleKeyDown = (e) => {
@@ -128,7 +128,7 @@ const SearchBar = () => {
                 value: dropText[prevState.cursor < dropText.length - 1 ? prevState.cursor + 1 : prevState.cursor]
             })
             )
-        }
+        };
 
         //up arrow
         if (e.keyCode === 38) {
@@ -137,7 +137,7 @@ const SearchBar = () => {
                 value: prevState.cursor > 0 ? dropText[prevState.cursor - 1] : searchTerm
             })
             )
-        }
+        };
 
         // enter key
         if (e.keyCode === 13) {
@@ -147,7 +147,7 @@ const SearchBar = () => {
                 resetStates();
                 history.push(`/products/search?field=${field}&value=${value}`);
             }
-        }
+        };
 
         // backspace
         if (e.keyCode === 8) {
@@ -156,8 +156,8 @@ const SearchBar = () => {
                 setSearchState(searchTerm);
                 setDropListState({ cursor: -1, value: '' })
             };
-        }
-    }
+        };
+    };
 
 
     const handleBlur = () => {
@@ -169,18 +169,18 @@ const SearchBar = () => {
                 resetStates();
             }
         };
-    }
+    };
 
 
-// When navigating dropdown list with arrow keys, sets 
-// search input to current highlighted item in dropdown
+    // When navigating dropdown list with arrow keys, sets 
+    // search input to current highlighted item in dropdown
     useEffect(() => {
         dropListState.cursor !== -1 && setSearchState(dropText[dropListState.cursor][0]);
         dropListState.cursor === -1 && setSearchState(searchTerm);
-    }, [dropListState, dropText, searchTerm])
+    }, [dropListState, dropText, searchTerm]);
 
 
-// Retrieve keyword suggestions for dropdown
+    // Retrieve keyword suggestions for dropdown
     useEffect(() => {
         const getKeywords = async () => {
             try {
@@ -220,7 +220,7 @@ const SearchBar = () => {
             }
         };
         getKeywords();
-    }, [searchState])
+    }, [searchState]);
 
     // Sets dropdown text suggestions according to searchState in the input field
     useEffect(() => {
@@ -231,7 +231,7 @@ const SearchBar = () => {
                 setSearchTerm(searchState);
             }
         }
-    }, [searchState, dropListState.cursor, keyWords])
+    }, [searchState, dropListState.cursor, keyWords]);
 
     return (
         <Container >

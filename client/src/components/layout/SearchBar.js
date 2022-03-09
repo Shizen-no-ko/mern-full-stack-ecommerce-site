@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { userReq } from '../../axiosRequests.js';
-import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
+import { mobile, landscapeTablet } from '../../responsive';
 
 const Container = styled.div`
 display: flex;
@@ -40,7 +40,6 @@ ${landscapeTablet({
     fontSize: '15px',
    
 })};
-
 `
 
 const SearchIcon = styled.div`
@@ -76,7 +75,6 @@ margin: 1px;
 overflow: hidden;
 padding: 5px 10px;
 
-
 &:hover {
     background-color: pink;
 }
@@ -107,7 +105,6 @@ const SearchBar = () => {
         setSearchTerm('');
     }
 
-
     // controlled input state
     const handleChange = (e) => {
         setSearchState(e.target.value);
@@ -121,6 +118,7 @@ const SearchBar = () => {
         history.push(`/products/search?field=${word[1]}&value=${word[0]}`);
     }
 
+    // Handle key navigation of dropdown
     const handleKeyDown = (e) => {
 
         // down arrow
@@ -161,6 +159,7 @@ const SearchBar = () => {
         }
     }
 
+
     const handleBlur = () => {
         window.onclick = e => {
             // checks if element clicked that is causing the blur 
@@ -173,12 +172,15 @@ const SearchBar = () => {
     }
 
 
+// When navigating dropdown list with arrow keys, sets 
+// search input to current highlighted item in dropdown
     useEffect(() => {
         dropListState.cursor !== -1 && setSearchState(dropText[dropListState.cursor][0]);
         dropListState.cursor === -1 && setSearchState(searchTerm);
-    }, [dropListState])
+    }, [dropListState, dropText, searchTerm])
 
 
+// Retrieve keyword suggestions for dropdown
     useEffect(() => {
         const getKeywords = async () => {
             try {
@@ -194,11 +196,16 @@ const SearchBar = () => {
                     item.color.map(color => colors.push(color));
                     item.size.map(size => sizes.push(size));
                     item.category.map(category => categories.push(category));
+                    return null
                 });
+                // Arrays of unique values
                 sizes = [...new Set(sizes)].map(size => [size, 'size']);
                 colors = [...new Set(colors)].map(color => [color, 'color']);
+                // Set second value as 'searchcategory' as 'category' already present in backend
+                // for other functionality
                 categories = [...new Set(categories)].map(category => [category, 'searchcategory']);
                 const tempState = {
+                    // ids for later use in admin
                     ids: ids,
                     titles: titles,
                     sizes: sizes,
@@ -213,8 +220,9 @@ const SearchBar = () => {
             }
         };
         getKeywords();
-    }, [])
+    }, [searchState])
 
+    // Sets dropdown text suggestions according to searchState in the input field
     useEffect(() => {
         if (keyWords !== '') {
             const words = searchState !== '' ? keyWords.keyWords.filter(word => word[0].includes(searchState) || word[0].includes(searchState.toLowerCase()) || word[0].toLowerCase().includes(searchState)) : [];
@@ -223,8 +231,7 @@ const SearchBar = () => {
                 setSearchTerm(searchState);
             }
         }
-
-    }, [searchState])
+    }, [searchState, dropListState.cursor, keyWords])
 
     return (
         <Container >
@@ -250,7 +257,6 @@ const SearchBar = () => {
                         )}
                     </DropDown>
                 </ul>
-
             </Search>
         </Container>
     )

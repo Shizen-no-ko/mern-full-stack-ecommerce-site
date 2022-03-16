@@ -157,7 +157,7 @@ const Filter = (props) => {
                 sizeRef.current.selectedIndex = 0;
             }
         }
-    }, [availableColorsSizes])
+    }, [availableColorsSizes, color, size])
 
 
     // Send up state of filter up to ProductsFilter for handling

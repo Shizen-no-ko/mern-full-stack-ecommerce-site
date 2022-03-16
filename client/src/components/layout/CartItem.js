@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 import { decreaseItemAmount, increaseItemAmount, deleteItem } from '../../redux/shoppingCartRedux';
 
-const Container = styled.div`
 
+const Container = styled.div`
 `
 
 const Wrapper = styled.div`
@@ -35,14 +35,14 @@ margin: 20px;
 width: 250px;
 
 ${mobile({
-    
+
     height: 'auto',
     margin: '20px 0 0 0',
     maxWidth: '150px'
 })};
 
 ${portraitTablet({
-    
+
     height: 'auto',
     margin: '20px 0 0 40px',
     maxWidth: '200px'
@@ -79,7 +79,6 @@ ${landscapeTablet({
 `
 
 const Rule = styled.div`
-
 border-top: 1px solid rgba(255, 0, 0, 0.5);
 margin: 0 auto;
 width: 95%;
@@ -111,6 +110,7 @@ ${landscapeTablet({
     width: '90%'
 })};
 `
+
 const Detail = styled.h3`
 margin: 0 0 20px 0;
 font-weight: 400;
@@ -123,6 +123,7 @@ ${portraitTablet({
     margin: '10px 0'
 })};
 `
+
 const Color = styled.div`
 border-radius: 25%;
 background-color: ${props => props.color};
@@ -142,6 +143,7 @@ ${portraitTablet({
     width: '20px'
 })};
 `
+
 const PlusMinusContainer = styled.div`
 align-items: center;
 display: flex;
@@ -185,32 +187,32 @@ transition: all ease-in-out 0.5s;
 width: 35px;
 
 ${mobile({
-    borderRadius: '10px', 
+    borderRadius: '10px',
     fontSize: '20px',
     height: '25px',
     width: '25px'
 })};
 
 ${portraitTablet({
-    borderRadius: '12px', 
+    borderRadius: '12px',
     fontSize: '23px',
     height: '30px',
     width: '30px'
 })};
 
 ${landscapeTablet({
-    borderRadius: '12px', 
+    borderRadius: '12px',
     fontSize: '23px',
     height: '30px',
     width: '30px'
 })};
 `
+
 const Price = styled.div`
 color: rgba(0 , 0, 0, 0.7);
 font-size: 3rem;
 font-weight: 200;
 margin: 0 30px 20px;
-
 transition: all ease 0.5s;
 
 ${mobile({
@@ -229,22 +231,21 @@ ${landscapeTablet({
 })};
 `
 
+// Individual item displayed in cart
 const CartItem = (props) => {
 
-    // const [amount, setAmount] = useState(props.amount);
     const boxRef = useRef(null);
     const priceRef = useRef(null);
     const dispatch = useDispatch();
 
-    // const itemAmount = useSelector(state=>state.cart.products[props.index].amount);
+    // Destructure item's details from cart state
+    const { image, title, _id, size, color, amount, price } = useSelector(state => state.cart.products[props.index]);
 
 
-    const { image, title, _id, size, color, amount, price } = useSelector(state=>state.cart.products[props.index]);
-
-
+    // Animate item amount box upon increase/decrease, recalculate price
     const boxAnimation = (minus) => {
         boxRef.current.style.borderColor = 'red';
-        boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)' ;
+        boxRef.current.style.transform = minus ? 'scale(120%) rotate(-25deg)' : 'scale(120%) rotate(25deg)';
         boxRef.current.style.color = 'white';
         boxRef.current.style.backgroundColor = 'red';
         priceChange();
@@ -253,29 +254,27 @@ const CartItem = (props) => {
             boxRef.current.style.transform = 'scale(100%) rotate(0deg)';
             boxRef.current.style.color = 'rgba(0, 0, 0, 0.8)';
             boxRef.current.style.backgroundColor = 'white';
-    }, 250)
+        }, 250)
     };
-    
+
+    // Decrease amount in cart state, apply 'minus' amount-box animation
     const handleMinus = () => {
-        // dispatch(decreaseItemAmount({id: props.productId}));
-        dispatch(decreaseItemAmount({id: _id}));
-        // if(amount > 0){setAmount(amount - 1)};
+        dispatch(decreaseItemAmount({ id: _id }));
         boxAnimation(true)
     };
-    
+
+    // Increase amount in cart state, apply 'plus' amount-box animation
     const handlePlus = () => {
-        // dispatch(increaseItemAmount({id: props.productId}));
-        dispatch(increaseItemAmount({id: _id}));
-        // setAmount(amount + 1);
+        dispatch(increaseItemAmount({ id: _id }));
         boxAnimation(false);
     };
 
+    // Delete item from cart state
     const handleDelete = () => {
-        dispatch(deleteItem({id: _id}));
+        dispatch(deleteItem({ id: _id }));
     }
 
-  
-    
+    // Animation for change in price
     const priceChange = () => {
         priceRef.current.style.transform = 'scale(115%)';
         priceRef.current.style.color = 'red';
@@ -285,36 +284,30 @@ const CartItem = (props) => {
         }, 500);
     }
 
+
     return (
         <Container>
-        <Wrapper>
-        <ItemImage src={image}/>
-        <ItemDetails>
-        {/* <Detail><strong>Product:</strong> {props.productName} </Detail> */}
-        <Detail><strong>Product:</strong> {title} </Detail>
-        {/* <Detail><strong>ID:</strong> {props.productId} </Detail> */}
-        <Detail><strong>ID:</strong> {_id} </Detail>
-        {/* <Color color={props.color}/> */}
-        <Color color={color} style={{'border': color === 'white' ? '3px solid black': 'none' }}/>
-        {/* {props.size ? <Detail><strong>Size:</strong> {props.size} </Detail> : null} */}
-        {size ? <Detail><strong>Size:</strong> {size} </Detail> : null}
-        </ItemDetails>
-        <PriceAndAmount>
-        <PlusMinusContainer>
-        {amount > 1 ? 
-        <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles> :
-        <PlusMinusStyles onClick={handleDelete}><i className="fas fa-trash-alt"></i></PlusMinusStyles>
-        }
-           <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
-           <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
-       </PlusMinusContainer>
-       
-       {/* <Price ref={priceRef}>${itemAmount * props.price}</Price> */}
-       <Price ref={priceRef}>${amount * price}</Price>
-        </PriceAndAmount>
-        
-        </Wrapper>
-        <Rule/>   
+            <Wrapper>
+                <ItemImage src={image} />
+                <ItemDetails>
+                    <Detail><strong>Product:</strong> {title} </Detail>
+                    <Detail><strong>ID:</strong> {_id} </Detail>
+                    <Color color={color} style={{ 'border': color === 'white' ? '3px solid black' : 'none' }} />
+                    {size ? <Detail><strong>Size:</strong> {size} </Detail> : null}
+                </ItemDetails>
+                <PriceAndAmount>
+                    <PlusMinusContainer>
+                        {amount > 1 ?
+                            <PlusMinusStyles onClick={handleMinus}><i className="fas fa-minus"></i></PlusMinusStyles> :
+                            <PlusMinusStyles onClick={handleDelete}><i className="fas fa-trash-alt"></i></PlusMinusStyles>
+                        }
+                        <AmountDisplay ref={boxRef}>{amount}</AmountDisplay>
+                        <PlusMinusStyles onClick={handlePlus}><i className="fas fa-plus"></i></PlusMinusStyles>
+                    </PlusMinusContainer>
+                    <Price ref={priceRef}>${amount * price}</Price>
+                </PriceAndAmount>
+            </Wrapper>
+            <Rule />
         </Container>
     )
 }

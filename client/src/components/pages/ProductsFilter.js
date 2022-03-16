@@ -27,12 +27,7 @@ const ProductsFilter = (props) => {
         searchValue = params.get('value');
     }
 
-
-    // const getAvailableColorsSizes = (availableColorsSizes) => {
-    //     setAvailableColorsSizes(availableColorsSizes);
-    // };
-
-
+    
     return (
         <div>
             <Navbar />

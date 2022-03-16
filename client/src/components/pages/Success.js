@@ -199,9 +199,9 @@ const Success = () => {
             userAddress: address,
         };
         order(dispatch, orderData);
-        // Only want effect to run once, hence empty dependency array.
-    }, []);
+    }, [ address, cart.deliveryCharge, cart.products, cart.subTotal, cart.subtotal, cart.totalPrice, dispatch, userData._id]);
 
+   
 
     return (
         <div>

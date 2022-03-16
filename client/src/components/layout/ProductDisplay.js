@@ -133,7 +133,6 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                 !landing ?
                     filtered.length ?
                         filtered.map((product, i) => {
-                            {/* Check if product is liked by user */ }
                             const liked = user && user.user.likedProducts ? user.user.likedProducts.includes(product._id) : false;
                             return (
                                 <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick} element={product} liked={liked} />
@@ -142,7 +141,6 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                         : <h1>SORRY. NO PRODUCTS MATCH YOUR SELECTION</h1>
                     :
                     products.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).slice(0, 8).map((product, i) => {
-                        {/* Present most recent products on landing page first. Check if product is liked by user */ }
                         const liked = user && user.user.likedProducts ? user.user.likedProducts.includes(product._id) : false;
                         return (
                             <ProductElement key={i} getLikeClick={getLikeClick} getCartClick={getCartClick} element={product} liked={liked} />

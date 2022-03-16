@@ -33,6 +33,8 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
 
     const userId = user ? user.user._id : null;
     // For triggering API call if product is liked/unliked and thus changes likedProducts
+    // set likedArray to either user.user.likedProducts or undefined to 
+    // handle case of user being null which had caused useEffect dependency errors
     const likedArray = user ? user.user.likedProducts : undefined;
 
 
@@ -46,8 +48,8 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
                     );
                     setProducts(res.data);
                 }
-                else if (category === 'liked' && user.user.likedProducts) {
-                    const res = await publicReq.get(`/products/findfaves/${user.user.likedProducts}`);
+                else if (category === 'liked' && likedArray) {
+                    const res = await publicReq.get(`/products/findfaves/${likedArray}`);
                     setProducts(res.data);
                 }
                 else {

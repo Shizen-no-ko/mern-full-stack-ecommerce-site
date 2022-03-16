@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {mobile} from '../../responsive';
+import { mobile } from '../../responsive';
 
 
 const BadgeContainer = styled.div`
@@ -18,20 +18,19 @@ top: -7px;
 width: 75%;
 
 ${mobile({
-        fontSize: '9px',
-        top: '-3px'
-        })};
+    fontSize: '9px',
+    top: '-3px'
+})};
 `
 
-
+// Variable count badge, only displays if one or more items are in cart
 const Badge = (props) => {
-    return(
+    return (
         <BadgeContainer>
-    <BadgeElement style={{backgroundColor: props.color}}>
-        {props.cartItems > 0 ? props.cartItems : "" }
-       </BadgeElement>
+            <BadgeElement style={{ backgroundColor: props.color }}>
+                {props.cartItems > 0 ? props.cartItems : ""}
+            </BadgeElement>
         </BadgeContainer>
-       
     )
 }
 

@@ -444,7 +444,6 @@ const IndividualProduct = () => {
 
     // Retrieve product from DB upon change of id in path
     useEffect(() => {
-        let isMounted = true;
         try {
             const getProduct = async () => {
                 const res = await publicReq.get(`products/find/${id}`);
@@ -455,7 +454,6 @@ const IndividualProduct = () => {
             getProduct()
         }
         catch (err) { console.log(err) }
-        return () => { isMounted = false };
     }, [id])
 
     // Handle adding of product(s) to cart and redirect to cart using history

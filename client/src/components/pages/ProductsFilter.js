@@ -28,16 +28,16 @@ const ProductsFilter = (props) => {
     }
 
 
-    const getAvailableColorsSizes = (availableColorsSizes) => {
-        setAvailableColorsSizes(availableColorsSizes);
-    };
+    // const getAvailableColorsSizes = (availableColorsSizes) => {
+    //     setAvailableColorsSizes(availableColorsSizes);
+    // };
 
 
     return (
         <div>
             <Navbar />
             <Filter setParentFilterState={setFilterState} setParentSortState={setSortState} category={category} availableColorsSizes={availableColorsSizes} searchField={searchField} searchValue={searchValue} />
-            <ProductDisplay searchField={searchField} searchValue={searchValue} filter={filterState} sort={sortState} category={category} getAvailableColorsSizes={getAvailableColorsSizes} />
+            <ProductDisplay searchField={searchField} searchValue={searchValue} filter={filterState} sort={sortState} category={category} getAvailableColorsSizes={setAvailableColorsSizes} />
             <SubscriptionForm />
             <Footer />
         </div>

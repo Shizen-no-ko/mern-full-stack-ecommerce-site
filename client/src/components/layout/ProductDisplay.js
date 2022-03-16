@@ -86,7 +86,7 @@ const ProductDisplay = ({ category, filter, sort, landing, getAvailableColorsSiz
         filteredSizes = filteredSizes.filter((element, index, array) => array.indexOf(element) === index);
         // If not landing page, set colors and values for selectors in Filter.js
         if (!landing) getAvailableColorsSizes({ colors: ['All Colors', ...filteredColors], sizes: ['All Sizes', ...filteredSizes] });
-    }, [products, filter, category])
+    }, [products, filter, category, landing, getAvailableColorsSizes])
 
 
     // Sort products functionality by price/most recent 

@@ -61,7 +61,6 @@ font-weight: bold;
 `
 
 const Option = styled.option`
-
 `
 
 const Button = styled.button`
@@ -69,7 +68,6 @@ all: unset;
 background-color: ${props => props.look === 'light' ? 'white' : 'red'};
 border: 4px solid red;
 border-radius: 20px 0;
-${'' /* box-sizing: border-box; */}
 color: ${props => props.look === 'light' ? 'red' : 'white'};
 cursor: pointer;
 font-size: 20px;
@@ -78,9 +76,6 @@ margin: 30px 20px 10px;
 outline: none;
 padding: 10px;
 text-align: center;
-
-
-
 
 &:hover{
     background-color: ${props => props.look === 'light' ? 'red' : 'white'};
@@ -98,79 +93,86 @@ text-align: center;
 
 ${mobile({
     fontSize: '15px',
-    padding:'5px 7px'
-    
+    padding: '5px 7px'
 })};
 `
 
 
-const Modal = ({showModal, getModalClick, modalContent}) => {
+const Modal = ({ showModal, getModalClick, modalContent }) => {
 
-const [display, setDisplay] = useState(false);
-const [selectedColor, setSelectedColor] = useState('');
-const [selectedSize, setSelectedSize] = useState('');
+    const [display, setDisplay] = useState(false);
+    const [selectedColor, setSelectedColor] = useState('');
+    const [selectedSize, setSelectedSize] = useState('');
 
-const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
 
-useEffect(() => {
-    setDisplay(showModal);
-}, [showModal]);
+    //Whether or not to display modal
+    useEffect(() => {
+        setDisplay(showModal);
+    }, [showModal]);
 
-useEffect(() => {
-    setSelectedColor(modalContent.color[0]);
-    setSelectedSize(modalContent.size[0]);
-}, [modalContent]);
 
-const handleClick = () => {
-    getModalClick();   
-}
+    // Pre-set selected size and color
+    useEffect(() => {
+        setSelectedColor(modalContent.color[0]);
+        setSelectedSize(modalContent.size[0]);
+    }, [modalContent]);
 
-const handleBoxClick = (e) => {
-    e.stopPropagation();
-}
 
-const handleChange = (e) => {
-    e.target.name === 'color' && setSelectedColor(e.target.value);
-    e.target.name === 'size' && setSelectedSize(e.target.value);
-}
+    // Detect click upon modal to make it close
+    const handleClick = () => {
+        getModalClick();
+    }
 
-const addToCartClick = (e) => {
-    e.preventDefault();
-    const amount = 1;
-    dispatch(addProduct({ ...modalContent, amount, color: selectedColor, size: selectedSize }));
-    // makes modal disappear
-    getModalClick();
-}
+    // Prevent click on box from closing modal
+    const handleBoxClick = (e) => {
+        e.stopPropagation();
+    }
+
+    // Handle change of color/size selectors
+    const handleChange = (e) => {
+        e.target.name === 'color' && setSelectedColor(e.target.value);
+        e.target.name === 'size' && setSelectedSize(e.target.value);
+    }
+
+    // Add selected product with color/size to cart
+    const addToCartClick = (e) => {
+        e.preventDefault();
+        const amount = 1;
+        dispatch(addProduct({ ...modalContent, amount, color: selectedColor, size: selectedSize }));
+        // makes modal disappear
+        getModalClick();
+    }
 
     return (
-        <Container style={{display: display ? 'unset': 'none'}} onClick={handleClick}>
+        <Container style={{ display: display ? 'unset' : 'none' }} onClick={handleClick}>
             <ProductBox onClick={handleBoxClick}>
                 <Title>{modalContent.title}</Title>
-                <Image src={modalContent.image}/>
+                <Image src={modalContent.image} />
                 <Form>
-                {modalContent.color.length ? 
-                <div>
-                <Label>Color</Label>
-        <Select name='color' onChange={handleChange}>
-            {modalContent.color && modalContent.color.map(color => <Option key={color} value={color}>{color[0].toUpperCase() + color.slice(1)}</Option>)}
-        </Select>
-                </div>
-                :
-                null
-                }
-        {modalContent.size.length ?
-            <div>
-        <Label>Size</Label>
-        <Select name='size' onChange={handleChange}>
-            {modalContent.size && modalContent.size.map(size => <Option key={size} value={size}>{size[0].toUpperCase() + size.slice(1)}</Option>)}
-        </Select>
-        </div> 
-        :
-        null
-        }
-        <Title>${modalContent.price}</Title>
-        <Button onClick={addToCartClick}>ADD TO CART <i className="fas fa-shopping-cart" style={{ 'paddingLeft': '10px' }}></i></Button>
+                    {modalContent.color.length ?
+                        <div>
+                            <Label>Color</Label>
+                            <Select name='color' onChange={handleChange}>
+                                {modalContent.color && modalContent.color.map(color => <Option key={color} value={color}>{color[0].toUpperCase() + color.slice(1)}</Option>)}
+                            </Select>
+                        </div>
+                        :
+                        null
+                    }
+                    {modalContent.size.length ?
+                        <div>
+                            <Label>Size</Label>
+                            <Select name='size' onChange={handleChange}>
+                                {modalContent.size && modalContent.size.map(size => <Option key={size} value={size}>{size[0].toUpperCase() + size.slice(1)}</Option>)}
+                            </Select>
+                        </div>
+                        :
+                        null
+                    }
+                    <Title>${modalContent.price}</Title>
+                    <Button onClick={addToCartClick}>ADD TO CART <i className="fas fa-shopping-cart" style={{ 'paddingLeft': '10px' }}></i></Button>
                 </Form>
             </ProductBox>
         </Container>

@@ -17,7 +17,6 @@ position: relative;
     transform: scale(99%);
     transition: ease 0.05s;
 }
-
 `
 
 const Img = styled.img`
@@ -47,15 +46,13 @@ ${mobile({
             fontSize: '1.75rem',
             right: '10px'
         })};
-
 `
 
-
+// Category elements for display on landing page
 const CategoryElement = ({element}) => {
     return(
        <Container>
        <Link to={`products/${element.title.toLowerCase()}`}>
-       {/* <Link to={{pathname:'/products', state:{category: element.title.toLowerCase()}}}> */}
            <Img src={element.img}/>
            <Title>{element.title}</Title>
           </Link>

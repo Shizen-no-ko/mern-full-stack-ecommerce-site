@@ -1,25 +1,24 @@
 import styled from 'styled-components';
-import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 const Container = styled.div`
 display: flex;
 max-width: 100%;
 width: 100vw;
 
-
 ${mobile({
         flexDirection: 'column'
-        })};
+})};
 
-        ${portraitTablet({
+${portraitTablet({
         flexDirection: 'column',
         marginTop: '100px'
-        })};
+})};
 
-        ${landscapeTablet({
+${landscapeTablet({
         flexDirection: 'column',
         marginTop: '100px'
-        })};
+})};
 `
 
 const Left = styled.div`
@@ -32,57 +31,50 @@ const Center = styled.div`
 flex: 1;
 
 ${mobile({
-    marginBottom: '30px',
+        marginBottom: '30px',
         width: '100%'
-        })};
-
-
+})};
 `
 
 const Right = styled.div`
-
 flex: 1;
 justify-self: flex-end;
 
 ${mobile({
         width: '100%'
-        })};
+})};
 
-        ${portraitTablet({
+${portraitTablet({
         width: '100%'
-        })};
+})};
 
-        ${landscapeTablet({
+${landscapeTablet({
         width: '100%'
-        })};
-
+})};
 `
 
 const LogoContainer = styled.div`
 display: flex;
-${'' /* flex-wrap: wrap; */}
 margin: 0 auto;
 width: 100%;
-
-${'' /* margin: '0 42px', */}
 
 ${mobile({
         justifyContent: 'center',
         textAlign: 'center',
-        margin:'0'
-        })};
+        margin: '0'
+})};
 
-        ${portraitTablet({
+${portraitTablet({
         justifyContent: 'center',
         textAlign: 'center',
-        margin:'0'
-        })};
+        margin: '0'
+})};
 
-        ${landscapeTablet({
+${landscapeTablet({
         justifyContent: 'center',
         textAlign: 'center',
-        margin:'0'
-        })};
+        margin: '0'
+})};
 `
 
 const LogoTextContainer = styled.div`
@@ -92,15 +84,15 @@ text-align: center;
 
 ${mobile({
         margin: '0 5px 0 auto'
-        })};
+})};
 
-        ${portraitTablet({
-        margin:'0'
-        })};
+${portraitTablet({
+        margin: '0'
+})};
 
-        ${landscapeTablet({
-                margin:'0'
-        })};
+${landscapeTablet({
+        margin: '0'
+})};
 `
 
 const Logo = styled.h1`
@@ -111,34 +103,35 @@ padding-right: 20px;
 
 ${mobile({
         fontSize: '1.5rem',
-        })};
+})};
 
-        ${portraitTablet({
+${portraitTablet({
         fontSize: '2rem',
         marginRight: '0'
-        })};
+})};
 
-        ${landscapeTablet({
+${landscapeTablet({
         fontSize: '2rem',
         marginRight: '0'
-        })};
+})};
 `
+
 const LogoText = styled.h1`
 margin: 0 20px;
 
 ${mobile({
         fontSize: '1.5rem'
-        })};
+})};
 
-        ${portraitTablet({
+${portraitTablet({
         fontSize: '2rem',
         marginLeft: '0'
-        })};
+})};
 
-        ${landscapeTablet({
+${landscapeTablet({
         fontSize: '2rem',
         marginLeft: '0'
-        })};
+})};
 `
 
 const SocialContainer = styled.div`
@@ -148,20 +141,21 @@ margin: 20px 15px;
 width: 90%;
 
 ${mobile({
-    margin: '20px 0',
+        margin: '20px 0',
         width: '100%'
-        })};
+})};
 
-        ${portraitTablet({
-    margin: '20px auto',
+${portraitTablet({
+        margin: '20px auto',
         width: '100%'
-        })};
+})};
 
-        ${landscapeTablet({
-    margin: '20px auto',
+${landscapeTablet({
+        margin: '20px auto',
         width: '100%'
-        })};
+})};
 `
+
 const SocialIcon = styled.h1`
 color: red;
 font-size: 40px;
@@ -176,21 +170,23 @@ width: 100%;
 
 ${mobile({
         textAlign: 'center'
-        })};
+})};
 
-        ${portraitTablet({
+${portraitTablet({
         textAlign: 'center'
-        })};
+})};
 
-        ${landscapeTablet({
+${landscapeTablet({
         textAlign: 'center'
-        })};
+})};
 `
+
 const LinksList = styled.ul`
  list-style-type: none;
   padding: 0;
   margin: 0 40px;
 `
+
 const LinkItem = styled.li`
 color: rgba(255, 0, 0, 0.75);
 flex: 1;
@@ -211,20 +207,19 @@ width: 80%;
 
 ${mobile({
         textAlign: 'center'
-        })};
+})};
 
-        ${portraitTablet({
-                margin: '20px auto',
+${portraitTablet({
+        margin: '20px auto',
         textAlign: 'center'
-        })};
+})};
 
-        ${landscapeTablet({
-                margin: '20px auto',
+${landscapeTablet({
+        margin: '20px auto',
         textAlign: 'center'
-        })};
-
-
+})};
 `
+
 const InfoItem = styled.div`
 margin: 5px 0;
 `
@@ -235,86 +230,83 @@ display: flex;
 ${mobile({
         justifyContent: 'center',
         marginTop: '20px'
-        })};
+})};
 
         ${portraitTablet({
         justifyContent: 'center',
         marginTop: '20px'
-        })};
+})};
 
         ${landscapeTablet({
         justifyContent: 'center',
         marginTop: '20px'
-        })};
+})};
 `
 
 const PaymentItem = styled.h1`
 color: red;
 font-size: 40px;
-${'' /* font-size: 30px; */}
 margin: 0 5px;
 
 ${mobile({
         fontSize: '30px'
-        })};
+})};
 `
 
 
 const Footer = () => {
-    return(
-       <Container>
-       <Left>
-       <LogoContainer>
-       
-                    <LogoTextContainer>
-                        <LogoText>
-                            Nihon no Mono
-                        </LogoText>
-                    </LogoTextContainer>
-                    <Logo> <i className="fas fa-torii-gate"></i></Logo>
-       </LogoContainer>
-                    <SocialContainer>
-                        <SocialIcon><i className="fab fa-facebook-square"></i></SocialIcon>
-                        <SocialIcon><i className="fab fa-instagram"></i></SocialIcon>
-                        <SocialIcon><i className="fab fa-twitter-square"></i></SocialIcon>
-                    </SocialContainer>
-       </Left>
-       <Center>
-           <LinksContainer>
-           <LinksList>
-           <LinkItem>Home</LinkItem>
-           <LinkItem>Clothing</LinkItem>
-           <LinkItem>Homeware</LinkItem>
-           <LinkItem>Iro-Iro</LinkItem>
-           </LinksList>
-           <LinksList>
-           <LinkItem>Cart</LinkItem>
-           <LinkItem>My Account</LinkItem>
-           <LinkItem>Wishlist</LinkItem>
-           </LinksList>
+        return (
+                <Container>
+                        <Left>
+                                <LogoContainer>
+                                        <LogoTextContainer>
+                                                <LogoText>
+                                                        Nihon no Mono
+                                                </LogoText>
+                                        </LogoTextContainer>
+                                        <Logo> <i className="fas fa-torii-gate"></i></Logo>
+                                </LogoContainer>
+                                <SocialContainer>
+                                        <SocialIcon><i className="fab fa-facebook-square"></i></SocialIcon>
+                                        <SocialIcon><i className="fab fa-instagram"></i></SocialIcon>
+                                        <SocialIcon><i className="fab fa-twitter-square"></i></SocialIcon>
+                                </SocialContainer>
+                        </Left>
+                        <Center>
+                                <LinksContainer>
+                                        <LinksList>
+                                                <LinkItem>Home</LinkItem>
+                                                <LinkItem>Clothing</LinkItem>
+                                                <LinkItem>Homeware</LinkItem>
+                                                <LinkItem>Iro-Iro</LinkItem>
+                                        </LinksList>
+                                        <LinksList>
+                                                <LinkItem>Cart</LinkItem>
+                                                <LinkItem>My Account</LinkItem>
+                                                <LinkItem>Wishlist</LinkItem>
+                                        </LinksList>
 
-           </LinksContainer>
-       </Center>
-       <Right>
-       <InfosContainer>
-       <InfoItem><i className="fas fa-map-marker-alt" style={{marginRight: '10px'}}></i>23456 Test Street, Test Town 555-555, Testland</InfoItem>
-       <InfoItem><i className="fas fa-phone" style={{marginRight: '10px'}}></i>+1 789 654 123</InfoItem>
-       <InfoItem><i className="fas fa-envelope" style={{marginRight: '10px'}}></i>contact@nihon-no-mono.com</InfoItem>
-       {/* <InfoItem> */}
-       <Payment>
-       <PaymentItem><i className="fab fa-cc-visa"></i></PaymentItem> 
-       <PaymentItem><i className="fab fa-apple-pay"></i></PaymentItem> 
-       <PaymentItem><i className="fab fa-cc-mastercard"></i></PaymentItem>
-       <PaymentItem><i className="fab fa-paypal"></i></PaymentItem> 
-       <PaymentItem><i className="fab fa-cc-jcb"></i></PaymentItem>
-       <PaymentItem><i className="fab fa-btc"></i></PaymentItem>
-       <PaymentItem><i className="fab fa-alipay"></i></PaymentItem>
-       <PaymentItem></PaymentItem>
-       </Payment>
-       </InfosContainer>
-       </Right>
-       </Container>
-    )
+                                </LinksContainer>
+                        </Center>
+                        <Right>
+                                <InfosContainer>
+                                        <InfoItem><i className="fas fa-map-marker-alt" style={{ marginRight: '10px' }}></i>23456 Test Street, Test Town 555-555, Testland</InfoItem>
+                                        <InfoItem><i className="fas fa-phone" style={{ marginRight: '10px' }}></i>+1 789 654 123</InfoItem>
+                                        <InfoItem><i className="fas fa-envelope" style={{ marginRight: '10px' }}></i>contact@nihon-no-mono.com</InfoItem>
+                                        <Payment>
+                                                <PaymentItem><i className="fab fa-cc-visa"></i></PaymentItem>
+                                                <PaymentItem><i className="fab fa-apple-pay"></i></PaymentItem>
+                                                <PaymentItem><i className="fab fa-cc-mastercard"></i></PaymentItem>
+                                                <PaymentItem><i className="fab fa-paypal"></i></PaymentItem>
+                                                <PaymentItem><i className="fab fa-cc-jcb"></i></PaymentItem>
+                                                <PaymentItem><i className="fab fa-btc"></i></PaymentItem>
+                                                <PaymentItem><i className="fab fa-alipay"></i></PaymentItem>
+                                                <PaymentItem></PaymentItem>
+                                        </Payment>
+                                </InfosContainer>
+                        </Right>
+                </Container>
+        )
 }
 
 export default Footer

@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { publicReq, userReq } from '../../axiosRequests';
-
 import Navbar from '../layout/Navbar';
 import Footer from '../layout/Footer';
 import SalesChart from '../layout/SalesChart';
@@ -22,15 +19,6 @@ max-width: 100%;
 overflow: hidden;
 width: 100vw;
 
-${'' /* ${mobile({
-    height: 'auto'
-})};
-
-
-${portraitTablet({
-    height: 'auto'
-})}; */}
-
 ${landscapeTablet({
     height: 'auto',
     overflow: 'visible'
@@ -46,7 +34,8 @@ justify-content: space-evenly;
 margin: 20px 20px;
 max-width: 100%;
 overflow: hidden;
-width: 100vw;`
+width: 100vw;
+`
 
 const Title = styled.h1`
 color: rgba(255, 0, 0, 0.9);
@@ -63,25 +52,24 @@ ${portraitTablet({
 })};
 `
 
+// Admin Statistics page
 const Stats = () => {
 
     return (
         <div>
             <Navbar />
             <Container>
-            <Title>Statistics</Title>
-            <ChartsContainer>
-            <SalesChart/>
-            <TopSellersChart/>
-            <TopEarnersChart/>
-            </ChartsContainer>
-            <ChartsContainer>
-            <UserStats/>
-            <OrderStats/>
-            </ChartsContainer>
-            
+                <Title>Statistics</Title>
+                <ChartsContainer>
+                    <SalesChart />
+                    <TopSellersChart />
+                    <TopEarnersChart />
+                </ChartsContainer>
+                <ChartsContainer>
+                    <UserStats />
+                    <OrderStats />
+                </ChartsContainer>
             </Container>
-           
             <Footer />
         </div>
     )

@@ -1,4 +1,4 @@
-import {mobile, portraitTablet, landscapeTablet} from '../../responsive';
+import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
@@ -14,22 +14,22 @@ text-align: center;
 width: 100%;
 
 ${mobile({
-        fontSize: '12px'
-        })};
+    fontSize: '12px'
+})};
 
         ${portraitTablet({
-        fontSize: '18px'
-        })};
+    fontSize: '18px'
+})};
 
         ${landscapeTablet({
-        fontSize: '18px'
-        })};
-
+    fontSize: '18px'
+})};
 `
 
+// Rudimentary messaging functionality
 const Messaging = () => {
 
-    const { freeDeliveryLevel } = useSelector(state=>state.cart);
+    const { freeDeliveryLevel } = useSelector(state => state.cart);
 
     return (
         <Container>

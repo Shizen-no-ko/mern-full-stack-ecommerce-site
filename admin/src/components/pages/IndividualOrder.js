@@ -1,10 +1,10 @@
 import { useState, useEffect, useReq } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+
 
 import { userReq } from '../../axiosRequests';
-import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
+import { mobile, portraitTablet } from '../../responsive';
 
 import Navbar from '../layout/Navbar';
 import Footer from '../layout/Footer';
@@ -12,10 +12,7 @@ import CartItem from '../layout/CartItem';
 import OrderSummary from '../layout/OrderSummary';
 
 
-
-
 const Container = styled.div`
-${'' /* height: 100vh; */}
 max-width: 100%;
 overflow: hidden;
 width: 100vw;
@@ -55,6 +52,7 @@ ${portraitTablet({
     fontSize: '0.75rem'
 })};
 `
+
 const InfoDiv = styled.div`
 border: 1px solid lightgray;
 display: flex;
@@ -72,12 +70,6 @@ const AddressDiv = styled.div`
 margin-left: 75px;
 `
 
-const ButtonDiv = styled.div`
-display: flex;
-justify-content: space-between;
-width: 100%;
-`
-
 const DetailsDiv = styled.div`
 display: flex;
 margin: 50px 0;
@@ -89,92 +81,21 @@ ${mobile({
 ${portraitTablet({
     flexDirection: 'column'
 })};
-
-
 `
 
 const CartItems = styled.div`
 flex: 3;
 `
 
-
-const Button = styled.button`
-all: unset;
-background-color: ${props => props.look === 'light' ? 'white' : 'red'};
-border: 4px solid red;
-border-radius: 20px 0;
-${'' /* box-sizing: border-box; */}
-color: ${props => props.look === 'light' ? 'red' : 'white'};
-cursor: pointer;
-font-size: 20px;
-font-weight: 400;
-margin: 30px 20px 10px;
-outline: none;
-padding: 10px;
+const ErrorMessage = styled.span`
+color: red;
+font-weight: bold;
+font-size: 1.5rem;
+margin: 10px;
 text-align: center;
-
-
-
-
-&:hover{
-    background-color: ${props => props.look === 'light' ? 'red' : 'white'};
-    border: 4px solid red;
-    color: ${props => props.look === 'light' ? 'white' : 'red'};
-    transform: scale(103%);
-}
-
-&:active{
-    background-color: green;
-    border: 4px solid green;
-    color: white; 
-    transform: scale(97%);
-}
-
-${mobile({
-    fontSize: '15px',
-    padding: '5px 7px'
-
-})};
 `
 
-const StyledLink = styled(Link)`
-color: black;
-text-decoration: none;
-
-&:active{
-    color: red;
-}
-
-`
-const PreviousImage = styled.img`
-border-radius: 20px 0;
-margin: 20px;
-width: 200px;
-
-${mobile({
-
-    height: 'auto',
-    margin: '20px 0 0 0',
-    maxWidth: '125px'
-})};
-
-${portraitTablet({
-
-    height: 'auto',
-    margin: '20px 0 0 40px',
-    maxWidth: '175px'
-})};
-
-${landscapeTablet({
-    height: '150px',
-    margin: '20px 0 0 40px',
-    maxWidth: '175px',
-    width: 'auto'
-})};
-
-`
-
-
+// Repurposing of client shopping cart component to display orders
 const IndividualOrder = () => {
 
     const path = useLocation().pathname.split('/');
@@ -193,42 +114,40 @@ const IndividualOrder = () => {
         }
     });
 
-
+   
     const [userData, setUserData] = useState({
         username: '',
         email: ''
     });
 
-
     const [errorMessage, setErrorMessage] = useState('');
 
+    const { createdAt, items, status, subTotal, totalPrice, userAddress, userId, _id } = orderData;
+    const { line1, line2, city, state, postal_code, country, name } = userAddress;
+    const { username, email } = userData;
+    const summaryDetails = {
+        subtotal: subTotal,
+        totalPrice: totalPrice
+    };
+
     useEffect(() => {
-        let isMounted = true;
         try {
             const getOrder = async () => {
                 const res = await userReq.get(`orders/find/${id}`);
                 if (res) {
-                    console.log(res.data);
-                    console.log(res);
                     setOrderData(res.data);
                     setErrorMessage('');
                 } else {
-                    console.log('no res');
                     setErrorMessage('No Order with this ID');
                 }
             }
             getOrder();
         }
-        catch (err) { console.log(err) };
-
-
-        return () => { isMounted = false };
+        catch (err) { setErrorMessage(err.response.data.errors[0].msg); };
     }, [])
 
     useEffect(() => {
-
         if (orderData.userId) {
-
             try {
                 const getUser = async () => {
                     const res = await userReq.get(`users/find/${orderData.userId}`);
@@ -244,25 +163,16 @@ const IndividualOrder = () => {
                 }
                 getUser();
             }
-            catch (err) { console.log(err) };
+            catch (err) { setErrorMessage(err.response.data.errors[0].msg); };
         }
     }, [orderData]);
 
-
-    const { createdAt, items, status, subTotal, totalPrice, userAddress, userId, _id } = orderData;
-    const { line1, line2, city, state, postal_code, country, name } = userAddress;
-    const { username, email } = userData;
-    const summaryDetails = {
-        subtotal: subTotal,
-        totalPrice: totalPrice
-    };
-
-  
 
     return (
         <div>
             <Navbar />
             <Container>
+            {errorMessage && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
                 <Wrapper>
                     <Title>Order Number: {_id}</Title>
                     <Title>Order Status: {status}</Title>
@@ -284,9 +194,7 @@ const IndividualOrder = () => {
                                 <OrderInfo>{country}</OrderInfo>
                             </AddressDiv>
                         </InfoSubDiv>
-
                     </InfoDiv>
-
                     <DetailsDiv>
                         <CartItems>
                             {items.map((item, index) => {
@@ -294,7 +202,7 @@ const IndividualOrder = () => {
                                     size: item.size,
                                     color: item.color,
                                     amount: item.amount,
-                                    itemId: item.itemId
+                                    itemId: item.itemId,
                                 };
                                 return <CartItem key={index} itemData={itemData}/>
                                 })}

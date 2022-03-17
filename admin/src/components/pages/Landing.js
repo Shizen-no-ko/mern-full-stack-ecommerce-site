@@ -1,25 +1,21 @@
-import React from 'react';
+import styled from 'styled-components';
+
 import Navbar from '../layout/Navbar';
 import ProductDisplay from '../layout/ProductDisplay';
 import Footer from '../layout/Footer';
 
-import styled from 'styled-components';
 
 const Container = styled.div`
 max-width: 100%;
 overflow: hidden;
-
 `
 
-const Landing = (props) => {
-    return(
+const Landing = () => {
+    return (
         <Container>
-            <Navbar/>
-            {/* <Slider/>
-            <Categories/> */}
+            <Navbar />
             <ProductDisplay filter={{}} category={null} landing={true} />
-            {/* <SubscriptionForm/> */}
-            <Footer/>
+            <Footer />
         </Container>
     )
 }

@@ -147,6 +147,14 @@ ${landscapeTablet({
 })};
 `
 
+const ErrorMessage = styled.span`
+color: red;
+font-weight: bold;
+font-size: 1.5rem;
+margin: 10px;
+text-align: center;
+`
+
 const CartItem = (props) => {
 
     const [errorMessage, setErrorMessage] = useState('');
@@ -180,7 +188,7 @@ const CartItem = (props) => {
                     getProduct();
                 }
                 catch (err) { console.log(err) };
-            }, []);
+            }, [itemData.itemId, itemState]);
 
     
     const { image, title, size, color, amount, price, itemId } = itemState;
@@ -188,6 +196,7 @@ const CartItem = (props) => {
 
     return (
         <Container>
+        {errorMessage && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
         <Wrapper>
         <ItemImage src={image}/>
         <ItemDetails>

@@ -9,7 +9,7 @@ import Filter from '../layout/Filter';
 
 
 
-const ProductsFilter = (props) => {
+const ProductsFilter = () => {
     // Get category from path, if there is one
     const path = useLocation().pathname.split('/');
     const category = path[2] ? path[2].toLowerCase() : null;

@@ -37,8 +37,6 @@ text-align: left;
 width: 100%;
 `
 
-
-
 const Title = styled.h3`
 margin: 5px 10px;
 padding: 0px;
@@ -58,7 +56,6 @@ const UserStats = () => {
         const getTenMostRecent = async () => {
             try {
                 const res = await userReq.get('/users/latest');
-                console.log(res.data);
                 setRecentUsers(res.data);
             }
             catch (err) { console.log(err) };
@@ -71,20 +68,18 @@ const UserStats = () => {
     return (
         <div>
             <Container>
-            <TitleDiv>
-            <Title>Most Recently Registered Users</Title>
-            </TitleDiv>
-                
-                { recentUsers.map((user) => {
+                <TitleDiv>
+                    <Title>Most Recently Registered Users</Title>
+                </TitleDiv>
+                {recentUsers.map((user) => {
                     return <UserDiv key={user._id}>
-                    <Title>{user.username}</Title>
-                    <Detail><strong>User Id: </strong>{user._id}</Detail>
-                    <Detail><strong>Email: </strong>{user.email}</Detail>
-                    <Detail><strong>Account Opened On: </strong>{moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Detail>
+                        <Title>{user.username}</Title>
+                        <Detail><strong>User Id: </strong>{user._id}</Detail>
+                        <Detail><strong>Email: </strong>{user.email}</Detail>
+                        <Detail><strong>Account Opened On: </strong>{moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Detail>
                     </UserDiv>
-                }) }
+                })}
             </Container>
-
         </div>
     )
 }

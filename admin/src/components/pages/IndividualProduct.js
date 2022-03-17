@@ -304,7 +304,7 @@ const IndividualProduct = (props) => {
             if (!add) { getProduct() }
         }
         catch (err) { setErrorMessage(err.response.data.errors[0].msg) }
-    }, [id])
+    }, [id, add])
 
     const handleUpdate = async () => {
         try {
@@ -315,7 +315,7 @@ const IndividualProduct = (props) => {
                 size: typeof size === 'string' ? size.toLowerCase().split(',').map(item => item.trim()) : size,
                 category: typeof category === 'string' ? category.toLowerCase().split(',').map(item => item.trim()) : category
             }
-            const res = await userReq.put(`products/${id}`, tidyData);
+            await userReq.put(`products/${id}`, tidyData);
             // update form - force re-render with tidied updates
             setFormData(tidyData);
         }

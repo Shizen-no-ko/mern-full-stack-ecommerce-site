@@ -140,7 +140,6 @@ const Filter = (props) => {
     // Handle sort filter, setting sortState which is then 
     // passed up to ProductsFilter using setParentSortState
     const onSortChange = (e) => {
-        // setSortState(e.target.value);
         setParentSortState(e.target.value);
     }
 

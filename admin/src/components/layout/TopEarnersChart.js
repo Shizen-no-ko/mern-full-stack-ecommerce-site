@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import moment from 'moment';
 import styled from 'styled-components';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Label } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
 import { userReq } from '../../axiosRequests';
 
@@ -19,19 +18,6 @@ padding: 10px 20px 10px;
 text-align: left;
 width: auto;
 `
-const ProductDiv = styled.div`
-border: 1px solid lightgray;
-margin: 2px;
-padding: 10px;
-width: 100%;
-
-&:hover {
-    background-color: pink;
-    border: 1px solid red;
-    box-shadow: 3px 3px 3px lightgray;
-    transform: scale(101%);
-}
-`
 
 const TitleDiv = styled.div`
 margin-left: -20px;
@@ -40,15 +26,9 @@ text-align: left;
 width: 100%;
 `
 
-
-
 const Title = styled.h3`
 margin: 5px 10px;
 padding: 0px;
-`
-
-const Detail = styled.p`
-margin: 5px 10px;
 `
 
 
@@ -88,10 +68,10 @@ const TopEarnersChart = () => {
                 const tempData = topData;
                 res.data.map((item) => {
                     tempData.find(x => x._id === item._id ).price = item.price;
-                    tempData.find(x => x._id === item._id ).title = item.title.substring(0, 8);   
+                   return tempData.find(x => x._id === item._id ).title = item.title.substring(0, 8);   
                 })
                 tempData.map(item => {
-                    item.totalEarned = item.price * item.count;
+                   return item.totalEarned = item.price * item.count;
                 })
                 tempData.sort((a, b) => b.totalEarned - a.totalEarned);
                 setTopData(tempData.slice(0,5));

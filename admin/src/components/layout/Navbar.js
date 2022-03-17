@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { persistor } from '../../redux/store';
@@ -36,15 +36,6 @@ ${portraitTablet({
     marginTop: '20px'
 })};
 `
-
-const Search = styled.div`
-align-items: center;
-font-size: 20px;
-justify-content: flex-start;
-line-height: 25px;
-display: flex;
-`
-
 
 const Menu = styled.div`
 align-items: center;
@@ -151,41 +142,6 @@ ${mobile({
 
 ${portraitTablet({
     display: "none"
-})};
-`
-
-const Input = styled.input`
-border: 1px solid lightgray;
-cursor: pointer;
-font-size: 20px;
-padding: 5px;
-  margin: 5px;
-
-&:focus{
-    border: 1px solid red;
-    outline: none;
-}
-
-&:hover{
-    border: 1px solid black;
-
-}
-
-${landscapeTablet({
-    fontSize: '15px',
-    width: '150px'
-})};
-`
-
-const SearchIcon = styled.div`
-margin-left: -30px;
-
-${mobile({
-    marginLeft: '-25px'
-})};
-
-${landscapeTablet({
-    fontSize: '15px',
 })};
 `
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useReq } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -144,7 +144,7 @@ const IndividualOrder = () => {
             getOrder();
         }
         catch (err) { setErrorMessage(err.response.data.errors[0].msg); };
-    }, [])
+    }, [id])
 
     useEffect(() => {
         if (orderData.userId) {

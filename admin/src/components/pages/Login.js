@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 import styled from 'styled-components';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 import { login } from '../../redux/apiCalls';
@@ -73,15 +72,11 @@ ${portraitTablet({
 `
 
 const Form = styled.form`
-${'' /* border: 1px solid white; */}
 border-radius: 20px;
 display: flex;
 flex-direction: column;
 padding: 20px 15px;
-
 `
-
-
 
 const Input = styled.input`
 border-radius: 10px;
@@ -102,11 +97,13 @@ ${portraitTablet({
     marginLeft: '0px'
 })};
 `
+
 const PasswordContainer = styled.div`
 align-items: center;
 display: flex;
 width: 100%;
 `
+
 const Eye = styled.div`
 cursor: pointer;
 font-size: 20px;
@@ -143,7 +140,6 @@ all: unset;
 background-color: white;
 border: 4px solid red;
 border-radius: 20px 0;
-${'' /* border-radius: 10px; */}
 color: red;
 cursor: pointer;
 font-size: 20px;
@@ -153,8 +149,6 @@ outline: none;
 padding: 10px;
 text-align: center;
 width: 50%;
-
-
 
 &:hover{
     background-color: red;
@@ -173,7 +167,6 @@ width: 50%;
     border: 3px solid rgb(200, 0, 0);
     color: rgba(200, 0, 0, 0.5);
     cursor: not-allowed;
-
 }
 
 ${mobile({
@@ -185,7 +178,6 @@ ${portraitTablet({
     fontSize: '22px',
     width: '80%'
 })};
-
 `
 
 const PasswordForgotten = styled.div`
@@ -196,7 +188,6 @@ width: 75%;
 ${landscapeTablet({
     fontSize: '18px'
 })};
-
 `
 
 const ErrorMessage = styled.span`
@@ -208,7 +199,7 @@ text-align: center;
 `
 
 
-const Login = (props) => {
+const Login = () => {
 
     const [formData, setFormData] = useState({
         email: '',
@@ -230,20 +221,20 @@ const Login = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        // console.log(formData);
     };
 
+    // For hiding/displaying passwords
     const eyeRef = useRef(null);
     const closedEyeRef = useRef(null);
     const passwordRef = useRef(null);
 
-    const openEye = (pos) => {
+    const openEye = () => {
         closedEyeRef.current.style.display = 'unset';
         eyeRef.current.style.display = 'none';
         passwordRef.current.type = 'text';
     }
 
-    const closeEye = (pos) => {
+    const closeEye = () => {
         closedEyeRef.current.style.display = 'none';
         eyeRef.current.style.display = 'unset';
         passwordRef.current.type = 'password';
@@ -253,7 +244,6 @@ const Login = (props) => {
     return (
         <div>
             <Navbar />
-            
             <Container>
                 <Wrapper>
                     <Title>Login To Your Account</Title>
@@ -268,7 +258,6 @@ const Login = (props) => {
                         {error && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
                         <PasswordForgotten>Forgotten Password?</PasswordForgotten>
                     </Form>
-
                 </Wrapper>
             </Container>
             <SubscriptionForm />

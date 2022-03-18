@@ -1,12 +1,11 @@
 import { Link, useHistory } from 'react-router-dom';
-
 import styled from 'styled-components';
+
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 import { userReq } from '../../axiosRequests';
 
-const Container = styled.div`
 
-${'' /* flex: 1; */}
+const Container = styled.div`
 flex-basis: 24%;
 margin: 5px;
 position: relative;
@@ -15,7 +14,7 @@ ${mobile({
     flexBasis: '55%',
 })};
 
-        ${portraitTablet({
+${portraitTablet({
     flexBasis: '33%',
 })};
 `
@@ -25,6 +24,7 @@ border-radius: 0 50px 0 0;
 object-fit: cover;
 width: 100%;
 `
+
 const IconContainer = styled.div`
 height: 100%;
 left: 0;
@@ -37,9 +37,7 @@ transition: ease 0.5s;
 &:hover {
     opacity: 100%;
 }
-
 `
-
 
 const Icon = styled.div`
 background-color: rgba(0, 0, 0, 0.5);
@@ -90,18 +88,12 @@ ${landscapeTablet({
 
 
 const ProductElement = ({ element, deleted }) => {
+    
     const history = useHistory();
 
     const handleClick = async (id) => {
-
-        // set token for headers here as in axiosRequests it seems to be set at startup and doesn't update
-        const CURRENT_USER = localStorage.length > 0 ? JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser : null;
-        const TOKEN = CURRENT_USER ? CURRENT_USER.token : null;
         try {
-            const headers = {
-                token: localStorage.length > 0 ? `Bearer ${TOKEN}` : null
-            }
-            await userReq.post(`products/reinstate/${id}`, {}, { headers: headers });
+            await userReq.post(`products/reinstate/${id}`, {});
             history.replace('/');
 
         }

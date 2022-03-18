@@ -6,7 +6,6 @@ import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 import { login } from '../../redux/apiCalls';
 
 import Navbar from '../layout/Navbar';
-import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 
 const Container = styled.div`
@@ -260,7 +259,6 @@ const Login = () => {
                     </Form>
                 </Wrapper>
             </Container>
-            <SubscriptionForm />
             <Footer />
         </div>
     )

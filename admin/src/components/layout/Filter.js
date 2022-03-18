@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+
+
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
 
@@ -102,6 +104,7 @@ const Option = styled.option`
 font-weight: ${props => props.bold === true ? 'bold' : 'normal'};
 `
 
+// Filter component for filtering product display
 const Filter = (props) => {
 
     const { availableColorsSizes, category, searchValue, setParentSortState, setParentFilterState } = props;
@@ -152,7 +155,7 @@ const Filter = (props) => {
             }
         }
     }, [availableColorsSizes, color, size])
-    
+
 
     // Send up state of filter up to ProductsFilter for handling
     useEffect(() => {

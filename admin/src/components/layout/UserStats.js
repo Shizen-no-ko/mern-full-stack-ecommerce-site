@@ -46,20 +46,18 @@ const Detail = styled.p`
 margin: 5px 10px;
 `
 
-
+// Retrieve and display the ten most recent users on admin page
 const UserStats = () => {
 
     const [recentUsers, setRecentUsers] = useState([]);
 
     useEffect(() => {
-
         const getTenMostRecent = async () => {
             try {
                 const res = await userReq.get('/users/latest');
                 setRecentUsers(res.data);
             }
             catch (err) { console.log(err) };
-
         };
         getTenMostRecent();
     }, []);

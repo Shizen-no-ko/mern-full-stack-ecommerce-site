@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { userReq } from '../../axiosRequests';
 
+
 const Container = styled.div`
 `
 
@@ -48,9 +49,6 @@ outline: none;
 padding: 10px;
 text-align: center;
 
-
-
-
 &:hover{
     background-color: white;
     border: 4px solid red;
@@ -66,6 +64,7 @@ text-align: center;
 }
 `
 
+// Display summary of order in Individual Order page, with change status of order button
 const OrderSummary = (props) => {
 
     const history = useHistory();
@@ -73,11 +72,10 @@ const OrderSummary = (props) => {
     const { details, orderId } = props;
     const { subtotal, totalPrice } = details;
 
-
+    // Handle changing order's status to dispatched with re-direct to stats page
     const handleClick = async () => {
-        try{
-            const res = await userReq.patch(`orders/${orderId}`);
-            console.log(res.data);
+        try {
+            await userReq.patch(`orders/${orderId}`);
             history.replace('/statistics');
         }
         catch (err) {
@@ -85,17 +83,17 @@ const OrderSummary = (props) => {
         }
     };
 
+
     return (
         <Container>
-     <Wrapper>
-            <Title>Order Summary</Title>
-            <Info><Label>Subtotal:</Label><Amount>${subtotal}</Amount></Info>
-            <Info><Label>Delivery Charge:</Label><Amount>${(totalPrice - subtotal).toFixed(2)}</Amount></Info>
-            <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
-            <Button onClick={handleClick}>Update to "Dispatched"</Button>
+            <Wrapper>
+                <Title>Order Summary</Title>
+                <Info><Label>Subtotal:</Label><Amount>${subtotal}</Amount></Info>
+                <Info><Label>Delivery Charge:</Label><Amount>${(totalPrice - subtotal).toFixed(2)}</Amount></Info>
+                <Info type='total'><Label>Total Price:</Label><Amount>${totalPrice}</Amount></Info>
+                <Button onClick={handleClick}>Update to "Dispatched"</Button>
             </Wrapper>
         </Container>
-       
     )
 }
 

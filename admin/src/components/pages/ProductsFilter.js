@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 import Navbar from '../layout/Navbar';
 import ProductDisplay from '../layout/ProductDisplay';
-import SubscriptionForm from '../layout/SubscriptionForm';
 import Footer from '../layout/Footer';
 import Filter from '../layout/Filter';
 
@@ -33,7 +32,6 @@ const ProductsFilter = () => {
             <Navbar />
             <Filter setParentFilterState={setFilterState} setParentSortState={setSortState} category={category} availableColorsSizes={availableColorsSizes} searchField={searchField} searchValue={searchValue} />
             <ProductDisplay searchField={searchField} searchValue={searchValue} filter={filterState} sort={sortState} category={category} getAvailableColorsSizes={setAvailableColorsSizes} />
-            <SubscriptionForm />
             <Footer />
         </div>
     )

@@ -1,11 +1,10 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
-import { userReq } from '../../axiosRequests';
 import { Link } from 'react-router-dom';
-
 import styled from 'styled-components';
 
+import { userReq } from '../../axiosRequests';
 import { mobile } from '../../responsive';
 
 const Container = styled.div`
@@ -20,6 +19,7 @@ padding: 10px 20px 10px;
 text-align: left;
 width: auto;
 `
+
 const OrderDiv = styled.div`
 border: 1px solid lightgray;
 margin: 2px;
@@ -40,8 +40,6 @@ padding-bottom: 10px;
 text-align: left;
 width: 100%;
 `
-
-
 
 const Title = styled.h4`
 margin: 5px 10px;
@@ -86,7 +84,6 @@ all: unset;
 background-color: ${props => props.look === 'light' ? 'white' : 'red'};
 border: 4px solid red;
 border-radius: 20px 0;
-${'' /* box-sizing: border-box; */}
 color: ${props => props.look === 'light' ? 'red' : 'white'};
 cursor: pointer;
 font-size: 15px;
@@ -112,24 +109,24 @@ text-align: center;
 
 ${mobile({
     fontSize: '15px',
-    padding:'5px 7px'
-    
+    padding: '5px 7px'
+
 })};
 `
 
 
-
+// Displays list of active orders with toggle-able order details 
+// and link to individual order page
 const OrderStats = () => {
+
     const detailsRef = useRef([]);
     const [currentOrders, setCurrentOrders] = useState([]);
 
-
+    // Retrieve active orders
     useEffect(() => {
-
         const getOrders = async () => {
             try {
                 const res = await userReq.get('/orders/active');
-                console.log(res.data);
                 setCurrentOrders(res.data);
             }
             catch (err) { console.log(err) };
@@ -137,6 +134,8 @@ const OrderStats = () => {
         getOrders();
     }, []);
 
+
+    // Set refs for details and hide them
     useEffect(() => {
         // Set Refs array
         detailsRef.current = detailsRef.current.slice(0, currentOrders.length);
@@ -149,6 +148,8 @@ const OrderStats = () => {
         })
     }, [currentOrders]);
 
+
+    // Show/hide details functionality
     const toggle = (style) => {
         style.fontSize = style.fontSize === '0px' ? '1rem' : '0px';
         style.visibility = style.visibility === 'hidden' ? 'visible' : 'hidden';
@@ -156,6 +157,7 @@ const OrderStats = () => {
     }
 
 
+    // Handle click for show/hide of details
     const handleClick = (index) => {
         const style = detailsRef.current[index].style;
         toggle(style);
@@ -175,10 +177,9 @@ const OrderStats = () => {
                             <IdLabel>Order Id: </IdLabel>
                             <OrderId>{order._id}</OrderId>
                             <Link to={`order/${order._id}`} style={{ textDecoration: 'none' }}><Button>Go To Order</Button></Link>
-
                         </OrderIdDiv>
                         <DetailsDiv ref={el => detailsRef.current[index] = el}>
-                        <Detail><strong>Customer Id: </strong>{order.userId}</Detail>
+                            <Detail><strong>Customer Id: </strong>{order.userId}</Detail>
                             <Detail><strong>Address:  </strong></Detail>
                             <Detail>{order.userAddress.name}, {line1}, {line2 && `${line2}, `}{postal_code}, {city}, {state && `${state}, `}{country}</Detail>
                             <Detail><strong>Order Date: </strong>{moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Detail>
@@ -186,7 +187,6 @@ const OrderStats = () => {
                     </OrderDiv>
                 })}
             </Container>
-
         </div>
     )
 }

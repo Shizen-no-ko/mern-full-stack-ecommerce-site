@@ -32,6 +32,7 @@ padding: 0px;
 `
 
 
+// Monthly sales chart
 const SalesChart = () => {
 
     const [salesData, setSalesData ] = useState([]);
@@ -48,8 +49,9 @@ const SalesChart = () => {
         </LineChart>
       );
 
-    useEffect(() => {
 
+    // Retrieve and sort sales data by month and format for chart
+    useEffect(() => {
         const getSalesData = async () => {
             try {
                 const res = await userReq.get('/orders/sales');
@@ -64,11 +66,9 @@ const SalesChart = () => {
                     });
                     console.log(data);
                     setSalesData(data);
-                }
-               
+                }  
             }
             catch (err) { console.log(err) };
-
         };
         getSalesData();
     }, []);
@@ -82,7 +82,6 @@ const SalesChart = () => {
             </TitleDiv>
                {renderLineChart}
             </Container>
-
         </div>
     )
 }

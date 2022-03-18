@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-
 import { userReq } from '../../axiosRequests';
 import { mobile, portraitTablet } from '../../responsive';
 
@@ -114,7 +113,7 @@ const IndividualOrder = () => {
         }
     });
 
-   
+
     const [userData, setUserData] = useState({
         username: '',
         email: ''
@@ -130,6 +129,7 @@ const IndividualOrder = () => {
         totalPrice: totalPrice
     };
 
+    // Retrieve order data by id via API
     useEffect(() => {
         try {
             const getOrder = async () => {
@@ -146,18 +146,17 @@ const IndividualOrder = () => {
         catch (err) { setErrorMessage(err.response.data.errors[0].msg); };
     }, [id])
 
+
+    // Find user data from userId found within order data
     useEffect(() => {
         if (orderData.userId) {
             try {
                 const getUser = async () => {
                     const res = await userReq.get(`users/find/${orderData.userId}`);
                     if (res) {
-                        console.log(res.data);
-                        console.log(res);
                         setUserData(res.data);
                         setErrorMessage('');
                     } else {
-                        console.log('no res');
                         setErrorMessage('No User with this ID');
                     }
                 }
@@ -172,7 +171,7 @@ const IndividualOrder = () => {
         <div>
             <Navbar />
             <Container>
-            {errorMessage && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
+                {errorMessage && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
                 <Wrapper>
                     <Title>Order Number: {_id}</Title>
                     <Title>Order Status: {status}</Title>
@@ -204,8 +203,8 @@ const IndividualOrder = () => {
                                     amount: item.amount,
                                     itemId: item.itemId,
                                 };
-                                return <CartItem key={index} itemData={itemData}/>
-                                })}
+                                return <CartItem key={index} itemData={itemData} />
+                            })}
                         </CartItems>
                         <OrderSummary details={summaryDetails} orderId={id} />
                     </DetailsDiv>

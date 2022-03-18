@@ -81,6 +81,7 @@ padding: 5px 10px;
 `
 
 
+// Search bar with suggestions functionality
 const SearchBar = () => {
 
     const history = useHistory();
@@ -89,6 +90,7 @@ const SearchBar = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [keyWords, setKeyWords] = useState('');
     const [dropText, setDropText] = useState([]);
+    // For monitoring where cursor is on drop list
     const [dropListState, setDropListState] = useState({
         cursor: -1,
         value: ''

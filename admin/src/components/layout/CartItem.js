@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { userReq } from '../../axiosRequests';
 import { mobile, portraitTablet, landscapeTablet } from '../../responsive';
 
-const Container = styled.div`
 
+
+const Container = styled.div`
 `
 
 const Wrapper = styled.div`
@@ -34,16 +35,15 @@ border-radius: 20px 0;
 margin: 20px;
 height: 150px;
 
-
 ${mobile({
-    
+
     height: 'auto',
     margin: '20px 0 0 0',
     maxWidth: '150px'
 })};
 
 ${portraitTablet({
-    
+
     height: 'auto',
     margin: '20px 0 0 40px',
     maxWidth: '200px'
@@ -80,7 +80,6 @@ ${landscapeTablet({
 `
 
 const Rule = styled.div`
-
 border-top: 1px solid rgba(255, 0, 0, 0.5);
 margin: 0 auto;
 width: 95%;
@@ -112,6 +111,7 @@ ${landscapeTablet({
     width: '90%'
 })};
 `
+
 const Detail = styled.h3`
 margin: 0 0 20px 0;
 font-weight: 400;
@@ -155,13 +155,15 @@ margin: 10px;
 text-align: center;
 `
 
+
+// Repurposing of client CartItem for use in Individual Order
 const CartItem = (props) => {
 
     const [errorMessage, setErrorMessage] = useState('');
 
-   const { itemData } = props;
+    const { itemData } = props;
 
-    const [ itemState, setItemState ] = useState({
+    const [itemState, setItemState] = useState({
         image: '',
         title: '',
         _id: '',
@@ -173,47 +175,47 @@ const CartItem = (props) => {
     });
 
 
+    // Retrieve item via API and set state
     useEffect(() => {
-                try {
-                    const getProduct = async () => {
-                        const res = await userReq.get(`products/find/${itemData.itemId}`);
-                        if (res) {
-                            setItemState({...itemState, image: res.data.image, title: res.data.title, price: res.data.price});
-                            setErrorMessage('');
-                        } else {
-                            console.log('no res');
-                            setErrorMessage('No Product with this ID');
-                        }
-                    }
-                    getProduct();
+        try {
+            const getProduct = async () => {
+                const res = await userReq.get(`products/find/${itemData.itemId}`);
+                if (res) {
+                    setItemState({ ...itemState, image: res.data.image, title: res.data.title, price: res.data.price });
+                    setErrorMessage('');
+                } else {
+                    setErrorMessage('No Product with this ID');
                 }
-                catch (err) { console.log(err) };
-            }, [itemData.itemId, itemState]);
+            }
+            getProduct();
+        }
+        catch (err) { console.log(err) };
+    }, [itemData.itemId, itemState]);
 
-    
+
     const { image, title, size, color, amount, price, itemId } = itemState;
 
 
     return (
         <Container>
-        {errorMessage && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
-        <Wrapper>
-        <ItemImage src={image}/>
-        <ItemDetails>
-        <Detail><strong>Product:</strong> {title} </Detail>
-        <Detail><strong>ID:</strong> {itemId} </Detail>
-        <Detail><strong>Color: </strong>{color.charAt(0).toUpperCase() + color.slice(1)}</Detail> 
-        {size ? <Detail><strong>Size:</strong> {size.charAt(0).toUpperCase() + size.slice(1)} </Detail> : null}
-        <Detail><strong>Amount Ordered: </strong>{amount}</Detail> 
-        <Detail><strong>Price Per Item: </strong>{price}</Detail>
-        <Detail><strong>Total For Item: </strong>{price * amount}</Detail>  
-        </ItemDetails>
-        <PriceAndAmount>
-        <PlusMinusContainer>
-       </PlusMinusContainer>
-        </PriceAndAmount>  
-        </Wrapper>
-        <Rule/>   
+            {errorMessage && <ErrorMessage>{errorMessage && errorMessage[0].msg}</ErrorMessage>}
+            <Wrapper>
+                <ItemImage src={image} />
+                <ItemDetails>
+                    <Detail><strong>Product:</strong> {title} </Detail>
+                    <Detail><strong>ID:</strong> {itemId} </Detail>
+                    <Detail><strong>Color: </strong>{color.charAt(0).toUpperCase() + color.slice(1)}</Detail>
+                    {size ? <Detail><strong>Size:</strong> {size.charAt(0).toUpperCase() + size.slice(1)} </Detail> : null}
+                    <Detail><strong>Amount Ordered: </strong>{amount}</Detail>
+                    <Detail><strong>Price Per Item: </strong>{price}</Detail>
+                    <Detail><strong>Total For Item: </strong>{price * amount}</Detail>
+                </ItemDetails>
+                <PriceAndAmount>
+                    <PlusMinusContainer>
+                    </PlusMinusContainer>
+                </PriceAndAmount>
+            </Wrapper>
+            <Rule />
         </Container>
     )
 }

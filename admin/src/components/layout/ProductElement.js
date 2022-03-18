@@ -59,10 +59,9 @@ width: 200px;
 }
 
 &:active{
-    border-radius: ${props => props.topbottom === 'top' ? '0 0 10px 0' : props.leftright === 'right' ? '10px 0 0 0' : '60px'};
-    opacity: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? '0%' : '100%'};
-    transform: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'translate(1000%, -750%) scale(0%)' : 'scale(120%)'};
-    transition: ${props => props.topbottom === 'bottom' && props.leftright === 'left' ? 'linear 0.5s' : ''};
+    border-radius: 60px 0 0 0;
+    opacity: 100%;
+    transform:  scale(120%);
 }
 
 ${mobile({
@@ -86,22 +85,22 @@ ${landscapeTablet({
 
 
 
-
 const ProductElement = ({ element, deleted }) => {
     
     const history = useHistory();
 
+    // Handles re-instate into Products DB of deleted product
     const handleClick = async (id) => {
         try {
             await userReq.post(`products/reinstate/${id}`, {});
             history.replace('/');
-
         }
         catch (err) {
             console.log(err.response.data.errors[0].msg);
         }
     }
 
+    // Conditional rendering of product element according to whether on delted products route or not
     return (
         <Container>
             <Img src={element.image} />

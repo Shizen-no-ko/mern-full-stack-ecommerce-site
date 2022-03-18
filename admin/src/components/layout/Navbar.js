@@ -187,6 +187,7 @@ ${landscapeTablet({
 })};
 `
 
+
 const Navbar = () => {
 
     const user = useSelector(state => state.user.currentUser);

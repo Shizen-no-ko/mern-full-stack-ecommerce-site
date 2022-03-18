@@ -157,7 +157,7 @@ router.get('/topsellers', tokenAuth, checkAdmin, async (req, res) => {
 });
 
 
-// Get all sales for using to create top earners chart in admin
+// Get all sales items. For using to create top earners chart in admin
 router.get('/allsales', tokenAuth, checkAdmin, async (req, res) => {
     try {
         const topSellersData = await Order.aggregate([
@@ -171,7 +171,6 @@ router.get('/allsales', tokenAuth, checkAdmin, async (req, res) => {
                 '$group': {
                     '_id': '$items.itemId',
                     'count': { '$sum': '$items.amount' }
-
                 }
             }
         ]).sort({ 'count': -1 });
